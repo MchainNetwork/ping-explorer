@@ -151,6 +151,7 @@ export const useIndexModule = defineStore('module-index', {
       
       return [
         {
+          // @ts-ignore
           title: i18n.global.t('index.height'), //'Height',
           color: 'primary',
           icon: 'mdi-pound',

@@ -126,7 +126,7 @@ const amount = computed({
 
 <template>
   <div>
-    <div v-if="coinInfo && coinInfo.name" class="bg-base-100 rounded shadow mb-4">
+    <div v-if="coinInfo && coinInfo.name" class="bg-base-100 rounded-xl mb-4">
       <div class="grid grid-cols-2 md:grid-cols-3 p-4">
         <div class="col-span-2 md:col-span-1">
           <div class="text-xl font-semibold text-main">
@@ -176,8 +176,8 @@ const amount = computed({
                 </div>
               </label>
               <div class="dropdown-content pt-1">
-                <div class="h-64 overflow-auto w-full shadow rounded">
-                  <ul class="menu w-full bg-gray-100 rounded dark:bg-[#384059]">
+                <div class="h-64 overflow-auto w-full rounded-xl">
+                  <ul class="menu w-full bg-gray-100 rounded-xl dark:bg-[#384059]">
                     <li v-for="(item, index) in store.coinInfo.tickers" :key="index" @click="store.selectTicker(index)">
                       <div class="flex items-center justify-between hover:bg-base-100">
                         <div class="flex-1">

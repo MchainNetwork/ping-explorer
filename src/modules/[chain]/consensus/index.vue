@@ -181,7 +181,7 @@ async function update() {
     <div class="mt-4" v-if="roundState['height/round/step']">
       <div class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 pb-4">
         <div
-          class="bg-base-100 px-4 py-3 rounded shadow flex justify-between items-center"
+          class="bg-base-100 px-4 py-3 rounded-xl flex justify-between items-center"
         >
           <div class="text-sm mb-1 flex flex-col truncate">
             <h4 class="text-lg font-semibold text-main">{{ rate }}</h4>
@@ -197,7 +197,7 @@ async function update() {
         </div>
         <!-- Height -->
         <div
-          class="bg-base-100 px-4 py-3 rounded shadow flex justify-between items-center"
+          class="bg-base-100 px-4 py-3 rounded-xl flex justify-between items-center"
         >
           <div class="text-sm mb-1 flex flex-col truncate">
             <h4 class="text-lg font-semibold text-main">{{ height }}</h4>
@@ -213,7 +213,7 @@ async function update() {
         </div>
         <!-- Round -->
         <div
-          class="bg-base-100 px-4 py-3 rounded shadow flex justify-between items-center"
+          class="bg-base-100 px-4 py-3 rounded-xl flex justify-between items-center"
         >
           <div class="text-sm mb-1 flex flex-col truncate">
             <h4 class="text-lg font-semibold text-main">{{ round }}</h4>
@@ -229,7 +229,7 @@ async function update() {
         </div>
         <!-- Step -->
         <div
-          class="bg-base-100 px-4 py-3 rounded shadow flex justify-between items-center"
+          class="bg-base-100 px-4 py-3 rounded-xl flex justify-between items-center"
         >
           <div class="text-sm mb-1 flex flex-col truncate">
             <h4 class="text-lg font-semibold text-main">{{ step }}</h4>
@@ -247,7 +247,7 @@ async function update() {
     </div>
     <!-- update -->
     <div
-      class="bg-base-100 p-4 rounded-xl shadow"
+      class="bg-base-100 p-4 rounded-xl"
       v-if="roundState['height/round/step']"
     >
       <div class="flex flex-1 flex-col truncate">
@@ -298,7 +298,7 @@ async function update() {
 
     <!-- alert-info -->
     <div
-      class="text-[#00cfe8] bg-[rgba(0,207,232,0.12)] rounded-xl shadow mt-4 alert-info"
+      class="text-[#00cfe8] bg-[rgba(0,207,232,0.12)] rounded-xl mt-4 alert-info"
     >
       <div
         class="drop-shadow-md px-4 pt-2 pb-2"

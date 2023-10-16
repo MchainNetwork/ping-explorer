@@ -173,7 +173,7 @@ function pageload(p: number) {
 
 <template>
   <div>
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded mb-4 shadow">
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
       <h2 class="card-title flex flex-col md:!justify-between md:!flex-row">
         <p class="truncate w-full">
           {{ proposal_id }}. {{ proposal.title || proposal.content?.title }}
@@ -206,7 +206,7 @@ function pageload(p: number) {
     <!-- flex-col lg:!!flex-row flex -->
     <div class="gap-4 mb-4 grid lg:!!grid-cols-3 auto-rows-max">
       <!-- flex-1 -->
-      <div class="bg-base-100 px-4 pt-3 pb-4 rounded shadow">
+      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl">
         <h2 class="card-title mb-1">{{ $t('gov.tally') }}</h2>
         <div class="mb-1" v-for="(item, index) of processList" :key="index">
           <label class="block text-sm mb-1">{{ item.name }}</label>
@@ -245,7 +245,7 @@ function pageload(p: number) {
         </div>
       </div>
 
-      <div class="bg-base-100 px-4 pt-3 pb-5 rounded shadow lg:!!col-span-2">
+      <div class="bg-base-100 px-4 pt-3 pb-5 rounded-xl lg:!!col-span-2">
         <h2 class="card-title">{{ $t('gov.timeline') }}</h2>
 
         <div class="px-1">
@@ -336,7 +336,7 @@ function pageload(p: number) {
       </div>
     </div>
 
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded mb-4 shadow">
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
       <h2 class="card-title">{{ $t('gov.votes') }}</h2>
       <div class="overflow-x-auto">
         <table class="table w-full table-zebra">

@@ -48,7 +48,7 @@ const hdPath = computed(() => {
         <span class="text-base"> 2. {{ $t('widget.text_3') }}</span>
         <div class="mockup-code bg-base-200 my-2">
             <pre data-prefix=">"><code class=" text-gray-800 dark:invert">&lt;ping-token-convert chain-name="{{ chainName }}" endpoint="{{endpoint}}" hd-path="{{hdPath}}"/&gt;</code></pre>
-            <pre data-prefix=">"><code class="text-gray-800 dark:invert">&lt;label for="PingTokenConvert" class="btn btn-sm"&gt;Buy {{chainName.toUpperCase()}}&lt;/label&gt;</code></pre>
+            <pre data-prefix=">"><code class="text-gray-800 dark:invert">&lt;label for="PingTokenConvert" class="btn btn-sm"&gt;Buy MAR&lt;/label&gt;</code></pre>
         </div>
       </div>
     </div>

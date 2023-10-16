@@ -63,6 +63,15 @@ onBeforeRouteUpdate(async (to, from, next) => {
 <template>
   <div>
     <div v-if="isFutureBlock" class="text-center">
+      <div class="tabs mb-4">
+        <RouterLink class="tab tab-lg tab-bordered text-gray-400" 
+            :to="`/${chain}/block`"
+            >{{ $t('block.recent') }}</RouterLink>
+        <a class="tab tab-lg tab-bordered text-gray-400 tab-active">{{ $t('block.future') }}</a>
+        <RouterLink class="tab tab-lg tab-bordered text-gray-400" 
+            :to="`/${chain}/block/#transactions`"
+            >{{ $t('account.transactions') }}</RouterLink>
+      </div>
       <div v-if="remainingBlocks > 0">
         <div class="text-primary font-bold text-lg my-10">#{{ target }}</div>
         <Countdown :time="estimateTime" css="md:!text-5xl font-sans md:mx-5" />
@@ -105,16 +114,16 @@ onBeforeRouteUpdate(async (to, from, next) => {
       </div>
     </div>
     <div v-else>
-      <div class="bg-base-100 px-4 pt-3 pb-4 rounded mb-4 shadow">
+      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
         <h2 class="card-title flex flex-row justify-between">
           <p class="">#{{ current.block?.header?.height }}</p>
           <div class="flex" v-if="props.height">
             <RouterLink :to="`/${store.blockchain.chainName}/block/${height - 1}`"
-              class="btn btn-primary btn-sm p-1 text-2xl mr-2">
+              class="btn btn-primary btn-sm p-1 rounded-xl text-2xl mr-2">
               <Icon icon="mdi-arrow-left" class="w-full h-full" />
             </RouterLink>
             <RouterLink :to="`/${store.blockchain.chainName}/block/${height + 1}`"
-              class="btn btn-primary btn-sm p-1 text-2xl">
+              class="btn btn-primary btn-sm p-1 rounded-xl text-2xl">
               <Icon icon="mdi-arrow-right" class="w-full h-full" />
             </RouterLink>
           </div>
@@ -124,17 +133,17 @@ onBeforeRouteUpdate(async (to, from, next) => {
         </div>
       </div>
 
-      <div class="bg-base-100 px-4 pt-3 pb-4 rounded mb-4 shadow">
+      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
         <h2 class="card-title flex flex-row justify-between">{{ $t('block.block_header') }}</h2>
         <DynamicComponent :value="current.block?.header" />
       </div>
 
-      <div class="bg-base-100 px-4 pt-3 pb-4 rounded mb-4 shadow">
+      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
         <h2 class="card-title flex flex-row justify-between">{{ $t('account.transactions') }}</h2>
         <TxsElement :value="current.block?.data?.txs" />
       </div>
 
-      <div class="bg-base-100 px-4 pt-3 pb-4 rounded shadow">
+      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl">
         <h2 class="card-title flex flex-row justify-between">{{ $t('block.last_commit') }}</h2>
         <DynamicComponent :value="current.block?.last_commit" />
       </div>

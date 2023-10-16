@@ -78,11 +78,11 @@ onMounted(() => {
             <pre data-prefix=">"><code class="text-gray-800 dark:invert">trust_period = "168h"</code></pre>
         </div>
         <br />
-        3. {{ $t('statesync.text_3') }}: <code class="bg-base-200 text-gray-600 px-2 py-px mx-1 rounded shadow">{{ appName }} start</code>
+        3. {{ $t('statesync.text_3') }}: <code class="bg-base-200 text-gray-600 dark:text-gray-500 px-2 py-px mx-1 rounded shadow">{{ appName }} start</code>
         <br />
         {{ $t('statesync.text_3_1') }}
-        <code class="bg-base-200 text-gray-600 px-2 py-px mx-1 rounded shadow">{{ appName }} unsafe-reset-all</code> or
-        <code class="bg-base-200 text-gray-600 px-2 py-px mx-1 rounded shadow">{{ appName }} tendermint unsafe-reset-all --home ~/.HOME</code>
+        <code class="bg-base-200 text-gray-600 dark:text-gray-500 px-2 py-px mx-1 rounded shadow">{{ appName }} unsafe-reset-all</code> or
+        <code class="bg-base-200 text-gray-600 dark:text-gray-500 px-2 py-px mx-1 rounded shadow">{{ appName }} tendermint unsafe-reset-all --home ~/.HOME</code>
         {{ $t('statesync.text_3_2') }}.
       </div>
     </div>

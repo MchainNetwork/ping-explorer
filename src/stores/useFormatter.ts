@@ -132,7 +132,7 @@ export const useFormatter = defineStore('formatter', {
         this.dashboard.coingecko[symbol?.toLowerCase()]?.exponent || this.specialDenom(token.denom);
       // cacualte amount of symbol
       const amount = Number(token.amount) / (10 ** exponent)
-      const value = amount * this.price(token.denom)
+      const value = amount * 0.00091531 //TODO:this.price(token.denom)
       return value
     },
     formatTokenAmount(token: { denom: string; amount: string }) {

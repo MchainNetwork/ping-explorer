@@ -2,18 +2,19 @@
   "chain_name": "mchain",
   "api": ["http://api.mchain.network:1317"],
   "rpc": ["http://api.mchain.network:2665"],
-  "sdk_version": "0.45.10",
+  "sdk_version": "0.45.1",
   "addr_prefix": "mar",
   "coin_type": "118",
-  "min_tx_fee": "20000000000",
+  "min_tx_fee": "20000",
   "logo": "https://raw.githubusercontent.com/MchainNetwork/mchain-docs/master/static/img/logo.svg",
   "twitter_screen_name": "MchainNetwork",
+  "theme_color": "#0099bf",
   "assets": [
     {
       "symbol": "MAR",
       "base": "umar",
       "exponent": 6,
-      "coinpaprika_id": "mar-mchain-token",
+      "coingecko_id": false,
       "logo": "https://raw.githubusercontent.com/MchainNetwork/mchain-docs/master/static/img/logo.svg"
     }
   ]

@@ -33,7 +33,7 @@ function pageload(p: number) {
 </script>
 <template>
     <div class="overflow-auto">
-        <table class="table table-compact">
+        <table class="table table-compact text-xl">
             <thead>
                 <tr>
                     <td>Token</td>
@@ -41,7 +41,7 @@ function pageload(p: number) {
                 </tr>
             </thead>
             <tr v-for="item in list">
-                <td>{{ item.denom  }}</td>
+                <td width="10%">{{ item.denom  }}</td>
                 <td>{{ item.amount  }}</td>
             </tr>
         </table>
@@ -53,7 +53,7 @@ function pageload(p: number) {
     {
       meta: {
         i18n: 'supply',
-        order: 17
+        order: 6
       }
     }
   </route>

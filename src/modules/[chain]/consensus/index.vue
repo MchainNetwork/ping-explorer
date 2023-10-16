@@ -156,7 +156,7 @@ async function update() {
 <template>
   <div>
     <!--  -->
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded shadow">
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl">
       <div class="form-control">
         <label class="input-group input-group-md w-full flex">
           <!-- <input
@@ -247,7 +247,7 @@ async function update() {
     </div>
     <!-- update -->
     <div
-      class="bg-base-100 p-4 rounded shadow"
+      class="bg-base-100 p-4 rounded-xl shadow"
       v-if="roundState['height/round/step']"
     >
       <div class="flex flex-1 flex-col truncate">
@@ -298,11 +298,10 @@ async function update() {
 
     <!-- alert-info -->
     <div
-      class="text-[#00cfe8] bg-[rgba(0,207,232,0.12)] rounded shadow mt-4 alert-info"
+      class="text-[#00cfe8] bg-[rgba(0,207,232,0.12)] rounded-xl shadow mt-4 alert-info"
     >
       <div
         class="drop-shadow-md px-4 pt-2 pb-2"
-        style="box-shadow: rgba(0, 207, 232, 0.4) 0px 6px 15px -7px"
       >
         <h2 class="text-base font-semibold">{{ $t('consensus.tips') }}</h2>
       </div>

@@ -180,7 +180,7 @@ function color(v: string) {
     </div>
     
     <div class="text-center">
-      <label for="add-validator" class="btn btn-primary mt-5">{{ $t('uptime.add_validators') }}</label>
+      <label for="add-validator" class="btn btn-primary rounded-full mt-5">{{ $t('uptime.add_validators') }}</label>
     </div>
 
     <!-- Put this part before </body> tag -->
@@ -214,7 +214,7 @@ function color(v: string) {
           </table>
         </div>
         <div class="modal-action">
-          <label class="btn btn-primary" @click="add">{{ $t('uptime.add') }}</label>
+          <label class="btn btn-primary rounded-full" @click="add">{{ $t('uptime.add') }}</label>
         </div>
       </div>
     </div>

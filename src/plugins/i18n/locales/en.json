@@ -287,6 +287,18 @@
     "btn_swap": "Swap",
     "receive": "Receive",
     "app_versions": "Application Versions",
-    "node_info": "Node Information"
+    "node_info": "Node Information",
+    "height": "Height",
+    "validators": "Validators",
+    "supply": "Supply",
+    "bonded_tokens": "Bonded Tokens",
+    "inflation": "Inflation",
+    "community_pool": "Community Pool"
+  },
+  "params":{
+    "height":"Height",
+    "bonded_and_supply": "Bonded and Supply",
+    "bonded_ratio": "Bonded Ratio",
+    "inflation:": "Inflation"
   }
 }

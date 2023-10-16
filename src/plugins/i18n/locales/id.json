@@ -277,6 +277,18 @@
       "btn_swap": "Tukar",
       "receive": "Terima",
       "app_versions": "Versi Aplikasi",
-      "node_info": "Informasi Node"
+      "node_info": "Informasi Node",
+      "height": "Tinggi",
+      "validators": "Validator",
+      "supply": "Pasokan",
+      "bonded_tokens": "Token Terikat",
+      "inflation": "Inflasi",
+      "community_pool": "Kolam Komunitas"
+    },
+    "params": {
+      "height": "Tinggi",
+      "bonded_and_supply": "Terikat dan Pasokan",
+      "bonded_ratio": "Rasio Terikat",
+      "inflation": "Inflasi"
     }
 }

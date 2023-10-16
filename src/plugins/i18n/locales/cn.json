@@ -278,6 +278,18 @@
     "btn_swap": "Swap",
     "receive": "Receive",
     "app_versions": "应用版本",
-    "node_info": "节点信息"
+    "node_info": "节点信息",
+    "height": "高度",
+    "validators": "验证者",
+    "supply": "供应量",
+    "bonded_tokens": "绑定的令牌",
+    "inflation": "通货膨胀",
+    "community_pool": "社区池"
+  },
+  "params": {
+    "height": "高度",
+    "bonded_and_supply": "绑定和供应",
+    "bonded_ratio": "绑定比率",
+    "inflation": "通货膨胀"
   }
 }

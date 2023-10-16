@@ -97,7 +97,7 @@ function confirm() {
             @click="closeSearchModal"
           >
             <Icon
-              icon="zondicons:close-outline"
+              icon="zondicons:close"
               class="text-2xl text-gray-500 dark:text-gray-400"
             />
           </label>
@@ -120,7 +120,7 @@ function confirm() {
         </div>
         <!-- foot -->
         <div class="mt-6">
-          <button class="w-full btn btn-primary" @click="confirm">
+          <button class="w-full btn btn-primary rounded-full btn-md" @click="confirm">
             Confirm
           </button>
         </div>

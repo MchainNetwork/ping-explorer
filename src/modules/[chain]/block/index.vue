@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { onMounted, onBeforeUnmount, watchEffect } from 'vue';
 import { computed, ref } from '@vue/reactivity';
 import { useBaseStore, useFormatter } from '@/stores';
 const props = defineProps(['chain']);
@@ -14,23 +15,44 @@ const list = computed(() => {
     // return recents.sort((a, b) => (Number(b.block.header.height) - Number(a.block.header.height)))
     return base.recents
 })
+const updateTabFromHash = () => {
+  const hash = window.location.hash.substring(1);
+  if (['blocks', 'transactions'].includes(hash)) {
+    tab.value = hash;
+  }
+};
+
+onMounted(() => {
+  updateTabFromHash();
+  window.addEventListener('hashchange', updateTabFromHash);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('hashchange', updateTabFromHash);
+});
+
+const setTab = (selectedTab: string) => {
+  tab.value = selectedTab;
+  window.location.hash = selectedTab;
+};
+
 </script>
 <template>
     <div>
-        <div class="tabs tabs-boxed bg-transparent mb-4">
-            <a class="tab text-gray-400 uppercase" :class="{ 'tab-active': tab === 'blocks' }"
-                @click="tab = 'blocks'">{{ $t('block.recent') }}</a>
-            <RouterLink class="tab text-gray-400 uppercase" 
+        <div class="tabs  mb-4">
+            <a class="tab tab-lg tab-bordered text-gray-400" :class="{ 'tab-active': tab === 'blocks' }"
+                @click="setTab('blocks')">{{ $t('block.recent') }}</a>
+            <RouterLink class="tab tab-lg tab-bordered text-gray-400" 
                 :to="`/${chain}/block/${Number(base.latest?.block?.header.height||0) + 10000}`"
                 >{{ $t('block.future') }}</RouterLink>
-            <a class="tab text-gray-400 uppercase" :class="{ 'tab-active': tab === 'transactions' }"
-                @click="tab = 'transactions'">{{ $t('account.transactions') }}</a>
+            <a class="tab tab-lg tab-bordered text-gray-400" :class="{ 'tab-active': tab === 'transactions' }"
+                @click="setTab('transactions')">{{ $t('account.transactions') }}</a>
         </div>
 
         <div v-show="tab === 'blocks'" class="grid xl:!grid-cols-6 md:!grid-cols-4 grid-cols-1 gap-3">
 
             <RouterLink v-for="item in list"
-                class="flex flex-col justify-between rounded p-4 shadow bg-base-100"
+                class="flex flex-col justify-between rounded-xl p-4 bg-base-100 dark:bg-[#1e3b47]"
                 :to="`/${chain}/block/${item.block.header.height}`">
                 <div class="flex justify-between">
                     <h3 class="text-md font-bold sm:!text-lg">

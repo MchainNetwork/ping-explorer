@@ -291,7 +291,19 @@
     "btn_swap": "Trocar",
     "receive": "Receber",
     "app_versions": "Versões do Aplicativo",
-    "node_info": "Informações do Nó"
+    "node_info": "Informações do Nó",
+    "height": "Altura",
+    "validators": "Validadores",
+    "supply": "Suprimento",
+    "bonded_tokens": "Tokens Vinculados",
+    "inflation": "Inflação",
+    "community_pool": "Pool Comunitário"
+  },
+  "params": {
+    "height": "Altura",
+    "bonded_and_supply": "Vinculado e Suprimento",
+    "bonded_ratio": "Razão Vinculada",
+    "inflation": "Inflação"
   }
 }
 

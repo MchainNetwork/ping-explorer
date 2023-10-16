@@ -1,11 +1,29 @@
+html, body {
+  background-color: #fff;
+}
+
+html.dark, .dark body {
+  background-color: #17191c;
+}
+
 #loading-bg {
   background: var(--initial-loader-bg, #fff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: relative;
+}
+
+.dark #loading-bg {
+  background: var(--initial-loader-bg, #17191c);
 }
 
 .loading-logo {
   position: absolute;
-  inset-block-start: 40%;
-  inset-inline-start: calc(50% - 75px);
+  inset-block-start: calc(50% - 50px);
+  inset-inline-start: calc(50% - 200px);
+  z-index: 2;
 }
 
 .pre-loading {
@@ -15,8 +33,9 @@
   block-size: 55px;
   border-radius: 50%;
   inline-size: 55px;
-  inset-block-start: calc(40% + 35px);
-  inset-inline-start: calc(50% - 27.5px);
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .pre-loading .effect-1,
@@ -26,7 +45,7 @@
   box-sizing: border-box;
   border: 3px solid transparent;
   block-size: 100%;
-  border-inline-start: 3px solid var(--initial-loader-color, #eee);
+  border-inline-start: 3px solid var(--initial-loader-color, #0097bd);
   border-radius: 50%;
   inline-size: 100%;
 }

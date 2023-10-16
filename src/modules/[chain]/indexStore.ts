@@ -12,6 +12,7 @@ import { useStakingStore } from '@/stores/useStakingStore';
 import type { Coin, Tally } from '@/types';
 import numeral from 'numeral';
 import { defineStore } from 'pinia';
+import i18n from '@/plugins/i18n'
 
 export function colorMap(color: string) {
   switch (color) {
@@ -147,51 +148,51 @@ export const useIndexModule = defineStore('module-index', {
       const staking = useStakingStore();
       const mintStore = useMintStore();
       const formatter = useFormatter();
-
+      
       return [
         {
-          title: 'Height',
+          title: i18n.global.t('index.height'), //'Height',
           color: 'primary',
           icon: 'mdi-pound',
           stats: String(base?.latest?.block?.header?.height || 0),
           change: 0,
         },
         {
-          title: 'Validators',
-          color: 'error',
-          icon: 'mdi-human-queue',
+          title: i18n.global.t('index.validators'), //'Validators',
+          color: 'primary',
+          icon: 'mdi-account-network',
           stats: String(base?.latest?.block?.last_commit?.signatures.length || 0),
           change: 0,
         },
         {
-          title: 'Supply',
-          color: 'success',
-          icon: 'mdi-currency-usd',
-          stats: formatter.formatTokenAmount(bank.supply),
+          title: i18n.global.t('index.supply'), //'Supply',
+          color: 'primary',
+          icon: 'mdi-water-pump',
+          stats: formatter.formatToken(bank.supply, true, '0,0'),
           change: 0,
         },
         {
-          title: 'Bonded Tokens',
-          color: 'warning',
+          title: i18n.global.t('index.bonded_tokens'), //'Bonded Tokens',
+          color: 'primary',
           icon: 'mdi-lock',
-          stats: formatter.formatTokenAmount({
+          stats: formatter.formatToken({
             // @ts-ignore
             amount: this.pool.bonded_tokens,
             denom: staking.params.bond_denom,
-          }),
+          }, true, '0,0'),
           change: 0,
         },
         {
-          title: 'Inflation',
-          color: 'success',
-          icon: 'mdi-chart-multiple',
+          title: i18n.global.t('index.inflation'), //'Inflation',
+          color: 'primary',
+          icon: 'mdi-water-percent',
           stats: formatter.formatDecimalToPercent(mintStore.inflation),
           change: 0,
         },
         {
-          title: 'Community Pool',
+          title: i18n.global.t('index.community_pool'), //'Community Pool',
           color: 'primary',
-          icon: 'mdi-bank',
+          icon: 'mdi-cup-water',
           stats: formatter.formatTokens(
             // @ts-ignore
             this.communityPool?.filter(

@@ -119,7 +119,7 @@ function updateEvent() {
 <template>
   <div v-if="account">
     <!-- address -->
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded mb-4 shadow">
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
       <div class="flex items-center">
         <!-- img -->
         <div class="inline-flex relative w-11 h-11 rounded-md">
@@ -145,7 +145,7 @@ function updateEvent() {
     </div>
 
     <!-- Assets -->
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded mb-4 shadow">
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4 ">
       <div class="flex justify-between">
         <h2 class="card-title mb-4">{{ $t('account.assets') }}</h2>
         <!-- button -->
@@ -202,10 +202,10 @@ function updateEvent() {
                 </div>
               </div>
               <div
-                class="text-xs truncate relative py-1 px-3 rounded-full w-fit text-primary dark:invert mr-2"
+                class="text-xs truncate relative py-1 px-3 rounded-full w-fit text-primary mr-2"
               >
                 <span
-                  class="inset-x-0 inset-y-0 opacity-10 absolute bg-primary dark:invert text-sm"
+                  class="inset-x-0 inset-y-0 opacity-10 absolute bg-primary text-sm"
                 ></span>
                 ${{ format.tokenValue(balanceItem) }}                
               </div>
@@ -238,7 +238,7 @@ function updateEvent() {
                 </div>
               </div>
               <div
-                class="text-xs truncate relative py-1 px-3 rounded-full w-fit text-primary dark:invert mr-2"
+                class="text-xs truncate relative py-1 px-3 rounded-full w-fit text-primary mr-2"
               >
                 <span
                   class="inset-x-0 inset-y-0 opacity-10 absolute bg-primary dark:invert text-sm"
@@ -271,7 +271,7 @@ function updateEvent() {
                 <div class="text-xs">{{ format.calculatePercent(rewardItem.amount, totalAmount) }}</div>
               </div>
               <div
-                class="text-xs truncate relative py-1 px-3 rounded-full w-fit text-primary dark:invert mr-2"
+                class="text-xs truncate relative py-1 px-3 rounded-full w-fit text-primary mr-2"
               >
                 <span
                   class="inset-x-0 inset-y-0 opacity-10 absolute bg-primary  dark:invert text-sm"
@@ -307,7 +307,7 @@ function updateEvent() {
                 </div>
               </div>
               <div
-                class="text-xs truncate relative py-1 px-3 rounded-full w-fit text-primary dark:invert mr-2"
+                class="text-xs truncate relative py-1 px-3 rounded-full w-fit text-primary mr-2"
               >
                 <span class="inset-x-0 inset-y-0 opacity-10 absolute bg-primary dark:invert"></span>
                 ${{format.tokenValue({
@@ -326,7 +326,7 @@ function updateEvent() {
     </div>
 
     <!-- Delegations -->
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded mb-4 shadow">
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
       <div class="flex justify-between">
         <h2 class="card-title mb-4">{{ $t('account.delegations') }}</h2>
         <div class="flex justify-end mb-4">
@@ -432,7 +432,7 @@ function updateEvent() {
 
     <!-- Unbonding Delegations -->
     <div
-      class="bg-base-100 px-4 pt-3 pb-4 rounded mb-4 shadow"
+      class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4"
       v-if="unbonding && unbonding.length > 0"
     >
       <h2 class="card-title mb-4">{{ $t('account.unbonding_delegations') }}</h2>
@@ -493,7 +493,7 @@ function updateEvent() {
     </div>
 
     <!-- Transactions -->
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded mb-4 shadow">
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
       <h2 class="card-title mb-4">{{ $t('account.transactions') }}</h2>
       <div class="overflow-x-auto">
         <table class="table w-full text-sm">
@@ -509,12 +509,12 @@ function updateEvent() {
             <tr v-if="txs.length === 0"><td colspan="10"><div class="text-center">{{ $t('account.no_transactions') }}</div></td></tr>
             <tr v-for="(v, index) in txs" :key="index">
               <td class="text-sm py-3">
-                <RouterLink :to="`/${chain}/block/${v.height}`" class="text-primary dark:invert">{{
+                <RouterLink :to="`/${chain}/block/${v.height}`" class="text-primary">{{
                   v.height
                 }}</RouterLink>
               </td>
               <td class="truncate py-3" style="max-width: 200px">
-                <RouterLink :to="`/${chain}/tx/${v.txhash}`" class="text-primary dark:invert">
+                <RouterLink :to="`/${chain}/tx/${v.txhash}`" class="text-primary">
                   {{ v.txhash }}
                 </RouterLink>
               </td>
@@ -537,7 +537,7 @@ function updateEvent() {
     </div>
 
     <!-- Account -->
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded mb-4 shadow">
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
       <h2 class="card-title mb-4">{{ $t('account.acc') }}</h2>
       <DynamicComponent :value="account" />
     </div>

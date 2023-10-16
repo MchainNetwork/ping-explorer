@@ -29,11 +29,11 @@ function myContracts() {
 }
 </script>
 <template>
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded mb-4 shadow">
-        <h2 class="card-title truncate w-full">{{ $t('cosmwasm.title') }}</h2>
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
+        <h2 class="card-title truncate w-full mb-4">{{ $t('cosmwasm.title') }}</h2>
 
-        <div class="join border border-primary">
-            <input v-model="creator" type=text class="input input-bordered w-40 join-item" placeholder="creator address" />
+        <div class="join border border-secundary ">
+            <input v-model="creator" type=text class="input input-bordered w-60 join-item" placeholder="creator address" />
             <button class="join-item btn  btn-primary" @click="myContracts()">{{ $t('cosmwasm.btn_query') }}</button>
         </div>
         <div class="overflow-x-auto">
@@ -66,7 +66,7 @@ function myContracts() {
             </table>
             <div class="flex justify-between">
                 <PaginationBar :limit="pageRequest.limit" :total="codes.pagination?.total" :callback="pageload" />
-                <label for="wasm_store_code" class="btn btn-primary my-5" @click="dialog.open('wasm_store_code', {})">{{ $t('cosmwasm.btn_up_sc') }}</label>
+                <label for="wasm_store_code" class="btn btn-primary rounded-full my-5" @click="dialog.open('wasm_store_code', {})">{{ $t('cosmwasm.btn_up_sc') }}</label>
             </div>
         </div>
     </div>
@@ -79,3 +79,4 @@ function myContracts() {
       }
     }
 </route>
+

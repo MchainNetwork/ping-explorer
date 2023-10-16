@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="logo" width="40" height="40" viewBox="0 0 225.722 225.722">
+  <g transform="translate(-592 -468)">
+    <g id="logo" transform="translate(592 468)">
+      <path d="M0,112.861A112.861,112.861,0,1,1,112.861,225.722,112.859,112.859,0,0,1,0,112.861Z" fill="#0099bf" fill-rule="evenodd"></path>
+      <path d="M110.006,168.927v22.41H91.916V209.7h18.09v14.85H91.916v18.36h18.09v41.04H136.2v-57.54l38.34,54.84,38.34-54.84v57.54h26.19v-41.04h18.09v-18.36h-18.09V209.7h18.09v-18.36h-18.09v-22.41H220.553l-46.4,65.864L128.52,168.927Z" transform="translate(-61.946 -113.847)" fill="#fff" fill-rule="evenodd"></path>
+    </g>
+  </g>
+</svg>

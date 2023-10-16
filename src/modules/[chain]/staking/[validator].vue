@@ -182,7 +182,7 @@ function pageload(p: number) {
           <div class="flex">
             <div class="avatar mr-4 relative w-24 rounded-lg overflow-hidden">
               <div class="w-24 rounded-lg absolute opacity-10"></div>
-              <div class="w-24 rounded-lg">
+              <div class="w-24 rounded-full">
                 <img
                   v-if="avatars[identity] !== 'undefined'"
                   v-lazy="logo(identity)"
@@ -202,7 +202,7 @@ function pageload(p: number) {
               </div>
               <label
                 for="delegate"
-                class="btn btn-primary btn-sm w-full"
+                class="btn btn-primary btn-sm rounded-full w-full"
                 @click="
                   dialog.open('delegate', {
                     validator_address: v.operator_address,
@@ -405,7 +405,7 @@ function pageload(p: number) {
           <div class="">
             <label
               for="withdraw_commission"
-              class="btn btn-primary w-full"
+              class="btn btn-primary rounded-full w-full"
               @click="
                 dialog.open('withdraw_commission', {
                   validator_address: v.operator_address,

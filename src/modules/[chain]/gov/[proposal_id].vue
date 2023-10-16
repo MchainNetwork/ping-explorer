@@ -223,7 +223,7 @@ function pageload(p: number) {
               }`"
             ></div>
             <p
-              class="absolute inset-x-0 inset-y-0 text-center text-sm text-[#666] dark:text-[#eee] flex items-center justify-center"
+              class="absolute inset-x-0 inset-y-0 text-center text-sm text-[#666] dark:text-white font-semibold flex items-center justify-center"
             >
               {{ item.value }}
             </p>
@@ -232,13 +232,13 @@ function pageload(p: number) {
         <div class="mt-6 grid grid-cols-2">
           <label
             for="vote"
-            class="btn btn-primary float-right btn-sm mx-1"
+            class="btn btn-primary float-right rounded-full mx-1"
             @click="dialog.open('vote', { proposal_id })"
             >{{ $t('gov.btn_vote') }}</label
           >
           <label
             for="deposit"
-            class="btn btn-primary float-right btn-sm mx-1"
+            class="btn btn-primary float-right rounded-full mx-1"
             @click="dialog.open('deposit', { proposal_id })"
             >{{ $t('gov.btn_deposit') }}</label
           >

@@ -158,7 +158,7 @@ function fetchAllKeyRotation() {
         <a class="tab tab-lg tab-bordered text-gray-400">{{ $t('uptime.customize') }}</a>
       </RouterLink>
     </div>
-    <div class="bg-base-100 px-5 pt-5">
+    <div class="bg-base-100 rounded-xl px-5 pt-5">
       <div class="flex items-center gap-x-4">
         <input
           type="text"

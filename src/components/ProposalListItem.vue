@@ -40,14 +40,14 @@ const voterStatusMap: Record<string, string> = {
 const proposalInfo = ref();
 </script>
 <template>
-  <div class="bg-white dark:bg-[#28334e] rounded text-sm">
+  <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-xl text-sm">
     <table class="table-compact w-full table-fixed hidden lg:!table">
       <tbody>
         <tr v-for="(item, index) in proposals?.proposals" :key="index">
           <td class="px-4 w-20">
             <label
               for="proposal-detail-modal"
-              class="text-main text-base hover:text-indigo-400 cursor-pointer"
+              class="text-main text-base hover:underline cursor-pointer"
               @click="proposalInfo = item"
             >
               #{{ item?.proposal_id }}</label
@@ -57,7 +57,7 @@ const proposalInfo = ref();
             <div>
               <RouterLink
                 :to="`/${chain.chainName}/gov/${item?.proposal_id}`"
-                class="text-main text-base mb-1 block hover:text-indigo-400 truncate"
+                class="text-main text-base hover:underline mb-1 block truncate"
               >
                 {{ item?.content?.title || item?.title }}
               </RouterLink>
@@ -113,7 +113,7 @@ const proposalInfo = ref();
             <div class="">
               <label
                 for="vote"
-                class="btn btn-xs btn-primary rounded-sm"
+                class="btn btn-sm btn-primary rounded-full"
                 @click="
                   dialog.open('vote', {
                     proposal_id: item?.proposal_id,

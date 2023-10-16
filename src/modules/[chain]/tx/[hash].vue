@@ -27,7 +27,7 @@ const messages = computed(() => {
 </script>
 <template>
     <div>
-        <div v-if="tx.tx_response" class="bg-base-100 px-4 pt-3 pb-4 rounded shadow mb-4">
+        <div v-if="tx.tx_response" class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
             <h2 class="card-title truncate mb-2">{{ $t('tx.title') }}</h2>
             <div class="overflow-auto-x">
                 <table class="table text-sm">
@@ -90,7 +90,7 @@ const messages = computed(() => {
             </div>
         </div>
 
-        <div v-if="tx.tx_response" class="bg-base-100 px-4 pt-3 pb-4 rounded shadow mb-4">
+        <div v-if="tx.tx_response" class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
             <h2 class="card-title truncate mb-2">
                 {{ $t('account.messages') }}: ({{ messages.length }})
             </h2>
@@ -102,7 +102,7 @@ const messages = computed(() => {
             <div v-if="messages.length === 0">{{ $t('tx.no_messages') }}</div>
         </div>
 
-        <div v-if="tx.tx_response" class="bg-base-100 px-4 pt-3 pb-4 rounded shadow">
+        <div v-if="tx.tx_response" class="bg-base-100 px-4 pt-3 pb-4 rounded-xl">
             <h2 class="card-title truncate mb-2">JSON</h2>
             <JsonViewer :value="tx" copyable boxed sort expand-depth="5"/>
         </div>

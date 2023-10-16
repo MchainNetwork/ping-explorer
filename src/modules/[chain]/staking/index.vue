@@ -265,7 +265,7 @@ loadAvatars();
             </div>
         </div>
 
-        <div class="bg-base-100 px-4 pt-3 mt-4 pb-4 rounded shadow">
+        <div class="bg-base-100 px-4 pt-3 mt-4 pb-4 rounded-xl">
             <div class="overflow-x-auto">
                 <table class="table staking-table w-full">
                     <thead>

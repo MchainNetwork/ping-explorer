@@ -176,7 +176,7 @@ function pageload(p: number) {
 </script>
 <template>
   <div>
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded shadow border-indigo-500">
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl border-indigo-500">
       <div class="flex flex-col lg:!flex-row pt-2 pb-1">
         <div class="flex-1">
           <div class="flex">
@@ -373,7 +373,7 @@ function pageload(p: number) {
       <div>
         <CommissionRate :commission="v.commission"></CommissionRate>
       </div>
-      <div class="bg-base-100 rounded shadow relative overflow-auto">
+      <div class="bg-base-100 rounded-xl relative overflow-auto">
         <div class="text-lg font-semibold text-main px-4 pt-4">
           {{ $t('staking.commissions_&_rewards') }}
         </div>
@@ -416,7 +416,7 @@ function pageload(p: number) {
           </div>
         </div>
       </div>
-      <div class="bg-base-100 rounded shadow overflow-x-auto">
+      <div class="bg-base-100 rounded-xl overflow-x-auto">
         <div class="px-4 pt-4 mb-2 text-main font-lg font-semibold">
           {{ $t('staking.addresses') }}
         </div>
@@ -486,7 +486,7 @@ function pageload(p: number) {
       </div>
     </div>
 
-    <div v-if="delegations.delegation_responses" class="mt-5 bg-base-100 shadow rounded p-4 ">
+    <div v-if="delegations.delegation_responses" class="mt-5 bg-base-100 rounded-xl p-4 ">
       <div class="text-lg mb-4 font-semibold">{{ $t('account.delegations') }}
         <span class="float-right"> {{ delegations.delegation_responses?.length || 0 }} / {{ delegations.pagination?.total || 0 }} </span>
       </div>
@@ -514,7 +514,7 @@ function pageload(p: number) {
       </div>
     </div>
 
-    <div class="mt-5 bg-base-100 shadow rounded p-4">
+    <div class="mt-5 bg-base-100 rounded-xl p-4">
       <div class="text-lg mb-4 font-semibold">{{ $t('account.transactions') }}</div>
       <div class="rounded overflow-auto">
         <table class="table validatore-table w-full">

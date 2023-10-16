@@ -49,7 +49,7 @@ const setTab = (selectedTab: string) => {
                 @click="setTab('transactions')">{{ $t('account.transactions') }}</a>
         </div>
 
-        <div v-show="tab === 'blocks'" class="grid xl:!grid-cols-6 md:!grid-cols-4 grid-cols-1 gap-3">
+        <div v-show="tab === 'blocks'" class="grid xl:!grid-cols-6 md:!grid-cols-4 grid-cols-2 gap-3">
 
             <RouterLink v-for="item in list"
                 class="flex flex-col justify-between rounded-xl p-4 bg-base-100 dark:bg-[#1e3b47]"

@@ -8,6 +8,7 @@
   "min_tx_fee": "20000",
   "logo": "https://raw.githubusercontent.com/MchainNetwork/mchain-docs/master/static/img/logo.svg",
   "twitter_screen_name": "MchainNetwork",
+  "theme_color": "#0099bf",
   "assets": [
     {
       "symbol": "MAR",

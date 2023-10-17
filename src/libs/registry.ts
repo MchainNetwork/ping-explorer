@@ -43,6 +43,8 @@ import type {
 } from '@/types/staking';
 import type {
   SmartTokenParams,
+  SmartToken,
+  PaginatedSmartTokens
 } from '@/types/smarttoken';
 import type { PaginatedTxs, Tx, TxResponse } from '@/types';
 import semver from 'semver'
@@ -85,6 +87,8 @@ export interface RequestRegistry extends AbstractRegistry {
   }>;
 
   smarttoken_params: Request<SmartTokenParams>;
+  smarttoken_smarttokens: Request<PaginatedSmartTokens>;
+  smarttoken_denom: Request<SmartToken>;
 
   mint_inflation: Request<{ inflation: string }>;
   mint_params: Request<{

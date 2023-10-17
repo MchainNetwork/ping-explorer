@@ -19,3 +19,7 @@ export interface SmartToken {
       authority: string
   }
 }
+
+export interface PaginatedSmartTokens extends PaginatedResponse{
+  smarttokens: SmartToken[]
+}

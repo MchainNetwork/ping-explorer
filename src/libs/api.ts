@@ -138,6 +138,8 @@ export const DEFAULT: RequestRegistry = {
   tx_hash: { url: '/cosmos/tx/v1beta1/txs/{hash}', adapter },
 
   smarttoken_params: { url: '/mchain/smarttoken/v1beta1/params', adapter },
+  smarttoken_smarttokens: { url: '/mchain/smarttoken/v1beta1/smarttokens', adapter },
+  smarttoken_denom: { url: '/mchain/smarttoken/v1beta1/denom/{denom}', adapter },
 
   mint_inflation: { url: '/cosmos/mint/v1beta1/inflation', adapter },
   mint_params: { url: '/cosmos/mint/v1beta1/params', adapter },

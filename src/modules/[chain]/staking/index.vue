@@ -260,7 +260,7 @@ loadAvatars();
                 >
             </div>
 
-            <div class="text-lg font-semibold">
+            <div class="text-lg font-semibold pr-4">
                 {{ list.length }}/{{ staking.params.max_validators }}
             </div>
         </div>
@@ -331,7 +331,7 @@ loadAvatars();
                                     </div>
 
                                     <div class="flex flex-col">
-                                        <span class="text-sm text-primary dark:invert whitespace-nowrap overflow-hidden">
+                                        <span class="text-sm text-primary whitespace-nowrap overflow-hidden">
                                             <RouterLink
                                                 :to="{
                                                     name: 'chain-staking-validator',

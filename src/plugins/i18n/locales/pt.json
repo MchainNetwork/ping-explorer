@@ -19,7 +19,8 @@
     "add_to_favorite": "Adicionar aos Favoritos",
     "all_blockchains": "Todas as Blockchains",
     "sponsors": "Patrocinadores",
-    "links": "Links"
+    "links": "Links",
+    "smarttoken":"SmartToken"
   },
   "pages": {
     "title": "Painel Ping",

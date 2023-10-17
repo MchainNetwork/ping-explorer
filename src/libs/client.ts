@@ -341,4 +341,10 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
   async getSmartTokenParams() {
     return this.request(this.registry.smarttoken_params, {});
   }
+  async getSmartTokenSmartTokens(authority?: string,) {
+    return this.request(this.registry.smarttoken_smarttokens, {authority});
+  }
+  async getSmartTokenDenom(denom: string,) {
+    return this.request(this.registry.smarttoken_denom, {denom});
+  }
 }

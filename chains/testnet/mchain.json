@@ -13,6 +13,7 @@
     {
       "symbol": "MAR",
       "base": "umar",
+      "display": "MAR",
       "exponent": 6,
       "coingecko_id": false,
       "logo": "https://raw.githubusercontent.com/MchainNetwork/mchain-docs/master/static/img/logo.svg"

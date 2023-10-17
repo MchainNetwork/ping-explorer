@@ -88,7 +88,7 @@ export interface RequestRegistry extends AbstractRegistry {
 
   smarttoken_params: Request<SmartTokenParams>;
   smarttoken_smarttokens: Request<PaginatedSmartTokens>;
-  smarttoken_denom: Request<SmartToken>;
+  smarttoken_denom: Request<SmartTokenDenom>;
 
   mint_inflation: Request<{ inflation: string }>;
   mint_params: Request<{

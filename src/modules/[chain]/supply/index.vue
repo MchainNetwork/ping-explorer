@@ -33,16 +33,24 @@ function pageload(p: number) {
 </script>
 <template>
     <div class="overflow-auto">
-        <table class="table table-compact text-xl">
+        <table class="table table-compact table-zebra text-xl">
             <thead>
                 <tr>
                     <td>Token</td>
                     <td>Amount</td>
                 </tr>
             </thead>
-            <tr v-for="item in list">
-                <td width="10%">{{ item.denom  }}</td>
-                <td>{{ item.amount  }}</td>
+            <tr v-for="item in list.filter((x) => x.denom == 'umar')" :key="item">
+                <td>{{ item.denom  }}</td>
+                <td class="text-right">{{ item.amount  }}</td>
+            </tr>
+            <tr v-for="item in list.filter((x) => x.denom.startsWith('sft/'))" :key="item">
+                <td><RouterLink :to="'/mchain/smarttoken/'+encodeURIComponent(item.denom)">{{ item.denom  }}</RouterLink></td>
+                <td class="text-right">{{ item.amount  }}</td>
+            </tr>
+            <tr v-for="item in list.filter((x) => x.denom.startsWith('ibc/'))" :key="item">
+                <td>{{ item.denom  }}</td>
+                <td class="text-right">{{ item.amount  }}</td>
             </tr>
         </table>
         <PaginationBar :limit="pageRequest.limit" :total="pageResponse.total" :callback="pageload" />

@@ -1,27 +1,15 @@
 <script lang="ts" setup>
 import { computed, ref } from '@vue/reactivity';
-import { useBaseStore, useBlockchain, useFormatter, useSmartTokenStore } from '@/stores';
-import { PageRequest, type AuthAccount, type Pagination, type Coin, type PaginatedSmartTokens } from '@/types';
+import { useFormatter, useSmartTokenStore } from '@/stores';
+import { PageRequest, type Pagination, type SmartTokenDenom } from '@/types';
 import { onMounted } from 'vue';
 import PaginationBar from '@/components/PaginationBar.vue';
 const props = defineProps(['chain']);
 
 const format = useFormatter();
-const chainStore = useBlockchain()
 const smartTokenStore = useSmartTokenStore()
 
-const list = ref([] as Coin[])
-
-function showType(v: string) {
-    return v.replace("/cosmos.auth.v1beta1.", "")
-}
-
-function shortAddress(address: string) {
-  if(address.length > 4) {
-    return `${address.substring(address.length -4)}`
-  }
-  return ""
-}
+const list = ref([] as SmartTokenDenom[])
 
 const pageRequest = ref(new PageRequest())
 const pageResponse = ref({} as Pagination)
@@ -33,7 +21,6 @@ onMounted(() => {
 function pageload(p: number) {
   pageRequest.value.setPage(p)
   smartTokenStore.fetchSmartTokens().then(x => {
-
     console.log(x)
     list.value = x.smarttokens
     pageResponse.value = x.pagination
@@ -57,8 +44,8 @@ function pageload(p: number) {
                 <td>{{ item.meta_data.name  }}</td>
                 <td width="10%" class="uppercase">{{ item.meta_data.symbol  }}</td>
                 <td>{{ item.max_supply }}</td>
-                <td class="truncate"><RouterLink :to="'/mchain/account/'+item.minter" :title="item.minter" class="hover:underline">{{ shortAddress(item.minter) }}</RouterLink></td>
-                <td class="truncate">{{ item.denom  }}</td>
+                <td class="truncate"><RouterLink :to="'/mchain/account/'+item.minter" :title="item.minter" class="hover:underline">{{ format.shortAddress(item.minter) }}</RouterLink></td>
+                <td class="truncate"><RouterLink :to="'/mchain/smarttoken/'+encodeURIComponent(item.denom)" class="hover:underline">{{ item.denom  }}</RouterLink></td>
             </tr>
         </table>
         <PaginationBar :limit="pageRequest.limit" :total="pageResponse.total" :callback="pageload" />

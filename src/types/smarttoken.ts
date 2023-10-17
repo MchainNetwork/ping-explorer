@@ -8,7 +8,7 @@ export interface SmartTokenParams {
   }
 }
 
-export interface SmartToken {
+export interface SmartTokenDenom {
   denom: string,
   max_supply: string,
   minter: string,
@@ -21,5 +21,5 @@ export interface SmartToken {
 }
 
 export interface PaginatedSmartTokens extends PaginatedResponse{
-  smarttokens: SmartToken[]
+  smarttokens: SmartTokenDenom[]
 }

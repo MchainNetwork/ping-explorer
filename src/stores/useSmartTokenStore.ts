@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia';
 import { useBlockchain } from './useBlockchain';
-import type { Coin, SmartToken } from '@/types';
+import type { Coin, SmartTokenDenom } from '@/types';
 
 export const useSmartTokenStore = defineStore('smartTokenStore', {
   state: () => {
     return {
-      smarttoken: {} as SmartToken,
-      smarttokens: [] as SmartToken[],
+      smarttoken: {} as SmartTokenDenom,
+      smarttokens: [] as SmartTokenDenom[],
       params: {} as {
         issue_fee: Coin;
         mint_fee: Coin;
@@ -31,10 +31,8 @@ export const useSmartTokenStore = defineStore('smartTokenStore', {
     async fetchSmartTokens(authority?: string) {
       return await this.blockchain.rpc?.getSmartTokenSmartTokens(authority);
     },
-    async getSmartTokens(authority?: string) {
-      const response = await this.blockchain.rpc?.getSmartTokenSmartTokens(authority);
-      if (response?.smarttokens) this.smarttokens = response.smarttokens;
-      return this.smarttokens;
-    }
+    async fetchSmartToken(denom: string) {
+      return await this.blockchain.rpc?.getSmartTokenDenom(denom);
+    },
   },
 });

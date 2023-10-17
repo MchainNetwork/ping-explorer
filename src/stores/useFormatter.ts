@@ -387,5 +387,11 @@ export const useFormatter = defineStore('formatter', {
       }
       return '';
     },
+    shortAddress(address: string) {
+      if(address.length > 4) {
+        return `${address.substring(address.length -4)}`
+      }
+      return ""
+    }
   },
 });

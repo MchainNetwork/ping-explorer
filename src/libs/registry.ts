@@ -43,7 +43,7 @@ import type {
 } from '@/types/staking';
 import type {
   SmartTokenParams,
-  SmartToken,
+  SmartTokenDenom,
   PaginatedSmartTokens
 } from '@/types/smarttoken';
 import type { PaginatedTxs, Tx, TxResponse } from '@/types';

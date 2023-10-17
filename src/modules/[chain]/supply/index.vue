@@ -40,15 +40,15 @@ function pageload(p: number) {
                     <td>Amount</td>
                 </tr>
             </thead>
-            <tr v-for="item in list.filter((x) => x.denom == 'umar')" :key="item">
+            <tr v-for="item in list.filter((x) => x.denom == 'umar')" :key="item.denom">
                 <td>{{ item.denom  }}</td>
                 <td class="text-right">{{ item.amount  }}</td>
             </tr>
-            <tr v-for="item in list.filter((x) => x.denom.startsWith('sft/'))" :key="item">
+            <tr v-for="item in list.filter((x) => x.denom.startsWith('sft/'))" :key="item.denom">
                 <td><RouterLink :to="'/mchain/smarttoken/'+encodeURIComponent(item.denom)">{{ item.denom  }}</RouterLink></td>
                 <td class="text-right">{{ item.amount  }}</td>
             </tr>
-            <tr v-for="item in list.filter((x) => x.denom.startsWith('ibc/'))" :key="item">
+            <tr v-for="item in list.filter((x) => x.denom.startsWith('ibc/'))" :key="item.denom">
                 <td>{{ item.denom  }}</td>
                 <td class="text-right">{{ item.amount  }}</td>
             </tr>

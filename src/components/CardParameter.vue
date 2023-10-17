@@ -10,6 +10,9 @@ const props = defineProps({
 
 const formatter = useFormatter();
 function calculateValue(value: any) {
+  if (typeof value === 'object' && value.amount && value.denom) {
+    return value.amount +' '+ value.denom;
+  }
   if (Array.isArray(value)) {
     return (value[0] && value[0].amount) || '-';
   }

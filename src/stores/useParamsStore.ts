@@ -44,6 +44,10 @@ export const useParamStore = defineStore('paramstore', {
         },
       ],
     },
+    smarttoken: {
+      title: 'SmartToken Parameters',
+      items: [] as Array<any>,
+    },
     mint: {
       title: 'Mint Parameters',
       items: [] as Array<any>,
@@ -81,6 +85,7 @@ export const useParamStore = defineStore('paramstore', {
   actions: {
     initial() {
       this.handleBaseBlockLatest();
+      this.handleSmartTokenParams();
       // this.handleMintParam()
       this.handleStakingParams();
       this.handleSlashingParams();
@@ -106,6 +111,13 @@ export const useParamStore = defineStore('paramstore', {
       } catch (error) {
         console.warn(error);
       }
+    },
+    async handleSmartTokenParams() {
+      const res = await this.getSmartTokenParams();
+      this.smarttoken.items = Object.entries(res.params).map(([key, value]) => ({
+        subtitle: key,
+        value: value,
+      }));
     },
     async handleStakingParams() {
       const res = await this.getStakingParams();
@@ -202,6 +214,9 @@ export const useParamStore = defineStore('paramstore', {
     },
     async getBaseTendermintBlockLatest() {
       return await this.blockchain.rpc?.getBaseBlockLatest();
+    },
+    async getSmartTokenParams() {
+      return await this.blockchain.rpc?.getSmartTokenParams();
     },
     async getMintParam() {
       return await this.blockchain.rpc?.getMintParam();

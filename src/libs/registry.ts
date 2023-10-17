@@ -41,6 +41,9 @@ import type {
   StakingPool,
   Validator,
 } from '@/types/staking';
+import type {
+  SmartTokenParams,
+} from '@/types/smarttoken';
 import type { PaginatedTxs, Tx, TxResponse } from '@/types';
 import semver from 'semver'
 export interface Request<T> {
@@ -80,6 +83,8 @@ export interface RequestRegistry extends AbstractRegistry {
     }[],
     total: Coin[]
   }>;
+
+  smarttoken_params: Request<SmartTokenParams>;
 
   mint_inflation: Request<{ inflation: string }>;
   mint_params: Request<{

@@ -45,7 +45,7 @@ export const useParamStore = defineStore('paramstore', {
       ],
     },
     smarttoken: {
-      title: 'SmartToken Parameters',
+      title: 'Smart Token Parameters',
       items: [] as Array<any>,
     },
     mint: {

@@ -28,7 +28,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <!-- SmartToken Parameters  -->
+    <!-- Smart Token Parameters  -->
     <CardParameter :cardItem="store.smarttoken" />
     <!-- minting Parameters  -->
     <CardParameter :cardItem="store.mint" />

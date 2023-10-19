@@ -51,13 +51,6 @@ function pageload(p: number) {
         >
           {{ $t('issue') }}
         </label>
-        <label
-          for="mint"
-          class="btn btn-primary btn-sm ml-2 rounded-full text-white"
-          @click="dialog.open('mint', {}, updateState)"
-        >
-          {{ $t('mint') }}
-        </label>
       </div>
     </div>
 
@@ -73,10 +66,7 @@ function pageload(p: number) {
         <tr
           :key="item.denom"
           v-for="item in list"
-          class="odd:bg-gray-100 dark:odd:bg-gray-800 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700"
-          @click="
-            $router.push('/mchain/smarttoken/' + encodeURIComponent(item.denom))
-          "
+          class="odd:bg-gray-100 dark:odd:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
         >
           <td width="10%" class="uppercase">{{ item.meta_data.symbol }}</td>
           <td>{{ item.meta_data.name }}</td>
@@ -86,6 +76,16 @@ function pageload(p: number) {
               class="hover:underline"
               >{{ item.denom }}</RouterLink
             >
+          </td>
+          <td>
+            <label
+              v-if="walletStore.currentAddress === item.minter"
+              for="mint"
+              class="btn btn-primary btn-sm ml-2 rounded-full text-white"
+              @click="dialog.open('mint', { denom: item.denom }, updateState)"
+            >
+              {{ $t('mint') }}
+            </label>
           </td>
         </tr>
       </table>

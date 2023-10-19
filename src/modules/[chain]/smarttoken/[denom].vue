@@ -5,7 +5,9 @@ import {
   useSmartTokenStore,
 } from '@/stores';
 import { onMounted, ref } from 'vue';
-
+import {
+  type Coin,
+} from '@/types';
 const props = defineProps(['denom']);
 
 const smartTokenStore = useSmartTokenStore();
@@ -13,6 +15,8 @@ const blockchain = useBlockchain();
 
 let denom: string = props.denom;
 let tokenInfo = ref({} as any);
+let supply = ref({} as Coin);
+let subunit = ref('');
 
 let additionalData = ref({} as any);
 
@@ -22,6 +26,7 @@ onMounted(() => {
     .then((res) => {
       console.log(res)
       tokenInfo.value = res
+      subunit.value = denom.split('-')[0]
       if (res.smarttoken.meta_data.uri) {
         fetch(res.smarttoken.meta_data.uri)
           .then(response => response.json())
@@ -30,6 +35,10 @@ onMounted(() => {
           })
           .catch(error => console.error('Error fetching data:', error));
       }
+
+      blockchain.rpc.getBankSupplyByDenom(denom).then((x) => {
+        supply.value = x.amount;
+      });
     });
   }
 });
@@ -44,7 +53,8 @@ onMounted(() => {
         <h2 class="text-xl font-semibold mb-2">Token Details</h2>
         <div class="flex flex-col">
           <p><strong>Denom:</strong> {{ tokenInfo.smarttoken.denom }}</p>
-          <p><strong>Max Supply:</strong> {{ tokenInfo.smarttoken.max_supply }}</p>
+          <p><strong>Current Supply:</strong> {{ supply?.amount }} {{subunit}}</p>
+          <p><strong>Max Supply:</strong> {{ tokenInfo.smarttoken.max_supply }} {{subunit}}</p>
           <p><strong>Minter:</strong> {{ tokenInfo.smarttoken.minter }}</p>
         </div>
       </div>

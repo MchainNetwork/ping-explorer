@@ -249,7 +249,7 @@ const amount = computed({
         <MdEditor :model-value="coinInfo.description?.en" previewOnly></MdEditor>
       </div>
       <div class="mx-4 flex flex-wrap items-center">
-        <div v-for="tag in coinInfo.categories"
+        <div :key="tag" v-for="tag in coinInfo.categories"
           class="mr-2 mb-4 text-xs bg-gray-100 dark:bg-[#384059] px-3 rounded-full py-1">
           {{ tag }}
         </div>

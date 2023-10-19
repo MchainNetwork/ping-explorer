@@ -56,7 +56,7 @@ function pageload(p: number) {
         <td class="text-right">{{ item.amount }}</td>
       </tr>
       <tr
-        v-for="item in list.filter((x) => x.denom.startsWith('sft/'))"
+        v-for="item in list.filter((x) => !x.denom.startsWith('ibc/') && x.denom != 'umar' )"
         :key="item.denom"
       >
         <td>

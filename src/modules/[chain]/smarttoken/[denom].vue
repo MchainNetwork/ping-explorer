@@ -14,12 +14,22 @@ const blockchain = useBlockchain();
 let denom: string = props.denom;
 let tokenInfo = ref({} as any);
 
+let additionalData = ref({} as any);
+
 onMounted(() => {
   if (denom) {
     smartTokenStore.fetchSmartToken(denom)
     .then((res) => {
       console.log(res)
       tokenInfo.value = res
+      if (res.smarttoken.meta_data.uri) {
+        fetch(res.smarttoken.meta_data.uri)
+          .then(response => response.json())
+          .then(data => {
+            additionalData.value = data;
+          })
+          .catch(error => console.error('Error fetching data:', error));
+      }
     });
   }
 });
@@ -48,6 +58,11 @@ onMounted(() => {
           <p><strong>URI:</strong> {{ tokenInfo.smarttoken.meta_data.uri }}</p>
           <p><strong>Authority:</strong> {{ tokenInfo.smarttoken.meta_data.authority }}</p>
         </div>
+      </div>
+
+      <div v-if="additionalData && Object.keys(additionalData).length" class="mb-4">
+        <h2 class="text-xl font-semibold mb-2">Additional Data</h2>
+        <pre class="bg-gray-100 p-4 rounded"><code>{{ JSON.stringify(additionalData, null, 2) }}</code></pre>
       </div>
     </div>
   </div>

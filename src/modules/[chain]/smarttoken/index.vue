@@ -33,19 +33,15 @@ function pageload(p: number) {
         <table class="table table-compact text-xl">
             <thead>
                 <tr>
+                    <td>Denom</td>
                     <td>Name</td>
                     <td>Symbol</td>
-                    <td>Max Supply</td>
-                    <td>Minter</td>
-                    <td>Denom</td>
                 </tr>
             </thead>
             <tr :key="item.denom" v-for="item in list">
-                <td>{{ item.meta_data.name  }}</td>
-                <td width="10%" class="uppercase">{{ item.meta_data.symbol  }}</td>
-                <td>{{ item.max_supply }}</td>
-                <td class="truncate"><RouterLink :to="'/mchain/account/'+item.minter" :title="item.minter" class="hover:underline">{{ format.shortAddress(item.minter) }}</RouterLink></td>
-                <td class="truncate"><RouterLink :to="'/mchain/smarttoken/'+encodeURIComponent(item.denom)" class="hover:underline">{{ item.denom  }}</RouterLink></td>
+                <td class="truncate"><RouterLink :to="'/mchain/smarttoken/'+encodeURIComponent(item.denom)" class="hover:underline">{{ item.denom }}</RouterLink></td>
+                <td>{{ item.meta_data.name }}</td>
+                <td width="10%" class="uppercase">{{ item.meta_data.symbol }}</td>
             </tr>
         </table>
         <PaginationBar :limit="pageRequest.limit" :total="pageResponse.total" :callback="pageload" />

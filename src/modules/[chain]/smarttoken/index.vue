@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref } from '@vue/reactivity';
-import { useFormatter, useSmartTokenStore } from '@/stores';
+import { useFormatter, useSmartTokenStore, useTxDialog, useWalletStore } from '@/stores';
 import { PageRequest, type Pagination, type SmartTokenDenom } from '@/types';
 import { onMounted } from 'vue';
 import PaginationBar from '@/components/PaginationBar.vue';
@@ -8,11 +8,17 @@ const props = defineProps(['chain']);
 
 const format = useFormatter();
 const smartTokenStore = useSmartTokenStore()
+const walletStore = useWalletStore();
+const dialog = useTxDialog();
 
 const list = ref([] as SmartTokenDenom[])
 
 const pageRequest = ref(new PageRequest())
 const pageResponse = ref({} as Pagination)
+
+function updateState() {
+  walletStore.loadMyAsset()
+}
 
 onMounted(() => {
   pageload(1)
@@ -30,6 +36,25 @@ function pageload(p: number) {
 </script>
 <template>
     <div class="overflow-auto">
+
+        <div class="flex justify-between items-center m-4">
+          <h2 class="text-xl font-bold text-base">Smart Tokens</h2>
+          <div>
+            <label 
+              for="issue" 
+              class="btn btn-primary btn-sm rounded-full text-white" 
+              @click="dialog.open('issue', {}, updateState)">
+                {{ $t('issue') }}
+            </label>
+            <label 
+              for="mint" 
+              class="btn btn-primary btn-sm ml-2 rounded-full text-white" 
+              @click="dialog.open('mint', {}, updateState)">
+                {{ $t('mint') }}
+            </label>
+          </div>
+        </div>
+
         <table class="table table-compact text-xl">
             <thead>
                 <tr>

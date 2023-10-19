@@ -42,7 +42,7 @@ function pageload(p: number) {
 <template>
   <div class="overflow-auto">
     <div class="flex justify-between items-center m-4 mb-6">
-      <h2 class="text-5xl font-bold text-base">Smart Tokens</h2>
+      <h2 class="text-xl md:text-5xl font-bold text-base">Smart Tokens</h2>
       <div>
         <label
           for="issue"

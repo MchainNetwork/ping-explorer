@@ -86,7 +86,7 @@ export const useParamStore = defineStore('paramstore', {
     initial() {
       this.handleBaseBlockLatest();
       this.handleSmartTokenParams();
-      // this.handleMintParam()
+      this.handleMintParam()
       this.handleStakingParams();
       this.handleSlashingParams();
       this.handleDistributionParams();
@@ -168,6 +168,10 @@ export const useParamStore = defineStore('paramstore', {
       //     this.chain.items[chainIndex].value = `${percent(res)}%`
       // })
       const res = await this.getMintParam();
+      this.mint.items = Object.entries(res.params).map(([key, value]) => ({
+        subtitle: key,
+        value: value,
+      }));
     },
     async handleSlashingParams() {
       const res = await this.getSlashingParams();

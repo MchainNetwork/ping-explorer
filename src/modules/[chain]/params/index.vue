@@ -23,17 +23,19 @@ onMounted(() => {
           :key="index"
           class="rounded-xl bg-gray-100 dark:bg-[#1e3b47] px-4 py-2"
         >
-          <div class="text-xs mb-2 text-gray-600 dark:text-gray-400">{{ $t(item.subtitle) }}</div>
+          <div class="text-xs mb-2 text-gray-600 dark:text-gray-400">
+            {{ $t(item.subtitle) }}
+          </div>
           <div class="text-base text-main">{{ item.value }}</div>
         </div>
       </div>
     </div>
-    <!-- Smart Token Parameters  -->
-    <CardParameter :cardItem="store.smarttoken" />
     <!-- minting Parameters  -->
     <CardParameter :cardItem="store.mint" />
     <!-- Staking Parameters  -->
     <CardParameter :cardItem="store.staking" />
+    <!-- Smart Token Parameters  -->
+    <CardParameter :cardItem="store.smarttoken" />
     <!-- Governance Parameters -->
     <CardParameter :cardItem="store.gov" />
     <!-- Distribution Parameters -->

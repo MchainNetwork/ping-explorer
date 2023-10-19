@@ -5,9 +5,6 @@ import {
   useSmartTokenStore,
 } from '@/stores';
 import { onMounted, ref } from 'vue';
-import {
-  type Coin,
-} from '@/types';
 const props = defineProps(['denom']);
 
 const smartTokenStore = useSmartTokenStore();
@@ -15,7 +12,7 @@ const blockchain = useBlockchain();
 
 let denom: string = props.denom;
 let tokenInfo = ref({} as any);
-let supply = ref({} as Coin);
+let supply = ref({} as any);
 let subunit = ref('');
 
 let additionalData = ref({} as any);
@@ -23,11 +20,11 @@ let additionalData = ref({} as any);
 onMounted(() => {
   if (denom) {
     smartTokenStore.fetchSmartToken(denom)
-    .then((res) => {
+    .then((res : any) => {
       console.log(res)
       tokenInfo.value = res
       subunit.value = denom.split('-')[0]
-      if (res.smarttoken.meta_data.uri) {
+      if (res?.smarttoken?.meta_data?.uri) {
         fetch(res.smarttoken.meta_data.uri)
           .then(response => response.json())
           .then(data => {

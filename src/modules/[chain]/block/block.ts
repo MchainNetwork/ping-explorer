@@ -17,8 +17,8 @@ export const useBlockModule = defineStore('blockModule', {
       return useBlockchain();
     },
     blocktime() {
-      if (this.recents.length < 2) return 6000;
-      return 6000; // todo later
+      if (this.recents.length < 2) return 2000;
+      return 2000; // todo later
     },
     txsInRecents() {
       const txs = [] as { hash: string; tx: DecodedTxRaw }[];

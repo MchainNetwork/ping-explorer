@@ -9,6 +9,8 @@ import {
 import { PageRequest, type Pagination, type SmartTokenDenom } from '@/types';
 import { onMounted } from 'vue';
 import PaginationBar from '@/components/PaginationBar.vue';
+import IdentityIcon from '@/components/IdentityIcon.vue';
+
 const props = defineProps(['chain']);
 
 const format = useFormatter();
@@ -33,7 +35,6 @@ onMounted(() => {
 function pageload(p: number) {
   pageRequest.value.setPage(p);
   smartTokenStore.fetchSmartTokens().then((x) => {
-    console.log(x);
     list.value = x.smarttokens;
     pageResponse.value = x.pagination;
   });
@@ -55,7 +56,7 @@ function pageload(p: number) {
     </div>
 
     <div class="bg-base-100 p-4 rounded-xl">
-      <table class="table table-compact text-xl">
+      <table class="table table-compact text-lg">
         <thead>
           <tr>
             <td>Symbol</td>
@@ -70,10 +71,11 @@ function pageload(p: number) {
         >
           <td width="10%" class="uppercase">{{ item.meta_data.symbol }}</td>
           <td>{{ item.meta_data.name }}</td>
-          <td class="truncate">
+          <td class="truncate flex">
+            <IdentityIcon size="small" :address="item.denom" />
             <RouterLink
-              :to="'/mchain/smarttoken/' + encodeURIComponent(item.denom)"
-              class="hover:underline"
+              :to="'/mchain/smarttoken/' + item.denom"
+              class="hover:underline text-sm ml-2"
               >{{ item.denom }}</RouterLink
             >
           </td>

@@ -32,6 +32,7 @@ function confirm() {
   const height = /^\d+$/;
   const txhash = /^[A-Z\d]{64}$/;
   const addr = /^[a-z\d]+1[a-z\d]{38,58}$/;
+  const smartTokenDenom = /^[a-z0-9]{0,20}\-m[a-z0-9]{39}$/;
 
   const current = blockStore?.current?.chainName || '';
   const routeParams = vueRouters?.currentRoute?.value;
@@ -50,6 +51,11 @@ function confirm() {
       //     this.$router.push({ name: 'transaction', params: { chain: c.chain_name, hash: key } })
     } else if (addr.test(key)) {
       vueRouters.push({ path: `/${current}/account/${key}` });
+      setTimeout(() => {
+        closeSearchModal();
+      }, 1000);
+    } else if (smartTokenDenom.test(key)) {
+      vueRouters.push({ path: `/mchain/smarttoken/${key}` });
       setTimeout(() => {
         closeSearchModal();
       }, 1000);
@@ -120,7 +126,10 @@ function confirm() {
         </div>
         <!-- foot -->
         <div class="mt-6">
-          <button class="w-full btn btn-primary rounded-full btn-md" @click="confirm">
+          <button
+            class="w-full btn btn-primary rounded-full btn-md"
+            @click="confirm"
+          >
             Confirm
           </button>
         </div>

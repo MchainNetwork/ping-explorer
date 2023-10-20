@@ -3,7 +3,7 @@
   "api": ["https://api.mchain.network"],
   "rpc": ["https://rpc.mchain.network"],
   "sdk_version": "0.45.1",
-  "addr_prefix": "mar",
+  "addr_prefix": "m",
   "coin_type": "118",
   "min_tx_fee": "20000",
   "logo": "https://raw.githubusercontent.com/MchainNetwork/mchain-docs/master/static/img/logo.svg",

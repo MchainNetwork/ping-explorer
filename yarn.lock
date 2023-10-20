@@ -2260,6 +2260,11 @@
   resolved "https://registry.yarnpkg.com/@types/marked/-/marked-4.3.1.tgz#45fb6dfd47afb595766c71ed7749ead23f137de3"
   integrity sha512-vSSbKZFbNktrQ15v7o1EaH78EbWV+sPQbPjHG+Cp8CaNcPFUEfjZ0Iml/V0bFDwsTlYe8o6XC5Hfdp91cqPV2g==
 
+"@types/mersenne-twister@^1.1.6":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@types/mersenne-twister/-/mersenne-twister-1.1.6.tgz#86da5c815ca01ebdc518cd76eb7e818c77ebbce8"
+  integrity sha512-gZ9TPefpiJBncGYadhBNAddgXYIYmNew2ICElprriy5ZLRIG9hr/oWij+WDD88Vls8Vx9ZZM8NyoH3NpOxEuUw==
+
 "@types/minimatch@*":
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-5.1.2.tgz#07508b45797cb81ec3f273011b054cd0755eddca"

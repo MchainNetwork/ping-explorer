@@ -56,6 +56,7 @@
   "devDependencies": {
     "@osmonauts/telescope": "^0.88.2",
     "@types/marked": "^4.0.8",
+    "@types/mersenne-twister": "^1.1.6",
     "@types/node": "^18.11.12",
     "@types/numeral": "^2.0.2",
     "@types/semver": "7.5.0",

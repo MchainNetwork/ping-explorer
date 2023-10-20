@@ -1,5 +1,5 @@
 {
-  "chain_name": "mchain",
+  "chain_name": "Mchain",
   "api": ["https://api.mchain.network"],
   "rpc": ["https://rpc.mchain.network"],
   "sdk_version": "0.45.1",

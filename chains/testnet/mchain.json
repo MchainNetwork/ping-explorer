@@ -1,5 +1,5 @@
 {
-  "chain_name": "mchain",
+  "chain_name": "Mchain",
   "api": ["https://testnet.api.mchain.network"],
   "rpc": ["https://testnet.rpc.mchain.network"],
   "faucet": "https://faucet.mchain.network",

@@ -2,19 +2,19 @@
   <div ref="iconContainer" class="rounded-full" :style="iconStyle"></div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, ref, onMounted } from 'vue';
 import { picasso } from '@vechain/picasso';
 
-export default {
-  data() {
-    return {
-      iconStyle: {
-        overflow: 'hidden',
-        background: '',
-        backgroundSize: 'cover',
-      },
-    };
-  },
+interface IconStyle {
+  overflow: string;
+  background: string;
+  backgroundSize: string;
+  width?: string;
+  height?: string;
+}
+
+export default defineComponent({
   props: {
     address: {
       type: String,
@@ -31,33 +31,43 @@ export default {
     size: {
       type: String,
       default: '',
-      validator: (value) => ['small', 'medium', 'large', ''].includes(value),
+      validator: (value: string) => ['small', 'medium', 'large', ''].includes(value),
     },
   },
-  mounted() {
-    const svg = picasso(this.address);
-    this.iconStyle.background = `no-repeat url('data:image/svg+xml;utf8,${svg}')`;
+  setup(props) {
+    const iconStyle = ref<IconStyle>({
+      overflow: 'hidden',
+      background: '',
+      backgroundSize: 'cover',
+    });
 
-    switch (this.size) {
-      case 'small':
-        this.iconStyle.width = '24px';
-        this.iconStyle.height = '24px';
-        break;
-      case 'medium':
-        this.iconStyle.width = '50px';
-        this.iconStyle.height = '50px';
-        break;
-      case 'large':
-        this.iconStyle.width = '80px';
-        this.iconStyle.height = '80px';
-        break;
-      default:
-        this.iconStyle.width = this.width;
-        this.iconStyle.height = this.height;
-        break;
-    }
+    onMounted(() => {
+      const svg = picasso(props.address);
+      iconStyle.value.background = `no-repeat url('data:image/svg+xml;utf8,${svg}')`;
+
+      switch (props.size) {
+        case 'small':
+          iconStyle.value.width = '24px';
+          iconStyle.value.height = '24px';
+          break;
+        case 'medium':
+          iconStyle.value.width = '50px';
+          iconStyle.value.height = '50px';
+          break;
+        case 'large':
+          iconStyle.value.width = '80px';
+          iconStyle.value.height = '80px';
+          break;
+        default:
+          iconStyle.value.width = props.width;
+          iconStyle.value.height = props.height;
+          break;
+      }
+    });
+
+    return { iconStyle };
   },
-};
+});
 </script>
 
 <style scoped>

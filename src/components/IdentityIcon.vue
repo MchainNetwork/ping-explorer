@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
-import { picasso } from '@vechain/picasso';
+import { picasso } from '../libs/picasso';
 
 interface IconStyle {
   overflow: string;

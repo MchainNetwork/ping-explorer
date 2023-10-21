@@ -53,7 +53,31 @@ function updateState() {
   walletStore.loadMyAsset();
 }
 
-async function pageload(p: number) {
+interface PageRequest {
+  value: {
+    setPage: (page: number) => void;
+  };
+}
+
+interface PageResponse {
+  value: any;
+}
+
+interface Store {
+  fetchMnsNames: () => Promise<any>;
+  fetchMnsForsale: () => Promise<any>;
+  fetchMnsBids: () => Promise<any>;
+}
+
+async function pageload<T>(
+  p: number,
+  pageRequest: PageRequest,
+  pageResponse: PageResponse,
+  list: { value: T[] },
+  listForSale: { value: T[] },
+  listBid: { value: T[] },
+  mnsStore: Store
+) {
   pageRequest.value.setPage(p);
 
   const [names, forSale, forBid] = await Promise.all([

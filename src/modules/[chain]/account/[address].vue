@@ -117,7 +117,7 @@ function loadAccount(address: string) {
       });
     });
   });
-  blockchain.rpc.getMnsListOwnedNames(address).then((x) => {
+  blockchain.rpc.getMnsListOwnedNames(address).then((x: any) => {
     console.log(x);
     domains.value = x.names;
   });

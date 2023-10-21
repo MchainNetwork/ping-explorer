@@ -347,4 +347,30 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
   async getSmartTokenDenom(denom: string,) {
     return this.request(this.registry.smarttoken_denom, {denom});
   }
+
+  // mns
+  async getMnsParams() {
+    return this.request(this.registry.mns_params, {});
+  }
+  async getMnsNames() {
+    return this.request(this.registry.mns_names, {});
+  }
+  async getMnsName(index: string) {
+    return this.request(this.registry.mns_name, {index});
+  }
+  async getMnsListOwnedNames(address?: string) {
+    return this.request(this.registry.mns_list_owned_names, {address});
+  }
+  async getMnsBids() {
+    return this.request(this.registry.mns_bids, {});
+  }
+  async getMnsBidsByIndex(index: string) {
+    return this.request(this.registry.mns_bids_by_index, {index});
+  }
+  async getMnsForsale() {
+    return this.request(this.registry.mns_forsale, {});
+  }
+  async getMnsForsaleName(name: string) {
+    return this.request(this.registry.mns_forsale_name, {name});
+  }
 }

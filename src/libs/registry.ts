@@ -46,6 +46,12 @@ import type {
   SmartTokenDenom,
   PaginatedSmartTokens
 } from '@/types/smarttoken';
+import type {
+  MnsNames,
+  MnsParams,
+  MnsBids,
+  MnsForsale
+} from '@/types/mns';
 import type { PaginatedTxs, Tx, TxResponse } from '@/types';
 import semver from 'semver'
 export interface Request<T> {
@@ -89,6 +95,12 @@ export interface RequestRegistry extends AbstractRegistry {
   smarttoken_params: Request<SmartTokenParams>;
   smarttoken_smarttokens: Request<PaginatedSmartTokens>;
   smarttoken_denom: Request<SmartTokenDenom>;
+
+  mns_params: Request<any>;
+  mns_names: Request<MnsNames>;
+  mns_list_owned_names: Request<MnsNames>;
+  mns_bids: Request<MnsBids>;
+  mns_forsale: Request<MnsForsale>;
 
   mint_inflation: Request<{ inflation: string }>;
   mint_params: Request<{

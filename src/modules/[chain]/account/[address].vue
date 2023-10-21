@@ -4,12 +4,14 @@ import {
   useFormatter,
   useStakingStore,
   useTxDialog,
+  useMnsStore,
 } from '@/stores';
 import DynamicComponent from '@/components/dynamic/DynamicComponent.vue';
 import DonutChart from '@/components/charts/DonutChart.vue';
 import { computed, ref } from '@vue/reactivity';
 import { onMounted } from 'vue';
 import { Icon } from '@iconify/vue';
+import IdentityIcon from '@/components/IdentityIcon.vue';
 
 import type {
   AuthAccount,
@@ -17,6 +19,7 @@ import type {
   TxResponse,
   DelegatorRewards,
   UnbondingResponses,
+  MnsNames,
 } from '@/types';
 import type { Coin } from '@cosmjs/amino';
 import Countdown from '@/components/Countdown.vue';
@@ -27,6 +30,7 @@ const blockchain = useBlockchain();
 const stakingStore = useStakingStore();
 const dialog = useTxDialog();
 const format = useFormatter();
+const mnsStore = useMnsStore();
 const account = ref({} as AuthAccount);
 const txs = ref({} as TxResponse[]);
 const delegations = ref([] as Delegation[]);
@@ -34,6 +38,7 @@ const rewards = ref({} as DelegatorRewards);
 const balances = ref([] as Coin[]);
 const unbonding = ref([] as UnbondingResponses[]);
 const unbondingTotal = ref(0);
+const domains = ref([] as MnsNames[]);
 const chart = {};
 onMounted(() => {
   loadAccount(props.address);
@@ -79,12 +84,14 @@ const totalValue = computed(() => {
   });
   unbonding.value?.forEach((x) => {
     x.entries?.forEach((y) => {
-      value += format.tokenValueNumber({amount: y.balance, denom: stakingStore.params.bond_denom});
+      value += format.tokenValueNumber({
+        amount: y.balance,
+        denom: stakingStore.params.bond_denom,
+      });
     });
   });
   return format.formatNumber(value, '0,0.00');
 });
-
 
 function loadAccount(address: string) {
   blockchain.rpc.getAuthAccount(address).then((x) => {
@@ -109,6 +116,10 @@ function loadAccount(address: string) {
         unbondingTotal.value += Number(z.balance);
       });
     });
+  });
+  blockchain.rpc.getMnsListOwnedNames(address).then((x) => {
+    console.log(x);
+    domains.value = x.names;
   });
 }
 
@@ -145,38 +156,38 @@ function updateEvent() {
     </div>
 
     <!-- Assets -->
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4 ">
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
       <div class="flex justify-between">
         <h2 class="card-title mb-4">{{ $t('account.assets') }}</h2>
         <!-- button -->
         <div class="flex justify-end mb-4 pr-5">
-            <label
-              for="send"
-              class="btn btn-primary btn-sm rounded-full mr-2"
-              @click="dialog.open('send', {}, updateEvent)"
-              >{{ $t('account.btn_send') }}</label
-            >
-            <label
-              for="transfer"
-              class="btn btn-primary btn-sm rounded-full"
-              @click="
-                dialog.open(
-                  'transfer',
-                  {
-                    chain_name: blockchain.current?.prettyName,
-                  },
-                  updateEvent
-                )
-              "
-              >{{ $t('account.btn_transfer') }}</label
-            >
-          </div>
+          <label
+            for="send"
+            class="btn btn-primary btn-sm rounded-full mr-2"
+            @click="dialog.open('send', {}, updateEvent)"
+            >{{ $t('account.btn_send') }}</label
+          >
+          <label
+            for="transfer"
+            class="btn btn-primary btn-sm rounded-full"
+            @click="
+              dialog.open(
+                'transfer',
+                {
+                  chain_name: blockchain.current?.prettyName,
+                },
+                updateEvent
+              )
+            "
+            >{{ $t('account.btn_transfer') }}</label
+          >
+        </div>
       </div>
       <div class="grid md:!grid-cols-3">
         <div class="md:!col-span-1">
           <DonutChart :series="totalAmountByCategory" :labels="labels" />
         </div>
-        <div class="mt-4 md:!col-span-2 md:!mt-0 md:!ml-4">          
+        <div class="mt-4 md:!col-span-2 md:!mt-0 md:!ml-4">
           <!-- list-->
           <div class="">
             <!--balances  -->
@@ -207,7 +218,7 @@ function updateEvent() {
                 <span
                   class="inset-x-0 inset-y-0 opacity-10 absolute bg-primary text-sm"
                 ></span>
-                ${{ format.tokenValue(balanceItem) }}                
+                ${{ format.tokenValue(balanceItem) }}
               </div>
             </div>
             <!--delegations  -->
@@ -243,7 +254,7 @@ function updateEvent() {
                 <span
                   class="inset-x-0 inset-y-0 opacity-10 absolute bg-primary dark:invert text-sm"
                 ></span>
-                ${{ format.tokenValue(delegationItem?.balance) }}                
+                ${{ format.tokenValue(delegationItem?.balance) }}
               </div>
             </div>
             <!-- rewards.total -->
@@ -268,15 +279,17 @@ function updateEvent() {
                 <div class="text-sm font-semibold">
                   {{ format.formatToken(rewardItem) }}
                 </div>
-                <div class="text-xs">{{ format.calculatePercent(rewardItem.amount, totalAmount) }}</div>
+                <div class="text-xs">
+                  {{ format.calculatePercent(rewardItem.amount, totalAmount) }}
+                </div>
               </div>
               <div
                 class="text-xs truncate relative py-1 px-3 rounded-full w-fit text-primary mr-2"
               >
                 <span
-                  class="inset-x-0 inset-y-0 opacity-10 absolute bg-primary  dark:invert text-sm"
-                ></span>${{ format.tokenValue(rewardItem) }}
-                
+                  class="inset-x-0 inset-y-0 opacity-10 absolute bg-primary dark:invert text-sm"
+                ></span
+                >${{ format.tokenValue(rewardItem) }}
               </div>
             </div>
             <!-- mdi-account-arrow-right -->
@@ -309,19 +322,66 @@ function updateEvent() {
               <div
                 class="text-xs truncate relative py-1 px-3 rounded-full w-fit text-primary mr-2"
               >
-                <span class="inset-x-0 inset-y-0 opacity-10 absolute bg-primary dark:invert"></span>
-                ${{format.tokenValue({
-                      amount: String(unbondingTotal),
-                      denom: stakingStore.params.bond_denom,
-                    })
-                  }}                
+                <span
+                  class="inset-x-0 inset-y-0 opacity-10 absolute bg-primary dark:invert"
+                ></span>
+                ${{
+                  format.tokenValue({
+                    amount: String(unbondingTotal),
+                    denom: stakingStore.params.bond_denom,
+                  })
+                }}
               </div>
             </div>
           </div>
-          <div class="mt-4 text-lg font-semibold mr-5 pl-5 border-t pt-4 text-right">
+          <div
+            class="mt-4 text-lg font-semibold mr-5 pl-5 border-t pt-4 text-right"
+          >
             {{ $t('account.total_value') }}: ${{ totalValue }}
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Domains -->
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
+      <h2 class="card-title mb-4">{{ $t('account.domains') }}</h2>
+      <div class="overflow-x-auto">
+        <table class="table w-full text-sm">
+          <thead>
+            <tr>
+              <th class="py-3">
+                {{ $t('account.name') }}
+              </th>
+              <td>{{ $t('account.expire') }}</td>
+              <td>{{ $t('account.subdomains') }}</td>
+            </tr>
+          </thead>
+          <tbody class="text-sm">
+            <tr v-if="domains.length === 0">
+              <td colspan="10">
+                <div class="text-center">
+                  {{ $t('account.no_domains') }}
+                </div>
+              </td>
+            </tr>
+            <tr v-for="(v, index) in domains" :key="index">
+              <td class="text-sm py-3">
+                <RouterLink
+                  :to="`/${chain}/mns/${v.name}.${v.tld}`"
+                  class="text-primary"
+                  >{{ v.name }}.{{ v.tld }}</RouterLink
+                >
+              </td>
+              <td class="py-3">
+                {{ format.toDay(v.expires, 'from') }}
+              </td>
+              <td>
+                {{ v.subdomains.length }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -355,13 +415,21 @@ function updateEvent() {
             </tr>
           </thead>
           <tbody class="text-sm">
-            <tr v-if="delegations.length === 0"><td colspan="10"><div class="text-center">{{ $t('account.no_delegations') }}</div></td></tr>
+            <tr v-if="delegations.length === 0">
+              <td colspan="10">
+                <div class="text-center">
+                  {{ $t('account.no_delegations') }}
+                </div>
+              </td>
+            </tr>
             <tr v-for="(v, index) in delegations" :key="index">
               <td class="text-caption text-primary py-3">
                 <RouterLink
                   :to="`/${chain}/staking/${v.delegation.validator_address}`"
                   >{{
-                    format.validatorFromBech32(v.delegation.validator_address) || v.delegation.validator_address
+                    format.validatorFromBech32(
+                      v.delegation.validator_address
+                    ) || v.delegation.validator_address
                   }}</RouterLink
                 >
               </td>
@@ -447,47 +515,52 @@ function updateEvent() {
             </tr>
           </thead>
           <tbody class="text-sm" v-for="(v, index) in unbonding" :key="index">
-              <tr>
-                <td class="text-caption text-primary py-3 bg-slate-200" colspan="10">
-                  <RouterLink
-                    :to="`/${chain}/staking/${v.validator_address}`"
-                    >{{
-                      v.validator_address
-                    }}</RouterLink
-                  >
-                </td>
-              </tr>
-              <tr v-for="entry in v.entries">
-                <td class="py-3">{{ entry.creation_height }}</td>
-                <td class="py-3">
-                  {{
-                    format.formatToken(
-                      {
-                        amount: entry.initial_balance,
-                        denom: stakingStore.params.bond_denom,
-                      },
-                      true,
-                      '0,0.[00]'
-                    )
-                  }}
-                </td>
-                <td class="py-3">
-                  {{
-                    format.formatToken(
-                      {
-                        amount: entry.balance,
-                        denom: stakingStore.params.bond_denom,
-                      },
-                      true,
-                      '0,0.[00]'
-                    )
-                  }}
-                </td>
-                <td class="py-3">
-                  <Countdown :time="new Date(entry.completion_time).getTime() - new Date().getTime()" />
-                </td>
-              </tr>
-          </tbody>          
+            <tr>
+              <td
+                class="text-caption text-primary py-3 bg-slate-200"
+                colspan="10"
+              >
+                <RouterLink :to="`/${chain}/staking/${v.validator_address}`">{{
+                  v.validator_address
+                }}</RouterLink>
+              </td>
+            </tr>
+            <tr v-for="entry in v.entries">
+              <td class="py-3">{{ entry.creation_height }}</td>
+              <td class="py-3">
+                {{
+                  format.formatToken(
+                    {
+                      amount: entry.initial_balance,
+                      denom: stakingStore.params.bond_denom,
+                    },
+                    true,
+                    '0,0.[00]'
+                  )
+                }}
+              </td>
+              <td class="py-3">
+                {{
+                  format.formatToken(
+                    {
+                      amount: entry.balance,
+                      denom: stakingStore.params.bond_denom,
+                    },
+                    true,
+                    '0,0.[00]'
+                  )
+                }}
+              </td>
+              <td class="py-3">
+                <Countdown
+                  :time="
+                    new Date(entry.completion_time).getTime() -
+                    new Date().getTime()
+                  "
+                />
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
@@ -506,15 +579,26 @@ function updateEvent() {
             </tr>
           </thead>
           <tbody class="text-sm">
-            <tr v-if="txs.length === 0"><td colspan="10"><div class="text-center">{{ $t('account.no_transactions') }}</div></td></tr>
+            <tr v-if="txs.length === 0">
+              <td colspan="10">
+                <div class="text-center">
+                  {{ $t('account.no_transactions') }}
+                </div>
+              </td>
+            </tr>
             <tr v-for="(v, index) in txs" :key="index">
               <td class="text-sm py-3">
-                <RouterLink :to="`/${chain}/block/${v.height}`" class="text-primary">{{
-                  v.height
-                }}</RouterLink>
+                <RouterLink
+                  :to="`/${chain}/block/${v.height}`"
+                  class="text-primary"
+                  >{{ v.height }}</RouterLink
+                >
               </td>
               <td class="truncate py-3" style="max-width: 200px">
-                <RouterLink :to="`/${chain}/tx/${v.txhash}`" class="text-primary">
+                <RouterLink
+                  :to="`/${chain}/tx/${v.txhash}`"
+                  class="text-primary"
+                >
                   {{ v.txhash }}
                 </RouterLink>
               </td>
@@ -529,7 +613,12 @@ function updateEvent() {
                 />
                 <Icon v-else icon="mdi-multiply" class="text-error text-lg" />
               </td>
-              <td class="py-3">{{ format.toLocaleDate(v.timestamp) }} <span class=" text-xs">({{ format.toDay(v.timestamp, 'from') }})</span> </td>
+              <td class="py-3">
+                {{ format.toLocaleDate(v.timestamp) }}
+                <span class="text-xs"
+                  >({{ format.toDay(v.timestamp, 'from') }})</span
+                >
+              </td>
             </tr>
           </tbody>
         </table>

@@ -20,7 +20,8 @@
     "all_blockchains": "All Blockchain",
     "sponsors": "Sponsors",
     "links": "Links",
-    "smarttoken":"Smart Token"
+    "smarttoken":"Smart Token",
+    "mns": "Name Services"
   },
   "pages": {
     "title": "Ping Dashboard",

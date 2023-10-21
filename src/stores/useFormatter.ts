@@ -141,7 +141,15 @@ export const useFormatter = defineStore('formatter', {
     formatToken2(token: { denom: string; amount: string }, withDenom = true) {
       return this.formatToken(token, true, '0,0.[00]');
     },
-    
+    parseCoin(input: string): Coin {
+      const amount = input.match(/\d+/)?.[0] || '';
+      const denom = input.replace(amount, '');
+
+      return {
+        denom,
+        amount,
+      };
+    },
     findGlobalAssetConfig(denom: string) {
       const chains = Object.values(this.dashboard.chains)
       for ( let i =0; i < chains.length; i++ ) {

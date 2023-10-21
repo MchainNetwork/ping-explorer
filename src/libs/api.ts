@@ -141,6 +141,15 @@ export const DEFAULT: RequestRegistry = {
   smarttoken_smarttokens: { url: '/mchain/smarttoken/v1beta1/smarttokens', adapter },
   smarttoken_denom: { url: '/mchain/smarttoken/v1beta1/denom/{denom}', adapter },
 
+  mns_params: { url: '/mchain/mns/v1beta1/params', adapter },
+  mns_names: { url: '/mchain/mns/v1beta1/names', adapter },
+  mns_name: { url: '/mchain/mns/v1beta1/names/{index}', adapter },
+  mns_list_owned_names: { url: '/mchain/mns/v1beta1/list_owned_names/{address}', adapter },
+  mns_bids: { url: '/mchain/mns/v1beta1/bids', adapter },
+  mns_bids_by_index: { url: '/mchain/mns/v1beta1/bids/{index}', adapter },
+  mns_forsale: { url: '/mchain/mns/v1beta1/forsale', adapter },
+  mns_forsale_name: { url: '/mchain/mns/v1beta1/forsale/{name}', adapter },
+
   mint_inflation: { url: '/cosmos/mint/v1beta1/inflation', adapter },
   mint_params: { url: '/cosmos/mint/v1beta1/params', adapter },
   mint_annual_provisions: {

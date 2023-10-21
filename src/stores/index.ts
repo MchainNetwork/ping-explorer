@@ -12,3 +12,4 @@ export * from './useParamsStore';
 export * from './useWalletStore';
 export * from './useTxDialog';
 export * from './useSmartTokenStore';
+export * from './useMnsStore';

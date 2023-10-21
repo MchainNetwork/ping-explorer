@@ -71,7 +71,7 @@ function pageload(p: number) {
           </tr>
         </thead>
         <tr
-          :key="item.name + item.tld"
+          :key="item.name"
           v-for="item in list"
           class="odd:bg-gray-100 dark:odd:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
         >

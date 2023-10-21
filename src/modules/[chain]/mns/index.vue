@@ -11,8 +11,10 @@ import {
   PageRequest,
   type Pagination,
   type MnsNames,
+  type PaginatedNames,
   type MnsForsale,
   type MnsBids,
+  type PaginatedForsale,
 } from '@/types';
 import IdentityIcon from '@/components/IdentityIcon.vue';
 
@@ -53,31 +55,7 @@ function updateState() {
   walletStore.loadMyAsset();
 }
 
-interface PageRequest {
-  value: {
-    setPage: (page: number) => void;
-  };
-}
-
-interface PageResponse {
-  value: any;
-}
-
-interface Store {
-  fetchMnsNames: () => Promise<any>;
-  fetchMnsForsale: () => Promise<any>;
-  fetchMnsBids: () => Promise<any>;
-}
-
-async function pageload<T>(
-  p: number,
-  pageRequest: PageRequest,
-  pageResponse: PageResponse,
-  list: { value: T[] },
-  listForSale: { value: T[] },
-  listBid: { value: T[] },
-  mnsStore: Store
-) {
+async function pageload(p: number) {
   pageRequest.value.setPage(p);
 
   const [names, forSale, forBid] = await Promise.all([
@@ -169,9 +147,7 @@ function checkDomainAvailable(domain: string) {
         The domain <strong>{{ domainToCheck }}</strong> is available!
       </p>
       <button
-        @click="
-          dialog.open('register', { name: domainToCheck.value }, updateState)
-        "
+        @click="dialog.open('register', { name: domainToCheck }, updateState)"
         class="btn btn-sm text-green-800 dark:text-green-500 rounded-full mt-2"
       >
         Register Now
@@ -186,9 +162,7 @@ function checkDomainAvailable(domain: string) {
         The domain <strong>{{ domainToCheck }}</strong> is already registered!
       </p>
       <button
-        @click="
-          dialog.open('nns_bid', { name: domainToCheck.value }, updateState)
-        "
+        @click="dialog.open('nns_bid', { name: domainToCheck }, updateState)"
         class="btn btn-sm text-red-800 dark:text-white rounded-full mt-2"
       >
         Place a Bid

@@ -1,4 +1,6 @@
 
+import type { Coin, PaginatedResponse } from './common';
+
 export interface MnsNames {
   name: string;
   expires: number;
@@ -9,6 +11,10 @@ export interface MnsNames {
   locked: number;
 }
 
+export interface PaginatedNames extends PaginatedResponse {
+  names: MnsNames[];
+}
+
 export interface MnsBids {
   index: string;
   name: string;
@@ -16,10 +22,18 @@ export interface MnsBids {
   price: string;
 }
 
+export interface PaginatedBids extends PaginatedResponse {
+  bids: MnsBids[];
+}
+
 export interface MnsForsale {
   name: string;
   price: string;
   owner: string;
+}
+
+export interface PaginatedForsale extends PaginatedResponse {
+  forsale: MnsForsale[];
 }
 
 export interface MnsInit {

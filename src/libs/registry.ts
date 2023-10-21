@@ -50,7 +50,10 @@ import type {
   MnsNames,
   MnsParams,
   MnsBids,
-  MnsForsale
+  MnsForsale,
+  PaginatedForsale,
+  PaginatedNames,
+  PaginatedBids
 } from '@/types/mns';
 import type { PaginatedTxs, Tx, TxResponse } from '@/types';
 import semver from 'semver'
@@ -97,10 +100,10 @@ export interface RequestRegistry extends AbstractRegistry {
   smarttoken_denom: Request<SmartTokenDenom>;
 
   mns_params: Request<any>;
-  mns_names: Request<MnsNames>;
-  mns_list_owned_names: Request<MnsNames>;
-  mns_bids: Request<MnsBids>;
-  mns_forsale: Request<MnsForsale>;
+  mns_names: Request<PaginatedNames>;
+  mns_list_owned_names: Request<PaginatedNames>;
+  mns_bids: Request<PaginatedBids>;
+  mns_forsale: Request<PaginatedForsale>;
 
   mint_inflation: Request<{ inflation: string }>;
   mint_params: Request<{

@@ -228,13 +228,24 @@ function checkDomainAvailable(domain: string) {
             </td>
             <td class="text-right">
               <label
+                v-if="item.value != walletStore.currentAddress"
                 for="mns_bid"
-                class="btn btn-primary btn-xs rounded-full text-white"
+                class="btn btn-primary btn-xs w-full rounded-full text-white"
                 @click="
                   dialog.open('mns_bid', { name: item.name }, updateState)
                 "
               >
                 {{ $t('mns.bid_label') }}
+              </label>
+              <label
+                v-if="item.value == walletStore.currentAddress"
+                for="mns_list"
+                class="btn btn-primary btn-xs w-full rounded-full text-white"
+                @click="
+                  dialog.open('mns_list', { name: item.name }, updateState)
+                "
+              >
+                Sell
               </label>
             </td>
           </tr>
@@ -276,13 +287,24 @@ function checkDomainAvailable(domain: string) {
             </td>
             <td class="text-right">
               <label
+                v-if="item.owner != walletStore.currentAddress"
                 for="mns_buy"
-                class="btn btn-primary btn-xs rounded-full text-white"
+                class="btn btn-primary btn-xs w-full rounded-full text-white"
                 @click="
                   dialog.open('mns_buy', { name: item.name }, updateState)
                 "
               >
                 {{ $t('mns.buy_button') }}
+              </label>
+              <label
+                v-if="item.owner == walletStore.currentAddress"
+                for="mns_buy"
+                class="btn btn-primary btn-xs w-full rounded-full text-white"
+                @click="
+                  dialog.open('mns_buy', { name: item.name }, updateState)
+                "
+              >
+                delist
               </label>
             </td>
           </tr>
@@ -319,8 +341,9 @@ function checkDomainAvailable(domain: string) {
             </td>
             <td class="text-right">
               <label
+                v-if="item.bidder != walletStore.currentAddress"
                 for="mns_bid"
-                class="btn btn-primary btn-xs rounded-full text-white"
+                class="btn btn-primary btn-xs w-full rounded-full text-white"
                 @click="
                   dialog.open('mns_bid', { name: item.name }, updateState)
                 "

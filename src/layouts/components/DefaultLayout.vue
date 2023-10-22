@@ -13,7 +13,12 @@ import { useBlockchain } from '@/stores';
 
 import NavBarI18n from './NavBarI18n.vue';
 import NavBarWallet from './NavBarWallet.vue';
-import type { NavGroup, NavLink, NavSectionTitle, VerticalNavItems } from '../types';
+import type {
+  NavGroup,
+  NavLink,
+  NavSectionTitle,
+  VerticalNavItems,
+} from '../types';
 
 const dashboard = useDashboard();
 dashboard.initial();
@@ -21,10 +26,10 @@ const blockchain = useBlockchain();
 blockchain.randomSetupEndpoint();
 
 const current = ref(''); // the current chain
-const temp = ref('')
+const temp = ref('');
 blockchain.$subscribe((m, s) => {
-  if(current.value ===s.chainName && temp.value != s.endpoint.address) {
-    temp.value = s.endpoint.address
+  if (current.value === s.chainName && temp.value != s.endpoint.address) {
+    temp.value = s.endpoint.address;
     blockchain.initial();
   }
   if (current.value != s.chainName) {
@@ -44,17 +49,20 @@ const changeOpen = (index: Number) => {
 const showDiscord = window.location.host.search('ping.pub') > -1;
 
 function isNavGroup(nav: VerticalNavItems | any): nav is NavGroup {
-   return (<NavGroup>nav).children !== undefined;
+  return (<NavGroup>nav).children !== undefined;
 }
 function isNavLink(nav: VerticalNavItems | any): nav is NavLink {
-   return (<NavLink>nav).to !== undefined;
+  return (<NavLink>nav).to !== undefined;
 }
 function isNavTitle(nav: VerticalNavItems | any): nav is NavSectionTitle {
-   return (<NavSectionTitle>nav).heading !== undefined;
+  return (<NavSectionTitle>nav).heading !== undefined;
 }
 function selected(route: any, nav: NavLink) {
-  const b = route.path === nav.to?.path || route.path.startsWith(nav.to?.path) && nav.title.indexOf('dashboard') === -1
-  return b
+  const b =
+    route.path === nav.to?.path ||
+    (route.path.startsWith(nav.to?.path) &&
+      nav.title.indexOf('dashboard') === -1);
+  return b;
 }
 </script>
 
@@ -62,13 +70,15 @@ function selected(route: any, nav: NavLink) {
   <div class="bg-gray-100 dark:bg-[#17191c]">
     <!-- sidebar -->
     <div
-      class="w-64 fixed z-50 left-0 top-0 bottom-0 overflow-auto bg-base-100 border-r border-gray-100 dark:border-gray-800"
+      class="w-64 fixed z-50 left-0 top-0 bottom-0 overflow-auto bg-base-100 border-r border-gray-100 dark:border-gray-800 shadow-lg"
       :class="{ block: sidebarShow, 'hidden xl:!block': !sidebarShow }"
     >
       <div class="flex justify-between mt-1 pl-4 py-4 mb-1">
         <RouterLink to="/" class="flex items-center">
           <img class="w-10 h-10 ml-2" src="../../assets/mchain.svg" />
-          <h1 class="flex-1 ml-3 text-lg md:text-2xl font-semibold dark:text-white">
+          <h1
+            class="flex-1 ml-3 text-lg md:text-2xl font-semibold dark:text-white"
+          >
             Mchain Hub
           </h1>
         </RouterLink>
@@ -84,26 +94,31 @@ function selected(route: any, nav: NavLink) {
         :key="index"
         class="px-2 mt-10"
       >
-        <div
-          v-if="isNavGroup(item)"
-          :tabindex="index"
-        >
-          <div :key="key" v-for="(el, key) of item?.children" class="menu bg-base-100 w-full !p-0">
+        <div v-if="isNavGroup(item)" :tabindex="index">
+          <div
+            :key="key"
+            v-for="(el, key) of item?.children"
+            class="menu bg-base-100 w-full !p-0"
+          >
             <RouterLink
               v-if="isNavLink(el)"
               @click="sidebarShow = false"
               class="hover:bg-gray-100 dark:hover:bg-[#1e3b47] rounded-full font-semibold cursor-pointer px-3 py-2 pl-6 flex items-center"
               :class="{
-                'bg-gray-100 dark:bg-[#1e3b47] border border-primary': selected($route, el),
+                'bg-gray-100 dark:bg-[#1e3b47] border border-primary': selected(
+                  $route,
+                  el
+                ),
               }"
               :to="el.to"
             >
               <img
                 v-if="el?.icon?.image"
                 :src="el?.icon?.image"
-                class="w-6 h-6 rounded-full mr-3 ml-4 " :class="{
-                'border border-gray-300 bg-white': selected($route, el),
-              }"
+                class="w-6 h-6 rounded-full mr-3 ml-4"
+                :class="{
+                  'border border-gray-300 bg-white': selected($route, el),
+                }"
               />
               <div
                 class="text-base text-gray-500 dark:text-gray-300"
@@ -144,7 +159,7 @@ function selected(route: any, nav: NavLink) {
           </div>
           <div
             v-if="item?.badgeContent"
-            class="badge badge-sm text-white border-none" 
+            class="badge badge-sm text-white border-none"
             :class="item?.badgeClass"
           >
             {{ item?.badgeContent }}
@@ -158,10 +173,10 @@ function selected(route: any, nav: NavLink) {
         </div>
       </div>
     </div>
-    <div class="xl:!ml-64 px-3 pt-4">
+    <div class="xl:!ml-64">
       <!-- header -->
       <div
-        class="flex items-center py-3 bg-base-100 mb-4 rounded-xl px-4 sticky top-0 z-10"
+        class="flex items-center py-3 bg-base-100 px-6 sticky top-0 z-10 shadow-md"
       >
         <div
           class="text-2xl pr-3 cursor-pointer xl:!hidden"
@@ -182,7 +197,7 @@ function selected(route: any, nav: NavLink) {
       </div>
 
       <!-- 👉 Pages -->
-      <div style="min-height: calc(100vh - 180px);">
+      <div style="min-height: calc(100vh - 72px)" class="p-4">
         <RouterView v-slot="{ Component }">
           <Transition mode="out-in">
             <Component :is="Component" />

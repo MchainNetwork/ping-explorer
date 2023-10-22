@@ -72,9 +72,7 @@ onMounted(() => {
   pageload(1);
 });
 
-function updateState() {
-  walletStore.loadMyAsset();
-}
+function updateState() {}
 
 async function pageload(p: number) {
   pageRequest.value.setPage(p);
@@ -162,11 +160,18 @@ function checkDomainAvailable(domain: string) {
       v-if="isAvailable"
       class="bg-green-500 dark:bg-green-800 text-center text-white p-4 mb-6 rounded-xl"
     >
-      <p class="text-2xl">
-        {{ $t('mns.domain_available_message', { domain: domainToCheck }) }}
-      </p>
+      <p
+        class="text-2xl"
+        v-html="$t('mns.domain_available_message', { domain: domainToCheck })"
+      ></p>
       <button
-        @click="dialog.open('register', { name: domainToCheck }, updateState)"
+        @click="
+          dialog.open(
+            'mns_register',
+            { name: domainToCheck, referred: 'bitcoin.mar' },
+            updateState
+          )
+        "
         class="btn btn-sm text-green-800 dark:text-green-500 rounded-full mt-2"
       >
         {{ $t('mns.register_now_button') }}
@@ -177,9 +182,10 @@ function checkDomainAvailable(domain: string) {
       v-if="isRegistered"
       class="bg-red-500 dark:bg-red-800 text-center text-white p-4 mb-6 rounded-xl"
     >
-      <p class="text-2xl">
-        {{ $t('mns.domain_registered_message', { domain: domainToCheck }) }}
-      </p>
+      <p
+        class="text-2xl"
+        v-html="$t('mns.domain_registered_message', { domain: domainToCheck })"
+      ></p>
       <button
         @click="dialog.open('nns_bid', { name: domainToCheck }, updateState)"
         class="btn btn-sm text-red-800 dark:text-white rounded-full mt-2"
@@ -198,6 +204,7 @@ function checkDomainAvailable(domain: string) {
             <tr>
               <td>{{ $t('mns.domain_label') }}</td>
               <td>{{ $t('mns.expires_label') }}</td>
+              <td></td>
             </tr>
           </thead>
           <tr
@@ -223,6 +230,16 @@ function checkDomainAvailable(domain: string) {
                   'date'
                 )
               }}
+            </td>
+            <td class="text-right">
+              <button
+                class="btn btn-primary btn-xs rounded-full text-white"
+                @click="
+                  dialog.open('nns_bid', { name: item.name }, updateState)
+                "
+              >
+                {{ $t('mns.bid_label') }}
+              </button>
             </td>
           </tr>
         </table>
@@ -263,7 +280,7 @@ function checkDomainAvailable(domain: string) {
             </td>
             <td class="text-right">
               <button
-                class="btn btn-primary btn-sm rounded-full text-white"
+                class="btn btn-primary btn-xs rounded-full text-white"
                 @click="
                   dialog.open('nns_bid', { name: item.name }, updateState)
                 "
@@ -305,12 +322,12 @@ function checkDomainAvailable(domain: string) {
             </td>
             <td class="text-right">
               <button
-                class="btn btn-primary btn-sm rounded-full text-white"
+                class="btn btn-primary btn-xs rounded-full text-white"
                 @click="
                   dialog.open('nns_bid', { name: item.name }, updateState)
                 "
               >
-                {{ $t('mns.place_bid_button') }}
+                {{ $t('mns.bid_label') }}
               </button>
             </td>
           </tr>

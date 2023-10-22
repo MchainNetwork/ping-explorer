@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import { ref } from '@vue/reactivity';
+import { ref, computed } from '@vue/reactivity';
 import { onMounted } from 'vue';
 import {
   useFormatter,
   useTxDialog,
   useWalletStore,
   useMnsStore,
+  useParamStore,
+  useBaseStore,
 } from '@/stores';
 import {
   PageRequest,
@@ -26,6 +28,8 @@ const format = useFormatter();
 const walletStore = useWalletStore();
 const dialog = useTxDialog();
 const mnsStore = useMnsStore();
+const paramStore = useParamStore();
+const baseStore = useBaseStore();
 
 const list = ref([] as MnsNames[]);
 const listForSale = ref([] as MnsForsale[]);
@@ -39,6 +43,23 @@ const isAvailable = ref<null | boolean>(null);
 const isRegistered = ref<null | boolean>(null);
 
 const errorMessage = ref('');
+
+// TODO: mintParam.items.block_per_year
+const blocksPerYear = 5057308;
+
+const calculateTimeRemaining = (itemExpires: number, currentHeight: number) => {
+  const blocksRemaining = itemExpires - currentHeight;
+  const timeRemainingInSec = (blocksRemaining / blocksPerYear) * 31557600;
+  const timeRemainingInMs = timeRemainingInSec * 1000;
+  return parseFloat(timeRemainingInMs.toFixed(0));
+};
+
+const calculateExpiryTime = (itemExpires: number, currentHeight: number) => {
+  const timeRemaining = calculateTimeRemaining(itemExpires, currentHeight);
+  const date = new Date();
+  date.setTime(date.getTime() + timeRemaining);
+  return date.getTime();
+};
 
 const resetMessages = () => {
   errorMessage.value = '';
@@ -83,8 +104,6 @@ async function verifyDomain() {
 
   try {
     isAvailable.value = await checkDomainAvailable(domainToCheck.value);
-
-    // Si el dominio no está disponible, establece isRegistered en true
     isRegistered.value = !isAvailable.value;
   } catch {
     errorMessage.value =
@@ -195,7 +214,15 @@ function checkDomainAvailable(domain: string) {
               </RouterLink>
             </td>
             <td>
-              {{ format.toDay(item.expires, 'from') }}
+              {{
+                format.toDay(
+                  calculateExpiryTime(
+                    item.expires,
+                    baseStore.latest?.block?.header?.height || 0
+                  ),
+                  'date'
+                )
+              }}
             </td>
           </tr>
         </table>

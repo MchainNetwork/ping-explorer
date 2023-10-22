@@ -67,7 +67,12 @@
     "hash": "Hash",
     "messages": "Messages",
     "time": "Time",
-    "error": "Account does not exists on chain"
+    "error": "Account does not exists on chain",
+    "domains": "Domains",
+    "no_domains": "No domains",
+    "name": "Name",
+    "expire": "Expire",
+    "subdomains": "Subdomains"
   },
   "block": {
     "estimated_time": "Estimated Time",

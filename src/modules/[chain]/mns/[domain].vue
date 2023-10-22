@@ -70,9 +70,9 @@ function pageload() {
         </h2>
         <div v-if="isDomainRegistered">
           <label
-            for="register"
+            for="mns_bid"
             class="btn btn-primary btn-sm rounded-full text-white"
-            @click="dialog.open('nns_bid', { name: domainName }, updateState)"
+            @click="dialog.open('mns_bid', { name: domainName }, updateState)"
           >
             Place Bid
           </label>

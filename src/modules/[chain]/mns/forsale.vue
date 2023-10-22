@@ -88,9 +88,9 @@ function pageload(p: number) {
           </td>
           <td>
             <label
-              for="nns_bid"
+              for="mns_buy"
               class="btn btn-primary btn-sm rounded-full text-white"
-              @click="dialog.open('nns_bid', { name: item.name }, updateState)"
+              @click="dialog.open('mns_buy', { name: item.name }, updateState)"
             >
               Buy
             </label>

@@ -164,7 +164,8 @@ function checkDomainAvailable(domain: string) {
         class="text-2xl"
         v-html="$t('mns.domain_available_message', { domain: domainToCheck })"
       ></p>
-      <button
+      <label
+        for="mns_register"
         @click="
           dialog.open(
             'mns_register',
@@ -175,7 +176,7 @@ function checkDomainAvailable(domain: string) {
         class="btn btn-sm text-green-800 dark:text-green-500 rounded-full mt-2"
       >
         {{ $t('mns.register_now_button') }}
-      </button>
+      </label>
     </div>
 
     <div
@@ -186,12 +187,6 @@ function checkDomainAvailable(domain: string) {
         class="text-2xl"
         v-html="$t('mns.domain_registered_message', { domain: domainToCheck })"
       ></p>
-      <button
-        @click="dialog.open('nns_bid', { name: domainToCheck }, updateState)"
-        class="btn btn-sm text-red-800 dark:text-white rounded-full mt-2"
-      >
-        {{ $t('mns.place_bid_button') }}
-      </button>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -232,14 +227,15 @@ function checkDomainAvailable(domain: string) {
               }}
             </td>
             <td class="text-right">
-              <button
+              <label
+                for="mns_bid"
                 class="btn btn-primary btn-xs rounded-full text-white"
                 @click="
-                  dialog.open('nns_bid', { name: item.name }, updateState)
+                  dialog.open('mns_bid', { name: item.name }, updateState)
                 "
               >
                 {{ $t('mns.bid_label') }}
-              </button>
+              </label>
             </td>
           </tr>
         </table>
@@ -279,14 +275,15 @@ function checkDomainAvailable(domain: string) {
               {{ format.formatToken2(format.parseCoin(item.price), true) }}
             </td>
             <td class="text-right">
-              <button
+              <label
+                for="mns_buy"
                 class="btn btn-primary btn-xs rounded-full text-white"
                 @click="
-                  dialog.open('nns_bid', { name: item.name }, updateState)
+                  dialog.open('mns_buy', { name: item.name }, updateState)
                 "
               >
                 {{ $t('mns.buy_button') }}
-              </button>
+              </label>
             </td>
           </tr>
         </table>
@@ -321,14 +318,15 @@ function checkDomainAvailable(domain: string) {
               {{ format.formatToken2(format.parseCoin(item.price), true) }}
             </td>
             <td class="text-right">
-              <button
+              <label
+                for="mns_bid"
                 class="btn btn-primary btn-xs rounded-full text-white"
                 @click="
-                  dialog.open('nns_bid', { name: item.name }, updateState)
+                  dialog.open('mns_bid', { name: item.name }, updateState)
                 "
               >
                 {{ $t('mns.bid_label') }}
-              </button>
+              </label>
             </td>
           </tr>
         </table>

@@ -20,7 +20,8 @@
     "all_blockchains": "Todas as Blockchains",
     "sponsors": "Patrocinadores",
     "links": "Links",
-    "smarttoken":"Smart Token"
+    "smart_tokens":"Smart Tokens",
+    "mns": "Name Services"
   },
   "pages": {
     "title": "Painel Ping",

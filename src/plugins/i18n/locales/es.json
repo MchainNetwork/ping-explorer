@@ -20,7 +20,8 @@
     "all_blockchains": "Todas las Blockchains",
     "sponsors": "Patrocinadores",
     "links": "Enlaces",
-    "smarttoken":"Smart Token"
+    "smart_tokens":"Smart Tokens",
+    "mns": "Name Services"
   },
   "pages": {
     "title": "Tablero Ping",

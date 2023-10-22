@@ -103,8 +103,8 @@ function pageload(p: number) {
 <route>
   {
     meta: {
-      i18n: 'smarttoken',
-      order: 4
+      i18n: 'smart_tokens',
+      order: 2
     }
   }
 </route>

@@ -19,7 +19,8 @@
       "all_blockchains": "All Blockchain",
       "sponsors": "Sponsors",
       "links": "Tautan",
-      "smarttoken":"Smart Token"
+      "smart_tokens":"Smart Tokens",
+      "mns": "Name Services"
     },
     "pages": {
       "title": "Ping Dashboard",

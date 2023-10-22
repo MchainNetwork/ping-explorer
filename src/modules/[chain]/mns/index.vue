@@ -128,9 +128,12 @@ function checkDomainAvailable(domain: string) {
           type="text"
           @input="resetMessages"
           placeholder="Enter domain name"
-          class="input input-bordered focus:outline-none rounded-l-full border-r-0"
+          class="input input-bordered focus:outline-none rounded-l-full border border-primary border-r-0"
         />
-        <button type="submit" class="btn btn-primary text-white rounded-r-full">
+        <button
+          type="submit"
+          class="btn btn-primary text-white border border-primary rounded-r-full"
+        >
           Check
         </button>
       </form>
@@ -172,7 +175,7 @@ function checkDomainAvailable(domain: string) {
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
       <div class="bg-base-100 p-4 rounded-xl">
         <h3 class="text-lg font-bold mb-4">Registered Names</h3>
-        <table class="table table-compact text-lg">
+        <table class="table table-compact text-base">
           <thead>
             <tr>
               <td>Domain</td>
@@ -206,7 +209,7 @@ function checkDomainAvailable(domain: string) {
 
       <div class="bg-base-100 p-4 rounded-xl">
         <h2 class="text-lg font-bold mb-2">Domains for Sale</h2>
-        <table class="table table-compact text-lg">
+        <table class="table table-compact text-base">
           <thead>
             <tr>
               <td>Domain</td>
@@ -246,7 +249,7 @@ function checkDomainAvailable(domain: string) {
 
       <div class="bg-base-100 p-4 rounded-xl">
         <h2 class="text-lg font-bold mb-2">Domains in Bid</h2>
-        <table class="table table-compact text-lg">
+        <table class="table table-compact text-base">
           <thead>
             <tr>
               <td>Domain</td>
@@ -291,7 +294,7 @@ function checkDomainAvailable(domain: string) {
   {
     meta: {
       i18n: 'mns',
-      order: 5
+      order: 3
     }
   }
 </route>

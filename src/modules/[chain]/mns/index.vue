@@ -128,7 +128,7 @@ function checkDomainAvailable(domain: string) {
           type="text"
           @input="resetMessages"
           placeholder="Enter domain name"
-          class="input input-bordered focus:outline-none rounded-l-full border border-primary border-r-0"
+          class="input input-bordered focus:outline-none rounded-l-full !border !border-primary !border-r-0"
         />
         <button
           type="submit"

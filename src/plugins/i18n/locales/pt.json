@@ -34,6 +34,28 @@
     "description_all": "Não conseguimos encontrar a página que você está procurando.",
     "btn_index": "Voltar para Início"
   },
+"smarttoken": {
+    "issue": "Emitir",
+    "burn": "Queimar",
+    "transfer": "Transferir",
+    "mint": "Cunhar",
+    "name": "Nome",
+    "symbol": "Símbolo",
+    "decimals": "Decimais",
+    "current_supply": "Suprimento Atual",
+    "max_supply": "Suprimento Máximo",
+    "authority": "Autoridade",
+    "minter": "Cunhador",
+    "set_minter": "Definir Cunhador",
+    "set_authority": "Definir Autoridade",
+    "set_uri": "Definir URI",
+    "disable_mint": "Desabilitar Cunhagem",
+    "denom": "Denominação",
+    "smart_token_details": "Detalhes do Smart Token",
+    "meta_data": "Metadados",
+    "uri_data": "Dados URI",
+    "uri": "URI"
+  },
   "account": {
     "type": "Tipo",
     "address": "Endereço",

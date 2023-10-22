@@ -50,7 +50,7 @@ function pageload(p: number) {
           class="btn btn-primary btn-sm rounded-full text-white"
           @click="dialog.open('issue', {}, updateState)"
         >
-          {{ $t('issue') }}
+          {{ $t('smarttoken.issue') }}
         </label>
       </div>
     </div>
@@ -59,9 +59,9 @@ function pageload(p: number) {
       <table class="table table-compact text-lg">
         <thead>
           <tr>
-            <td>Symbol</td>
-            <td>Name</td>
-            <td>Denom</td>
+            <td>{{ $t('smarttoken.symbol') }}</td>
+            <td>{{ $t('smarttoken.name') }}</td>
+            <td>{{ $t('smarttoken.denom') }}</td>
           </tr>
         </thead>
         <tr
@@ -86,7 +86,7 @@ function pageload(p: number) {
               class="btn btn-primary btn-sm ml-2 rounded-full text-white"
               @click="dialog.open('mint', { denom: item.denom }, updateState)"
             >
-              {{ $t('mint') }}
+              {{ $t('smarttoken.mint') }}
             </label>
           </td>
         </tr>

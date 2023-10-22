@@ -34,6 +34,28 @@
     "description_all": "We couldn't find the page you are looking for.",
     "btn_index": "Back to Home"
   },
+  "smarttoken": {
+    "issue": "Issue",
+    "burn": "Burn",
+    "transfer": "Transfer",
+    "mint": "Mint",
+    "name": "Name",
+    "symbol": "Symbol",
+    "decimals": "Decimals",
+    "current_supply": "Current Supply",
+    "max_supply": "Max Supply",
+    "authority": "Authority",
+    "minter": "Minter",
+    "set_minter": "Set Minter",
+    "set_authority": "Set Authority",
+    "set_uri": "Set URI",
+    "disable_mint": "Disable Mint",
+    "denom": "Denom",
+    "smart_token_details": "Smart Token Details",
+    "meta_data": "Meta Data",
+    "uri_data": "URI Data",
+    "uri": "URI"
+  },
   "account": {
     "type": "Type",
     "address": "Address",

@@ -34,6 +34,28 @@
     "description_all": "No pudimos encontrar la página que buscas.",
     "btn_index": "Regresar a Inicio"
   },
+  "smarttoken": {
+    "issue": "Emitir",
+    "burn": "Quemar",
+    "transfer": "Transferir",
+    "mint": "Acuñar",
+    "name": "Nombre",
+    "symbol": "Símbolo",
+    "decimals": "Decimales",
+    "current_supply": "Suministro Actual",
+    "max_supply": "Suministro Máximo",
+    "authority": "Autoridad",
+    "minter": "Acuñador",
+    "set_minter": "Establecer Acuñador",
+    "set_authority": "Establecer Autoridad",
+    "set_uri": "Establecer URI",
+    "disable_mint": "Deshabilitar Acuñación",
+    "denom": "Denominación",
+    "smart_token_details": "Detalles del Smart Token",
+    "meta_data": "Metadatos",
+    "uri_data": "Datos URI",
+    "uri": "URI"
+  },
   "account": {
     "type": "Tipo",
     "address": "Dirección",

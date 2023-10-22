@@ -34,6 +34,28 @@
     "description_all": "We couldn't find the page you are looking for.",
     "btn_index": "返回主页"
   },
+"smarttoken": {
+    "issue": "发行",
+    "burn": "销毁",
+    "transfer": "转移",
+    "mint": "铸造",
+    "name": "名称",
+    "symbol": "符号",
+    "decimals": "小数点",
+    "current_supply": "当前供应",
+    "max_supply": "最大供应",
+    "authority": "权威",
+    "minter": "铸币者",
+    "set_minter": "设置铸币者",
+    "set_authority": "设置权威",
+    "set_uri": "设置URI",
+    "disable_mint": "禁用铸币",
+    "denom": "面额",
+    "smart_token_details": "智能令牌详情",
+    "meta_data": "元数据",
+    "uri_data": "URI数据",
+    "uri": "URI"
+  },
   "account": {
     "type": "类型",
     "address": "地址",

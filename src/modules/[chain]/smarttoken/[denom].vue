@@ -88,14 +88,14 @@ onMounted(() => {
           class="btn btn-primary btn-sm rounded-full text-white"
           @click="dialog.open('mint', {}, updateState)"
         >
-          {{ $t('mint') }}
+          {{ $t('smarttoken.mint') }}
         </label>
         <label
           for="burn"
           class="btn btn-primary btn-sm rounded-full text-white mx-2"
           @click="dialog.open('burn', {}, updateState)"
         >
-          {{ $t('burn') }}
+          {{ $t('smarttoken.burn') }}
         </label>
 
         <div class="relative group">
@@ -111,28 +111,28 @@ onMounted(() => {
               class="btn btn-primary btn-sm rounded-full text-white mb-2"
               @click="dialog.open('set_minter', {}, updateState)"
             >
-              {{ $t('set_minter') }}
+              {{ $t('smarttoken.set_minter') }}
             </label>
             <label
               for="set_authority"
               class="btn btn-primary btn-sm rounded-full text-white mb-2"
               @click="dialog.open('set_authority', {}, updateState)"
             >
-              {{ $t('set_authority') }}
+              {{ $t('smarttoken.set_authority') }}
             </label>
             <label
               for="set_uri"
               class="btn btn-primary btn-sm rounded-full text-white mb-2"
               @click="dialog.open('set_uri', {}, updateState)"
             >
-              {{ $t('set_uri') }}
+              {{ $t('smarttoken.set_uri') }}
             </label>
             <label
               for="disable_mint"
               class="btn btn-primary btn-sm rounded-full text-white mb-2"
               @click="dialog.open('disable_mint', {}, updateState)"
             >
-              {{ $t('disable_mint') }}
+              {{ $t('smarttoken.disable_mint') }}
             </label>
           </div>
         </div>
@@ -143,39 +143,61 @@ onMounted(() => {
       <h1 class="text-2xl font-bold mb-4"></h1>
 
       <div class="mb-4">
-        <h2 class="text-xl font-semibold mb-2">Smart Token Details</h2>
+        <h2 class="text-xl font-semibold mb-2">
+          {{ $t('smarttoken.smart_token_details') }}
+        </h2>
         <div class="flex flex-col">
-          <p><strong>Denom:</strong> {{ tokenInfo.denom }}</p>
           <p>
-            <strong>Current Supply:</strong> {{ supply?.amount }} {{ subunit }}
+            <strong>{{ $t('smarttoken.denom') }}:</strong> {{ tokenInfo.denom }}
           </p>
           <p>
-            <strong>Max Supply:</strong> {{ tokenInfo.max_supply }}
+            <strong>{{ $t('smarttoken.current_supply') }}:</strong>
+            {{ supply?.amount }} {{ subunit }}
+          </p>
+          <p>
+            <strong>{{ $t('smarttoken.max_supply') }}:</strong>
+            {{ tokenInfo.max_supply }}
             {{ subunit }}
           </p>
-          <p><strong>Minter:</strong> {{ tokenInfo.minter }}</p>
+          <p>
+            <strong>{{ $t('smarttoken.minter') }}:</strong>
+            {{ tokenInfo.minter }}
+          </p>
         </div>
       </div>
 
       <div class="mb-4">
-        <h2 class="text-xl font-semibold mb-2">Meta Data</h2>
+        <h2 class="text-xl font-semibold mb-2">
+          {{ $t('smarttoken.meta_data') }}
+        </h2>
         <div class="flex flex-col">
-          <p><strong>Name:</strong> {{ tokenInfo.meta_data.name }}</p>
-          <p><strong>Symbol:</strong> {{ tokenInfo.meta_data.symbol }}</p>
           <p>
-            <strong>Decimals:</strong>
+            <strong>{{ $t('smarttoken.name') }}:</strong>
+            {{ tokenInfo.meta_data.name }}
+          </p>
+          <p>
+            <strong>{{ $t('smarttoken.symbol') }}:</strong>
+            {{ tokenInfo.meta_data.symbol }}
+          </p>
+          <p>
+            <strong>{{ $t('smarttoken.decimals') }}:</strong>
             {{ tokenInfo.meta_data.decimals }}
           </p>
           <p>
-            <strong>Authority:</strong>
+            <strong>{{ $t('smarttoken.authority') }}:</strong>
             {{ tokenInfo.meta_data.authority }}
           </p>
-          <p><strong>URI:</strong> {{ tokenInfo.meta_data.uri }}</p>
+          <p>
+            <strong>{{ $t('smarttoken.uri') }}:</strong>
+            {{ tokenInfo.meta_data.uri }}
+          </p>
         </div>
       </div>
 
       <div v-if="hasMetaData" class="mb-4">
-        <h2 class="text-xl font-semibold mb-2">URI Data</h2>
+        <h2 class="text-xl font-semibold mb-2">
+          {{ $t('smarttoken.uri_data') }}
+        </h2>
         <pre
           class="bg-gray-100 dark:bg-[#384059] text-base p-4 rounded overflow-x-auto"
         ><code>{{ JSON.stringify(additionalData, null, 2) }}</code></pre>

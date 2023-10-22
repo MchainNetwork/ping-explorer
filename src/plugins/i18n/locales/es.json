@@ -56,6 +56,26 @@
     "uri_data": "Datos URI",
     "uri": "URI"
   },
+  "mns": {
+    "title": "Servicios de Nombres Mchain",
+    "subtitle": "¡Registra tus dominios .mar hoy en Mchain!",
+    "description": "Tener un dominio .mar te otorga una identidad única en la blockchain y habilita el acceso a un mundo de servicios descentralizados.",
+    "input_placeholder": "Ingresa el nombre del dominio",
+    "check_button": "Verificar",
+    "error_message": "¡Por favor, introduce un dominio .mar válido!",
+    "domain_available_message": "¡El dominio <strong>{domain}</strong> está disponible!",
+    "register_now_button": "Registrar Ahora",
+    "domain_registered_message": "¡El dominio <strong>{domain}</strong> ya está registrado!",
+    "place_bid_button": "Hacer una Oferta",
+    "registered_names_title": "Nombres Registrados",
+    "expires_label": "Expira",
+    "domains_for_sale_title": "Dominios en Venta",
+    "price_label": "Precio",
+    "buy_button": "Comprar",
+    "domains_in_bid_title": "Dominios en Subasta",
+    "bid_label": "Oferta",
+    "domain_label": "Dominio"
+  },
   "account": {
     "type": "Tipo",
     "address": "Dirección",

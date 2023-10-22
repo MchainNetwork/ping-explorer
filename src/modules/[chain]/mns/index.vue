@@ -107,17 +107,14 @@ function checkDomainAvailable(domain: string) {
       <h2
         class="text-xl text-center md:text-5xl font-bold text-primary m-4 mb-6"
       >
-        Mchain Name Services
+        {{ $t('mns.title') }}
       </h2>
 
       <h3 class="text-lg font-bold text-center mb-4">
-        Register your
-        <span class="dark:text-white">.{{ allowedExtension }}</span>
-        domains today on Mchain!
+        {{ $t('mns.subtitle') }}
       </h3>
       <p class="text-center text-sm mb-4 w-2/6 mx-auto">
-        Owning a .{{ allowedExtension }} domain gives you a unique identity on
-        the blockchain and enables access to a world of decentralized services.
+        {{ $t('mns.description') }}
       </p>
       <form
         @submit.prevent="verifyDomain"
@@ -127,14 +124,14 @@ function checkDomainAvailable(domain: string) {
           v-model="domainToCheck"
           type="text"
           @input="resetMessages"
-          placeholder="Enter domain name"
+          :placeholder="$t('mns.input_placeholder')"
           class="input input-bordered focus:outline-none rounded-l-full !border !border-primary !border-r-0"
         />
         <button
           type="submit"
           class="btn btn-primary text-white border border-primary rounded-r-full"
         >
-          Check
+          {{ $t('mns.check_button') }}
         </button>
       </form>
       <p class="mt-4 text-center text-red-500">
@@ -147,13 +144,13 @@ function checkDomainAvailable(domain: string) {
       class="bg-green-500 dark:bg-green-800 text-center text-white p-4 mb-6 rounded-xl"
     >
       <p class="text-2xl">
-        The domain <strong>{{ domainToCheck }}</strong> is available!
+        {{ $t('mns.domain_available_message', { domain: domainToCheck }) }}
       </p>
       <button
         @click="dialog.open('register', { name: domainToCheck }, updateState)"
         class="btn btn-sm text-green-800 dark:text-green-500 rounded-full mt-2"
       >
-        Register Now
+        {{ $t('mns.register_now_button') }}
       </button>
     </div>
 
@@ -162,24 +159,26 @@ function checkDomainAvailable(domain: string) {
       class="bg-red-500 dark:bg-red-800 text-center text-white p-4 mb-6 rounded-xl"
     >
       <p class="text-2xl">
-        The domain <strong>{{ domainToCheck }}</strong> is already registered!
+        {{ $t('mns.domain_registered_message', { domain: domainToCheck }) }}
       </p>
       <button
         @click="dialog.open('nns_bid', { name: domainToCheck }, updateState)"
         class="btn btn-sm text-red-800 dark:text-white rounded-full mt-2"
       >
-        Place a Bid
+        {{ $t('mns.place_bid_button') }}
       </button>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
       <div class="bg-base-100 p-4 rounded-xl">
-        <h3 class="text-lg font-bold mb-4">Registered Names</h3>
+        <h3 class="text-lg font-bold mb-4">
+          {{ $t('mns.registered_names_title') }}
+        </h3>
         <table class="table table-compact text-base">
           <thead>
             <tr>
-              <td>Domain</td>
-              <td>Expires</td>
+              <td>{{ $t('mns.domain_label') }}</td>
+              <td>{{ $t('mns.expires_label') }}</td>
             </tr>
           </thead>
           <tr
@@ -208,12 +207,14 @@ function checkDomainAvailable(domain: string) {
       </div>
 
       <div class="bg-base-100 p-4 rounded-xl">
-        <h2 class="text-lg font-bold mb-2">Domains for Sale</h2>
+        <h2 class="text-lg font-bold mb-2">
+          {{ $t('mns.domains_for_sale_title') }}
+        </h2>
         <table class="table table-compact text-base">
           <thead>
             <tr>
-              <td>Domain</td>
-              <td>Price</td>
+              <td>{{ $t('mns.domain_label') }}</td>
+              <td>{{ $t('mns.price_label') }}</td>
               <td></td>
             </tr>
           </thead>
@@ -240,7 +241,7 @@ function checkDomainAvailable(domain: string) {
                   dialog.open('nns_bid', { name: item.name }, updateState)
                 "
               >
-                Buy
+                {{ $t('mns.buy_button') }}
               </button>
             </td>
           </tr>
@@ -248,12 +249,14 @@ function checkDomainAvailable(domain: string) {
       </div>
 
       <div class="bg-base-100 p-4 rounded-xl">
-        <h2 class="text-lg font-bold mb-2">Domains in Bid</h2>
+        <h2 class="text-lg font-bold mb-2">
+          {{ $t('mns.domains_in_bid_title') }}
+        </h2>
         <table class="table table-compact text-base">
           <thead>
             <tr>
-              <td>Domain</td>
-              <td>Bid</td>
+              <td>{{ $t('mns.domain_label') }}</td>
+              <td>{{ $t('mns.bid_label') }}</td>
               <td></td>
             </tr>
           </thead>
@@ -280,7 +283,7 @@ function checkDomainAvailable(domain: string) {
                   dialog.open('nns_bid', { name: item.name }, updateState)
                 "
               >
-                Place Bid
+                {{ $t('mns.place_bid_button') }}
               </button>
             </td>
           </tr>

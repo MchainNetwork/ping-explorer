@@ -55,6 +55,26 @@
     "uri_data": "Data URI",
     "uri": "URI"
   },
+  "mns": {
+    "title": "Layanan Nama Mchain",
+    "subtitle": "Daftarkan domain .mar Anda hari ini di Mchain!",
+    "description": "Memiliki domain .mar memberi Anda identitas unik di blockchain dan memungkinkan akses ke dunia layanan terdesentralisasi.",
+    "input_placeholder": "Masukkan nama domain",
+    "check_button": "Periksa",
+    "error_message": "Silakan masukkan domain .mar yang valid!",
+    "domain_available_message": "Domain <strong>{domain}</strong> tersedia!",
+    "register_now_button": "Daftar Sekarang",
+    "domain_registered_message": "Domain <strong>{domain}</strong> sudah terdaftar!",
+    "place_bid_button": "Pasang Bid",
+    "registered_names_title": "Nama yang Terdaftar",
+    "expires_label": "Kadaluarsa",
+    "domains_for_sale_title": "Domain Dijual",
+    "price_label": "Harga",
+    "buy_button": "Beli",
+    "domains_in_bid_title": "Domain dalam Bid",
+    "bid_label": "Bid",
+    "domain_label": "Domain"
+  },
   "account": {
     "type": "Tipe",
     "address": "Alamat",

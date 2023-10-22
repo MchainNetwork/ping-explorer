@@ -225,7 +225,7 @@ function checkDomainAvailable(domain: string) {
                 format.toDay(
                   calculateExpiryTime(
                     item.expires,
-                    baseStore.latest?.block?.header?.height || 0
+                    Number(baseStore.latest?.block?.header?.height) || 0
                   ),
                   'date'
                 )

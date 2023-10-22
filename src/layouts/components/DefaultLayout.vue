@@ -88,7 +88,7 @@ function selected(route: any, nav: NavLink) {
           v-if="isNavGroup(item)"
           :tabindex="index"
         >
-          <div v-for="(el, key) of item?.children" class="menu bg-base-100 w-full !p-0">
+          <div :key="key" v-for="(el, key) of item?.children" class="menu bg-base-100 w-full !p-0">
             <RouterLink
               v-if="isNavLink(el)"
               @click="sidebarShow = false"
@@ -175,9 +175,9 @@ function selected(route: any, nav: NavLink) {
         <div class="flex-1 w-0"></div>
 
         <!-- <NavSearchBar />-->
+        <NavbarSearch class="!inline-block" />
         <NavBarI18n class="hidden md:!inline-block" />
         <NavbarThemeSwitcher class="!inline-block" />
-        <NavbarSearch class="!inline-block" />
         <NavBarWallet />
       </div>
 

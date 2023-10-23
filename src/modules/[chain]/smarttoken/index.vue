@@ -83,7 +83,7 @@ function pageload(p: number) {
             <label
               v-if="walletStore.currentAddress === item.minter"
               for="mint"
-              class="btn btn-primary btn-sm ml-2 rounded-full text-white"
+              class="btn btn-success btn-sm ml-2 rounded-full"
               @click="dialog.open('mint', { denom: item.denom }, updateState)"
             >
               {{ $t('smarttoken.mint') }}

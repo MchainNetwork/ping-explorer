@@ -43,7 +43,11 @@ async function callFaucet() {
       responseMessage.value = 'An unexpected error occurred. Please try again.';
     }
   } catch (error: any) {
-    responseMessage.value = 'Error: ' + error.message;
+    if (error.response && error.response.data.error) {
+      responseMessage.value = 'Error: ' + error.response.data.error;
+    } else {
+      responseMessage.value = 'Error: ' + error.message;
+    }
   }
 }
 </script>

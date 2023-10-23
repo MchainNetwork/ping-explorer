@@ -79,7 +79,7 @@ function pageload(p: number) {
               >{{ item.denom }}</RouterLink
             >
           </td>
-          <td>
+          <td class="text-right">
             <label
               v-if="walletStore.currentAddress === item.minter"
               for="mint"

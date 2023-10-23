@@ -69,10 +69,11 @@ const resetMessages = () => {
 
 onMounted(() => {
   updateState();
-  pageload(1);
 });
 
-function updateState() {}
+function updateState() {
+  pageload(1);
+}
 
 async function pageload(p: number) {
   pageRequest.value.setPage(p);
@@ -187,6 +188,19 @@ function checkDomainAvailable(domain: string) {
         class="text-2xl"
         v-html="$t('mns.domain_registered_message', { domain: domainToCheck })"
       ></p>
+      <label
+        for="mns_bid"
+        @click="
+          dialog.open(
+            'mns_bid',
+            { name: domainToCheck, referred: 'bitcoin.mar' },
+            updateState
+          )
+        "
+        class="btn btn-sm text-red-800 dark:text-red-500 rounded-full mt-2"
+      >
+        {{ $t('mns.place_bid_button') }}
+      </label>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -306,10 +320,10 @@ function checkDomainAvailable(domain: string) {
               </label>
               <label
                 v-if="item.owner == walletStore.currentAddress"
-                for="mns_buy"
+                for="mns_delist"
                 class="btn btn-primary btn-xs w-full rounded-full text-white"
                 @click="
-                  dialog.open('mns_buy', { name: item.name }, updateState)
+                  dialog.open('mns_delist', { name: item.name }, updateState)
                 "
               >
                 delist

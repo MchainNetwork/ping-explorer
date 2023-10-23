@@ -9,12 +9,35 @@ const walletStore = useWalletStore();
 const cosmosAddress = ref(walletStore.currentAddress || '');
 const responseMessage = ref('');
 
+const showResponse = (response: any) => {
+  console.log(response);
+  if (response.status === 200) {
+    cosmosAddress.value = '';
+    if (response.data.error) {
+      responseMessage.value = response.data.error;
+    } else {
+      responseMessage.value =
+        'All coins are successfully sent. Check balance: ' +
+        'https://testnet.hub.mchain.network/bank/balances/' +
+        cosmosAddress.value;
+    }
+  } else if (response.status === 400) {
+    cosmosAddress.value = '';
+    responseMessage.value =
+      'Bad request. Please ensure the address and coins are valid.';
+  } else if (response.status === 500) {
+    responseMessage.value = 'Internal server error. Please try again later.';
+  } else {
+    responseMessage.value = 'An unexpected error occurred. Please try again.';
+  }
+};
+
 async function callFaucet() {
   try {
     const apiUrl = 'https://faucet-api.mchain.network/';
     const requestData = {
       address: cosmosAddress.value,
-      coins: ['10000000umar'],
+      coins: ['1000000000umar'],
     };
 
     const headers = {
@@ -23,31 +46,9 @@ async function callFaucet() {
     };
 
     const response = await axios.post(apiUrl, requestData, { headers });
-
-    if (response.status === 200) {
-      if (response.data.error) {
-        responseMessage.value = response.data.error;
-      } else {
-        responseMessage.value =
-          'All coins are successfully sent. Check balance: ' +
-          'https://testnet.hub.mchain.network/bank/balances/' +
-          cosmosAddress.value;
-      }
-    } else if (response.status === 400) {
-      cosmosAddress.value = '';
-      responseMessage.value =
-        'Bad request. Please ensure the address and coins are valid.';
-    } else if (response.status === 500) {
-      responseMessage.value = 'Internal server error. Please try again later.';
-    } else {
-      responseMessage.value = 'An unexpected error occurred. Please try again.';
-    }
+    showResponse(response);
   } catch (error: any) {
-    if (error.response && error.response.data.error) {
-      responseMessage.value = 'Error: ' + error.response.data.error;
-    } else {
-      responseMessage.value = 'Error: ' + error.message;
-    }
+    showResponse(error.response);
   }
 }
 </script>

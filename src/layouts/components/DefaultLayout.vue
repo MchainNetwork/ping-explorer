@@ -176,7 +176,7 @@ function selected(route: any, nav: NavLink) {
     <div class="xl:!ml-64">
       <!-- header -->
       <div
-        class="flex items-center py-3 bg-base-100 px-6 sticky top-0 z-10 shadow-md"
+        class="flex items-center py-3 bg-base-100 px-6 sticky top-0 z-10 shadow-sm"
       >
         <div
           class="text-2xl pr-3 cursor-pointer xl:!hidden"

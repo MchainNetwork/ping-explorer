@@ -232,7 +232,11 @@ function checkDomainAvailable(domain: string) {
                 for="mns_bid"
                 class="btn btn-primary btn-xs w-full rounded-full text-white"
                 @click="
-                  dialog.open('mns_bid', { name: item.name }, updateState)
+                  dialog.open(
+                    'mns_bid',
+                    { name: item.name + '.' + item.tld },
+                    updateState
+                  )
                 "
               >
                 {{ $t('mns.bid_label') }}
@@ -242,7 +246,11 @@ function checkDomainAvailable(domain: string) {
                 for="mns_list"
                 class="btn btn-primary btn-xs w-full rounded-full text-white"
                 @click="
-                  dialog.open('mns_list', { name: item.name }, updateState)
+                  dialog.open(
+                    'mns_list',
+                    { name: item.name + '.' + item.tld },
+                    updateState
+                  )
                 "
               >
                 Sell

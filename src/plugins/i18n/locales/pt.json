@@ -21,7 +21,8 @@
     "sponsors": "Patrocinadores",
     "links": "Links",
     "smart_tokens":"Smart Tokens",
-    "mns": "Name Services"
+    "mns": "Name Services",
+    "faucet": "Faucet"
   },
   "pages": {
     "title": "Painel Ping",

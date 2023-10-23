@@ -10,7 +10,7 @@ const responseMessage = ref('');
 
 async function callFaucet() {
   try {
-    const apiUrl = 'https://faucet-api.mchain.network'; // Replace with the actual Faucet URL
+    const apiUrl = 'https://faucet-api.mchain.network';
     const requestData = {
       address: cosmosAddress.value,
       coins: ['10umar'],
@@ -48,7 +48,7 @@ async function callFaucet() {
 
     <button
       @click="callFaucet"
-      class="bg-primary text-white font-bold py-2 px-4 rounded"
+      class="bg-primary text-white font-bold py-2 px-4 rounded-full"
     >
       Get Tokens
     </button>

@@ -20,7 +20,8 @@
     "sponsors": "赞助商",
     "links": "链接",
     "smart_tokens":"Smart Tokens",
-    "mns": "Name Services"
+    "mns": "Name Services",
+    "faucet": "Faucet"
   },
   "pages": {
     "title": "Ping Dashboard",
@@ -74,7 +75,7 @@
     "buy_button": "购买",
     "domains_in_bid_title": "出价中的域名",
     "bid_label": "出价",
-    "domain_label": "域名"
+    "domain_label": "域名" 
   },
   "account": {
     "type": "类型",

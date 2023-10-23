@@ -20,7 +20,8 @@
     "sponsors": "Sponsors",
     "links": "Tautan",
     "smart_tokens":"Smart Tokens",
-    "mns": "Name Services"
+    "mns": "Name Services",
+    "faucet": "Faucet"
   },
   "pages": {
     "title": "Ping Dashboard",

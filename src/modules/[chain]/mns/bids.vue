@@ -49,16 +49,37 @@ function pageload(p: number) {
 <template>
   <div class="overflow-auto">
     <div class="flex justify-between items-center m-4 mb-6">
-      <h2 class="text-xl md:text-5xl font-bold text-base">Bids</h2>
+      <h2 class="text-xl md:text-5xl font-bold text-base">
+        {{ $t('mns.domains_in_bid_title') }}
+      </h2>
       <div></div>
     </div>
-
+    <div class="tabs mb-4 text-center">
+      <RouterLink
+        class="tab tab-lg tab-bordered text-gray-400"
+        :to="`/${chain}/mns/registered`"
+      >
+        {{ $t('mns.registered_names_title') }}
+      </RouterLink>
+      <RouterLink
+        class="tab tab-lg tab-bordered text-gray-400"
+        :to="`/${chain}/mns/forsale`"
+      >
+        {{ $t('mns.domains_for_sale_title') }}
+      </RouterLink>
+      <RouterLink
+        class="tab tab-lg tab-bordered text-gray-400"
+        :to="`/${chain}/mns/bids`"
+      >
+        {{ $t('mns.domains_in_bid_title') }}
+      </RouterLink>
+    </div>
     <div class="bg-base-100 p-4 rounded-xl">
       <table class="table table-compact text-lg">
         <thead>
           <tr>
-            <td>Domain</td>
-            <td>Price</td>
+            <td>{{ $t('mns.domain_label') }}</td>
+            <td>{{ $t('mns.bid_label') }}</td>
             <td></td>
           </tr>
         </thead>

@@ -80,7 +80,7 @@ async function pageload(p: number) {
 
   const [names, forSale, forBid] = await Promise.all([
     mnsStore.fetchMnsNames(),
-    mnsStore.fetchMnsForsale(),
+    mnsStore.fetchMnsForsale({}),
     mnsStore.fetchMnsBids(),
   ]);
 
@@ -170,7 +170,7 @@ function checkDomainAvailable(domain: string) {
         @click="
           dialog.open(
             'mns_register',
-            { name: domainToCheck, referred: 'bitcoin.mar' },
+            { name: domainToCheck, years: 5, referred: 'bitcoin.mar' },
             updateState
           )
         "
@@ -272,11 +272,13 @@ function checkDomainAvailable(domain: string) {
             </td>
           </tr>
         </table>
-        <PaginationBar
-          :limit="pageRequest.limit"
-          :total="pageResponse.total"
-          :callback="pageload"
-        />
+        <RouterLink
+          v-if="list.length >= 10"
+          :to="'/mchain/mns/registered'"
+          class="btn btn-primary btn-xs btn-outline rounded-full w-full mt-4"
+        >
+          See All
+        </RouterLink>
       </div>
 
       <div class="bg-base-100 p-4 rounded-xl">
@@ -331,6 +333,13 @@ function checkDomainAvailable(domain: string) {
             </td>
           </tr>
         </table>
+        <RouterLink
+          v-if="listForSale.length >= 10"
+          :to="'/mchain/mns/forsale'"
+          class="btn btn-primary btn-xs btn-outline rounded-full w-full mt-4"
+        >
+          See All
+        </RouterLink>
       </div>
 
       <div class="bg-base-100 p-4 rounded-xl">
@@ -375,6 +384,13 @@ function checkDomainAvailable(domain: string) {
             </td>
           </tr>
         </table>
+        <RouterLink
+          v-if="listBid.length >= 10"
+          :to="'/mchain/mns/bids'"
+          class="btn btn-primary btn-xs btn-outline rounded-full w-full mt-4"
+        >
+          See All
+        </RouterLink>
       </div>
     </div>
   </div>

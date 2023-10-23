@@ -6,6 +6,7 @@ import {
   useTxDialog,
   useWalletStore,
   useMnsStore,
+  useBaseStore,
 } from '@/stores';
 import {
   PageRequest,
@@ -23,11 +24,29 @@ const format = useFormatter();
 const walletStore = useWalletStore();
 const dialog = useTxDialog();
 const mnsStore = useMnsStore();
+const baseStore = useBaseStore();
 
-const list = ref([] as MnsForsale[]);
+const list = ref([] as MnsNames[]);
 
 const pageRequest = ref(new PageRequest());
 const pageResponse = ref({} as Pagination);
+
+// TODO: mintParam.items.block_per_year
+const blocksPerYear = 5057308;
+
+const calculateTimeRemaining = (itemExpires: number, currentHeight: number) => {
+  const blocksRemaining = itemExpires - currentHeight;
+  const timeRemainingInSec = (blocksRemaining / blocksPerYear) * 31557600;
+  const timeRemainingInMs = timeRemainingInSec * 1000;
+  return parseFloat(timeRemainingInMs.toFixed(0));
+};
+
+const calculateExpiryTime = (itemExpires: number, currentHeight: number) => {
+  const timeRemaining = calculateTimeRemaining(itemExpires, currentHeight);
+  const date = new Date();
+  date.setTime(date.getTime() + timeRemaining);
+  return date.getTime();
+};
 
 function updateState() {
   walletStore.loadMyAsset();
@@ -40,8 +59,8 @@ onMounted(() => {
 
 function pageload(p: number) {
   pageRequest.value.setPage(p);
-  mnsStore.fetchMnsForsale().then((x: any) => {
-    list.value = x.forsale;
+  mnsStore.fetchMnsNames(pageRequest.value).then((x: any) => {
+    list.value = x.names;
     pageResponse.value = x.pagination;
   });
 }
@@ -50,7 +69,7 @@ function pageload(p: number) {
   <div class="overflow-auto">
     <div class="flex justify-between items-center m-4 mb-6">
       <h2 class="text-xl md:text-5xl font-bold text-base">
-        {{ $t('mns.domains_for_sale_title') }}
+        {{ $t('mns.registered_names_title') }}
       </h2>
       <div></div>
     </div>
@@ -79,7 +98,7 @@ function pageload(p: number) {
         <thead>
           <tr>
             <td>{{ $t('mns.domain_label') }}</td>
-            <td>{{ $t('mns.price_label') }}</td>
+            <td>{{ $t('mns.expires_label') }}</td>
             <td></td>
           </tr>
         </thead>
@@ -90,22 +109,30 @@ function pageload(p: number) {
         >
           <td width="20%">
             <RouterLink
-              :to="'/mchain/mns/' + item.name"
+              :to="'/mchain/mns/' + item.name + '.' + item.tld"
               class="hover:underline"
             >
-              {{ item.name }}
+              {{ item.name }}.{{ item.tld }}
             </RouterLink>
           </td>
           <td>
-            {{ format.formatToken2(format.parseCoin(item.price), true) }}
+            {{
+              format.toDay(
+                calculateExpiryTime(
+                  item.expires,
+                  Number(baseStore.latest?.block?.header?.height) || 0
+                ),
+                'date'
+              )
+            }}
           </td>
           <td class="text-right">
             <label
-              for="mns_buy"
+              for="mns_bid"
               class="btn btn-primary btn-sm rounded-full text-white"
-              @click="dialog.open('mns_buy', { name: item.name }, updateState)"
+              @click="dialog.open('mns_bid', { name: item.name }, updateState)"
             >
-              Buy
+              Bid
             </label>
           </td>
         </tr>

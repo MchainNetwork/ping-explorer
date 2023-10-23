@@ -341,34 +341,43 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
   async getSmartTokenParams() {
     return this.request(this.registry.smarttoken_params, {});
   }
-  async getSmartTokenSmartTokens(authority?: string,) {
-    return this.request(this.registry.smarttoken_smarttokens, {authority});
-  }
+  async getSmartTokenSmartTokens(authority?: string, page?: PageRequest) {
+    if(!page) page = new PageRequest()
+    const query = `?pagination.limit=${page.limit||20}&pagination.offset=${page.offset||0}`;
+    return this.request(this.registry.smarttoken_smarttokens, {authority}, query);
+  }  
   async getSmartTokenDenom(denom: string,) {
     return this.request(this.registry.smarttoken_denom, {denom});
   }
-
   // mns
   async getMnsParams() {
     return this.request(this.registry.mns_params, {});
   }
-  async getMnsNames() {
-    return this.request(this.registry.mns_names, {});
+  async getMnsNames(page?: PageRequest) {
+    if(!page) page = new PageRequest()
+    const query = `?pagination.limit=${page.limit||20}&pagination.offset=${page.offset||0}`;
+    return this.request(this.registry.mns_names, {}, query);
   }
   async getMnsName(index: string) {
     return this.request(this.registry.mns_name, {index});
   }
-  async getMnsListOwnedNames(address?: string) {
-    return this.request(this.registry.mns_list_owned_names, {address});
+  async getMnsListOwnedNames(address?: string, page?: PageRequest) {
+    if(!page) page = new PageRequest()
+    const query = `?pagination.limit=${page.limit||20}&pagination.offset=${page.offset||0}`;
+    return this.request(this.registry.mns_list_owned_names, { address }, query);
   }
-  async getMnsBids() {
-    return this.request(this.registry.mns_bids, {});
+  async getMnsBids(page?: PageRequest) {
+    if(!page) page = new PageRequest()
+    const query = `?pagination.limit=${page.limit||20}&pagination.offset=${page.offset||0}`;
+    return this.request(this.registry.mns_bids, {}, query);
   }
   async getMnsBidsByIndex(index: string) {
     return this.request(this.registry.mns_bids_by_index, {index});
   }
-  async getMnsForsale() {
-    return this.request(this.registry.mns_forsale, {});
+  async getMnsForsale(page?: PageRequest) {
+    if(!page) page = new PageRequest()
+    const query = `?pagination.limit=${page.limit||20}&pagination.offset=${page.offset||0}`;
+    return this.request(this.registry.mns_forsale, {}, query);
   }
   async getMnsForsaleName(name: string) {
     return this.request(this.registry.mns_forsale_name, {name});

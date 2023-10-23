@@ -54,7 +54,9 @@ async function callFaucet() {
 
 <template>
   <div class="container mx-auto text-center p-4">
-    <h2 class="text-5xl font-bold text-primary mb-6">Mchain Testnet Faucet</h2>
+    <h2 class="text-2xl md:text-5xl font-bold text-primary mb-6">
+      Mchain Testnet Faucet
+    </h2>
 
     <div class="mb-6 mx-auto" style="max-width: 600px">
       <div class="mb-6 mx-auto">

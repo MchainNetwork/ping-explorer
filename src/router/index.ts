@@ -21,6 +21,14 @@ router.beforeEach((to) => {
     } 
 })
 
+// Scroll to top smoothly on route change
+router.afterEach(() => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+
 // Docs: https://router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
 
 export default router;

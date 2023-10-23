@@ -10,32 +10,21 @@ const cosmosAddress = ref(walletStore.currentAddress || '');
 const responseMessage = ref('');
 
 const isLoading = ref(false);
+const isErrorMessage = ref(false);
 
 const showResponse = (response: any) => {
-  console.log(response);
-  responseMessage.value = '';
   if (response && response.status === 200) {
+    isErrorMessage.value = false;
     cosmosAddress.value = '';
-    responseMessage.value = response.data.error
-      ? response.data.error
-      : 'All coins are successfully sent. Check balance: ' +
-        'https://testnet.hub.mchain.network/bank/balances/' +
-        cosmosAddress.value;
-  } else if (response && response.status === 400) {
     responseMessage.value =
-      response.data && response.data.error
-        ? response.data.error
-        : 'Bad request. Please ensure the address and coins are valid.';
-  } else if (response && response.status === 500) {
-    responseMessage.value = 'Internal server error. Please try again later.';
-  } else {
-    responseMessage.value = 'An unexpected error occurred. Please try again.';
+      'All coins are successfully sent. Check balance: ' +
+      'https://testnet.hub.mchain.network/bank/balances/' +
+      cosmosAddress.value;
   }
 };
 
 async function callFaucet() {
   isLoading.value = true;
-
   try {
     const apiUrl = 'https://faucet-api.mchain.network/';
     const requestData = {
@@ -51,7 +40,12 @@ async function callFaucet() {
     const response = await axios.post(apiUrl, requestData, { headers });
     showResponse(response);
   } catch (error: any) {
-    showResponse(error.response);
+    isErrorMessage.value = true;
+    if (error.response && error.response.data.error) {
+      responseMessage.value = 'Error: ' + error.response.data.error;
+    } else {
+      responseMessage.value = 'Error: ' + error.message;
+    }
   } finally {
     isLoading.value = false;
   }
@@ -91,8 +85,10 @@ async function callFaucet() {
       <div
         v-if="responseMessage"
         :class="{
-          'bg-red-200 text-red-700': responseMessage.includes('error'),
-          'bg-green-200 text-green-700': !responseMessage.includes('error'),
+          'bg-red-200 dark:bg-red-700 text-red-700 dark:text-white':
+            isErrorMessage,
+          'bg-green-200 dark:bg-green-700 text-green-700 dark:text-white':
+            !isErrorMessage,
         }"
         class="mt-8 p-4 rounded"
       >

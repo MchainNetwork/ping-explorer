@@ -80,7 +80,7 @@ async function pageload(p: number) {
 
   const [names, forSale, forBid] = await Promise.all([
     mnsStore.fetchMnsNames(),
-    mnsStore.fetchMnsForsale({}),
+    mnsStore.fetchMnsForsale(),
     mnsStore.fetchMnsBids(),
   ]);
 

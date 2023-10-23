@@ -14,7 +14,7 @@ async function callFaucet() {
     const apiUrl = 'https://faucet-api.mchain.network/';
     const requestData = {
       address: cosmosAddress.value,
-      coins: ['10token'],
+      coins: ['100000000umar'],
     };
 
     const headers = {

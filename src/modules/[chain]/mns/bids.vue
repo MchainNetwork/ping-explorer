@@ -12,6 +12,7 @@ import {
   type Pagination,
   type MnsNames,
   type MnsForsale,
+  type MnsBids,
 } from '@/types';
 import { onMounted } from 'vue';
 import PaginationBar from '@/components/PaginationBar.vue';
@@ -24,7 +25,7 @@ const walletStore = useWalletStore();
 const dialog = useTxDialog();
 const mnsStore = useMnsStore();
 
-const list = ref([] as MnsForsale[]);
+const list = ref([] as MnsBids[]);
 
 const pageRequest = ref(new PageRequest());
 const pageResponse = ref({} as Pagination);

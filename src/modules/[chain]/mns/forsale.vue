@@ -50,15 +50,7 @@ function pageload(p: number) {
   <div class="overflow-auto">
     <div class="flex justify-between items-center m-4 mb-6">
       <h2 class="text-xl md:text-5xl font-bold text-base">For Sale</h2>
-      <div>
-        <label
-          for="register"
-          class="btn btn-primary btn-sm rounded-full text-white"
-          @click="dialog.open('register', {}, updateState)"
-        >
-          Register Domain
-        </label>
-      </div>
+      <div></div>
     </div>
 
     <div class="bg-base-100 p-4 rounded-xl">
@@ -67,7 +59,7 @@ function pageload(p: number) {
           <tr>
             <td>Domain</td>
             <td>Price</td>
-            <td>Action</td>
+            <td></td>
           </tr>
         </thead>
         <tr
@@ -86,7 +78,7 @@ function pageload(p: number) {
           <td>
             {{ format.formatToken2(format.parseCoin(item.price), true) }}
           </td>
-          <td>
+          <td class="text-right">
             <label
               for="mns_buy"
               class="btn btn-primary btn-sm rounded-full text-white"

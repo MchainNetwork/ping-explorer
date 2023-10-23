@@ -9,23 +9,24 @@ const walletStore = useWalletStore();
 const cosmosAddress = ref(walletStore.currentAddress || '');
 const responseMessage = ref('');
 
+const isLoading = ref(false);
+
 const showResponse = (response: any) => {
   console.log(response);
-  if (response.status === 200) {
+  responseMessage.value = '';
+  if (response && response.status === 200) {
     cosmosAddress.value = '';
-    if (response.data.error) {
-      responseMessage.value = response.data.error;
-    } else {
-      responseMessage.value =
-        'All coins are successfully sent. Check balance: ' +
+    responseMessage.value = response.data.error
+      ? response.data.error
+      : 'All coins are successfully sent. Check balance: ' +
         'https://testnet.hub.mchain.network/bank/balances/' +
         cosmosAddress.value;
-    }
-  } else if (response.status === 400) {
-    cosmosAddress.value = '';
+  } else if (response && response.status === 400) {
     responseMessage.value =
-      'Bad request. Please ensure the address and coins are valid.';
-  } else if (response.status === 500) {
+      response.data && response.data.error
+        ? response.data.error
+        : 'Bad request. Please ensure the address and coins are valid.';
+  } else if (response && response.status === 500) {
     responseMessage.value = 'Internal server error. Please try again later.';
   } else {
     responseMessage.value = 'An unexpected error occurred. Please try again.';
@@ -33,6 +34,8 @@ const showResponse = (response: any) => {
 };
 
 async function callFaucet() {
+  isLoading.value = true;
+
   try {
     const apiUrl = 'https://faucet-api.mchain.network/';
     const requestData = {
@@ -49,6 +52,8 @@ async function callFaucet() {
     showResponse(response);
   } catch (error: any) {
     showResponse(error.response);
+  } finally {
+    isLoading.value = false;
   }
 }
 </script>
@@ -75,15 +80,21 @@ async function callFaucet() {
       </div>
 
       <button
+        :disabled="isLoading"
         @click="callFaucet"
         class="bg-primary text-white font-bold py-2 px-4 rounded-full"
       >
-        Get Testnet Tokens
+        <span v-if="isLoading">Sending...</span>
+        <span v-else>Get Testnet Tokens</span>
       </button>
 
       <div
         v-if="responseMessage"
-        class="mt-8 p-4 bg-base-300 dark:bg-base-100 rounded-full"
+        :class="{
+          'bg-red-200 text-red-700': responseMessage.includes('error'),
+          'bg-green-200 text-green-700': !responseMessage.includes('error'),
+        }"
+        class="mt-8 p-4 rounded"
       >
         {{ responseMessage }}
       </div>

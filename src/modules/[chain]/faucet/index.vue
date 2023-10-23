@@ -14,7 +14,7 @@ async function callFaucet() {
     const apiUrl = 'https://faucet-api.mchain.network/';
     const requestData = {
       address: cosmosAddress.value,
-      coins: ['100000000umar'],
+      coins: ['10000000umar'],
     };
 
     const headers = {
@@ -25,10 +25,14 @@ async function callFaucet() {
     const response = await axios.post(apiUrl, requestData, { headers });
 
     if (response.status === 200) {
-      responseMessage.value =
-        'All coins are successfully sent. Check balance: ' +
-        'https://testnet.hub.mchain.network/bank/balances/' +
-        cosmosAddress.value;
+      if (response.data.error) {
+        responseMessage.value = response.data.error;
+      } else {
+        responseMessage.value =
+          'All coins are successfully sent. Check balance: ' +
+          'https://testnet.hub.mchain.network/bank/balances/' +
+          cosmosAddress.value;
+      }
     } else if (response.status === 400) {
       cosmosAddress.value = '';
       responseMessage.value =

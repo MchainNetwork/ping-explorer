@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { useBlockchain } from './useBlockchain';
-import { PageRequest } from '@/types';
+import type { PageRequest } from '@/types';
 
 export const useMnsStore = defineStore('mnsStore', {
   state: () => {

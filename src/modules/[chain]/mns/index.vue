@@ -258,7 +258,7 @@ function checkDomainAvailable(domain: string) {
               <label
                 v-if="item.value == walletStore.currentAddress"
                 for="mns_list"
-                class="btn btn-primary btn-xs w-full rounded-full text-white"
+                class="btn btn-success btn-xs w-full rounded-full"
                 @click="
                   dialog.open(
                     'mns_list',
@@ -323,12 +323,12 @@ function checkDomainAvailable(domain: string) {
               <label
                 v-if="item.owner == walletStore.currentAddress"
                 for="mns_delist"
-                class="btn btn-primary btn-xs w-full rounded-full text-white"
+                class="btn btn-success btn-xs w-full rounded-full"
                 @click="
                   dialog.open('mns_delist', { name: item.name }, updateState)
                 "
               >
-                delist
+                Cancel
               </label>
             </td>
           </tr>
@@ -374,12 +374,22 @@ function checkDomainAvailable(domain: string) {
               <label
                 v-if="item.bidder != walletStore.currentAddress"
                 for="mns_bid"
-                class="btn btn-primary btn-xs w-full rounded-full text-white"
+                class="btn btn-primary btn-xs w-full rounded-full"
                 @click="
                   dialog.open('mns_bid', { name: item.name }, updateState)
                 "
               >
                 {{ $t('mns.bid_label') }}
+              </label>
+              <label
+                v-if="item.bidder == walletStore.currentAddress"
+                for="mns_cancelbid"
+                class="btn btn-success btn-xs w-full rounded-full"
+                @click="
+                  dialog.open('mns_cancelbid', { name: item.name }, updateState)
+                "
+              >
+                Cancel
               </label>
             </td>
           </tr>

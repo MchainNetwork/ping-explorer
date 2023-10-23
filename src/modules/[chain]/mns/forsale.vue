@@ -73,6 +73,12 @@ function pageload(p: number) {
       >
         {{ $t('mns.domains_in_bid_title') }}
       </RouterLink>
+      <RouterLink
+        class="tab tab-lg tab-bordered text-gray-400"
+        :to="`/${chain}/mns/owned`"
+      >
+        {{ $t('mns.domains_owned_title') }}
+      </RouterLink>
     </div>
     <div class="bg-base-100 p-4 rounded-xl">
       <table class="table table-compact text-lg">
@@ -99,13 +105,24 @@ function pageload(p: number) {
           <td>
             {{ format.formatToken2(format.parseCoin(item.price), true) }}
           </td>
-          <td class="text-right">
+          <td class="text-right" width="10%">
             <label
+              v-if="item.owner != walletStore.currentAddress"
               for="mns_buy"
-              class="btn btn-primary btn-sm rounded-full text-white"
+              class="btn btn-primary btn-xs w-full rounded-full text-white"
               @click="dialog.open('mns_buy', { name: item.name }, updateState)"
             >
-              Buy
+              {{ $t('mns.buy_button') }}
+            </label>
+            <label
+              v-if="item.owner == walletStore.currentAddress"
+              for="mns_delist"
+              class="btn btn-success btn-xs w-full rounded-full"
+              @click="
+                dialog.open('mns_delist', { name: item.name }, updateState)
+              "
+            >
+              Cancel
             </label>
           </td>
         </tr>

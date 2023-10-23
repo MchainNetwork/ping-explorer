@@ -75,7 +75,8 @@
     "buy_button": "Comprar",
     "domains_in_bid_title": "Dominios en Subasta",
     "bid_label": "Oferta",
-    "domain_label": "Dominio"
+    "domain_label": "Dominio",
+    "domains_owned_title": "Dominios Propios"
   },
   "account": {
     "type": "Tipo",

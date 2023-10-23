@@ -35,7 +35,7 @@
     "description_all": "Não conseguimos encontrar a página que você está procurando.",
     "btn_index": "Voltar para Início"
   },
-"smarttoken": {
+  "smarttoken": {
     "issue": "Emitir",
     "burn": "Queimar",
     "transfer": "Transferir",
@@ -75,7 +75,8 @@
     "buy_button": "Comprar",
     "domains_in_bid_title": "Domínios em Leilão",
     "bid_label": "Lance",
-    "domain_label": "Domínio"
+    "domain_label": "Domínio",
+    "domains_owned_title": "Domínios Próprios"
   },
   "account": {
     "type": "Tipo",

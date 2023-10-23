@@ -74,7 +74,8 @@
     "buy_button": "Beli",
     "domains_in_bid_title": "Domain dalam Bid",
     "bid_label": "Bid",
-    "domain_label": "Domain"
+    "domain_label": "Domain",
+    "domains_owned_title": "Domain Milik Sendiri"
   },
   "account": {
     "type": "Tipe",

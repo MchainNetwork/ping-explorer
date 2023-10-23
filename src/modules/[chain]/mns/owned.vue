@@ -59,7 +59,7 @@ onMounted(() => {
 
 function pageload(p: number) {
   pageRequest.value.setPage(p);
-  mnsStore.fetchMnsNames(pageRequest.value).then((x: any) => {
+  mnsStore.fetchMnsListOwnedNames(walletStore.currentAddress).then((x: any) => {
     list.value = x.names;
     pageResponse.value = x.pagination;
   });
@@ -69,7 +69,7 @@ function pageload(p: number) {
   <div class="overflow-auto">
     <div class="flex justify-between items-center m-4 mb-6">
       <h2 class="text-xl md:text-5xl font-bold text-base">
-        {{ $t('mns.registered_names_title') }}
+        {{ $t('mns.domains_owned_title') }}
       </h2>
       <div></div>
     </div>
@@ -132,25 +132,10 @@ function pageload(p: number) {
               )
             }}
           </td>
-          <td class="text-right" width="10%">
+          <td class="text-right">
             <label
-              v-if="item.value != walletStore.currentAddress"
-              for="mns_bid"
-              class="btn btn-primary btn-xs w-full rounded-full text-white"
-              @click="
-                dialog.open(
-                  'mns_bid',
-                  { name: item.name + '.' + item.tld },
-                  updateState
-                )
-              "
-            >
-              {{ $t('mns.bid_label') }}
-            </label>
-            <label
-              v-if="item.value == walletStore.currentAddress"
               for="mns_list"
-              class="btn btn-success btn-xs w-full rounded-full"
+              class="btn btn-primary btn-sm rounded-full text-white"
               @click="
                 dialog.open(
                   'mns_list',

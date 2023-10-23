@@ -75,7 +75,8 @@
     "buy_button": "Buy",
     "domains_in_bid_title": "Domains in Bid",
     "bid_label": "Bid",
-    "domain_label": "Domain"
+    "domain_label": "Domain",
+    "domains_owned_title": "Owned Domains"
   },
   "account": {
     "type": "Type",

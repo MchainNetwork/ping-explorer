@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { useBlockchain } from './useBlockchain';
-import { PageRequest,type Coin } from '@/types';
+import { PageRequest } from '@/types';
 
 export const useMnsStore = defineStore('mnsStore', {
   state: () => {
@@ -23,8 +23,8 @@ export const useMnsStore = defineStore('mnsStore', {
       if (response?.params) this.params = response.params;
       return this.params;
     },
-    async fetchMnsNames(request?: PageRequest) {
-      return await this.blockchain.rpc?.getMnsNames(request);
+    async fetchMnsNames(req?: PageRequest) {
+      return await this.blockchain.rpc?.getMnsNames(req);
     },
     async fetchMnsName(index: string) {
       return await this.blockchain.rpc?.getMnsName(index);
@@ -32,20 +32,14 @@ export const useMnsStore = defineStore('mnsStore', {
     async fetchMnsListOwnedNames(address?: string) {
       return await this.blockchain.rpc?.getMnsListOwnedNames(address);
     },
-    async fetchMnsBids() {
-      return await this.blockchain.rpc?.getMnsBids();
+    async fetchMnsBids(req?: PageRequest) {
+      return await this.blockchain.rpc?.getMnsBids(req);
     },
     async fetchMnsBidByIndex(index: string) {
       return await this.blockchain.rpc?.getMnsBidsByIndex(index);
     },
-   async fetchMnsForsale(paginationOptions: {
-      key?: string,
-      offset?: string,
-      limit?: string,
-      countTotal?: boolean,
-      reverse?: boolean
-    } = {}) {
-      return await this.blockchain.rpc?.getMnsForsale(paginationOptions);
+   async fetchMnsForsale(req?: PageRequest) {
+      return await this.blockchain.rpc?.getMnsForsale(req);
     },
     async fetchMnsForsaleName(name: string) {
       return await this.blockchain.rpc?.getMnsForsaleName(name);

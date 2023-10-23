@@ -35,7 +35,7 @@
     "description_all": "We couldn't find the page you are looking for.",
     "btn_index": "返回主页"
   },
-"smarttoken": {
+  "smarttoken": {
     "issue": "发行",
     "burn": "销毁",
     "transfer": "转移",
@@ -75,7 +75,8 @@
     "buy_button": "购买",
     "domains_in_bid_title": "出价中的域名",
     "bid_label": "出价",
-    "domain_label": "域名" 
+    "domain_label": "域名",
+    "domains_owned_title": "自有域名"
   },
   "account": {
     "type": "类型",

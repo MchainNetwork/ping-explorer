@@ -16,10 +16,7 @@ const showResponse = (response: any) => {
   if (response && response.status === 200) {
     isErrorMessage.value = false;
     cosmosAddress.value = '';
-    responseMessage.value =
-      'All coins are successfully sent. Check balance: ' +
-      'https://testnet.hub.mchain.network/bank/balances/' +
-      cosmosAddress.value;
+    responseMessage.value = 'All coins are successfully sent.';
   }
 };
 

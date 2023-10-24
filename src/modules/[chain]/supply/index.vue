@@ -49,14 +49,21 @@ function pageload(p: number) {
         </tr>
       </thead>
       <tr
-        v-for="item in list.filter((x) => x.denom == 'umar')"
+        v-for="item in list.filter(
+          (x) => x.denom == 'umar' || xl.denom == 'beer'
+        )"
         :key="item.denom"
       >
         <td>{{ item.denom }}</td>
         <td class="text-right">{{ item.amount }}</td>
       </tr>
       <tr
-        v-for="item in list.filter((x) => !x.denom.startsWith('ibc/') && x.denom != 'umar' )"
+        v-for="item in list.filter(
+          (x) =>
+            !x.denom.startsWith('ibc/') &&
+            x.denom != 'umar' &&
+            x.denom != 'beer'
+        )"
         :key="item.denom"
       >
         <td>

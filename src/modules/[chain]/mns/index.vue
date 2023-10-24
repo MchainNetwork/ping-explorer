@@ -24,6 +24,18 @@ const allowedExtension = 'mar';
 
 const props = defineProps(['chain']);
 
+// TODO: get price from coingecko
+const MAR_TO_USD = 0.0001;
+
+const displayInUSD = ref(false);
+
+const convertMarkToUsd = (marAmount: string) => {
+  return (
+    (parseFloat(String(marAmount).replace('umar', '')) * MAR_TO_USD) /
+    1000000
+  ).toFixed(2);
+};
+
 const format = useFormatter();
 const walletStore = useWalletStore();
 const dialog = useTxDialog();
@@ -197,6 +209,16 @@ function checkDomainAvailable(domain: string) {
       </label>
     </div>
 
+    <div class="flex mb-4 pl-4">
+      <input
+        type="checkbox"
+        v-model="displayInUSD"
+        id="displayInUSD"
+        class="mr-2"
+      />
+      <label for="displayInUSD">Display price in USD</label>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
       <div class="bg-base-100 p-4 rounded-xl">
         <h3 class="text-lg font-bold mb-4">
@@ -301,7 +323,11 @@ function checkDomainAvailable(domain: string) {
               </RouterLink>
             </td>
             <td>
-              {{ format.formatToken2(format.parseCoin(item.price), true) }}
+              {{
+                displayInUSD
+                  ? '$' + convertMarkToUsd(item.price)
+                  : format.formatToken2(format.parseCoin(item.price), true)
+              }}
             </td>
             <td class="text-right">
               <label
@@ -362,7 +388,11 @@ function checkDomainAvailable(domain: string) {
               </RouterLink>
             </td>
             <td>
-              {{ format.formatToken2(format.parseCoin(item.price), true) }}
+              {{
+                displayInUSD
+                  ? '$' + convertMarkToUsd(item.price)
+                  : format.formatToken2(format.parseCoin(item.price), true)
+              }}
             </td>
             <td class="text-right">
               <label

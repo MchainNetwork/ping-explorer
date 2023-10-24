@@ -155,7 +155,7 @@ function suggest() {
       // @ts-ignore
       window.keplr
         .experimentalSuggestChain(JSON.parse(conf.value))
-        .catch((e) => {
+        .catch((e: any) => {
           error.value = e;
         });
     }
@@ -177,7 +177,7 @@ function suggest() {
         class="select select-bordered mx-5"
         @change="onchange"
       >
-        <option v-for="c in chains" :value="c">
+        <option :key="index" v-for="(c, index) in chains" :value="c">
           {{ c.chainName }}
         </option>
       </select>

@@ -18,6 +18,14 @@
       "exponent": 6,
       "coingecko_id": false,
       "logo": "https://raw.githubusercontent.com/MchainNetwork/mchain-docs/master/static/img/logo.svg"
+    },
+    {
+      "symbol": "BEER",
+      "base": "beer",
+      "display": "BEER",
+      "exponent": 0,
+      "coingecko_id": false,
+      "logo": "https://raw.githubusercontent.com/MchainNetwork/mchain-docs/master/static/img/logo.svg"
     }
   ]
 }

@@ -31,7 +31,8 @@ export default defineComponent({
     size: {
       type: String,
       default: '',
-      validator: (value: string) => ['small', 'medium', 'large', ''].includes(value),
+      validator: (value: string) =>
+        ['small', 'medium', 'large', ''].includes(value),
     },
   },
   setup(props) {
@@ -46,6 +47,10 @@ export default defineComponent({
       iconStyle.value.background = `no-repeat url('data:image/svg+xml;utf8,${svg}')`;
 
       switch (props.size) {
+        case 'xs':
+          iconStyle.value.width = '16px';
+          iconStyle.value.height = '16px';
+          break;
         case 'small':
           iconStyle.value.width = '24px';
           iconStyle.value.height = '24px';

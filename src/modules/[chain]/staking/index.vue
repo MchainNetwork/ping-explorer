@@ -214,31 +214,11 @@ loadAvatars();
     <div class="bg-base-100 rounded-lg grid sm:grid-cols-1 md:grid-cols-4 p-4">
       <div class="flex">
         <span>
-          <div
-            class="relative w-9 h-9 text-xl rounded-xl overflow-hidden flex items-center justify-center mr-2"
-          >
-            <Icon class="text-primary" icon="mdi:trending-up" size="32" />
-            <div
-              class="absolute top-0 left-0 bottom-0 right-0 opacity-20 bg-primary"
-            ></div>
-          </div>
-        </span>
-        <span>
           <div class="font-bold">{{ format.percent(mintStore.inflation) }}</div>
           <div class="text-xs">{{ $t('staking.inflation') }}</div>
         </span>
       </div>
       <div class="flex">
-        <span>
-          <div
-            class="relative w-9 h-9 text-xl rounded-xl overflow-hidden flex items-center justify-center mr-2"
-          >
-            <Icon class="text-primary" icon="mdi:lock-open-outline" size="32" />
-            <div
-              class="absolute top-0 left-0 bottom-0 right-0 opacity-20 bg-primary"
-            ></div>
-          </div>
-        </span>
         <span>
           <div class="font-bold">
             {{ formatSeconds(staking.params?.unbonding_time) }}
@@ -248,20 +228,6 @@ loadAvatars();
       </div>
       <div class="flex">
         <span>
-          <div
-            class="relative w-9 h-9 text-xl rounded-xl overflow-hidden flex items-center justify-center mr-2"
-          >
-            <Icon
-              class="text-error"
-              icon="mdi:alert-octagon-outline"
-              size="32"
-            />
-            <div
-              class="absolute top-0 left-0 bottom-0 right-0 opacity-20 bg-error"
-            ></div>
-          </div>
-        </span>
-        <span>
           <div class="font-bold">
             {{ format.percent(slashing.slash_fraction_double_sign) }}
           </div>
@@ -269,16 +235,6 @@ loadAvatars();
         </span>
       </div>
       <div class="flex">
-        <span>
-          <div
-            class="relative w-9 h-9 text-xl rounded-xl overflow-hidden flex items-center justify-center mr-2"
-          >
-            <Icon class="text-error" icon="mdi:pause" size="32" />
-            <div
-              class="absolute top-0 left-0 bottom-0 right-0 opacity-20 bg-error"
-            ></div>
-          </div>
-        </span>
         <span>
           <div class="font-bold">
             {{ format.percent(slashing.slash_fraction_downtime) }}
@@ -458,7 +414,7 @@ loadAvatars();
                   <label
                     v-else
                     for="delegate"
-                    class="btn btn-xs btn-primary rounded-md capitalize"
+                    class="btn btn-xs btn-primary rounded-full capitalize"
                     @click="
                       dialog.open('delegate', {
                         validator_address: v.operator_address,

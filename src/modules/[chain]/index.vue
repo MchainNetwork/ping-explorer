@@ -181,6 +181,42 @@ const amount = computed({
       </div>
 
       <div
+        v-if="walletStore.currentAddress"
+        class="grid grid-cols-2 gap-4 px-4 pb-6 mt-4"
+      >
+        <!--<label for="PingTokenConvert" class="btn btn-primary rounded-full text-white">{{ $t('index.btn_swap') }}</label>-->
+        <label
+          for="send"
+          class="btn !btn-sm !btn-primary rounded-full text-white"
+          @click="dialog.open('send', {}, updateState)"
+          >{{ $t('account.btn_send') }}</label
+        >
+        <label
+          for="delegate"
+          class="btn !btn-sm !btn-primary rounded-full text-white"
+          @click="dialog.open('delegate', {}, updateState)"
+          >{{ $t('account.btn_delegate') }}</label
+        >
+        <RouterLink
+          to="/wallet/receive"
+          class="btn !btn-sm !btn-primary rounded-full text-white hidden"
+          >{{ $t('index.receive') }}</RouterLink
+        >
+      </div>
+      <Teleport to="body">
+        <ping-token-convert
+          :chain-name="blockchain?.current?.prettyName"
+          :endpoint="blockchain?.endpoint?.address"
+          :hd-path="walletStore?.connectedWallet?.hdPath"
+        ></ping-token-convert>
+      </Teleport>
+    </div>
+
+    <div class="px-4 pt-4 pb-4 text-lg font-semibold text-main">
+      Your MARK delegations
+    </div>
+    <div class="bg-base-100 rounded-xl mb-4">
+      <div
         v-if="walletStore.delegations.length > 0"
         class="px-4 pb-4 overflow-auto"
       >
@@ -190,14 +226,15 @@ const amount = computed({
               <th>{{ $t('account.validator') }}</th>
               <th>{{ $t('account.delegations') }}</th>
               <th>{{ $t('account.rewards') }}</th>
-              <th>{{ $t('staking.actions') }}</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(item, index) in walletStore.delegations" :key="index">
-              <td>
+              <td class="flex items-center">
+                <IdentityIcon size="xs" :address="walletStore.currentAddress" />
                 <RouterLink
-                  class="link link-primary text-lg no-underline"
+                  class="link link-primary text-md no-underline ml-2"
                   :to="`/${chain}/staking/${item?.delegation?.validator_address}`"
                 >
                   {{
@@ -219,7 +256,7 @@ const amount = computed({
                   )
                 }}
               </td>
-              <td>
+              <td class="text-right">
                 <div>
                   <label
                     for="delegate"
@@ -257,37 +294,6 @@ const amount = computed({
           </tbody>
         </table>
       </div>
-
-      <div
-        v-if="walletStore.currentAddress"
-        class="grid grid-cols-2 gap-4 px-4 pb-6 mt-4"
-      >
-        <!--<label for="PingTokenConvert" class="btn btn-primary rounded-full text-white">{{ $t('index.btn_swap') }}</label>-->
-        <label
-          for="send"
-          class="btn btn-primary rounded-full text-white"
-          @click="dialog.open('send', {}, updateState)"
-          >{{ $t('account.btn_send') }}</label
-        >
-        <label
-          for="delegate"
-          class="btn btn-primary rounded-full text-white"
-          @click="dialog.open('delegate', {}, updateState)"
-          >{{ $t('account.btn_delegate') }}</label
-        >
-        <RouterLink
-          to="/wallet/receive"
-          class="btn btn-primary rounded-full text-white hidden"
-          >{{ $t('index.receive') }}</RouterLink
-        >
-      </div>
-      <Teleport to="body">
-        <ping-token-convert
-          :chain-name="blockchain?.current?.prettyName"
-          :endpoint="blockchain?.endpoint?.address"
-          :hd-path="walletStore?.connectedWallet?.hdPath"
-        ></ping-token-convert>
-      </Teleport>
     </div>
 
     <div class="px-4 pt-4 pb-4 text-lg font-semibold text-main">
@@ -514,21 +520,23 @@ const amount = computed({
       </div>
     </div>
 
-    <div class="px-4 pt-4 pb-4 text-lg font-semibold text-main">
-      Governance: {{ $t('index.active_proposals') }}
-    </div>
+    <template v-if="store.proposals?.proposals?.length != 0">
+      <div class="px-4 pt-4 pb-4 text-lg font-semibold text-main">
+        {{ $t('index.active_proposals') }}
+      </div>
 
-    <div class="bg-base-100 rounded-xl">
-      <div class="px-4 pb-4">
-        <ProposalListItem :proposals="store?.proposals" />
+      <div class="bg-base-100 rounded-xl">
+        <div class="px-4 pb-4">
+          <ProposalListItem :proposals="store?.proposals" />
+        </div>
+        <div
+          class="pt-4 pb-8 text-center"
+          v-if="store.proposals?.proposals?.length === 0"
+        >
+          {{ $t('index.no_active_proposals') }}
+        </div>
       </div>
-      <div
-        class="pt-4 pb-8 text-center"
-        v-if="store.proposals?.proposals?.length === 0"
-      >
-        {{ $t('index.no_active_proposals') }}
-      </div>
-    </div>
+    </template>
 
     <!--
     <div class="bg-base-100 rounded-xl mt-4">

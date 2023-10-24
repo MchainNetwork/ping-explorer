@@ -189,15 +189,6 @@ async function update() {
             <h4 class="text-lg font-semibold text-main">{{ rate }}</h4>
             <span class="text-md">{{ $t('consensus.onboard_rate') }}</span>
           </div>
-          <div class="avatar placeholder">
-            <div
-              class="bg-rose-100 text-neutral-content rounded-full w-12 h-12"
-            >
-              <span class="text-2xl text-error font-semibold">{{
-                $t('consensus.o')
-              }}</span>
-            </div>
-          </div>
         </div>
         <!-- Height -->
         <div
@@ -206,15 +197,6 @@ async function update() {
           <div class="text-sm mb-1 flex flex-col truncate">
             <h4 class="text-lg font-semibold text-main">{{ height }}</h4>
             <span class="text-md">{{ $t('account.height') }}</span>
-          </div>
-          <div class="avatar placeholder">
-            <div
-              class="bg-green-100 text-neutral-content rounded-full w-12 h-12"
-            >
-              <span class="text-2xl text-success font-semibold">{{
-                $t('consensus.h')
-              }}</span>
-            </div>
           </div>
         </div>
         <!-- Round -->
@@ -225,15 +207,6 @@ async function update() {
             <h4 class="text-lg font-semibold text-main">{{ round }}</h4>
             <span class="text-md">{{ $t('consensus.round') }}</span>
           </div>
-          <div class="avatar placeholder">
-            <div
-              class="bg-violet-100 text-neutral-content rounded-full w-12 h-12"
-            >
-              <span class="text-2xl text-primary font-semibold">{{
-                $t('consensus.r')
-              }}</span>
-            </div>
-          </div>
         </div>
         <!-- Step -->
         <div
@@ -242,15 +215,6 @@ async function update() {
           <div class="text-sm mb-1 flex flex-col truncate">
             <h4 class="text-lg font-semibold text-main">{{ step }}</h4>
             <span class="text-md">{{ $t('consensus.step') }}</span>
-          </div>
-          <div class="avatar placeholder">
-            <div
-              class="bg-blue-100 text-neutral-content rounded-full w-12 h-12"
-            >
-              <span class="text-2xl text-info font-semibold">{{
-                $t('consensus.s')
-              }}</span>
-            </div>
           </div>
         </div>
       </div>
@@ -272,7 +236,7 @@ async function update() {
 
           <div class="flex flex-wrap py-6">
             <div
-              class="inline-flex items-center justify-center w-fit rounded-3xl h-5 text-sm px-2 text-slate-200 leading-5"
+              class="inline-flex items-center justify-center w-fit rounded-3xl h-5 text-xs font-bold px-2 text-black leading-5"
               v-for="(pre, i) in item.prevotes"
               :key="i"
               size="sm"
@@ -286,32 +250,30 @@ async function update() {
       </div>
       <div class="divider"></div>
       <!--  -->
-      <div class="flex flex-col md:!flex-row">
+      <div class="flex flex-col md:!flex-row text-sm">
         <div class="flex mr-1 mb-1">
-          <div class="px-4 w-[34px] h-6 rounded-lg bg-primary"></div>
-          <span class="mx-1">{{ $t('consensus.proposer_sign') }}</span>
+          <div class="px-2 h-4 rounded-full bg-primary"></div>
+          <span class="mx-2">{{ $t('consensus.proposer_sign') }}</span>
         </div>
         <div class="flex mr-1 mb-1">
-          <div class="px-4 w-[34px] h-6 rounded-lg bg-warning"></div>
-          <span class="mx-1">{{ $t('consensus.proposer_not_sign') }}</span>
-        </div>
-
-        <div class="flex mr-1 mb-1">
-          <div class="px-4 w-[34px] h-6 rounded-lg bg-success"></div>
-          <span class="mx-1">{{ $t('consensus.sign') }}</span>
+          <div class="px-2 h-4 rounded-full bg-warning"></div>
+          <span class="mx-2">{{ $t('consensus.proposer_not_sign') }}</span>
         </div>
 
         <div class="flex mr-1 mb-1">
-          <div class="px-4 w-[34px] h-6 rounded-lg bg-gray-700"></div>
-          <span class="mx-1">{{ $t('consensus.not_sign') }}</span>
+          <div class="px-2 h-4 rounded-full bg-success"></div>
+          <span class="mx-2">{{ $t('consensus.sign') }}</span>
+        </div>
+
+        <div class="flex mr-1 mb-1">
+          <div class="px-2 h-4 rounded-full bg-gray-700"></div>
+          <span class="mx-2">{{ $t('consensus.not_sign') }}</span>
         </div>
       </div>
     </div>
 
     <!-- alert-info -->
-    <div
-      class="text-[#00cfe8] bg-[rgba(0,207,232,0.12)] rounded-xl mt-4 alert-info"
-    >
+    <div class="rounded-xl mt-4">
       <div class="drop-shadow-md px-4 pt-2 pb-2">
         <h2 class="text-base font-semibold">{{ $t('consensus.tips') }}</h2>
       </div>

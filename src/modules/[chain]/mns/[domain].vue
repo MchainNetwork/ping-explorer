@@ -61,7 +61,7 @@ function pageload() {
 }
 </script>
 <template>
-  <div class="overflow-auto">
+  <div class="overflow-auto mx-auto max-w-screen-lg">
     <div v-if="isLoading" class="loading-indicator">Loading...</div>
     <template v-if="!isLoading">
       <div class="flex justify-between items-center m-4 mb-6">

@@ -120,7 +120,7 @@ function checkDomainAvailable(domain: string) {
 
 
 <template>
-  <div class="overflow-auto">
+  <div class="overflow-hidden mx-auto max-w-screen-lg lg:py-10">
     <div class="check-domain-box bg-base-100 p-4 rounded-xl mb-6">
       <h2
         class="text-xl text-center md:text-5xl font-bold text-primary m-4 mb-6"
@@ -170,7 +170,7 @@ function checkDomainAvailable(domain: string) {
         @click="
           dialog.open(
             'mns_register',
-            { name: domainToCheck, years: 1, referrer: 'bitcoin.mar' },
+            { name: domainToCheck, years: 1, referrer: 'bitcoin.mark' },
             updateState
           )
         "
@@ -202,7 +202,7 @@ function checkDomainAvailable(domain: string) {
         <h3 class="text-lg font-bold mb-4">
           {{ $t('mns.registered_names_title') }}
         </h3>
-        <table class="table table-compact text-base">
+        <table class="table table-compact text-xs">
           <thead>
             <tr>
               <td>{{ $t('mns.domain_label') }}</td>
@@ -279,7 +279,7 @@ function checkDomainAvailable(domain: string) {
         <h2 class="text-lg font-bold mb-2">
           {{ $t('mns.domains_for_sale_title') }}
         </h2>
-        <table class="table table-compact text-base">
+        <table class="table table-compact text-xs">
           <thead>
             <tr>
               <td>{{ $t('mns.domain_label') }}</td>
@@ -340,7 +340,7 @@ function checkDomainAvailable(domain: string) {
         <h2 class="text-lg font-bold mb-2">
           {{ $t('mns.domains_in_bid_title') }}
         </h2>
-        <table class="table table-compact text-base">
+        <table class="table table-compact text-xs">
           <thead>
             <tr>
               <td>{{ $t('mns.domain_label') }}</td>

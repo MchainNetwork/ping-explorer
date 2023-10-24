@@ -9,7 +9,11 @@ import {
 } from '@/stores';
 import UptimeBar from '@/components/UptimeBar.vue';
 import type { Commit, SlashingParam, SigningInfo } from '@/types';
-import { consensusPubkeyToHexAddress, pubKeyToValcons, valconsToBase64 } from '@/libs';
+import {
+  consensusPubkeyToHexAddress,
+  pubKeyToValcons,
+  valconsToBase64,
+} from '@/libs';
 
 const props = defineProps(['chain']);
 
@@ -35,15 +39,15 @@ const validators = computed(() => {
 });
 
 const list = computed(() => {
-  if(chainStore.isConsumerChain) {
-    stakingStore.loadKeyRotationFromLocalstorage(baseStore.latest?.block?.header?.chain_id)
+  if (chainStore.isConsumerChain) {
+    stakingStore.loadKeyRotationFromLocalstorage(
+      baseStore.latest?.block?.header?.chain_id
+    );
 
     const window = Number(slashingParam.value.signed_blocks_window || 0);
     const vset = validators.value.map((v) => {
-      
-      const hexAddress = stakingStore.findRotatedHexAddress(v.consensus_pubkey)
-      const signing =
-        signingInfo.value[hexAddress];
+      const hexAddress = stakingStore.findRotatedHexAddress(v.consensus_pubkey);
+      const signing = signingInfo.value[hexAddress];
       return {
         v,
         signing,
@@ -135,12 +139,13 @@ function changeTab(v: string) {
 }
 
 function fetchAllKeyRotation() {
-  stakingStore.fetchAllKeyRotation(baseStore.latest?.block?.header?.chain_id)
+  stakingStore.fetchAllKeyRotation(baseStore.latest?.block?.header?.chain_id);
 }
 </script>
 
 <template>
-  <div>
+  <div class="mx-auto max-w-screen-lg">
+    <h1 class="text-4xl font-bold mb-4 p-4">Uptime</h1>
     <div class="tabs mb-4">
       <a
         class="tab tab-lg tab-bordered text-gray-400"
@@ -155,7 +160,9 @@ function fetchAllKeyRotation() {
         >{{ $t('module.blocks') }}</a
       >
       <RouterLink :to="`/${chain}/uptime/customize`">
-        <a class="tab tab-lg tab-bordered text-gray-400">{{ $t('uptime.customize') }}</a>
+        <a class="tab tab-lg tab-bordered text-gray-400">{{
+          $t('uptime.customize')
+        }}</a>
       </RouterLink>
     </div>
     <div class="bg-base-100 rounded-xl px-5 pt-5">
@@ -166,10 +173,20 @@ function fetchAllKeyRotation() {
           placeholder="Keywords to filter validators"
           class="input input-sm w-full flex-1 border border-gray-200 dark:border-gray-600"
         />
-        <button v-if="chainStore.isConsumerChain" class="btn btn-sm btn-primary" @click="fetchAllKeyRotation">Load Rotated Keys</button>
+        <button
+          v-if="chainStore.isConsumerChain"
+          class="btn btn-sm btn-primary"
+          @click="fetchAllKeyRotation"
+        >
+          Load Rotated Keys
+        </button>
       </div>
 
-      <div v-if="chainStore.isConsumerChain && Object.keys(stakingStore.keyRotation).length === 0"
+      <div
+        v-if="
+          chainStore.isConsumerChain &&
+          Object.keys(stakingStore.keyRotation).length === 0
+        "
         class="alert alert-warning my-4"
       >
         Note: Please load rotated keys to see the correct uptime
@@ -215,7 +232,11 @@ function fetchAllKeyRotation() {
               <td>{{ $t('uptime.tombstoned') }}</td>
             </tr>
           </thead>
-          <tr v-for="({ v, signing, uptime }, i) in list" class="hover">
+          <tr
+            :key="i"
+            v-for="({ v, signing, uptime }, i) in list"
+            class="hover"
+          >
             <td>
               <div class="truncate max-w-sm">
                 {{ i + 1 }}. {{ v.description.moniker }}

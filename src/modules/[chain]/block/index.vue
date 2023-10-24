@@ -38,7 +38,11 @@ const setTab = (selectedTab: string) => {
 };
 </script>
 <template>
-  <div>
+  <div class="mx-auto max-w-screen-lg">
+    <h1 class="text-4xl font-bold mb-4 p-4">
+      {{ tab === 'transactions' ? 'Transactions' : 'Blocks' }}
+    </h1>
+    <!--
     <div class="tabs mb-4">
       <a
         class="tab tab-lg tab-bordered text-gray-400"
@@ -60,6 +64,7 @@ const setTab = (selectedTab: string) => {
         >{{ $t('account.transactions') }}</a
       >
     </div>
+    -->
 
     <div v-show="tab === 'blocks'" class="grid grid-cols-1 gap-3">
       <RouterLink

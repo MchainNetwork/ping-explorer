@@ -125,7 +125,175 @@ const amount = computed({
 </script>
 
 <template>
-  <div>
+  <div class="overflow-hidden mx-auto max-w-screen-lg lg:py-10">
+    <h1 class="text-4xl font-bold mb-6 p-4">Your Mchain Wallet</h1>
+    <div class="bg-base-100 rounded-xl my-4">
+      <div class="flex px-4 pt-4 pb-4 text-lg font-semibold text-main">
+        <IdentityIcon size="small" :address="walletStore.currentAddress" />
+        <RouterLink
+          v-if="walletStore.currentAddress"
+          class="ml-2 cursor-pointer link link-primary no-underline font-medium"
+          :to="`/${chain}/account/${walletStore.currentAddress}`"
+        >
+          {{ walletStore.currentAddress }}
+        </RouterLink>
+        <span v-else>Not Connected</span>
+      </div>
+      <div
+        class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 pb-6"
+      >
+        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-xl px-4 py-3">
+          <div class="text-sm mb-1">{{ $t('account.balance') }}</div>
+          <div class="text-lg font-semibold text-main">
+            {{ format.formatToken(walletStore.balanceOfStakingToken) }}
+          </div>
+          <div class="text-sm" :class="color">
+            ${{ format.tokenValue(walletStore.balanceOfStakingToken) }}
+          </div>
+        </div>
+        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-xl px-4 py-3">
+          <div class="text-sm mb-1">{{ $t('module.staking') }}</div>
+          <div class="text-lg font-semibold text-main">
+            {{ format.formatToken(walletStore.stakingAmount) }}
+          </div>
+          <div class="text-sm" :class="color">
+            ${{ format.tokenValue(walletStore.stakingAmount) }}
+          </div>
+        </div>
+        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-xl px-4 py-3">
+          <div class="text-sm mb-1">{{ $t('index.reward') }}</div>
+          <div class="text-lg font-semibold text-main">
+            {{ format.formatToken(walletStore.rewardAmount) }}
+          </div>
+          <div class="text-sm" :class="color">
+            ${{ format.tokenValue(walletStore.rewardAmount) }}
+          </div>
+        </div>
+        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-xl px-4 py-3">
+          <div class="text-sm mb-1">{{ $t('index.unbonding') }}</div>
+          <div class="text-lg font-semibold text-main">
+            {{ format.formatToken(walletStore.unbondingAmount) }}
+          </div>
+          <div class="text-sm" :class="color">
+            ${{ format.tokenValue(walletStore.unbondingAmount) }}
+          </div>
+        </div>
+      </div>
+
+      <div
+        v-if="walletStore.delegations.length > 0"
+        class="px-4 pb-4 overflow-auto"
+      >
+        <table class="table table-compact w-full table-zebra">
+          <thead>
+            <tr>
+              <th>{{ $t('account.validator') }}</th>
+              <th>{{ $t('account.delegations') }}</th>
+              <th>{{ $t('account.rewards') }}</th>
+              <th>{{ $t('staking.actions') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in walletStore.delegations" :key="index">
+              <td>
+                <RouterLink
+                  class="link link-primary text-lg no-underline"
+                  :to="`/${chain}/staking/${item?.delegation?.validator_address}`"
+                >
+                  {{
+                    format.validatorFromBech32(
+                      item?.delegation?.validator_address
+                    )
+                  }}
+                </RouterLink>
+              </td>
+              <td>{{ format.formatToken(item?.balance) }}</td>
+              <td>
+                {{
+                  format.formatTokens(
+                    walletStore?.rewards?.rewards?.find(
+                      (el) =>
+                        el?.validator_address ===
+                        item?.delegation?.validator_address
+                    )?.reward
+                  )
+                }}
+              </td>
+              <td>
+                <div>
+                  <label
+                    for="delegate"
+                    class="btn !btn-xs !btn-primary rounded-full mr-2"
+                    @click="
+                      dialog.open(
+                        'delegate',
+                        {
+                          validator_address: item.delegation.validator_address,
+                        },
+                        updateState
+                      )
+                    "
+                  >
+                    {{ $t('account.btn_delegate') }}
+                  </label>
+                  <label
+                    for="withdraw"
+                    class="btn !btn-xs !btn-primary rounded-full"
+                    @click="
+                      dialog.open(
+                        'withdraw',
+                        {
+                          validator_address: item.delegation.validator_address,
+                        },
+                        updateState
+                      )
+                    "
+                  >
+                    {{ $t('index.btn_withdraw_reward') }}
+                  </label>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div
+        v-if="walletStore.currentAddress"
+        class="grid grid-cols-2 gap-4 px-4 pb-6 mt-4"
+      >
+        <!--<label for="PingTokenConvert" class="btn btn-primary rounded-full text-white">{{ $t('index.btn_swap') }}</label>-->
+        <label
+          for="send"
+          class="btn btn-primary rounded-full text-white"
+          @click="dialog.open('send', {}, updateState)"
+          >{{ $t('account.btn_send') }}</label
+        >
+        <label
+          for="delegate"
+          class="btn btn-primary rounded-full text-white"
+          @click="dialog.open('delegate', {}, updateState)"
+          >{{ $t('account.btn_delegate') }}</label
+        >
+        <RouterLink
+          to="/wallet/receive"
+          class="btn btn-primary rounded-full text-white hidden"
+          >{{ $t('index.receive') }}</RouterLink
+        >
+      </div>
+      <Teleport to="body">
+        <ping-token-convert
+          :chain-name="blockchain?.current?.prettyName"
+          :endpoint="blockchain?.endpoint?.address"
+          :hd-path="walletStore?.connectedWallet?.hdPath"
+        ></ping-token-convert>
+      </Teleport>
+    </div>
+
+    <div class="px-4 pt-4 pb-4 text-lg font-semibold text-main">
+      Mchain Stats
+    </div>
+
     <div v-if="coinInfo && coinInfo.name" class="bg-base-100 rounded-xl mb-4">
       <div class="grid grid-cols-2 md:grid-cols-3 p-4">
         <div class="col-span-2 md:col-span-1">
@@ -340,191 +508,26 @@ const amount = computed({
       </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-4 md:!grid-cols-3 lg:!grid-cols-6">
+    <div class="grid grid-cols-2 gap-4 md:!grid-cols-3 lg:!grid-cols-6 mb-4">
       <div v-for="(item, key) in store.stats" :key="key">
         <CardStatisticsVertical v-bind="item" />
       </div>
     </div>
 
-    <div
-      v-if="blockchain.supportModule('governance')"
-      class="bg-base-100 rounded-xl mt-4"
-    >
-      <div class="px-4 pt-4 pb-2 text-lg font-semibold text-main">
-        {{ $t('index.active_proposals') }}
-      </div>
+    <div class="px-4 pt-4 pb-4 text-lg font-semibold text-main">
+      Governance: {{ $t('index.active_proposals') }}
+    </div>
+
+    <div class="bg-base-100 rounded-xl">
       <div class="px-4 pb-4">
         <ProposalListItem :proposals="store?.proposals" />
       </div>
       <div
-        class="pb-8 text-center"
+        class="pt-4 pb-8 text-center"
         v-if="store.proposals?.proposals?.length === 0"
       >
         {{ $t('index.no_active_proposals') }}
       </div>
-    </div>
-
-    <div class="bg-base-100 rounded-xl mt-4">
-      <div class="flex px-4 pt-4 pb-4 text-lg font-semibold text-main">
-        <IdentityIcon size="small" :address="walletStore.currentAddress" />
-        <RouterLink
-          v-if="walletStore.currentAddress"
-          class="ml-2 cursor-pointer link link-primary no-underline font-medium"
-          :to="`/${chain}/account/${walletStore.currentAddress}`"
-        >
-          {{ walletStore.currentAddress }}
-        </RouterLink>
-        <span v-else>Not Connected</span>
-      </div>
-      <div
-        class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 pb-6"
-      >
-        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('account.balance') }}</div>
-          <div class="text-lg font-semibold text-main">
-            {{ format.formatToken(walletStore.balanceOfStakingToken) }}
-          </div>
-          <div class="text-sm" :class="color">
-            ${{ format.tokenValue(walletStore.balanceOfStakingToken) }}
-          </div>
-        </div>
-        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('module.staking') }}</div>
-          <div class="text-lg font-semibold text-main">
-            {{ format.formatToken(walletStore.stakingAmount) }}
-          </div>
-          <div class="text-sm" :class="color">
-            ${{ format.tokenValue(walletStore.stakingAmount) }}
-          </div>
-        </div>
-        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('index.reward') }}</div>
-          <div class="text-lg font-semibold text-main">
-            {{ format.formatToken(walletStore.rewardAmount) }}
-          </div>
-          <div class="text-sm" :class="color">
-            ${{ format.tokenValue(walletStore.rewardAmount) }}
-          </div>
-        </div>
-        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('index.unbonding') }}</div>
-          <div class="text-lg font-semibold text-main">
-            {{ format.formatToken(walletStore.unbondingAmount) }}
-          </div>
-          <div class="text-sm" :class="color">
-            ${{ format.tokenValue(walletStore.unbondingAmount) }}
-          </div>
-        </div>
-      </div>
-
-      <div
-        v-if="walletStore.delegations.length > 0"
-        class="px-4 pb-4 overflow-auto"
-      >
-        <table class="table table-compact w-full table-zebra">
-          <thead>
-            <tr>
-              <th>{{ $t('account.validator') }}</th>
-              <th>{{ $t('account.delegations') }}</th>
-              <th>{{ $t('account.rewards') }}</th>
-              <th>{{ $t('staking.actions') }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item, index) in walletStore.delegations" :key="index">
-              <td>
-                <RouterLink
-                  class="link link-primary text-lg no-underline"
-                  :to="`/${chain}/staking/${item?.delegation?.validator_address}`"
-                >
-                  {{
-                    format.validatorFromBech32(
-                      item?.delegation?.validator_address
-                    )
-                  }}
-                </RouterLink>
-              </td>
-              <td>{{ format.formatToken(item?.balance) }}</td>
-              <td>
-                {{
-                  format.formatTokens(
-                    walletStore?.rewards?.rewards?.find(
-                      (el) =>
-                        el?.validator_address ===
-                        item?.delegation?.validator_address
-                    )?.reward
-                  )
-                }}
-              </td>
-              <td>
-                <div>
-                  <label
-                    for="delegate"
-                    class="btn !btn-xs !btn-primary rounded-full mr-2"
-                    @click="
-                      dialog.open(
-                        'delegate',
-                        {
-                          validator_address: item.delegation.validator_address,
-                        },
-                        updateState
-                      )
-                    "
-                  >
-                    {{ $t('account.btn_delegate') }}
-                  </label>
-                  <label
-                    for="withdraw"
-                    class="btn !btn-xs !btn-primary rounded-full"
-                    @click="
-                      dialog.open(
-                        'withdraw',
-                        {
-                          validator_address: item.delegation.validator_address,
-                        },
-                        updateState
-                      )
-                    "
-                  >
-                    {{ $t('index.btn_withdraw_reward') }}
-                  </label>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div
-        v-if="walletStore.currentAddress"
-        class="grid grid-cols-2 gap-4 px-4 pb-6 mt-4"
-      >
-        <!--<label for="PingTokenConvert" class="btn btn-primary rounded-full text-white">{{ $t('index.btn_swap') }}</label>-->
-        <label
-          for="send"
-          class="btn btn-primary rounded-full text-white"
-          @click="dialog.open('send', {}, updateState)"
-          >{{ $t('account.btn_send') }}</label
-        >
-        <label
-          for="delegate"
-          class="btn btn-primary rounded-full text-white"
-          @click="dialog.open('delegate', {}, updateState)"
-          >{{ $t('account.btn_delegate') }}</label
-        >
-        <RouterLink
-          to="/wallet/receive"
-          class="btn btn-primary rounded-full text-white hidden"
-          >{{ $t('index.receive') }}</RouterLink
-        >
-      </div>
-      <Teleport to="body">
-        <ping-token-convert
-          :chain-name="blockchain?.current?.prettyName"
-          :endpoint="blockchain?.endpoint?.address"
-          :hd-path="walletStore?.connectedWallet?.hdPath"
-        ></ping-token-convert>
-      </Teleport>
     </div>
 
     <!--

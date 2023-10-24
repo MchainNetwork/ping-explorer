@@ -20,7 +20,8 @@ var host = 'https://' + window.location.hostname;
 const pingWidgetJs = host + '/mchain-ping-widget/ping-widget.js';
 </script>
 <template>
-  <div>
+  <div class="mx-auto max-w-screen-lg">
+    <h1 class="text-4xl font-bold mb-6 p-4">Widgets</h1>
     <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl">
       <h2 class="card-title">{{ $t('widget.title') }}</h2>
       <div class="my-4 grid grid-flow-col auto-cols-max overflow-auto">

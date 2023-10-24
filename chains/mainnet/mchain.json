@@ -1,7 +1,8 @@
 {
   "chain_name": "mchain",
-  "api": ["https://api.mchain.network"],
-  "rpc": ["https://rpc.mchain.network"],
+  "api": ["https://testnet.api.mchain.network"],
+  "rpc": ["https://testnet.rpc.mchain.network"],
+  "faucet": "https://faucet.mchain.network",
   "sdk_version": "0.45.1",
   "addr_prefix": "m",
   "coin_type": "118",
@@ -15,6 +16,14 @@
       "base": "umar",
       "display": "MAR",
       "exponent": 6,
+      "coingecko_id": false,
+      "logo": "https://raw.githubusercontent.com/MchainNetwork/mchain-docs/master/static/img/logo.svg"
+    },
+    {
+      "symbol": "BEER",
+      "base": "beer",
+      "display": "BEER",
+      "exponent": 0,
       "coingecko_id": false,
       "logo": "https://raw.githubusercontent.com/MchainNetwork/mchain-docs/master/static/img/logo.svg"
     }

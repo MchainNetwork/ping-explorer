@@ -73,13 +73,13 @@ function selected(route: any, nav: NavLink) {
       class="w-64 fixed z-50 left-0 top-0 bottom-0 overflow-auto bg-base-100 border-r border-gray-100 dark:border-gray-800 shadow-lg"
       :class="{ block: sidebarShow, 'hidden xl:!block': !sidebarShow }"
     >
-      <div class="flex justify-between mt-1 pl-4 py-4 mb-1">
+      <div class="flex justify-between mt-1 pl-6 py-4 mb-1">
         <RouterLink to="/" class="flex items-center">
           <img class="w-10 h-10 ml-2" src="../../assets/mchain.svg" />
           <h1
             class="flex-1 ml-3 text-lg md:text-2xl font-semibold dark:text-white"
           >
-            Mchain Hub
+            Mchain
           </h1>
         </RouterLink>
         <div

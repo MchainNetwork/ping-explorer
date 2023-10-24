@@ -7,6 +7,7 @@ import routes from "~pages";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+    // TODO:get redirect from environment
   routes: [{ path: '/', redirect: '/mchain' }, ...setupLayouts(routes)],
 });
 

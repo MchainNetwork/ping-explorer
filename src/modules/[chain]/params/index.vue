@@ -11,7 +11,8 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="overflow-hidden">
+  <div class="overflow-hidden mx-auto max-w-screen-lg">
+    <h1 class="text-4xl font-bold mb-4 p-4">Parameters</h1>
     <!-- Chain ID -->
     <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl">
       <div class="text-base mb-3 text-main">{{ chain.title }}</div>

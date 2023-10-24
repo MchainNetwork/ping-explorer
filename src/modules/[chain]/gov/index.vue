@@ -30,7 +30,8 @@ function page(p: number) {
 }
 </script>
 <template>
-  <div>
+  <div class="mx-auto max-w-screen-lg">
+    <h1 class="text-4xl font-bold mb-4 p-4">Governance</h1>
     <div class="tabs mb-4 text-center">
       <a
         class="tab tab-lg tab-bordered text-gray-400"

@@ -30,7 +30,7 @@ onMounted(async () => {
   rpc.value = rpcList.value[0].address + '/consensus_state';
   await fetchPosition();
   update();
-  clearTime()
+  clearTime();
   timer = setInterval(() => {
     update();
   }, 6000);
@@ -80,7 +80,7 @@ function color(i: number, txt: string) {
   }
   return txt === 'nil-Vote' ? 'gray-700' : 'success';
 }
-async function onChange () {
+async function onChange() {
   httpstatus.value = 200;
   httpStatusText.value = '';
   roundState.value = {};
@@ -154,8 +154,8 @@ async function update() {
 </script>
 
 <template>
-  <div>
-    <!--  -->
+  <div class="mx-auto max-w-screen-lg">
+    <h1 class="text-4xl font-bold mb-4 p-4">Consensus State</h1>
     <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl">
       <div class="form-control">
         <label class="input-group input-group-md w-full flex">
@@ -170,7 +170,9 @@ async function update() {
               {{ item?.address }}/consensus_state
             </option>
           </select>
-          <button class="btn btn-primary" @click="onChange">{{ $t('consensus.monitor') }}</button>
+          <button class="btn btn-primary" @click="onChange">
+            {{ $t('consensus.monitor') }}
+          </button>
         </label>
       </div>
       <div v-if="httpstatus !== 200" class="text-error mt-1">
@@ -191,7 +193,9 @@ async function update() {
             <div
               class="bg-rose-100 text-neutral-content rounded-full w-12 h-12"
             >
-              <span class="text-2xl text-error font-semibold">{{ $t('consensus.o') }}</span>
+              <span class="text-2xl text-error font-semibold">{{
+                $t('consensus.o')
+              }}</span>
             </div>
           </div>
         </div>
@@ -207,7 +211,9 @@ async function update() {
             <div
               class="bg-green-100 text-neutral-content rounded-full w-12 h-12"
             >
-              <span class="text-2xl text-success font-semibold">{{ $t('consensus.h') }}</span>
+              <span class="text-2xl text-success font-semibold">{{
+                $t('consensus.h')
+              }}</span>
             </div>
           </div>
         </div>
@@ -223,7 +229,9 @@ async function update() {
             <div
               class="bg-violet-100 text-neutral-content rounded-full w-12 h-12"
             >
-              <span class="text-2xl text-primary font-semibold">{{ $t('consensus.r') }}</span>
+              <span class="text-2xl text-primary font-semibold">{{
+                $t('consensus.r')
+              }}</span>
             </div>
           </div>
         </div>
@@ -239,7 +247,9 @@ async function update() {
             <div
               class="bg-blue-100 text-neutral-content rounded-full w-12 h-12"
             >
-              <span class="text-2xl text-info font-semibold">{{ $t('consensus.s') }}</span>
+              <span class="text-2xl text-info font-semibold">{{
+                $t('consensus.s')
+              }}</span>
             </div>
           </div>
         </div>
@@ -255,7 +265,9 @@ async function update() {
           {{ $t('consensus.updated_at') }} {{ newTime || '' }}
         </h2>
         <div v-for="item in roundState.height_vote_set" :key="item.round">
-          <div class="text-xs mb-1">{{ $t('consensus.round') }}: {{ item.round }}</div>
+          <div class="text-xs mb-1">
+            {{ $t('consensus.round') }}: {{ item.round }}
+          </div>
           <div class="text-xs break-words">{{ item.prevotes_bit_array }}</div>
 
           <div class="flex flex-wrap py-6">
@@ -300,9 +312,7 @@ async function update() {
     <div
       class="text-[#00cfe8] bg-[rgba(0,207,232,0.12)] rounded-xl mt-4 alert-info"
     >
-      <div
-        class="drop-shadow-md px-4 pt-2 pb-2"
-      >
+      <div class="drop-shadow-md px-4 pt-2 pb-2">
         <h2 class="text-base font-semibold">{{ $t('consensus.tips') }}</h2>
       </div>
       <div class="px-4 py-4">

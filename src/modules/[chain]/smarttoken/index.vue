@@ -41,10 +41,10 @@ function pageload(p: number) {
 }
 </script>
 <template>
-  <div class="overflow-auto">
-    <div class="flex justify-between items-center m-4 mb-6">
-      <h2 class="text-xl md:text-5xl font-bold text-base">Smart Tokens</h2>
-      <div>
+  <div class="overflow-auto mx-auto max-w-screen-lg">
+    <div class="flex justify-between items-center">
+      <h1 class="text-4xl font-bold mb-6 p-4">Smart Tokens</h1>
+      <div class="pr-4">
         <label
           for="issue"
           class="btn btn-primary btn-sm rounded-full text-white"
@@ -59,9 +59,9 @@ function pageload(p: number) {
       <table class="table table-compact text-lg">
         <thead>
           <tr>
+            <td>{{ $t('smarttoken.denom') }}</td>
             <td>{{ $t('smarttoken.symbol') }}</td>
             <td>{{ $t('smarttoken.name') }}</td>
-            <td>{{ $t('smarttoken.denom') }}</td>
           </tr>
         </thead>
         <tr
@@ -69,16 +69,16 @@ function pageload(p: number) {
           v-for="item in list"
           class="odd:bg-gray-100 dark:odd:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
         >
-          <td width="10%" class="uppercase">{{ item.meta_data.symbol }}</td>
-          <td>{{ item.meta_data.name }}</td>
-          <td class="truncate flex">
-            <IdentityIcon size="small" :address="item.denom" />
+          <td class="truncate flex" width="80%">
+            <IdentityIcon size="small" :address="item.denom.split('-')[1]" />
             <RouterLink
               :to="'/mchain/smarttoken/' + item.denom"
               class="hover:underline text-sm ml-2"
-              >{{ item.denom }}</RouterLink
+              >{{ item.denom.substring(0, 12) }}</RouterLink
             >
           </td>
+          <td width="10%" class="uppercase">{{ item.meta_data.symbol }}</td>
+          <td>{{ item.meta_data.name }}</td>
           <td class="text-right">
             <label
               v-if="walletStore.currentAddress === item.minter"

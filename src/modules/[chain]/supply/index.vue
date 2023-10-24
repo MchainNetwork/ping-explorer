@@ -36,21 +36,18 @@ function pageload(p: number) {
 }
 </script>
 <template>
-  <div class="overflow-auto">
-    <div class="flex justify-between items-center m-4 mb-6">
-      <h2 class="text-5xl font-bold text-base">Supply</h2>
-      <div></div>
-    </div>
+  <div class="overflow-auto mx-auto max-w-screen-lg">
+    <h1 class="text-4xl font-bold mb-6 p-4">Supply</h1>
     <table class="table table-compact table-zebra text-xl">
       <thead>
         <tr>
           <td>Token</td>
-          <td>Amount</td>
+          <td class="text-right">Amount</td>
         </tr>
       </thead>
       <tr
         v-for="item in list.filter(
-          (x) => x.denom == 'umar' || xl.denom == 'beer'
+          (x) => x.denom == 'umar' || x.denom == 'beer'
         )"
         :key="item.denom"
       >

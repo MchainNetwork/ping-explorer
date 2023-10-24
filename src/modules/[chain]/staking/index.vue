@@ -209,7 +209,8 @@ fetchChange();
 loadAvatars();
 </script>
 <template>
-  <div>
+  <div class="overflow-hidden mx-auto max-w-screen-lg">
+    <h1 class="text-4xl font-bold mb-4 p-4">Staking</h1>
     <div class="bg-base-100 rounded-lg grid sm:grid-cols-1 md:grid-cols-4 p-4">
       <div class="flex">
         <span>

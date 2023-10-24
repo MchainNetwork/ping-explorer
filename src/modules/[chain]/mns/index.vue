@@ -170,7 +170,7 @@ function checkDomainAvailable(domain: string) {
         @click="
           dialog.open(
             'mns_register',
-            { name: domainToCheck, years: 5, referred: 'bitcoin.mar' },
+            { name: domainToCheck, years: 1, referrer: 'bitcoin.mar' },
             updateState
           )
         "
@@ -190,13 +190,7 @@ function checkDomainAvailable(domain: string) {
       ></p>
       <label
         for="mns_bid"
-        @click="
-          dialog.open(
-            'mns_bid',
-            { name: domainToCheck, referred: 'bitcoin.mar' },
-            updateState
-          )
-        "
+        @click="dialog.open('mns_bid', { name: domainToCheck }, updateState)"
         class="btn btn-sm text-red-800 dark:text-red-500 rounded-full mt-2"
       >
         {{ $t('mns.place_bid_button') }}

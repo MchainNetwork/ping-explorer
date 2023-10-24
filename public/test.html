@@ -1,16 +1,16 @@
 <html>
 <head>
-   <title>Widget Test</title> 
+   <title>Mchain Widget Test</title> 
    <script src="/mchain-ping-widget/ping-widget.js" type="module" ></script>
 </head>
 <body>
     <div class="p-5">
     <div>
-    <ping-connect-wallet chain-id="mchain-1" hd-path="m/44'/118/0'/0/0"/>
+    <ping-connect-wallet chain-id="mchain-testnet-1" hd-path="m/44'/118/0'/0/0"/>
     </div>
     <div>
-        <label for="PingTokenConvert" class="btn">Buy MAR</label>
-        <ping-token-convert chain-name="mchain" endpoint="https://api.mchain.network" hd-path="m/44'/118/0'/0/0"/>
+        <label for="PingTokenConvert" class="btn">Buy MARK</label>
+        <ping-token-convert chain-name="mchain" endpoint="https://testnet.api.mchain.network" hd-path="m/44'/118/0'/0/0"/>
     </div>
     </div>
 </body>

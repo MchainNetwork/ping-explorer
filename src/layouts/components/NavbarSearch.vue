@@ -33,7 +33,7 @@ function confirm() {
   const txhash = /^[A-Z\d]{64}$/;
   const addr = /^[a-z\d]+1[a-z\d]{38,58}$/;
   const smartTokenDenom = /^[a-z0-9]{0,20}\-m[a-z0-9]{39}$/;
-  const mnsName = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.(mar|ibc)$/;
+  const mnsName = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.(mark|ibc)$/;
 
   const current = blockStore?.current?.chainName || '';
   const routeParams = vueRouters?.currentRoute?.value;

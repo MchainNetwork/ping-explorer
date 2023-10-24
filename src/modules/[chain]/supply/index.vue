@@ -47,7 +47,7 @@ function pageload(p: number) {
       </thead>
       <tr
         v-for="item in list.filter(
-          (x) => x.denom == 'umar' || x.denom == 'beer'
+          (x) => x.denom == 'umark' || x.denom == 'beer'
         )"
         :key="item.denom"
       >
@@ -58,7 +58,7 @@ function pageload(p: number) {
         v-for="item in list.filter(
           (x) =>
             !x.denom.startsWith('ibc/') &&
-            x.denom != 'umar' &&
+            x.denom != 'umark' &&
             x.denom != 'beer'
         )"
         :key="item.denom"

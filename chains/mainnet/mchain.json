@@ -12,9 +12,9 @@
   "theme_color": "#0099bf",
   "assets": [
     {
-      "symbol": "MAR",
-      "base": "umar",
-      "display": "MAR",
+      "symbol": "MARK",
+      "base": "umark",
+      "display": "MARK",
       "exponent": 6,
       "coingecko_id": false,
       "logo": "https://raw.githubusercontent.com/MchainNetwork/mchain-docs/master/static/img/logo.svg"

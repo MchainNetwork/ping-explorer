@@ -20,18 +20,18 @@ import {
 } from '@/types';
 import IdentityIcon from '@/components/IdentityIcon.vue';
 
-const allowedExtension = 'mar';
+const allowedExtension = 'mark';
 
 const props = defineProps(['chain']);
 
 // TODO: get price from coingecko
-const MAR_TO_USD = 0.0001;
+const MARK_TO_USD = 0.0001;
 
 const displayInUSD = ref(false);
 
-const convertMarkToUsd = (marAmount: string) => {
+const convertMarkToUsd = (amount: string) => {
   return (
-    (parseFloat(String(marAmount).replace('umar', '')) * MAR_TO_USD) /
+    (parseFloat(String(amount).replace('umark', '')) * MARK_TO_USD) /
     1000000
   ).toFixed(2);
 };

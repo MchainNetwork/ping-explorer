@@ -86,14 +86,14 @@ onMounted(() => {
         <label
           for="mint"
           class="btn btn-primary btn-sm rounded-full text-white"
-          @click="dialog.open('mint', {}, updateState)"
+          @click="dialog.open('mint', { denom: tokenInfo.denom }, updateState)"
         >
           {{ $t('smarttoken.mint') }}
         </label>
         <label
           for="burn"
           class="btn btn-primary btn-sm rounded-full text-white mx-2"
-          @click="dialog.open('burn', {}, updateState)"
+          @click="dialog.open('burn', { denom: tokenInfo.denom }, updateState)"
         >
           {{ $t('smarttoken.burn') }}
         </label>
@@ -109,28 +109,48 @@ onMounted(() => {
             <label
               for="set_minter"
               class="btn btn-primary btn-sm rounded-full text-white mb-2"
-              @click="dialog.open('set_minter', {}, updateState)"
+              @click="
+                dialog.open(
+                  'set_minter',
+                  { denom: tokenInfo.denom },
+                  updateState
+                )
+              "
             >
               {{ $t('smarttoken.set_minter') }}
             </label>
             <label
               for="set_authority"
               class="btn btn-primary btn-sm rounded-full text-white mb-2"
-              @click="dialog.open('set_authority', {}, updateState)"
+              @click="
+                dialog.open(
+                  'set_authority',
+                  { denom: tokenInfo.denom },
+                  updateState
+                )
+              "
             >
               {{ $t('smarttoken.set_authority') }}
             </label>
             <label
               for="set_uri"
               class="btn btn-primary btn-sm rounded-full text-white mb-2"
-              @click="dialog.open('set_uri', {}, updateState)"
+              @click="
+                dialog.open('set_uri', { denom: tokenInfo.denom }, updateState)
+              "
             >
               {{ $t('smarttoken.set_uri') }}
             </label>
             <label
               for="disable_mint"
               class="btn btn-primary btn-sm rounded-full text-white mb-2"
-              @click="dialog.open('disable_mint', {}, updateState)"
+              @click="
+                dialog.open(
+                  'disable_mint',
+                  { denom: tokenInfo.denom },
+                  updateState
+                )
+              "
             >
               {{ $t('smarttoken.disable_mint') }}
             </label>

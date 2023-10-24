@@ -182,7 +182,7 @@ function checkDomainAvailable(domain: string) {
         @click="
           dialog.open(
             'mns_register',
-            { name: domainToCheck, years: 1, referrer: 'bitcoin.mark' },
+            { name: domainToCheck, years: 1 },
             updateState
           )
         "

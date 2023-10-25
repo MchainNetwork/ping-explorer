@@ -38,52 +38,54 @@ function pageload(p: number) {
 <template>
   <div class="overflow-auto mx-auto max-w-screen-lg">
     <h1 class="text-4xl font-bold mb-6 p-4">Supply</h1>
-    <table class="table table-compact table-zebra text-xl">
-      <thead>
-        <tr>
-          <td>Token</td>
-          <td class="text-right">Amount</td>
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl">
+      <table class="table table-compact table-zebra text-xl">
+        <thead>
+          <tr>
+            <td>Token</td>
+            <td class="text-right">Amount</td>
+          </tr>
+        </thead>
+        <tr
+          v-for="item in list.filter(
+            (x) => x.denom == 'umark' || x.denom == 'beer'
+          )"
+          :key="item.denom"
+        >
+          <td>{{ item.denom }}</td>
+          <td class="text-right">{{ item.amount }}</td>
         </tr>
-      </thead>
-      <tr
-        v-for="item in list.filter(
-          (x) => x.denom == 'umark' || x.denom == 'beer'
-        )"
-        :key="item.denom"
-      >
-        <td>{{ item.denom }}</td>
-        <td class="text-right">{{ item.amount }}</td>
-      </tr>
-      <tr
-        v-for="item in list.filter(
-          (x) =>
-            !x.denom.startsWith('ibc/') &&
-            x.denom != 'umark' &&
-            x.denom != 'beer'
-        )"
-        :key="item.denom"
-      >
-        <td>
-          <RouterLink
-            :to="'/mchain/smarttoken/' + encodeURIComponent(item.denom)"
-            >{{ item.denom }}</RouterLink
-          >
-        </td>
-        <td class="text-right">{{ item.amount }}</td>
-      </tr>
-      <tr
-        v-for="item in list.filter((x) => x.denom.startsWith('ibc/'))"
-        :key="item.denom"
-      >
-        <td>{{ item.denom }}</td>
-        <td class="text-right">{{ item.amount }}</td>
-      </tr>
-    </table>
-    <PaginationBar
-      :limit="pageRequest.limit"
-      :total="pageResponse.total"
-      :callback="pageload"
-    />
+        <tr
+          v-for="item in list.filter(
+            (x) =>
+              !x.denom.startsWith('ibc/') &&
+              x.denom != 'umark' &&
+              x.denom != 'beer'
+          )"
+          :key="item.denom"
+        >
+          <td>
+            <RouterLink
+              :to="'/mchain/smarttoken/' + encodeURIComponent(item.denom)"
+              >{{ item.denom }}</RouterLink
+            >
+          </td>
+          <td class="text-right">{{ item.amount }}</td>
+        </tr>
+        <tr
+          v-for="item in list.filter((x) => x.denom.startsWith('ibc/'))"
+          :key="item.denom"
+        >
+          <td>{{ item.denom }}</td>
+          <td class="text-right">{{ item.amount }}</td>
+        </tr>
+      </table>
+      <PaginationBar
+        :limit="pageRequest.limit"
+        :total="pageResponse.total"
+        :callback="pageload"
+      />
+    </div>
   </div>
 </template>
 

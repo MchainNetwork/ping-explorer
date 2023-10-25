@@ -147,8 +147,7 @@ function selected(route: any, nav: NavLink) {
 
         <RouterLink
           v-if="isNavLink(item)"
-          :to="item?.to"
-          @click="sidebarShow = false"
+          :to="item.to"
           class="cursor-pointer rounded-lg px-4 flex items-center py-2 hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
         >
           <div

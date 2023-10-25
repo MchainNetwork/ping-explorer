@@ -57,3 +57,13 @@ html[data-theme='dark'] {
 .btn {
   @apply rounded-full;
 }
+
+
+.dark ::placeholder {
+  @apply text-white;
+  opacity: 0.2;
+}
+
+.form-control {
+  @apply mb-2;
+}

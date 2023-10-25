@@ -12,6 +12,7 @@ import { onMounted, ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import type { Key, SlashingParam, Validator } from '@/types';
 import { formatSeconds } from '@/libs/utils';
+import IdentityIcon from '@/components/IdentityIcon.vue';
 
 const staking = useStakingStore();
 const base = useBaseStore();
@@ -277,6 +278,7 @@ loadAvatars();
           <table class="table staking-table w-full">
             <thead>
               <tr>
+                <!--
                 <th
                   scope="col"
                   class="uppercase"
@@ -284,6 +286,7 @@ loadAvatars();
                 >
                   {{ $t('staking.rank') }}
                 </th>
+                -->
                 <th scope="col" class="uppercase">
                   {{ $t('staking.validator') }}
                 </th>
@@ -303,11 +306,12 @@ loadAvatars();
             </thead>
             <tbody>
               <tr
-                v-for="({ v, rank, logo }, i) in list"
+                v-for="{ v, logo } in list"
                 :key="v.operator_address"
                 class="hover:bg-gray-100 dark:hover:bg-[#384059]"
               >
                 <!-- 👉 rank -->
+                <!--
                 <td>
                   <div
                     class="text-xs truncate relative px-2 py-1 rounded-full w-fit"
@@ -320,6 +324,7 @@ loadAvatars();
                     {{ i + 1 }}
                   </div>
                 </td>
+                -->
                 <!-- 👉 Validator -->
                 <td>
                   <div
@@ -329,17 +334,14 @@ loadAvatars();
                     <div
                       class="avatar mr-4 relative w-8 h-8 rounded-full overflow-hidden"
                     >
-                      <div
-                        class="w-8 h-8 rounded-full bg-gray-400 absolute opacity-10"
-                      ></div>
-                      <div class="w-8 h-8 rounded-full">
-                        <img v-if="logo" :src="logo" class="object-contain" />
-                        <Icon
-                          v-else
-                          class="text-4xl"
-                          :icon="`mdi-help-circle-outline`"
-                        />
+                      <div class="w-8 h-8 rounded-full" v-if="logo">
+                        <img :src="logo" class="object-contain" />
                       </div>
+                      <IdentityIcon
+                        v-else
+                        size="large"
+                        :address="v.operator_address"
+                      />
                     </div>
 
                     <div class="flex flex-col">
@@ -428,6 +430,7 @@ loadAvatars();
           </table>
         </div>
 
+        <!--
         <div class="divider"></div>
         <div class="flex flex-row items-center">
           <div
@@ -450,6 +453,7 @@ loadAvatars();
             {{ $t('staking.description') }}
           </div>
         </div>
+        -->
       </div>
     </div>
   </div>

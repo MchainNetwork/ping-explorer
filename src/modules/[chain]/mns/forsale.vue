@@ -47,9 +47,9 @@ function pageload(p: number) {
 }
 </script>
 <template>
-  <div class="overflow-auto">
+  <div class="overflow-auto mx-auto max-w-screen-lg">
     <div class="flex justify-between items-center m-4 mb-6">
-      <h2 class="text-xl md:text-5xl font-bold text-base">
+      <h2 class="text-xl md:text-4xl font-bold text-base">
         {{ $t('mns.domains_for_sale_title') }}
       </h2>
       <div></div>

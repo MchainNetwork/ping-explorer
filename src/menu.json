@@ -23,7 +23,6 @@
     "i18n": true,
     "order": 4
   },
-
   {
     "title": "Blockchain",
     "i18n": false,
@@ -90,12 +89,6 @@
     "to": { "path": "/mchain/faucet" },
     "i18n": true,
     "order": 200
-  },
-  {
-    "title": "module.widget",
-    "to": { "path": "/mchain/widget" },
-    "i18n": true,
-    "order": 300
   },
   {
     "title": "Keplr Config",

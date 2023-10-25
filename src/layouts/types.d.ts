@@ -21,7 +21,7 @@ declare type ATagRelAttrValues =
     | 'tag'
 
 export interface NavLinkProps {
-    to?: RouteLocationRaw | string | null
+    to: RouteLocationRaw
     href?: string
     target?: ATagTargetAttrValues
     rel?: ATagRelAttrValues

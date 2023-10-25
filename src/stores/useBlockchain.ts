@@ -6,9 +6,6 @@ import {
   EndpointType,
 } from './useDashboard';
 import type {
-  NavGroup,
-  NavLink,
-  NavSectionTitle,
   VerticalNavItems,
 } from '@/layouts/types';
 import { useRouter } from 'vue-router';
@@ -22,7 +19,6 @@ import {
   useWalletStore,
 } from '.';
 import { useBlockModule } from '@/modules/[chain]/block/block';
-import { DEFAULT } from '@/libs';
 import { hexToRgb, rgbToHsl } from '@/libs/utils';
 
 export const useBlockchain = defineStore('blockchain', {

@@ -37,6 +37,8 @@ onMounted(() => {
     <CardParameter :cardItem="store.staking" />
     <!-- Smart Token Parameters  -->
     <CardParameter :cardItem="store.smarttoken" />
+    <!-- MNS Parameters -->
+    <CardParameter :cardItem="store.mns" />
     <!-- Governance Parameters -->
     <CardParameter :cardItem="store.gov" />
     <!-- Distribution Parameters -->

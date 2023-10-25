@@ -82,12 +82,18 @@ async function initParamsForKeplr() {
           coinDecimals,
           coinGeckoId: chain.assets[0].coingecko_id || 'unknown',
         },
+        {
+          coinDenom: chain.assets[1].symbol,
+          coinMinimalDenom: chain.assets[1].base,
+          coinDecimals,
+          coinGeckoId: chain.assets[1].coingecko_id || 'unknown',
+        },
       ],
       feeCurrencies: [
         {
           coinDenom: chain.assets[0].symbol,
           coinMinimalDenom: chain.assets[0].base,
-          coinDecimals,
+          coinDecimals: 0, // beer
           coinGeckoId: chain.assets[0].coingecko_id || 'unknown',
           gasPriceStep,
         },

@@ -52,3 +52,8 @@ html[data-theme='dark'] {
   opacity: 0;
   transform: translateY(-calc(15%));
 }
+
+
+.btn {
+  @apply rounded-full;
+}

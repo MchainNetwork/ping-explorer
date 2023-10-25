@@ -71,7 +71,9 @@ const tipMsg = computed(() => {
         >
           {{ walletStore.currentAddress }}
         </a>
+
         <div class="divider mt-1 mb-1"></div>
+        <!--
         <RouterLink to="/wallet/accounts">
           <div
             class="block py-2 px-2 hover:!bg-gray-100 rounded cursor-pointer"
@@ -86,6 +88,7 @@ const tipMsg = computed(() => {
             Portfolio
           </div>
         </RouterLink>
+        -->
         <RouterLink to="/wallet/receive" v-if="walletStore.currentAddress">
           <div
             class="block py-2 px-2 hover:!bg-gray-100 rounded cursor-pointer"

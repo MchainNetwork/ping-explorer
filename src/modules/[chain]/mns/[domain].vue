@@ -12,6 +12,7 @@ import {
   type Pagination,
   type MnsNames,
   type MnsForsale,
+  type MnsBids,
 } from '@/types';
 import { onMounted } from 'vue';
 import IdentityIcon from '@/components/IdentityIcon.vue';
@@ -73,8 +74,29 @@ function pageload() {
             for="mns_bid"
             class="btn btn-primary btn-sm rounded-full text-white"
             @click="dialog.open('mns_bid', { name: domainName }, updateState)"
+            v-if="domainInfo.value != walletStore.currentAddress"
           >
             Place Bid
+          </label>
+          <label
+            for="mns_addrecord"
+            class="btn btn-primary btn-sm rounded-full text-white"
+            @click="
+              dialog.open('mns_addrecord', { name: domainName }, updateState)
+            "
+            v-if="domainInfo.value === walletStore.currentAddress"
+          >
+            Add Subdomain
+          </label>
+          <label
+            for="mns_transfer"
+            class="btn btn-primary ml-4 btn-sm rounded-full text-white"
+            @click="
+              dialog.open('mns_transfer', { name: domainName }, updateState)
+            "
+            v-if="domainInfo.value === walletStore.currentAddress"
+          >
+            Transfer Domain
           </label>
         </div>
       </div>
@@ -100,7 +122,7 @@ function pageload() {
         v-if="isDomainRegistered && forSale && forSale.price"
         class="bg-base-100 p-8 text-4xl rounded-xl mb-4 text-center border border-success border-dashed"
       >
-        <h3 class="text-lg font-bold text-gray-500 mb-2">
+        <h3 class="text-lg font-bold text-gray-500 dark:text-white mb-2">
           Domain
           <span class="text-base"
             >{{ domainInfo.name }}.{{ domainInfo.tld }}</span
@@ -113,11 +135,11 @@ function pageload() {
           </div>
 
           <label
-            for="register"
+            for="mns_register"
             class="btn btn-success btn-sm rounded-full text-white"
             @click="
               dialog.open(
-                'mns_buy',
+                'mns_register',
                 {
                   name: domainName,
                 },
@@ -142,6 +164,7 @@ function pageload() {
           <li><strong>Value:</strong> {{ domainInfo.value }}</li>
           <li><strong>Data:</strong> {{ domainInfo.data }}</li>
           <li><strong>Locked:</strong> {{ domainInfo.locked }}</li>
+          <li><strong>Subdomains:</strong> {{ domainInfo.subdomains }}</li>
         </ul>
       </div>
     </template>

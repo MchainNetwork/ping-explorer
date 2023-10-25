@@ -135,7 +135,7 @@ function checkDomainAvailable(domain: string) {
   <div class="overflow-hidden mx-auto max-w-screen-lg lg:py-10">
     <div class="check-domain-box bg-base-100 p-4 rounded-xl mb-6">
       <h2
-        class="text-xl text-center md:text-5xl font-bold text-primary m-4 mb-6"
+        class="text-primary text-xl text-center md:text-5xl font-bold m-4 mb-6"
       >
         {{ $t('mns.title') }}
       </h2>
@@ -143,7 +143,7 @@ function checkDomainAvailable(domain: string) {
       <h3 class="text-lg font-bold text-center mb-4">
         {{ $t('mns.subtitle') }}
       </h3>
-      <p class="text-center text-sm mb-4 w-2/6 mx-auto">
+      <p class="text-center text-sm mb-6 md:w-3/6 mx-auto">
         {{ $t('mns.description') }}
       </p>
       <form
@@ -209,14 +209,23 @@ function checkDomainAvailable(domain: string) {
       </label>
     </div>
 
-    <div class="flex mb-4 pl-4">
-      <input
-        type="checkbox"
-        v-model="displayInUSD"
-        id="displayInUSD"
-        class="mr-2"
-      />
-      <label for="displayInUSD">Display price in USD</label>
+    <div class="flex justify-between items-center">
+      <div class="flex mb-4 pl-4">
+        <input
+          type="checkbox"
+          v-model="displayInUSD"
+          id="displayInUSD"
+          class="mr-2"
+        />
+        <label for="displayInUSD">Display price in USD</label>
+      </div>
+
+      <RouterLink
+        :to="`/${chain}/mns/owned`"
+        class="btn btn-xs btn-primary rounded-full mb-4"
+      >
+        Your Domains
+      </RouterLink>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">

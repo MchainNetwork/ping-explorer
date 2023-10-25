@@ -1,0 +1,106 @@
+[
+  {
+    "title": "module.dashboard",
+    "to": { "path": "/mchain" },
+    "i18n": true,
+    "order": 1
+  },
+  {
+    "title": "module.smart_tokens",
+    "to": { "path": "/mchain/smarttoken" },
+    "i18n": true,
+    "order": 2
+  },
+  {
+    "title": "module.mns",
+    "to": { "path": "/mchain/mns" },
+    "i18n": true,
+    "order": 3
+  },
+  {
+    "title": "module.staking",
+    "to": { "path": "/mchain/staking" },
+    "i18n": true,
+    "order": 4
+  },
+
+  {
+    "title": "Blockchain",
+    "i18n": false,
+    "badgeClass": "bg-error",
+    "children": [
+      {
+        "title": "module.blocks",
+        "to": { "path": "/mchain/block" },
+        "i18n": true,
+        "order": 5
+      },
+      {
+        "title": "module.governance",
+        "to": { "path": "/mchain/gov" },
+        "i18n": true,
+        "order": 5
+      },
+      {
+        "title": "module.supply",
+        "to": { "path": "/mchain/supply" },
+        "i18n": true,
+        "order": 6
+      },
+      {
+        "title": "module.parameters",
+        "to": { "path": "/mchain/params" },
+        "i18n": true,
+        "order": 7
+      },
+      {
+        "title": "module.uptime",
+        "to": { "path": "/mchain/uptime" },
+        "i18n": true,
+        "order": 8
+      },
+      {
+        "title": "module.ibc",
+        "to": { "path": "/mchain/ibc/connection" },
+        "i18n": true,
+        "order": 9
+      },
+      {
+        "title": "module.consensus",
+        "to": { "path": "/mchain/consensus" },
+        "i18n": true,
+        "order": 100
+      },
+      {
+        "title": "module.cosmwasm",
+        "to": { "path": "/mchain/cosmwasm" },
+        "i18n": true,
+        "order": 100
+      },
+      {
+        "title": "module.state-sync",
+        "to": { "path": "/mchain/statesync" },
+        "i18n": true,
+        "order": 100
+      }
+    ]
+  },
+  {
+    "title": "module.faucet",
+    "to": { "path": "/mchain/faucet" },
+    "i18n": true,
+    "order": 200
+  },
+  {
+    "title": "module.widget",
+    "to": { "path": "/mchain/widget" },
+    "i18n": true,
+    "order": 300
+  },
+  {
+    "title": "Keplr Config",
+    "to": { "path": "/wallet/keplr" },
+    "i18n": true,
+    "order": 400
+  }
+]

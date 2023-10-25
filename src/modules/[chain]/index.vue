@@ -350,6 +350,7 @@ const amount = computed({
       <a
         href="https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap"
         class="mt-10 mx-auto block"
+        target="_blank"
       >
         <div
           class="inline-flex items-center bg-white border border-gray-200 px-4 py-2 rounded-full shadow-sm text-sm font-medium text-gray-700"

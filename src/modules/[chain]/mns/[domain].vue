@@ -89,6 +89,20 @@ function pageload() {
             Add Subdomain
           </label>
           <label
+            v-if="domainInfo.value == walletStore.currentAddress"
+            for="mns_update"
+            class="btn btn-primary ml-4 btn-sm rounded-full text-white"
+            @click="
+              dialog.open(
+                'mns_update',
+                { name: domainName, data: domainInfo.data },
+                updateState
+              )
+            "
+          >
+            Update
+          </label>
+          <label
             for="mns_transfer"
             class="btn btn-primary ml-4 btn-sm rounded-full text-white"
             @click="
@@ -152,7 +166,7 @@ function pageload() {
         </div>
       </div>
 
-      <div v-if="isDomainRegistered" class="bg-base-100 p-4 rounded-xl">
+      <div v-if="isDomainRegistered" class="bg-base-100 p-4 rounded-xl mb-4">
         <h3 class="text-lg font-bold mb-2">Domain Information</h3>
         <ul class="mb-4">
           <li><strong>Name:</strong> {{ domainInfo.name }}</li>
@@ -163,9 +177,63 @@ function pageload() {
           </li>
           <li><strong>Value:</strong> {{ domainInfo.value }}</li>
           <li><strong>Data:</strong> {{ domainInfo.data }}</li>
-          <li><strong>Locked:</strong> {{ domainInfo.locked }}</li>
-          <li><strong>Subdomains:</strong> {{ domainInfo.subdomains }}</li>
         </ul>
+      </div>
+
+      <div
+        v-if="domainInfo.subdomains && domainInfo.subdomains.length"
+        class="bg-base-100 p-4 rounded-xl"
+      >
+        <h3 class="text-lg font-bold mb-2">Subdomains</h3>
+
+        <table class="table table-compact table-zebra text-base">
+          <thead>
+            <tr>
+              <th>Subdomain</th>
+              <th>Value</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(subdomain, index) in domainInfo.subdomains"
+              :key="index"
+            >
+              <td>{{ subdomain.name }}</td>
+              <td>{{ subdomain.value }}</td>
+              <td class="text-right">
+                <label
+                  v-if="domainInfo.value == walletStore.currentAddress"
+                  for="mns_update"
+                  class="btn btn-success btn-xs rounded-full"
+                  @click="
+                    dialog.open(
+                      'mns_update',
+                      { name: subdomain.name },
+                      updateState
+                    )
+                  "
+                >
+                  Update
+                </label>
+                <label
+                  v-if="domainInfo.value == walletStore.currentAddress"
+                  for="mns_delrecord"
+                  class="btn btn-success ml-2 btn-xs rounded-full"
+                  @click="
+                    dialog.open(
+                      'mns_delrecord',
+                      { name: subdomain.name },
+                      updateState
+                    )
+                  "
+                >
+                  Delete
+                </label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </template>
   </div>

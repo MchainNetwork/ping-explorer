@@ -6,6 +6,7 @@ import {
   useTxDialog,
   useWalletStore,
   useMnsStore,
+  useBaseStore,
 } from '@/stores';
 import {
   PageRequest,
@@ -23,6 +24,7 @@ const format = useFormatter();
 const walletStore = useWalletStore();
 const dialog = useTxDialog();
 const mnsStore = useMnsStore();
+const baseStore = useBaseStore();
 
 const domainInfo = ref({} as MnsNames);
 const forSale = ref({} as MnsForsale);
@@ -35,6 +37,22 @@ const isLoading = ref(true);
 let domainName: string = props.domain;
 
 const isDomainRegistered = computed(() => !!domainInfo.value.name);
+
+const blocksPerYear = 5057308;
+
+const calculateTimeRemaining = (itemExpires: number, currentHeight: number) => {
+  const blocksRemaining = itemExpires - currentHeight;
+  const timeRemainingInSec = (blocksRemaining / blocksPerYear) * 31557600;
+  const timeRemainingInMs = timeRemainingInSec * 1000;
+  return parseFloat(timeRemainingInMs.toFixed(0));
+};
+
+const calculateExpiryTime = (itemExpires: number, currentHeight: number) => {
+  const timeRemaining = calculateTimeRemaining(itemExpires, currentHeight);
+  const date = new Date();
+  date.setTime(date.getTime() + timeRemaining);
+  return date.getTime();
+};
 
 function updateState() {
   walletStore.loadMyAsset();
@@ -76,7 +94,7 @@ function pageload() {
             @click="dialog.open('mns_bid', { name: domainName }, updateState)"
             v-if="domainInfo.value != walletStore.currentAddress"
           >
-            Place Bid
+            Place A Bid
           </label>
           <label
             for="mns_addrecord"
@@ -122,14 +140,15 @@ function pageload() {
         <h3 class="text-lg font-bold text-gray-500 mb-2">
           Domain <span class="text-base">{{ domainName }}</span> is Available!
         </h3>
-        <button
+        <label
+          for="mns_register"
           class="btn btn-success btn-sm rounded-full text-white"
           @click="
-            dialog.open('register_domain', { name: domainName }, updateState)
+            dialog.open('mns_register', { name: domainName }, updateState)
           "
         >
-          Buy Now!
-        </button>
+          Register Now!
+        </label>
       </div>
 
       <div
@@ -149,11 +168,11 @@ function pageload() {
           </div>
 
           <label
-            for="mns_register"
+            for="mns_buy"
             class="btn btn-success btn-sm rounded-full text-white"
             @click="
               dialog.open(
-                'mns_register',
+                'mns_buy',
                 {
                   name: domainName,
                 },
@@ -173,7 +192,15 @@ function pageload() {
           <li><strong>TLD:</strong> {{ domainInfo.tld }}</li>
           <li>
             <strong>Expires:</strong>
-            {{ format.toDay(domainInfo.expires, 'from') }}
+            {{
+              format.toDay(
+                calculateExpiryTime(
+                  domainInfo.expires,
+                  Number(baseStore.latest?.block?.header?.height) || 0
+                ),
+                'date'
+              )
+            }}
           </li>
           <li><strong>Value:</strong> {{ domainInfo.value }}</li>
           <li><strong>Data:</strong> {{ domainInfo.data }}</li>

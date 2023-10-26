@@ -90,7 +90,7 @@ function pageload() {
         <div v-if="isDomainRegistered">
           <label
             for="mns_bid"
-            class="btn btn-primary btn-sm rounded-full text-white"
+            class="btn btn-primary btn-sm rounded-full text-white dark:text-black"
             @click="dialog.open('mns_bid', { name: domainName }, updateState)"
             v-if="domainInfo.value != walletStore.currentAddress"
           >
@@ -98,7 +98,7 @@ function pageload() {
           </label>
           <label
             for="mns_addrecord"
-            class="btn btn-primary btn-sm rounded-full text-white"
+            class="btn btn-primary btn-sm rounded-full text-white dark:text-black"
             @click="
               dialog.open('mns_addrecord', { name: domainName }, updateState)
             "
@@ -109,7 +109,7 @@ function pageload() {
           <label
             v-if="domainInfo.value == walletStore.currentAddress"
             for="mns_update"
-            class="btn btn-primary ml-4 btn-sm rounded-full text-white"
+            class="btn btn-primary ml-4 btn-sm rounded-full text-white dark:text-black"
             @click="
               dialog.open(
                 'mns_update',
@@ -121,8 +121,16 @@ function pageload() {
             Update
           </label>
           <label
+            v-if="domainInfo.value == walletStore.currentAddress"
+            for="mns_list"
+            class="btn btn-primary ml-4 btn-sm rounded-full text-white dark:text-black"
+            @click="dialog.open('mns_list', { name: domainName }, updateState)"
+          >
+            Sell
+          </label>
+          <label
             for="mns_transfer"
-            class="btn btn-primary ml-4 btn-sm rounded-full text-white"
+            class="btn btn-primary ml-4 btn-sm rounded-full text-white dark:text-black"
             @click="
               dialog.open('mns_transfer', { name: domainName }, updateState)
             "
@@ -154,6 +162,11 @@ function pageload() {
       <div
         v-if="isDomainRegistered && forSale && forSale.price"
         class="bg-base-100 p-8 text-4xl rounded-xl mb-4 text-center border border-success border-dashed"
+        :class="
+          domainInfo.value != walletStore.currentAddress
+            ? 'border-success'
+            : 'border-error'
+        "
       >
         <h3 class="text-lg font-bold text-gray-500 dark:text-white mb-2">
           Domain
@@ -168,8 +181,9 @@ function pageload() {
           </div>
 
           <label
+            v-if="domainInfo.value != walletStore.currentAddress"
             for="mns_buy"
-            class="btn btn-success btn-sm rounded-full text-white"
+            class="btn btn-success btn-sm rounded-full text-white dark:text-black"
             @click="
               dialog.open(
                 'mns_buy',
@@ -181,6 +195,23 @@ function pageload() {
             "
           >
             Buy Domain Now!
+          </label>
+
+          <label
+            v-if="domainInfo.value === walletStore.currentAddress"
+            for="mns_delist"
+            class="btn btn-error btn-sm rounded-full text-white dark:text-black"
+            @click="
+              dialog.open(
+                'mns_delist',
+                {
+                  name: domainName,
+                },
+                updateState
+              )
+            "
+          >
+            Delist Domain
           </label>
         </div>
       </div>

@@ -105,13 +105,23 @@ async function pageload(p: number) {
 async function verifyDomain() {
   resetMessages();
 
-  const domainPattern = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]$/;
-  const [host, extension] = domainToCheck.value.split('.');
+  const domainPattern = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]$/i;
+  let [host, extension, more] = domainToCheck.value.split('.');
 
-  if (!domainPattern.test(host) || extension !== allowedExtension) {
+  if (extension === undefined) {
+    extension = allowedExtension;
+  }
+
+  if (
+    !domainPattern.test(host) ||
+    extension !== allowedExtension ||
+    more !== undefined
+  ) {
     errorMessage.value = `Please enter a valid .${allowedExtension} domain!`;
     return;
   }
+
+  domainToCheck.value = host.toLocaleLowerCase() + '.' + extension;
 
   try {
     isAvailable.value = await checkDomainAvailable(domainToCheck.value);
@@ -146,67 +156,72 @@ function checkDomainAvailable(domain: string) {
       <p class="text-center text-sm mb-6 md:w-3/6 mx-auto">
         {{ $t('mns.description') }}
       </p>
-      <form
-        @submit.prevent="verifyDomain"
-        class="flex justify-center items-center"
-      >
-        <input
-          v-model="domainToCheck"
-          type="text"
-          @input="resetMessages"
-          :placeholder="$t('mns.input_placeholder')"
-          class="input input-bordered focus:outline-none rounded-l-full !border !border-primary !border-r-0"
-        />
-        <button
-          type="submit"
-          class="btn btn-primary text-white border border-primary rounded-r-full"
+
+      <div class="md:w-4/6 mx-auto">
+        <form
+          @submit.prevent="verifyDomain"
+          class="flex justify-center w-100 items-center overflow-hidden rounded-full border border-primary mb-6"
         >
-          {{ $t('mns.check_button') }}
-        </button>
-      </form>
-      <p class="mt-4 text-center text-red-500">
-        {{ errorMessage }}
-      </p>
-    </div>
-
-    <div
-      v-if="isAvailable"
-      class="bg-green-500 dark:bg-green-800 text-center text-white p-4 mb-6 rounded-xl"
-    >
-      <p
-        class="text-2xl"
-        v-html="$t('mns.domain_available_message', { domain: domainToCheck })"
-      ></p>
-      <label
-        for="mns_register"
-        @click="
-          dialog.open(
-            'mns_register',
-            { name: domainToCheck, years: 1 },
-            updateState
-          )
-        "
-        class="btn btn-sm text-green-800 dark:text-green-500 rounded-full mt-2"
+          <input
+            v-model="domainToCheck"
+            type="text"
+            @input="resetMessages"
+            :placeholder="$t('mns.input_placeholder')"
+            class="input focus:outline-none flex-1"
+          />
+          <button
+            type="submit"
+            class="btn btn-primary text-white rounded-full w-24"
+          >
+            {{ $t('mns.check_button') }}
+          </button>
+        </form>
+        <p class="text-center text-red-500" v-if="errorMessage">
+          {{ errorMessage }}
+        </p>
+      </div>
+      <div
+        v-if="isAvailable"
+        class="bg-green-500 dark:bg-green-800 text-center text-white p-4 rounded-xl"
       >
-        {{ $t('mns.register_now_button') }}
-      </label>
-    </div>
+        <p
+          class="text-2xl"
+          v-html="$t('mns.domain_available_message', { domain: domainToCheck })"
+        ></p>
+        <label
+          for="mns_register"
+          @click="
+            dialog.open(
+              'mns_register',
+              { name: domainToCheck, years: 1 },
+              updateState
+            )
+          "
+          class="btn btn-sm text-green-800 dark:text-green-500 rounded-full mt-2"
+        >
+          {{ $t('mns.register_now_button') }}
+        </label>
+      </div>
 
-    <div
-      v-if="isRegistered"
-      class="bg-red-500 dark:bg-red-800 text-center text-white p-4 mb-6 rounded-xl"
-    >
-      <p
-        class="text-2xl"
-        v-html="$t('mns.domain_registered_message', { domain: domainToCheck })"
-      ></p>
-      <label
-        for="mns_bid"
-        @click="dialog.open('mns_bid', { name: domainToCheck }, updateState)"
-        class="btn btn-sm text-red-800 dark:text-red-500 rounded-full mt-2"
+      <div
+        v-if="isRegistered"
+        class="bg-red-500 dark:bg-red-800 text-center text-white p-4 rounded-xl"
       >
-        {{ $t('mns.place_bid_button') }}
-      </label>
+        <p
+          class="text-2xl"
+          v-html="
+            $t('mns.domain_registered_message', { domain: domainToCheck })
+          "
+        ></p>
+
+        <label
+          for="mns_bid"
+          @click="dialog.open('mns_bid', { name: domainToCheck }, updateState)"
+          class="btn btn-sm text-red-800 dark:text-red-500 rounded-full mt-2"
+        >
+          {{ $t('mns.place_bid_button') }}
+        </label>
+      </div>
     </div>
 
     <div class="flex justify-between items-center">

@@ -111,7 +111,7 @@ function selected(route: any, nav: NavLink) {
             class="collapse-title !py-0 flex items-center cursor-pointer hover:bg-gray-100 dark:hover:bg-[#373f59] rounded-full"
           >
             <div
-              class="text-base font-semibold flex-1 text-gray-700 dark:text-gray-200 pl-6 whitespace-nowrap hover:bg-gray-100 dark:hover:bg-[#373f59]"
+              class="text-base font-semibold flex-1 text-gray-700 dark:text-gray-200 pl-6 whitespace-nowrap hover:bg-gray-100 dark:hover:bg-[#373f59] mb-1"
             >
               {{ $t(item?.title) }}
             </div>
@@ -125,7 +125,7 @@ function selected(route: any, nav: NavLink) {
               <RouterLink
                 v-if="isNavLink(el)"
                 @click="sidebarShow = false"
-                class="hover:bg-gray-100 dark:hover:bg-[#1e3b47] rounded-full cursor-pointer px-4 py-2 flex items-center"
+                class="hover:bg-gray-100 dark:hover:bg-[#1e3b47] rounded-full cursor-pointer px-4 py-2 flex items-center mb-1"
                 :class="{
                   'bg-gray-200 dark:bg-[#1e3b47]': selected($route, el),
                 }"
@@ -148,7 +148,7 @@ function selected(route: any, nav: NavLink) {
           v-if="isNavLink(item)"
           :to="item.to"
           @click="sidebarShow = false"
-          class="cursor-pointer px-4 flex items-center py-2 hover:bg-gray-100 dark:hover:bg-[#1e3b47] rounded-full"
+          class="cursor-pointer px-4 flex items-center py-2 hover:bg-gray-100 dark:hover:bg-[#1e3b47] rounded-full mb-1"
           :class="{
             'bg-gray-200 dark:bg-[#1e3b47]': selected($route, item),
           }"

@@ -99,8 +99,11 @@ onMounted(() => {
         </label>
 
         <div class="relative group">
-          <button class="btn btn-primary btn-sm rounded-full text-white">
-            <Icon icon="mdi-cog" class="text-white" />
+          <button class="btn btn-ghost btn-circle btn-sm mx-1">
+            <Icon
+              icon="mdi-cog"
+              class="text-2xl text-gray-500 dark:text-gray-400"
+            />
           </button>
 
           <div

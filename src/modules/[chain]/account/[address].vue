@@ -126,7 +126,8 @@ function updateEvent() {
 }
 </script>
 <template>
-  <div v-if="account">
+  <div v-if="account" class="overflow-hidden mx-auto max-w-screen-lg">
+    <h1 class="text-4xl font-bold mb-4 p-4">Account</h1>
     <!-- address -->
     <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
       <div class="flex items-center">

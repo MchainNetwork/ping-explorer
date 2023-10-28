@@ -39,6 +39,13 @@ function pageload(p: number) {
   });
 }
 
+function getDescription(denom: string) {
+  const meta = metadataList.value.find(
+    (m) => m.base === denom || m.display === denom
+  );
+  return meta ? meta.description : '';
+}
+
 function getFormattedDenom(denom: string) {
   const meta = metadataList.value.find(
     (m) => m.base === denom || m.display === denom
@@ -66,12 +73,14 @@ function getFormattedAmount(denom: string, amount: string) {
         <thead>
           <tr>
             <td>Token</td>
+            <td>Description</td>
             <td class="text-right">Amount</td>
           </tr>
         </thead>
         <template v-for="item in list" :key="item.denom">
           <tr v-if="item.denom === 'umark' || item.denom === 'beer'">
             <td class="uppercase">{{ getFormattedDenom(item.denom) }}</td>
+            <td>{{ getDescription(item.denom) }}</td>
             <td class="text-right">
               {{ getFormattedAmount(item.denom, item.amount) }}
 
@@ -84,6 +93,7 @@ function getFormattedAmount(denom: string, amount: string) {
         <template v-for="item in list" :key="item.denom">
           <tr v-if="item.denom != 'umark' && item.denom != 'beer'">
             <td class="uppercase">{{ getFormattedDenom(item.denom) }}</td>
+            <td>{{ getDescription(item.denom) }}</td>
             <td class="text-right">
               {{ getFormattedAmount(item.denom, item.amount) }}
             </td>

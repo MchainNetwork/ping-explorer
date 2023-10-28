@@ -47,5 +47,8 @@ export const useBankStore = defineStore('bankstore', {
       }
       return trace;
     },
+    async fetchDenomMetadata() {
+      return this.blockchain.rpc.getBankDenomMetadata();
+    }
   },
 });

@@ -15,6 +15,7 @@ const format = useFormatter();
 const chainStore = useBlockchain();
 
 const list = ref([] as Coin[]);
+const metadataList = ref([] as any[]);
 
 function showType(v: string) {
   return v.replace('/cosmos.auth.v1beta1.', '');
@@ -33,52 +34,61 @@ function pageload(p: number) {
     list.value = x.supply;
     pageResponse.value = x.pagination;
   });
+  chainStore.rpc.getBankDenomMetadata().then((x) => {
+    metadataList.value = x.metadatas;
+  });
+}
+
+function getFormattedDenom(denom: string) {
+  const meta = metadataList.value.find(
+    (m) => m.base === denom || m.display === denom
+  );
+  return meta ? meta.display : denom;
+}
+
+function getFormattedAmount(denom: string, amount: string) {
+  const meta = metadataList.value.find(
+    (m) => m.base === denom || m.display === denom
+  );
+  return meta
+    ? Number(amount) /
+        10 **
+          meta.denom_units.find((unit: any) => unit.denom === meta.display)
+            .exponent
+    : amount;
 }
 </script>
 <template>
   <div class="overflow-auto mx-auto max-w-screen-lg">
     <h1 class="text-4xl font-bold mb-6 p-4">Supply</h1>
     <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl">
-      <table class="table table-compact table-zebra text-xl">
+      <table class="table table-compact table-zebra text-base">
         <thead>
           <tr>
             <td>Token</td>
             <td class="text-right">Amount</td>
           </tr>
         </thead>
-        <tr
-          v-for="item in list.filter(
-            (x) => x.denom == 'umark' || x.denom == 'beer'
-          )"
-          :key="item.denom"
-        >
-          <td>{{ item.denom }}</td>
-          <td class="text-right">{{ item.amount }}</td>
-        </tr>
-        <tr
-          v-for="item in list.filter(
-            (x) =>
-              !x.denom.startsWith('ibc/') &&
-              x.denom != 'umark' &&
-              x.denom != 'beer'
-          )"
-          :key="item.denom"
-        >
-          <td>
-            <RouterLink
-              :to="'/mchain/smarttoken/' + encodeURIComponent(item.denom)"
-              >{{ item.denom }}</RouterLink
-            >
-          </td>
-          <td class="text-right">{{ item.amount }}</td>
-        </tr>
-        <tr
-          v-for="item in list.filter((x) => x.denom.startsWith('ibc/'))"
-          :key="item.denom"
-        >
-          <td>{{ item.denom }}</td>
-          <td class="text-right">{{ item.amount }}</td>
-        </tr>
+        <template v-for="item in list" :key="item.denom">
+          <tr v-if="item.denom === 'umark' || item.denom === 'beer'">
+            <td class="uppercase">{{ getFormattedDenom(item.denom) }}</td>
+            <td class="text-right">
+              {{ getFormattedAmount(item.denom, item.amount) }}
+
+              <span class="ml-1 uppercase">{{
+                getFormattedDenom(item.denom)
+              }}</span>
+            </td>
+          </tr>
+        </template>
+        <template v-for="item in list" :key="item.denom">
+          <tr v-if="item.denom != 'umark' && item.denom != 'beer'">
+            <td class="uppercase">{{ getFormattedDenom(item.denom) }}</td>
+            <td class="text-right">
+              {{ getFormattedAmount(item.denom, item.amount) }}
+            </td>
+          </tr>
+        </template>
       </table>
       <PaginationBar
         :limit="pageRequest.limit"

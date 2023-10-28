@@ -56,6 +56,10 @@ export const useParamStore = defineStore('paramstore', {
       title: 'Mint Parameters',
       items: [] as Array<any>,
     },
+    bmint: {
+      title: 'BMint Parameters',
+      items: [] as Array<any>,
+    },
     staking: {
       title: 'Staking Parameters',
       items: [] as Array<any>,
@@ -92,6 +96,7 @@ export const useParamStore = defineStore('paramstore', {
       this.handleSmartTokenParams();
       this.handleMnsParams();
       this.handleMintParam()
+      this.handleBmintParams();
       this.handleStakingParams();
       this.handleSlashingParams();
       this.handleDistributionParams();
@@ -127,6 +132,13 @@ export const useParamStore = defineStore('paramstore', {
     async handleMnsParams() {
       const res = await this.getMnsParams();
       this.mns.items = Object.entries(res.params).map(([key, value]) => ({
+        subtitle: key,
+        value: value,
+      }));
+    },
+    async handleBmintParams() {
+      const res = await this.getBmintParams();
+      this.bmint.items = Object.entries(res.params).map(([key, value]) => ({
         subtitle: key,
         value: value,
       }));
@@ -236,6 +248,9 @@ export const useParamStore = defineStore('paramstore', {
     },
     async getMnsParams() {
       return await this.blockchain.rpc?.getMnsParams();
+    },
+    async getBmintParams() {
+      return await this.blockchain.rpc?.getBmintParams();
     },
     async getMintParam() {
       return await this.blockchain.rpc?.getMintParam();

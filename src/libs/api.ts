@@ -150,6 +150,8 @@ export const DEFAULT: RequestRegistry = {
   mns_forsale: { url: '/mchain/mns/v1beta1/forsale', adapter },
   mns_forsale_name: { url: '/mchain/mns/v1beta1/forsale/{name}', adapter },
 
+  bmint_params: { url: '/mchain/bmint/v1beta1/params', adapter },
+
   mint_inflation: { url: '/cosmos/mint/v1beta1/inflation', adapter },
   mint_params: { url: '/cosmos/mint/v1beta1/params', adapter },
   mint_annual_provisions: {

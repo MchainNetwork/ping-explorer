@@ -349,6 +349,9 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
   async getSmartTokenDenom(denom: string,) {
     return this.request(this.registry.smarttoken_denom, {denom});
   }
+  async getBmintParams() {
+    return this.request(this.registry.bmint_params, {});
+  }
   // mns
   async getMnsParams() {
     return this.request(this.registry.mns_params, {});

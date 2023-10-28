@@ -39,6 +39,8 @@ onMounted(() => {
     <CardParameter :cardItem="store.smarttoken" />
     <!-- MNS Parameters -->
     <CardParameter :cardItem="store.mns" />
+    <!-- Bmint Parameters -->
+    <CardParameter :cardItem="store.bmint" />
     <!-- Governance Parameters -->
     <CardParameter :cardItem="store.gov" />
     <!-- Distribution Parameters -->

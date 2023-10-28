@@ -108,15 +108,15 @@ function selected(route: any, nav: NavLink) {
             @click="changeOpen(index)"
           />
           <div
-            class="collapse-title !py-0 px-4 flex items-center cursor-pointer hover:bg-gray-100 dark:hover:bg-[#373f59]"
+            class="collapse-title !py-0 flex items-center cursor-pointer hover:bg-gray-100 dark:hover:bg-[#373f59] rounded-full"
           >
             <div
-              class="text-base font-semibold capitalize flex-1 text-gray-700 dark:text-gray-200 pl-6 whitespace-nowrap"
+              class="text-base font-semibold flex-1 text-gray-700 dark:text-gray-200 pl-6 whitespace-nowrap hover:bg-gray-100 dark:hover:bg-[#373f59]"
             >
               {{ $t(item?.title) }}
             </div>
           </div>
-          <div class="collapse-content">
+          <div class="collapse-content px-0">
             <div
               :key="key"
               v-for="(el, key) of item?.children"
@@ -125,7 +125,7 @@ function selected(route: any, nav: NavLink) {
               <RouterLink
                 v-if="isNavLink(el)"
                 @click="sidebarShow = false"
-                class="hover:bg-gray-100 dark:hover:bg-[#1e3b47] rounded-full font-semibold cursor-pointer px-3 py-2 pl-8 flex items-center"
+                class="hover:bg-gray-100 dark:hover:bg-[#1e3b47] rounded-full cursor-pointer px-4 py-2 flex items-center"
                 :class="{
                   'bg-gray-100 dark:bg-[#1e3b47] border border-primary':
                     selected($route, el),
@@ -133,7 +133,7 @@ function selected(route: any, nav: NavLink) {
                 :to="el.to"
               >
                 <div
-                  class="text-base text-gray-500 dark:text-gray-300"
+                  class="text-base text-gray-500 dark:text-gray-300 pl-6"
                   :class="{
                     ' text-black dark:text-white': selected($route, el),
                   }"
@@ -148,7 +148,8 @@ function selected(route: any, nav: NavLink) {
         <RouterLink
           v-if="isNavLink(item)"
           :to="item.to"
-          class="cursor-pointer rounded-lg px-4 flex items-center py-2 hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
+          @click="sidebarShow = false"
+          class="cursor-pointer px-4 flex items-center py-2 hover:bg-gray-100 dark:hover:bg-[#1e3b47] rounded-full"
         >
           <div
             class="text-base font-semibold capitalize flex-1 text-gray-700 dark:text-gray-200 pl-6 whitespace-nowrap"

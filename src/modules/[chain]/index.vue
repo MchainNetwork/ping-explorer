@@ -143,13 +143,18 @@ const amount = computed({
         class="bg-base-100 rounded-xl my-4"
         v-if="walletStore.currentAddress"
       >
-        <div class="flex px-4 pt-4 pb-4 text-lg font-semibold text-main">
+        <div
+          class="flex items-center px-4 pt-4 pb-4 text-lg font-semibold text-main"
+        >
           <IdentityIcon size="small" :address="walletStore.currentAddress" />
           <RouterLink
             class="ml-2 cursor-pointer link link-primary no-underline font-medium"
             :to="`/${chain}/account/${walletStore.currentAddress}`"
           >
             {{ walletStore.currentAddress }}
+          </RouterLink>
+          <RouterLink to="/wallet/receive">
+            <Icon icon="mdi:qrcode" class="ml-2 cursor-pointer" />
           </RouterLink>
         </div>
         <div

@@ -11,13 +11,13 @@ const props = defineProps({
 const formatter = useFormatter();
 function calculateValue(value: any) {
   if (typeof value === 'object' && value.amount && value.denom) {
-    return value.amount +' '+ value.denom;
+    return value.amount + ' ' + value.denom;
   }
   if (Array.isArray(value)) {
     return (value[0] && value[0].amount) || '-';
   }
-  if(String(value).search(/^\d+s$/g) > -1) {
-    return formatSeconds(value)
+  if (String(value).search(/^\d+s$/g) > -1) {
+    return formatSeconds(value);
   }
   const newValue = Number(value);
   if (`${newValue}` === 'NaN' || typeof value === 'boolean') {
@@ -31,8 +31,8 @@ function calculateValue(value: any) {
 }
 
 function formatTitle(v: string) {
-  if(!v) return ""
-  return v.replace(/_/g, " ")
+  if (!v) return '';
+  return v.replace(/_/g, ' ');
 }
 </script>
 <template>
@@ -49,7 +49,9 @@ function formatTitle(v: string) {
         :key="index"
         class="rounded-xl bg-gray-100 dark:bg-[#1e3b47] px-4 py-2"
       >
-        <div class="text-xs mb-2 text-secondary capitalize">{{ formatTitle(item?.subtitle) }}</div>
+        <div class="text-xs mb-2 text-gray-600 dark:text-gray-400">
+          {{ formatTitle(item?.subtitle) }}
+        </div>
         <div class="text-base text-main">{{ calculateValue(item?.value) }}</div>
       </div>
     </div>

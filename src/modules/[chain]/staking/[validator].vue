@@ -8,6 +8,7 @@ import {
 } from '@/stores';
 import { onMounted, computed, ref } from 'vue';
 import { Icon } from '@iconify/vue';
+import IdentityIcon from '@/components/IdentityIcon.vue';
 import CommissionRate from '@/components/ValidatorCommissionRate.vue';
 import {
   consensusPubkeyToHexAddress,
@@ -15,7 +16,14 @@ import {
   pubKeyToValcons,
   valoperToPrefix,
 } from '@/libs';
-import { PageRequest, type Coin, type Delegation, type PaginatedDelegations, type PaginatedTxs, type Validator } from '@/types';
+import {
+  PageRequest,
+  type Coin,
+  type Delegation,
+  type PaginatedDelegations,
+  type PaginatedTxs,
+  type Validator,
+} from '@/types';
 import PaginationBar from '@/components/PaginationBar.vue';
 
 const props = defineProps(['validator', 'chain']);
@@ -34,7 +42,7 @@ const avatars = ref(cache || {});
 const identity = ref('');
 const rewards = ref([] as Coin[] | undefined);
 const commission = ref([] as Coin[] | undefined);
-const delegations = ref({} as PaginatedDelegations)
+const delegations = ref({} as PaginatedDelegations);
 const addresses = ref(
   {} as {
     account: string;
@@ -140,7 +148,6 @@ onMounted(() => {
     // Disable delegations due to its bad performance
     // Comment out the following code if you want to enable it
     // pageload(1)
-
   }
 });
 let showCopyToast = ref(0);
@@ -169,55 +176,64 @@ const tipMsg = computed(() => {
 
 function pageload(p: number) {
   page.setPage(p);
-  blockchain.rpc.getStakingValidatorsDelegations(validator, page).then(res => {
-      delegations.value = res
-  }) 
+  blockchain.rpc
+    .getStakingValidatorsDelegations(validator, page)
+    .then((res) => {
+      delegations.value = res;
+    });
 }
 </script>
 <template>
-  <div>
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl border-indigo-500">
-      <div class="flex flex-col lg:!flex-row pt-2 pb-1">
+  <div class="overflow-hidden mx-auto max-w-screen-lg">
+    <div class="flex items-center justify-between">
+      <h1 class="text-4xl font-bold mb-4 p-4">Validator</h1>
+      <div class="pr-4">
+        <label
+          for="delegate"
+          class="btn btn-primary btn-sm rounded-full w-full"
+          @click="
+            dialog.open('delegate', {
+              validator_address: v.operator_address,
+            })
+          "
+          >{{ $t('account.btn_delegate') }}</label
+        >
+      </div>
+    </div>
+    <div class="bg-base-100 px-4 pt-3 pb-4 mb-4 rounded-xl">
+      <div class="flex flex-col lg:!flex-row pt-2 pb-1" v-if="v">
         <div class="flex-1">
           <div class="flex">
             <div class="avatar mr-4 relative w-24 rounded-lg overflow-hidden">
               <div class="w-24 rounded-lg absolute opacity-10"></div>
-              <div class="w-24 rounded-full">
+              <div class="w-24 rounded-full" v-if="identity">
                 <img
                   v-if="avatars[identity] !== 'undefined'"
                   v-lazy="logo(identity)"
                   class="object-contain"
                 />
-                <Icon
-                  v-else
-                  class="text-4xl"
-                  :icon="`mdi-help-circle-outline`"
-                />
               </div>
+              <IdentityIcon
+                v-if="v.operator_address && !identity"
+                width="24"
+                height="24"
+                :address="v?.operator_address || ''"
+              />
             </div>
-            <div class="mx-2">
-              <h4>{{ v.description?.moniker }}</h4>
-              <div class="text-sm mb-4">
+            <div class="mx-2 flex-1">
+              <h4 class="font-bold text-2xl">{{ v.description?.moniker }}</h4>
+              <div class="text-sm mb-4" v-if="v.description?.identity">
                 {{ v.description?.identity || '-' }}
               </div>
-              <label
-                for="delegate"
-                class="btn btn-primary btn-sm rounded-full w-full"
-                @click="
-                  dialog.open('delegate', {
-                    validator_address: v.operator_address,
-                  })
-                "
-                >{{ $t('account.btn_delegate') }}</label
-              >
             </div>
           </div>
           <div class="m-4 text-sm">
             <p class="text-sm mb-3 font-medium">{{ $t('staking.about_us') }}</p>
             <div class="card-list">
               <div class="flex items-center mb-2">
-                <Icon icon="mdi-web" class="text-xl mr-1" />
-                <span class="font-bold mr-2">{{ $t('staking.website') }}: </span>
+                <span class="font-bold mr-2"
+                  >{{ $t('staking.website') }}:
+                </span>
                 <a
                   :href="v?.description?.website || '#'"
                   :class="
@@ -230,44 +246,67 @@ function pageload(p: number) {
                 </a>
               </div>
               <div class="flex items-center">
-                <Icon icon="mdi-email-outline" class="text-xl mr-1" />
-                <span class="font-bold mr-2">{{ $t('staking.contact') }}: </span>
+                <span class="font-bold mr-2"
+                  >{{ $t('staking.contact') }}:
+                </span>
                 <a
                   v-if="v.description?.security_contact"
-                  :href="'mailto:' + v.description.security_contact || '#' "
+                  :href="'mailto:' + v.description.security_contact || '#'"
                   class="cursor-pointer"
                 >
                   {{ v.description?.security_contact || '-' }}
                 </a>
               </div>
             </div>
-            <p class="text-sm mt-4 mb-3 font-medium">{{ $t('staking.validator_status') }}</p>
+            <p class="text-sm mt-4 mb-3 font-medium">
+              {{ $t('staking.validator_status') }}
+            </p>
             <div class="card-list">
               <div class="flex items-center mb-2">
-                <Icon icon="mdi-shield-account-outline" class="text-xl mr-1" />
                 <span class="font-bold mr-2">{{ $t('staking.status') }}: </span
                 ><span>
                   {{ String(v.status).replace('BOND_STATUS_', '') }}
                 </span>
               </div>
               <div class="flex items-center">
-                <Icon icon="mdi-shield-alert-outline" class="text-xl mr-1" />
                 <span class="font-bold mr-2">{{ $t('staking.jailed') }}: </span>
                 <span> {{ v.jailed || '-' }} </span>
               </div>
             </div>
-            <p class="text-sm mt-4 mb-3 font-medium">{{ $t('staking.liquid_staking') }}</p>
+            <p class="text-sm mt-4 mb-3 font-medium">
+              {{ $t('staking.liquid_staking') }}
+            </p>
             <div class="card-list">
               <div class="flex items-center mb-2">
-                <Icon icon="mdi-lock" class="text-xl mr-1" />
-                <span class="font-bold mr-2">{{ $t('staking.validator_bond_share') }}: </span>
-                <span> {{ format.formatToken( {amount: v.validator_bond_shares, denom: staking.params.bond_denom }, false) }} </span>
+                <span class="font-bold mr-2"
+                  >{{ $t('staking.validator_bond_share') }}:
+                </span>
+                <span>
+                  {{
+                    format.formatToken(
+                      {
+                        amount: v.validator_bond_shares,
+                        denom: staking.params.bond_denom,
+                      },
+                      false
+                    )
+                  }}
+                </span>
               </div>
               <div class="flex items-center">
-                <Icon icon="mdi-waves-arrow-right" class="text-xl mr-1" />
-                <span class="font-bold mr-2">{{ $t('staking.liquid_staking_shares') }}: </span>
+                <span class="font-bold mr-2"
+                  >{{ $t('staking.liquid_staking_shares') }}:
+                </span>
                 <span>
-                  {{ format.formatToken( {amount: v.liquid_shares, denom: staking.params.bond_denom }, false) }}
+                  {{
+                    format.formatToken(
+                      {
+                        amount: v.liquid_shares,
+                        denom: staking.params.bond_denom,
+                      },
+                      false
+                    )
+                  }}
                 </span>
               </div>
             </div>
@@ -276,12 +315,6 @@ function pageload(p: number) {
         <div class="flex-1">
           <div class="flex flex-col mt-10">
             <div class="flex mb-2">
-              <div
-                class="flex items-center justify-center rounded w-10 h-10"
-                style="border: 1px solid #666"
-              >
-                <Icon icon="mdi-coin" class="text-3xl" />
-              </div>
               <div class="ml-3 flex flex-col justify-center">
                 <h4>
                   {{
@@ -295,12 +328,6 @@ function pageload(p: number) {
               </div>
             </div>
             <div class="flex mb-2">
-              <div
-                class="flex items-center justify-center rounded w-10 h-10"
-                style="border: 1px solid #666"
-              >
-                <Icon icon="mdi-percent" class="text-3xl" />
-              </div>
               <div class="ml-3 flex flex-col justify-center">
                 <h4>
                   {{ format.formatToken(selfBonded.balance) }} ({{ selfRate }})
@@ -310,13 +337,6 @@ function pageload(p: number) {
             </div>
 
             <div class="flex mb-2">
-              <div
-                class="flex items-center justify-center rounded w-10 h-10"
-                style="border: 1px solid #666"
-              >
-                <Icon icon="mdi-account-tie" class="text-3xl" />
-              </div>
-
               <div class="ml-3 flex flex-col">
                 <h4>
                   {{ v.min_self_delegation }} {{ staking.params.bond_denom }}
@@ -325,12 +345,6 @@ function pageload(p: number) {
               </div>
             </div>
             <div class="flex mb-2">
-              <div
-                class="flex items-center justify-center rounded w-10 h-10"
-                style="border: 1px solid #666"
-              >
-                <Icon icon="mdi-finance" class="text-3xl" />
-              </div>
               <div class="ml-3 flex flex-col justify-center">
                 <h4>{{ apr }}</h4>
                 <span class="text-sm">{{ $t('staking.annual_profit') }}</span>
@@ -338,27 +352,23 @@ function pageload(p: number) {
             </div>
 
             <div class="flex mb-2">
-              <div
-                class="flex items-center justify-center rounded w-10 h-10"
-                style="border: 1px solid #666"
-              >
-                <Icon icon="mdi:arrow-down-bold-circle-outline" class="text-3xl" />
-              </div>
               <div class="ml-3 flex flex-col justify-center">
                 <h4>{{ v.unbonding_height }}</h4>
-                <span class="text-sm">{{ $t('staking.unbonding_height') }}</span>
+                <span class="text-sm">{{
+                  $t('staking.unbonding_height')
+                }}</span>
               </div>
             </div>
 
             <div class="flex mb-2">
-              <div
-                class="flex items-center justify-center rounded w-10 h-10"
-                style="border: 1px solid #666"
-              >
-                <Icon icon="mdi-clock" class="text-3xl" />
-              </div>
               <div class="ml-3 flex flex-col justify-center">
-                <h4 v-if="v.unbonding_time && !v.unbonding_time.startsWith('1970')">{{ format.toDay(v.unbonding_time, 'from') }}</h4>
+                <h4
+                  v-if="
+                    v.unbonding_time && !v.unbonding_time.startsWith('1970')
+                  "
+                >
+                  {{ format.toDay(v.unbonding_time, 'from') }}
+                </h4>
                 <h4 v-else>-</h4>
                 <span class="text-sm">{{ $t('staking.unbonding_time') }}</span>
               </div>
@@ -366,14 +376,16 @@ function pageload(p: number) {
           </div>
         </div>
       </div>
-      <div class="text-sm px-4 pt-3 border-t">{{ v.description?.details }}</div>
+      <div class="text-sm px-4 pt-3 border-t" v-if="v.description?.details">
+        {{ v.description?.details }}
+      </div>
     </div>
 
-    <div class="mt-3 grid grid-cols-1 md:!grid-cols-3 gap-4">
-      <div>
+    <div class="mt-3 grid grid-cols-1 md:!grid-cols-2 gap-4">
+      <div class="mb-4">
         <CommissionRate :commission="v.commission"></CommissionRate>
       </div>
-      <div class="bg-base-100 rounded-xl relative overflow-auto">
+      <div class="bg-base-100 rounded-xl relative overflow-auto mb-4">
         <div class="text-lg font-semibold text-main px-4 pt-4">
           {{ $t('staking.commissions_&_rewards') }}
         </div>
@@ -393,7 +405,9 @@ function pageload(p: number) {
             >
               {{ format.formatToken2(i) }}
             </div>
-            <div class="text-sm mb-2 mt-2">{{ $t('staking.outstanding') }} {{ $t('account.rewards') }}</div>
+            <div class="text-sm mb-2 mt-2">
+              {{ $t('staking.outstanding') }} {{ $t('account.rewards') }}
+            </div>
             <div
               v-for="(i, k) in rewards"
               :key="`reward-${k}`"
@@ -416,79 +430,93 @@ function pageload(p: number) {
           </div>
         </div>
       </div>
-      <div class="bg-base-100 rounded-xl overflow-x-auto">
-        <div class="px-4 pt-4 mb-2 text-main font-lg font-semibold">
-          {{ $t('staking.addresses') }}
+    </div>
+
+    <div class="bg-base-100 rounded-xl overflow-x-auto mb-4">
+      <div class="px-4 pt-4 mb-2 text-main font-lg font-semibold">
+        {{ $t('staking.addresses') }}
+      </div>
+      <div class="px-4 pb-4">
+        <div class="mb-3">
+          <div class="text-sm flex">
+            {{ $t('staking.account_addr') }}
+            <Icon
+              icon="mdi:content-copy"
+              class="ml-2 cursor-pointer"
+              v-show="addresses.account"
+              @click="copyWebsite(addresses.account || '')"
+            />
+          </div>
+          <RouterLink
+            class="text-xs text-primary"
+            :to="`/${chain}/account/${addresses.account}`"
+          >
+            {{ addresses.account }}
+          </RouterLink>
         </div>
-        <div class="px-4 pb-4">
-          <div class="mb-3">
-            <div class="text-sm flex">{{ $t('staking.account_addr') }} 
-              <Icon
-                  icon="mdi:content-copy"
-                  class="ml-2 cursor-pointer"
-                  v-show="addresses.account"
-                  @click="copyWebsite(addresses.account || '')"
-                />
-              </div>
-            <RouterLink
-              class="text-xs text-primary"
-              :to="`/${chain}/account/${addresses.account}`"
-            >
-              {{ addresses.account }}
-            </RouterLink>
+        <div class="mb-3">
+          <div class="text-sm flex">
+            {{ $t('staking.operator_addr') }}
+            <Icon
+              icon="mdi:content-copy"
+              class="ml-2 cursor-pointer"
+              v-show="v.operator_address"
+              @click="copyWebsite(v.operator_address || '')"
+            />
           </div>
-          <div class="mb-3">
-            <div class="text-sm flex">{{ $t('staking.operator_addr') }}
-              <Icon
-                  icon="mdi:content-copy"
-                  class="ml-2 cursor-pointer"
-                  v-show="v.operator_address"
-                  @click="copyWebsite(v.operator_address || '')"
-                /></div>
-            <div class="text-xs">
-              {{ v.operator_address }}
-            </div>
+          <div class="text-xs">
+            {{ v.operator_address }}
           </div>
-          <div class="mb-3">
-            <div class="text-sm flex">{{ $t('staking.hex_addr') }}
-              <Icon
-                  icon="mdi:content-copy"
-                  class="ml-2 cursor-pointer"
-                  v-show="addresses.hex"
-                  @click="copyWebsite(addresses.hex || '')"
-                />
-              </div>
-            <div class="text-xs">{{ addresses.hex }}</div>
+        </div>
+        <div class="mb-3">
+          <div class="text-sm flex">
+            {{ $t('staking.hex_addr') }}
+            <Icon
+              icon="mdi:content-copy"
+              class="ml-2 cursor-pointer"
+              v-show="addresses.hex"
+              @click="copyWebsite(addresses.hex || '')"
+            />
           </div>
-          <div class="mb-3">
-            <div class="text-sm flex">{{ $t('staking.signer_addr') }}
-              <Icon
-                  icon="mdi:content-copy"
-                  class="ml-2 cursor-pointer"
-                  v-show="addresses.valCons"
-                  @click="copyWebsite(addresses.valCons || '')"
-                />
-              </div>
-            <div class="text-xs">{{ addresses.valCons }}</div>
+          <div class="text-xs">{{ addresses.hex }}</div>
+        </div>
+        <div class="mb-3">
+          <div class="text-sm flex">
+            {{ $t('staking.signer_addr') }}
+            <Icon
+              icon="mdi:content-copy"
+              class="ml-2 cursor-pointer"
+              v-show="addresses.valCons"
+              @click="copyWebsite(addresses.valCons || '')"
+            />
           </div>
-          <div>
-            <div class="text-sm flex">{{ $t('staking.consensus_pub_key') }}
-              <Icon
-                  icon="mdi:content-copy"
-                  class="ml-2 cursor-pointer"
-                  v-show="v.consensus_pubkey"
-                  @click="copyWebsite(JSON.stringify(v.consensus_pubkey) || '')"
-                />
-              </div>
-            <div class="text-xs">{{ v.consensus_pubkey }}</div>
+          <div class="text-xs">{{ addresses.valCons }}</div>
+        </div>
+        <div>
+          <div class="text-sm flex">
+            {{ $t('staking.consensus_pub_key') }}
+            <Icon
+              icon="mdi:content-copy"
+              class="ml-2 cursor-pointer"
+              v-show="v.consensus_pubkey"
+              @click="copyWebsite(JSON.stringify(v.consensus_pubkey) || '')"
+            />
           </div>
+          <div class="text-xs">{{ v.consensus_pubkey }}</div>
         </div>
       </div>
     </div>
 
-    <div v-if="delegations.delegation_responses" class="mt-5 bg-base-100 rounded-xl p-4 ">
-      <div class="text-lg mb-4 font-semibold">{{ $t('account.delegations') }}
-        <span class="float-right"> {{ delegations.delegation_responses?.length || 0 }} / {{ delegations.pagination?.total || 0 }} </span>
+    <div
+      v-if="delegations.delegation_responses"
+      class="mt-5 bg-base-100 rounded-xl p-4 mb-4"
+    >
+      <div class="text-lg mb-4 font-semibold">
+        {{ $t('account.delegations') }}
+        <span class="float-right">
+          {{ delegations.delegation_responses?.length || 0 }} /
+          {{ delegations.pagination?.total || 0 }}
+        </span>
       </div>
       <div class="rounded overflow-auto">
         <table class="table validatore-table w-full">
@@ -499,23 +527,34 @@ function pageload(p: number) {
             <th class="text-left pl-4">{{ $t('account.delegation') }}</th>
           </thead>
           <tbody>
-            <tr v-for="{balance, delegation} in delegations.delegation_responses">
+            <tr
+              :key="delegation.delegator_address"
+              v-for="{
+                balance,
+                delegation,
+              } in delegations.delegation_responses"
+            >
               <td class="text-sm text-primary">
                 {{ delegation.delegator_address }}
               </td>
               <td class="truncate text-primary">
-                {{ format.formatToken(balance)}}
+                {{ format.formatToken(balance) }}
               </td>
-              
             </tr>
           </tbody>
         </table>
-        <PaginationBar :total="delegations.pagination?.total" :limit="page.limit" :callback="pageload"/>
+        <PaginationBar
+          :total="delegations.pagination?.total"
+          :limit="page.limit"
+          :callback="pageload"
+        />
       </div>
     </div>
 
-    <div class="mt-5 bg-base-100 rounded-xl p-4">
-      <div class="text-lg mb-4 font-semibold">{{ $t('account.transactions') }}</div>
+    <div class="mt-5 bg-base-100 rounded-xl p-4 mb-4">
+      <div class="text-lg mb-4 font-semibold">
+        {{ $t('account.transactions') }}
+      </div>
       <div class="rounded overflow-auto">
         <table class="table validatore-table w-full">
           <thead>
@@ -523,7 +562,9 @@ function pageload(p: number) {
               {{ $t('account.height') }}
             </th>
             <th class="text-left pl-4">{{ $t('account.hash') }}</th>
-            <th class="text-left pl-4" width="40%">{{ $t('account.messages') }}</th>
+            <th class="text-left pl-4" width="40%">
+              {{ $t('account.messages') }}
+            </th>
             <th class="text-left pl-4">{{ $t('account.time') }}</th>
           </thead>
           <tbody>

@@ -6,27 +6,25 @@ import { useWalletStore } from '@/stores';
 
 const walletStore = useWalletStore();
 
-const cosmosAddress = ref(walletStore.currentAddress || '');
+const mchainAddress = ref(walletStore.currentAddress || '');
 const responseMessage = ref('');
 
 const isLoading = ref(false);
 const isErrorMessage = ref(false);
 
-const showResponse = (response: any) => {
-  if (response && (response.status === 200 || response.status === 202)) {
-    isErrorMessage.value = false;
-    cosmosAddress.value = '';
-    responseMessage.value = 'All coins are successfully sent.';
-  }
-};
-
 async function callFaucet() {
+  if (!mchainAddress.value || !mchainAddress.value.startsWith('m')) {
+    isErrorMessage.value = true;
+    responseMessage.value = 'Error: Please enter an address.';
+    return;
+  }
+
   isLoading.value = true;
+
   try {
     const apiUrl = 'https://faucet-api.mchain.network/';
     const requestData = {
-      address: cosmosAddress.value,
-      coins: ['100000000umark'],
+      address: mchainAddress.value,
     };
 
     const headers = {
@@ -35,12 +33,32 @@ async function callFaucet() {
     };
 
     const response = await axios.post(apiUrl, requestData, { headers });
-    showResponse(response);
+
+    if (response && (response.status === 200 || response.status === 202)) {
+      isErrorMessage.value = false;
+      mchainAddress.value = '';
+      responseMessage.value = 'All coins are successfully sent.';
+    }
   } catch (error: any) {
     console.log(error);
     isErrorMessage.value = true;
-    if (error.response && error.response.data.error) {
-      responseMessage.value = 'Error: ' + error.response.data.error;
+    if (error.response) {
+      switch (error.response.status) {
+        case 400:
+          responseMessage.value =
+            'Error: Bad Request. Please check your input.';
+          break;
+        case 429:
+          responseMessage.value = 'Error: You requested too often.';
+          break;
+        case 500:
+          responseMessage.value =
+            'Error: Server error. Please contact the admin.';
+          break;
+        default:
+          responseMessage.value = 'Error: Unknown response from the server.';
+          break;
+      }
     } else {
       responseMessage.value = 'Error: ' + error.message;
     }
@@ -66,8 +84,8 @@ async function callFaucet() {
       <div class="text-left">
         <input
           type="text"
-          id="cosmosAddress"
-          v-model="cosmosAddress"
+          id="mchainAddress"
+          v-model="mchainAddress"
           class="mt-1 p-2 block w-full mx-auto border border-gray-300 rounded-full mb-8"
           placeholder="Enter your Mchain address"
         />

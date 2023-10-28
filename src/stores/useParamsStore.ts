@@ -107,7 +107,7 @@ export const useParamStore = defineStore('paramstore', {
       try {
         const res = await this.getBaseTendermintBlockLatest();
         const height = this.chain.items.findIndex(
-          (x) => x.subtitle === 'height'
+          (x) => x.subtitle === 'params.height'
         );
         this.chain.title = `Chain ID: ${res.block.header.chain_id}`;
         this.chain.items[height].value = res.block.header.height;
@@ -183,14 +183,12 @@ export const useParamStore = defineStore('paramstore', {
       );
     },
     async handleMintParam() {
-      const excludes = this.blockchain.current?.excludes;
-      if (excludes && excludes.indexOf('mint') > -1) {
-        return;
-      }
-      // this.getMintingInflation().then(res => {
-      //     const chainIndex = this.chain.items.findIndex(x => x.subtitle === 'inflation')
-      //     this.chain.items[chainIndex].value = `${percent(res)}%`
-      // })
+
+      this.getMintingInflation().then(res => {
+          const chainIndex = this.chain.items.findIndex(x => x.subtitle === 'params.inflation')
+          this.chain.items[chainIndex].value = `${percent(Number(res.inflation))}%`
+      })
+      
       const res = await this.getMintParam();
       this.mint.items = Object.entries(res.params).map(([key, value]) => ({
         subtitle: key,
@@ -289,5 +287,8 @@ export const useParamStore = defineStore('paramstore', {
     async fetchAbciInfo() {
       return this.blockchain.rpc?.getBaseNodeInfo();
     },
+    async getMintingInflation() {
+      return await this.blockchain.rpc?.getMintInflation();
+    }
   },
 });

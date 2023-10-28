@@ -13,7 +13,7 @@ const isLoading = ref(false);
 const isErrorMessage = ref(false);
 
 const showResponse = (response: any) => {
-  if (response && response.status === 200) {
+  if (response && (response.status === 200 || response.status === 202)) {
     isErrorMessage.value = false;
     cosmosAddress.value = '';
     responseMessage.value = 'All coins are successfully sent.';
@@ -37,6 +37,7 @@ async function callFaucet() {
     const response = await axios.post(apiUrl, requestData, { headers });
     showResponse(response);
   } catch (error: any) {
+    console.log(error);
     isErrorMessage.value = true;
     if (error.response && error.response.data.error) {
       responseMessage.value = 'Error: ' + error.response.data.error;

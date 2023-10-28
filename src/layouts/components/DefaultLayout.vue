@@ -127,8 +127,7 @@ function selected(route: any, nav: NavLink) {
                 @click="sidebarShow = false"
                 class="hover:bg-gray-100 dark:hover:bg-[#1e3b47] rounded-full cursor-pointer px-4 py-2 flex items-center"
                 :class="{
-                  'bg-gray-100 dark:bg-[#1e3b47] border border-primary':
-                    selected($route, el),
+                  'bg-gray-200 dark:bg-[#1e3b47]': selected($route, el),
                 }"
                 :to="el.to"
               >
@@ -150,6 +149,9 @@ function selected(route: any, nav: NavLink) {
           :to="item.to"
           @click="sidebarShow = false"
           class="cursor-pointer px-4 flex items-center py-2 hover:bg-gray-100 dark:hover:bg-[#1e3b47] rounded-full"
+          :class="{
+            'bg-gray-200 dark:bg-[#1e3b47]': selected($route, item),
+          }"
         >
           <div
             class="text-base font-semibold capitalize flex-1 text-gray-700 dark:text-gray-200 pl-6 whitespace-nowrap"

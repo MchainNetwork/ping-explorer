@@ -160,7 +160,7 @@ const cardData = ref([
             {{ finalStakingAPR.toFixed(2) }}%
           </p>
         </div>
-        <div class="grid !grid-cols-1 !md:grid-cols-2 gap-4 mb-4">
+        <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
             <p class="text-sm font-medium text-gray-600">Daily Returns</p>
             <p class="text-xl font-bold">

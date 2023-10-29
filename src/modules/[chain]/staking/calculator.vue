@@ -1,22 +1,58 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import {
+  useBaseStore,
+  useBlockchain,
+  useFormatter,
+  useTxDialog,
+  useWalletStore,
+  useStakingStore,
+  useParamStore,
+  useBankStore,
+  useMintStore,
+} from '@/stores';
 
-// TODO: values from parameters
-const inflation = ref<number>(0.0702); // 7.02%
-const communityTax = ref<number>(0.02); // 2%
-const bondedTokensRatio = ref<number>(0.09 / 100); // 0.09%
-const validatorCommission = ref<number>(0.05); // 5% - Example
-const totalSupply = 110000000; // 110M
+const blockchain = useBlockchain();
+const walletStore = useWalletStore();
+const baseStore = useBaseStore();
+const format = useFormatter();
+const dialog = useTxDialog();
+const stakingStore = useStakingStore();
+const paramStore = useParamStore();
+const bankStore = useBankStore();
+const mintStore = useMintStore();
+
+const bondedTokens = ref(<number>0);
+const totalSupply = ref<number>(0);
+const inflation = ref<number>(0);
+
 const blocksPerYear = 5057308;
-
 const mintDecimal = 6;
 const bondDenomSymbol = 'MARK';
-const tokenValueUSD = ref<number>(0.001); // Token value in USD - Example
 
+const communityTax = ref<number>(0.02); // 2%
+const tokenValueUSD = ref<number>(0.001); // Token value in USD - Example
+const validatorCommission = ref<number>(0.05); // 5% - Example
 const stake = ref<number>(1000000); // 1M - Example
 
+onMounted(() => {
+  paramStore.getMintingInflation().then((res) => {
+    inflation.value = Number(res.inflation);
+  });
+  blockchain.rpc?.getStakingPool().then((res) => {
+    bondedTokens.value = Number(res?.pool?.bonded_tokens) / 10 ** mintDecimal;
+  });
+  blockchain.rpc?.getBankSupplyByDenom('umark').then((res) => {
+    totalSupply.value = Number(res.amount.amount) / 10 ** mintDecimal;
+  });
+});
+
 const tokensPerBlock = computed(() => {
-  return (inflation.value * totalSupply) / blocksPerYear;
+  return (inflation.value * totalSupply.value) / blocksPerYear;
+});
+
+const bondedTokensRatio = computed(() => {
+  return bondedTokens.value / totalSupply.value;
 });
 
 // APR Calculation
@@ -75,7 +111,7 @@ const cardData = ref([
 
   {
     title: 'Bonded Ratio',
-    value: computed(() => `${(bondedTokensRatio.value * 100).toFixed(2)}%`),
+    value: computed(() => `${(bondedTokensRatio.value * 1000).toFixed(2)}%`),
   },
   {
     title: 'Actual Inflation',
@@ -87,11 +123,19 @@ const cardData = ref([
       () => `${tokensPerBlock.value.toFixed(2)} ${bondDenomSymbol}`
     ),
   },
+  {
+    title: 'Blocks per Year',
+    value: computed(() => `${blocksPerYear}`),
+  },
+  {
+    title: 'Total Supply',
+    value: computed(() => `${totalSupply.value.toFixed(0)} ${bondDenomSymbol}`),
+  },
 ]);
 </script>
 
 <template>
-  <div class="mx-auto max-w-screen-md">
+  <div class="mx-auto max-w-screen-md" v-if="finalStakingAPR">
     <div class="bg-base-100 p-4 my-4 rounded-3xl text-center">
       <h1 class="text-4xl font-bold mb-4 p-4">Staking Rewards Calculator</h1>
       <div class="mb-4">
@@ -111,36 +155,44 @@ const cardData = ref([
         <div class="mb-4">
           <p class="text-sm font-medium text-gray-600">Staking APR</p>
           <p class="text-xl font-bold text-green-600">
-            {{ stakingAPR.toFixed(2) }}%
+            {{ finalStakingAPR.toFixed(2) }}%
           </p>
         </div>
-        <div class="grid grid-cols-2 gap-4 mb-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
             <p class="text-sm font-medium text-gray-600">Daily Returns</p>
             <p class="text-xl font-bold">
-              {{ returns.dailyTokens.toFixed(2) }} {{ bondDenomSymbol
-              }}<br />${{ returns.dailyUSD.toFixed(2) }}
+              {{ returns.dailyTokens.toFixed(2) }} {{ bondDenomSymbol }}
+            </p>
+            <p class="text-lg text-gray-600">
+              ${{ returns.dailyUSD.toFixed(2) }}
             </p>
           </div>
           <div>
             <p class="text-sm font-medium text-gray-600">Monthly Returns</p>
             <p class="text-xl font-bold">
-              {{ returns.monthlyTokens.toFixed(2) }} {{ bondDenomSymbol
-              }}<br />${{ returns.monthlyUSD.toFixed(2) }}
+              {{ returns.monthlyTokens.toFixed(2) }} {{ bondDenomSymbol }}
+            </p>
+            <p class="text-lg text-gray-600">
+              ${{ returns.monthlyUSD.toFixed(2) }}
             </p>
           </div>
-          <div class="col-span-2">
+          <div class="md:col-span-2">
             <p class="text-sm font-medium text-gray-600">Yearly Returns</p>
             <p class="text-xl font-bold">
-              {{ returns.annualTokens.toFixed(2) }} {{ bondDenomSymbol
-              }}<br />${{ returns.annualUSD.toFixed(2) }}
+              {{ returns.annualTokens.toFixed(2) }} {{ bondDenomSymbol }}
+            </p>
+            <p class="text-lg text-gray-600">
+              ${{ returns.annualUSD.toFixed(2) }}
             </p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="grid grid-cols-4 gap-4 my-4 text-center">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 my-4 text-center"
+    >
       <div
         class="bg-base-100 rounded-3xl"
         v-for="(card, index) in cardData"
@@ -148,7 +200,7 @@ const cardData = ref([
       >
         <div class="p-4">
           <p class="text-xs">{{ card.title }}</p>
-          <p class="text-xl">{{ card.value }}</p>
+          <p class="text-md">{{ card.value }}</p>
         </div>
       </div>
     </div>

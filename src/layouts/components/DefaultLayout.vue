@@ -186,7 +186,7 @@ function selected(route: any, nav: NavLink) {
         <!-- <NavSearchBar />-->
         <NavbarSearch class="!inline-block" />
         <NavBarI18n class="hidden md:!inline-block" />
-        <NavbarThemeSwitcher class="!inline-block" />
+        <NavbarThemeSwitcher class="!inline-block mr-2" />
         <NavBarWallet />
       </div>
 

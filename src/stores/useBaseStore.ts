@@ -8,12 +8,15 @@ import { fromBase64 } from '@cosmjs/encoding';
 import { useRouter } from 'vue-router';
 
 export const useBaseStore = defineStore('baseStore', {
-    state: () => {
+  state: () => {
+      const defaultTheme = window.localStorage.getItem('theme') ||
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
         return {
             earlest: {} as Block,
             latest: {} as Block,
             recents: [] as Block[],
-            theme: (window.localStorage.getItem('theme') || 'dark') as
+            theme: defaultTheme as
                 | 'light'
                 | 'dark',
             connected: true,

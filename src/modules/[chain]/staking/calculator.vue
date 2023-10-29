@@ -31,7 +31,7 @@ const mintDecimal = 6;
 const bondDenomSymbol = 'MARK';
 
 const communityTax = ref<number>(0.02); // 2%
-const tokenValueUSD = ref<number>(0.001); // Token value in USD - Example
+const tokenValueUSD = ref<number>(0.001059); // Token value in USD - Example
 const validatorCommission = ref<number>(0.05); // 5% - Example
 const stake = ref<number>(1000000); // 1M - Example
 

@@ -94,7 +94,7 @@ async function callFaucet() {
       <button
         :disabled="isLoading"
         @click="callFaucet"
-        class="bg-primary text-white font-bold py-2 px-4 rounded-full"
+        class="btn btn-primary btn-md text-white rounded-full"
       >
         <span v-if="isLoading">Sending...</span>
         <span v-else>Get Testnet Tokens</span>

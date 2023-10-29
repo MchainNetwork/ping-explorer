@@ -19,7 +19,7 @@
     "all_blockchains": "全部区块链",
     "sponsors": "赞助商",
     "links": "链接",
-    "smart_tokens":"Smart Tokens",
+    "smart_tokens": "Smart Tokens",
     "mns": "Name Services",
     "faucet": "Faucet"
   },
@@ -337,5 +337,30 @@
     "bonded_and_supply": "绑定和供应",
     "bonded_ratio": "绑定比率",
     "inflation": "通货膨胀"
+  },
+  "calculator": {
+    "staking_rewards_calculator": "质押奖励计算器",
+    "enter_your_stake": "输入您的 {chain} ({symbol}) 质押",
+    "your_investment": "您的投资",
+    "compound_weekly": "每周复利",
+    "staking_apr_title": "质押 APR",
+    "community_tax_title": "社区税",
+    "validator_commission_title": "验证者佣金",
+    "final_staking_apr_title": "最终质押 APR",
+    "token_price_title": "代币价格",
+    "bonded_tokens_title": "绑定代币",
+    "actual_inflation_title": "实际通胀",
+    "tokens_per_block_title": "每个区块的代币",
+    "blocks_per_year_title": "每年区块数",
+    "total_supply_title": "总供应量",
+    "daily_returns": "每日回报",
+    "monthly_returns": "每月回报",
+    "yearly_returns": "每年回报",
+    "disclaimer_title": "免责声明：",
+    "disclaimer_text_1": "此质押奖励计算器提供的信息仅供一般信息目的。尽管我们以诚信提供网站上的所有信息，但我们不对任何信息的准确性、充分性、有效性、可靠性、可用性或完整性作出任何明示或暗示的陈述或保证。",
+    "disclaimer_text_2": "此计算器生成的结果基于区块链的当前参数和用户提供的输入值。这些可能不反映现实世界条件或未来市场行为。计算出的奖励是估算值，不应视为财务建议、投资指导或鼓励参与质押或其他财务活动。",
+    "disclaimer_text_3": "市场条件、代币价值波动、质押政策和其他因素可能会显著影响实际的质押奖励。建议用户进行自己的研究，并在作出任何投资决策之前咨询财务专家。",
+    "disclaimer_text_4": "使用此计算器，即表示您承认开发者及任何相关方均不对因使用或依赖此计算器提供的信息而产生的任何损失、损害或后果负责。使用此计算器完全由您自己承担风险。",
+    "variable_apr_note": "请注意，质押 APR 是可变的。详情请见下方免责声明。"
   }
 }

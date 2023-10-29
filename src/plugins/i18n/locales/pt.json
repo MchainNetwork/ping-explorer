@@ -20,7 +20,7 @@
     "all_blockchains": "Todas as Blockchains",
     "sponsors": "Patrocinadores",
     "links": "Links",
-    "smart_tokens":"Smart Tokens",
+    "smart_tokens": "Smart Tokens",
     "mns": "Name Services",
     "faucet": "Faucet"
   },
@@ -128,8 +128,6 @@
     "fees": "Taxas",
     "only_tx": "Mostrar apenas transações em blocos recentes"
   },
-
-
 
   "consensus": {
     "monitor": "Monitor",
@@ -270,8 +268,8 @@
     "signer_addr": "Endereço do Assinante",
     "consensus_pub_key": "Chave Pública de Consenso",
     "liquid_staking": "Staking Líquido",
-    "liquid_staking_shares":"Participações em Staking Líquido",
-    "validator_bond_share":"Participação Vinculada do Validador"
+    "liquid_staking_shares": "Participações em Staking Líquido",
+    "validator_bond_share": "Participação Vinculada do Validador"
   },
   "statesync": {
     "title": "O que é Sincronização de Estado?",
@@ -350,7 +348,30 @@
     "bonded_and_supply": "Vinculado e Suprimento",
     "bonded_ratio": "Razão Vinculada",
     "inflation": "Inflação"
+  },
+  "calculator": {
+    "staking_rewards_calculator": "Calculadora de Recompensas de Staking",
+    "enter_your_stake": "Insira sua aposta em {chain} ({symbol})",
+    "your_investment": "Seu Investimento",
+    "compound_weekly": "Composição Semanal",
+    "staking_apr_title": "APR de Staking",
+    "community_tax_title": "Imposto Comunitário",
+    "validator_commission_title": "Comissão do Validador",
+    "final_staking_apr_title": "APR Final de Staking",
+    "token_price_title": "Preço do Token",
+    "bonded_tokens_title": "Tokens Vinculados",
+    "actual_inflation_title": "Inflação Atual",
+    "tokens_per_block_title": "Tokens por Bloco",
+    "blocks_per_year_title": "Blocos por Ano",
+    "total_supply_title": "Suprimento Total",
+    "daily_returns": "Retornos Diários",
+    "monthly_returns": "Retornos Mensais",
+    "yearly_returns": "Retornos Anuais",
+    "disclaimer_title": "Aviso Legal:",
+    "disclaimer_text_1": "As informações fornecidas por esta Calculadora de Recompensas de Staking são apenas para fins informativos gerais. Todas as informações no site são fornecidas de boa fé, no entanto, não fazemos nenhuma representação ou garantia de qualquer tipo, expressa ou implícita, quanto à precisão, adequação, validade, confiabilidade, disponibilidade ou completude de qualquer informação no site.",
+    "disclaimer_text_2": "Os resultados gerados por esta calculadora são baseados nos parâmetros atuais da blockchain e nos valores de entrada fornecidos pelo usuário. Estes podem não refletir as condições reais do mundo ou comportamentos futuros do mercado. As recompensas calculadas são estimativas e não devem ser consideradas como aconselhamento financeiro, orientação de investimento ou um incentivo para se envolver em staking ou outras atividades financeiras.",
+    "disclaimer_text_3": "Condições de mercado, flutuações no valor dos tokens, políticas de staking e outros fatores podem afetar significativamente as recompensas reais de staking. Aconselha-se aos usuários realizar sua própria pesquisa e consultar especialistas financeiros antes de tomar qualquer decisão de investimento.",
+    "disclaimer_text_4": "Ao usar esta calculadora, você reconhece que nem os desenvolvedores nem quaisquer partes associadas serão responsáveis por quaisquer perdas, danos ou implicações resultantes do uso ou da confiança nas informações fornecidas por esta calculadora. O uso desta calculadora é exclusivamente por sua conta e risco.",
+    "variable_apr_note": "Observe que o APR de Staking é variável. Consulte o aviso legal abaixo para detalhes."
   }
 }
-
-

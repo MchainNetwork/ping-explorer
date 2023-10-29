@@ -20,7 +20,7 @@
     "all_blockchains": "Todas las Blockchains",
     "sponsors": "Patrocinadores",
     "links": "Enlaces",
-    "smart_tokens":"Smart Tokens",
+    "smart_tokens": "Smart Tokens",
     "mns": "Name Services",
     "faucet": "Faucet"
   },
@@ -346,5 +346,30 @@
     "bonded_and_supply": "Vinculado y suministro",
     "bonded_ratio": "Ratio vinculado",
     "inflation": "Inflación"
+  },
+  "calculator": {
+    "staking_rewards_calculator": "Calculadora de Recompensas por Staking",
+    "enter_your_stake": "Ingresa tu apuesta en {chain} ({symbol})",
+    "your_investment": "Tu Inversión",
+    "compound_weekly": "Composición Semanal",
+    "staking_apr_title": "APR de Staking",
+    "community_tax_title": "Impuesto Comunitario",
+    "validator_commission_title": "Comisión del Validador",
+    "final_staking_apr_title": "APR Final de Staking",
+    "token_price_title": "Precio del Token",
+    "bonded_tokens_title": "Tokens Ligados",
+    "actual_inflation_title": "Inflación Actual",
+    "tokens_per_block_title": "Tokens por Bloque",
+    "blocks_per_year_title": "Bloques por Año",
+    "total_supply_title": "Suministro Total",
+    "daily_returns": "Retornos Diarios",
+    "monthly_returns": "Retornos Mensuales",
+    "yearly_returns": "Retornos Anuales",
+    "disclaimer_title": "Aviso Legal:",
+    "disclaimer_text_1": "La información proporcionada por esta Calculadora de Recompensas por Staking es solo para fines informativos generales. Toda la información en el sitio se proporciona de buena fe, sin embargo, no hacemos ninguna representación o garantía de ningún tipo, expresa o implícita, con respecto a la precisión, adecuación, validez, fiabilidad, disponibilidad o completitud de cualquier información en el sitio.",
+    "disclaimer_text_2": "Los resultados generados por esta calculadora se basan en los parámetros actuales de la cadena de bloques y los valores de entrada proporcionados por el usuario. Estos pueden no reflejar las condiciones del mundo real o los comportamientos del mercado futuro. Las recompensas calculadas son estimaciones y no deben considerarse como asesoramiento financiero, orientación de inversión o un estímulo para participar en el staking u otras actividades financieras.",
+    "disclaimer_text_3": "Las condiciones del mercado, las fluctuaciones en el valor de los tokens, las políticas de staking y otros factores pueden afectar significativamente las recompensas reales de staking. Se aconseja a los usuarios realizar su propia investigación y consultar con expertos financieros antes de tomar cualquier decisión de inversión.",
+    "disclaimer_text_4": "Al usar esta calculadora, reconoces que ni los desarrolladores ni ninguna parte asociada serán responsables de ninguna pérdida, daño o implicaciones resultantes del uso o la confianza en la información proporcionada por esta calculadora. El uso de esta calculadora es únicamente bajo tu propio riesgo.",
+    "variable_apr_note": "Ten en cuenta que el APR de Staking es variable. Consulta el aviso legal a continuación para más detalles."
   }
 }

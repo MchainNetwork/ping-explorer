@@ -19,7 +19,7 @@
     "all_blockchains": "All Blockchain",
     "sponsors": "Sponsors",
     "links": "Tautan",
-    "smart_tokens":"Smart Tokens",
+    "smart_tokens": "Smart Tokens",
     "mns": "Name Services",
     "faucet": "Faucet"
   },
@@ -336,5 +336,30 @@
     "bonded_and_supply": "Terikat dan Pasokan",
     "bonded_ratio": "Rasio Terikat",
     "inflation": "Inflasi"
+  },
+  "calculator": {
+    "staking_rewards_calculator": "Kalkulator Hadiah Staking",
+    "enter_your_stake": "Masukkan Taruhan {chain} Anda ({symbol})",
+    "your_investment": "Investasi Anda",
+    "compound_weekly": "Komposisi Mingguan",
+    "staking_apr_title": "APR Staking",
+    "community_tax_title": "Pajak Komunitas",
+    "validator_commission_title": "Komisi Validator",
+    "final_staking_apr_title": "APR Staking Akhir",
+    "token_price_title": "Harga Token",
+    "bonded_tokens_title": "Token Terikat",
+    "actual_inflation_title": "Inflasi Aktual",
+    "tokens_per_block_title": "Token per Blok",
+    "blocks_per_year_title": "Blok per Tahun",
+    "total_supply_title": "Total Pasokan",
+    "daily_returns": "Pengembalian Harian",
+    "monthly_returns": "Pengembalian Bulanan",
+    "yearly_returns": "Pengembalian Tahunan",
+    "disclaimer_title": "Penafian:",
+    "disclaimer_text_1": "Informasi yang disediakan oleh Kalkulator Hadiah Staking ini hanya untuk tujuan informasi umum. Semua informasi di situs ini disediakan dengan itikad baik, namun, kami tidak membuat pernyataan atau jaminan dari jenis apa pun, baik tersurat maupun tersirat, mengenai keakuratan, kecukupan, validitas, keandalan, ketersediaan, atau kelengkapan informasi apa pun di situs ini.",
+    "disclaimer_text_2": "Hasil yang dihasilkan oleh kalkulator ini didasarkan pada parameter saat ini dari blockchain dan nilai input yang disediakan oleh pengguna. Ini mungkin tidak mencerminkan kondisi dunia nyata atau perilaku pasar masa depan. Hadiah yang dihitung adalah perkiraan dan tidak boleh dianggap sebagai nasihat keuangan, panduan investasi, atau dorongan untuk terlibat dalam staking atau aktivitas keuangan lainnya.",
+    "disclaimer_text_3": "Kondisi pasar, fluktuasi nilai token, kebijakan staking, dan faktor lainnya dapat mempengaruhi secara signifikan hadiah staking aktual. Pengguna disarankan untuk melakukan penelitian mereka sendiri dan berkonsultasi dengan ahli keuangan sebelum membuat keputusan investasi.",
+    "disclaimer_text_4": "Dengan menggunakan kalkulator ini, Anda mengakui bahwa baik pengembang maupun pihak terkait lainnya tidak akan bertanggung jawab atas kerugian, kerusakan, atau implikasi apa pun yang timbul dari penggunaan, atau ketergantungan pada, informasi yang disediakan oleh kalkulator ini. Penggunaan kalkulator ini sepenuhnya atas risiko Anda sendiri.",
+    "variable_apr_note": "Harap dicatat bahwa APR Staking adalah variabel. Lihat penafian di bawah ini untuk detailnya."
   }
 }

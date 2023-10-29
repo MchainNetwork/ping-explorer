@@ -14,6 +14,8 @@ import type { Key, SlashingParam, Validator } from '@/types';
 import { formatSeconds } from '@/libs/utils';
 import IdentityIcon from '@/components/IdentityIcon.vue';
 
+const props = defineProps(['chain']);
+
 const staking = useStakingStore();
 const base = useBaseStore();
 const format = useFormatter();
@@ -211,7 +213,19 @@ loadAvatars();
 </script>
 <template>
   <div class="overflow-hidden mx-auto max-w-screen-lg">
-    <h1 class="text-4xl font-bold mb-4 p-4">Staking</h1>
+    <div class="flex justify-between items-center">
+      <h1 class="text-4xl font-bold mb-4 p-4">Staking</h1>
+      <div class="pr-4">
+        <RouterLink
+          :to="`/${chain}/staking/calculator`"
+          class="btn btn-primary btn-sm rounded-full text-white"
+        >
+          <Icon icon="mdi:calculator" class="text-2xl"></Icon>
+          Staking Calculator
+        </RouterLink>
+      </div>
+    </div>
+
     <div class="bg-base-100 rounded-lg grid sm:grid-cols-1 md:grid-cols-4 p-4">
       <div class="flex">
         <span>

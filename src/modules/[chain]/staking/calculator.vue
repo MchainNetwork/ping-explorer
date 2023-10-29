@@ -110,8 +110,10 @@ const cardData = ref([
   },
 
   {
-    title: 'Bonded Ratio',
-    value: computed(() => `${(bondedTokensRatio.value * 1000).toFixed(2)}%`),
+    title: 'Bonded Tokens',
+    value: computed(
+      () => `${bondedTokens.value.toFixed(0)} ${bondDenomSymbol}`
+    ),
   },
   {
     title: 'Actual Inflation',
@@ -146,7 +148,7 @@ const cardData = ref([
           type="number"
           id="stake"
           v-model.number="stake"
-          class="input input-bordered text-center text-2xl rounded-full w-full max-w-xs"
+          class="input rounded-full text-center text-2xl w-full max-w-xs !input-bordered"
           placeholder="1000000"
         />
         <div class="my-2 mb-6">= ${{ investment.toFixed(2) }}</div>
@@ -158,7 +160,7 @@ const cardData = ref([
             {{ finalStakingAPR.toFixed(2) }}%
           </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="grid !grid-cols-1 !md:grid-cols-2 gap-4 mb-4">
           <div>
             <p class="text-sm font-medium text-gray-600">Daily Returns</p>
             <p class="text-xl font-bold">
@@ -190,9 +192,7 @@ const cardData = ref([
       </div>
     </div>
 
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 my-4 text-center"
-    >
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4 text-center">
       <div
         class="bg-base-100 rounded-3xl"
         v-for="(card, index) in cardData"

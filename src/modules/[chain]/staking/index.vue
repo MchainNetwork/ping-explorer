@@ -6,6 +6,7 @@ import {
   useMintStore,
   useStakingStore,
   useTxDialog,
+  useWalletStore,
 } from '@/stores';
 import { computed } from '@vue/reactivity';
 import { onMounted, ref } from 'vue';
@@ -22,6 +23,7 @@ const format = useFormatter();
 const dialog = useTxDialog();
 const chainStore = useBlockchain();
 const mintStore = useMintStore();
+const walletStore = useWalletStore();
 
 const cache = JSON.parse(localStorage.getItem('avatars') || '{}');
 const avatars = ref(cache || {});
@@ -39,6 +41,13 @@ onMounted(() => {
     slashing.value = res.params;
   });
 });
+
+function formatString(str: string) {
+  if (str.length <= 10) {
+    return str;
+  }
+  return str.substring(0, 5) + '...' + str.substring(str.length - 5);
+}
 
 async function fetchChange() {
   let page = 0;
@@ -226,6 +235,52 @@ loadAvatars();
       </div>
     </div>
 
+    <div class="bg-base-100 rounded-3xl my-4" v-if="walletStore.currentAddress">
+      <div
+        class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 py-6"
+      >
+        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+          <div class="text-sm mb-1">{{ $t('account.balance') }}</div>
+          <div class="text-lg font-semibold text-main">
+            {{ format.formatToken(walletStore.balanceOfStakingToken) }}
+          </div>
+          <div class="text-sm" :class="color">
+            ${{ format.tokenValue(walletStore.balanceOfStakingToken) }}
+          </div>
+        </div>
+        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+          <div class="text-sm mb-1">{{ $t('module.staking') }}</div>
+          <div class="text-lg font-semibold text-main">
+            {{ format.formatToken(walletStore.stakingAmount) }}
+          </div>
+          <div class="text-sm" :class="color">
+            ${{ format.tokenValue(walletStore.stakingAmount) }}
+          </div>
+        </div>
+        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+          <div class="text-sm mb-1">{{ $t('index.reward') }}</div>
+          <div class="text-lg font-semibold text-main">
+            {{ format.formatToken(walletStore.rewardAmount) }}
+          </div>
+          <div class="text-sm" :class="color">
+            ${{ format.tokenValue(walletStore.rewardAmount) }}
+          </div>
+        </div>
+        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+          <div class="text-sm mb-1">{{ $t('index.unbonding') }}</div>
+          <div class="text-lg font-semibold text-main">
+            {{ format.formatToken(walletStore.unbondingAmount) }}
+          </div>
+          <div class="text-sm" :class="color">
+            ${{ format.tokenValue(walletStore.unbondingAmount) }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="text-2xl font-bold p-4">Validators</h1>
+
+    <!--
     <div class="bg-base-100 rounded-lg grid sm:grid-cols-1 md:grid-cols-4 p-4">
       <div class="flex">
         <span>
@@ -258,16 +313,19 @@ loadAvatars();
         </span>
       </div>
     </div>
+    -->
 
     <div>
       <div class="flex items-center justify-between py-1">
         <div class="tabs">
+          <!--
           <a
             class="tab tab-lg tab-bordered text-gray-400"
             :class="{ 'tab-active': tab === 'featured' }"
             @click="tab = 'featured'"
             >{{ $t('staking.popular') }}</a
           >
+          -->
           <a
             class="tab tab-lg tab-bordered text-gray-400"
             :class="{ 'tab-active': tab === 'active' }"
@@ -282,9 +340,11 @@ loadAvatars();
           >
         </div>
 
+        <!--
         <div class="text-lg font-semibold pr-4">
           {{ list.length }}/{{ staking.params.max_validators }}
         </div>
+        -->
       </div>
 
       <div class="bg-base-100 px-4 pt-3 mt-4 pb-4 rounded-xl">
@@ -305,17 +365,20 @@ loadAvatars();
                   {{ $t('staking.validator') }}
                 </th>
                 <th scope="col" class="text-right uppercase">
+                  {{ $t('staking.staked_amount') }}
+                </th>
+                <th scope="col" class="text-right uppercase">
                   {{ $t('staking.voting_power') }}
                 </th>
+                <!--
                 <th scope="col" class="text-right uppercase">
                   {{ $t('staking.24h_changes') }}
                 </th>
+                -->
                 <th scope="col" class="text-right uppercase">
                   {{ $t('staking.commission') }}
                 </th>
-                <th scope="col" class="text-center uppercase">
-                  {{ $t('staking.actions') }}
-                </th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -369,50 +432,51 @@ loadAvatars();
                               validator: v.operator_address,
                             },
                           }"
-                          class="font-weight-medium"
+                          class="font-bold text-base"
                         >
                           {{ v.description?.moniker }}
                         </RouterLink>
                       </span>
-                      <span class="text-xs">{{
-                        v.description?.website || v.description?.identity || '-'
-                      }}</span>
+                      <span class="text-xs">
+                        {{ formatString(v.operator_address) }}
+                      </span>
                     </div>
                   </div>
+                </td>
+                <!-- 👉 Voting Power -->
+                <td class="text-right">
+                  {{
+                    format.formatToken(
+                      {
+                        amount: parseInt(v.tokens).toString(),
+                        denom: staking.params.bond_denom,
+                      },
+                      true,
+                      '0,0'
+                    )
+                  }}
                 </td>
 
                 <!-- 👉 Voting Power -->
                 <td class="text-right">
-                  <div class="flex flex-col">
-                    <h6 class="text-sm font-weight-medium whitespace-nowrap">
-                      {{
-                        format.formatToken(
-                          {
-                            amount: parseInt(v.tokens).toString(),
-                            denom: staking.params.bond_denom,
-                          },
-                          true,
-                          '0,0'
-                        )
-                      }}
-                    </h6>
-                    <span class="text-xs">{{
-                      format.calculatePercent(
-                        v.delegator_shares,
-                        staking.totalPower
-                      )
-                    }}</span>
-                  </div>
+                  {{
+                    format.calculatePercent(
+                      v.delegator_shares,
+                      staking.totalPower
+                    )
+                  }}
                 </td>
                 <!-- 👉 24h Changes -->
+                <!--
                 <td
                   class="text-right text-xs"
                   :class="change24Color(v.consensus_pubkey)"
                 >
                   {{ change24Text(v.consensus_pubkey) }}
                 </td>
+                -->
                 <!-- 👉 commission -->
-                <td class="text-right text-xs">
+                <td class="text-right">
                   {{
                     format.formatCommissionRate(
                       v.commission?.commission_rates?.rate
@@ -420,7 +484,7 @@ loadAvatars();
                   }}
                 </td>
                 <!-- 👉 Action -->
-                <td class="text-center">
+                <td class="text-right">
                   <div
                     v-if="v.jailed"
                     class="badge badge-error gap-2 text-white"
@@ -428,16 +492,16 @@ loadAvatars();
                     {{ $t('staking.jailed') }}
                   </div>
                   <label
-                    v-else
+                    v-if="!v.jailed && walletStore.currentAddress"
                     for="delegate"
-                    class="btn btn-xs btn-primary rounded-full capitalize"
+                    class="btn btn-xs btn-primary rounded-full capitalize text-white"
                     @click="
                       dialog.open('delegate', {
                         validator_address: v.operator_address,
                       })
                     "
-                    >{{ $t('account.btn_delegate') }}</label
-                  >
+                    >{{ $t('account.btn_delegate') }}
+                  </label>
                 </td>
               </tr>
             </tbody>

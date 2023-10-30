@@ -267,7 +267,8 @@
     "consensus_pub_key": "Llave pública de consenso",
     "liquid_staking": "Staking líquido",
     "liquid_staking_shares": "Participaciones en Staking Líquido",
-    "validator_bond_share": "Participación vinculada del validador"
+    "validator_bond_share": "Participación vinculada del validador",
+    "staked_amount": "Cantidad en Stake"
   },
   "statesync": {
     "title": "¿Qué es la sincronización de estado?",

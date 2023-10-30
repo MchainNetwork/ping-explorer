@@ -257,7 +257,8 @@
     "operator_addr": "Alamat Operator",
     "hex_addr": "Alamat Hex",
     "signer_addr": "Alamat Penandatangan",
-    "consensus_pub_key": "Kunci Publik Konsensus"
+    "consensus_pub_key": "Kunci Publik Konsensus",
+    "staked_amount": "Staked Amount"
   },
   "statesync": {
     "title": "Apa itu State Sync?",

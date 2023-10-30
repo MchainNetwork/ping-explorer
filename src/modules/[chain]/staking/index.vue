@@ -244,7 +244,7 @@ loadAvatars();
           <div class="text-lg font-semibold text-main">
             {{ format.formatToken(walletStore.balanceOfStakingToken) }}
           </div>
-          <div class="text-sm" :class="color">
+          <div class="text-sm">
             ${{ format.tokenValue(walletStore.balanceOfStakingToken) }}
           </div>
         </div>
@@ -253,7 +253,7 @@ loadAvatars();
           <div class="text-lg font-semibold text-main">
             {{ format.formatToken(walletStore.stakingAmount) }}
           </div>
-          <div class="text-sm" :class="color">
+          <div class="text-sm">
             ${{ format.tokenValue(walletStore.stakingAmount) }}
           </div>
         </div>
@@ -262,7 +262,7 @@ loadAvatars();
           <div class="text-lg font-semibold text-main">
             {{ format.formatToken(walletStore.rewardAmount) }}
           </div>
-          <div class="text-sm" :class="color">
+          <div class="text-sm">
             ${{ format.tokenValue(walletStore.rewardAmount) }}
           </div>
         </div>
@@ -271,7 +271,7 @@ loadAvatars();
           <div class="text-lg font-semibold text-main">
             {{ format.formatToken(walletStore.unbondingAmount) }}
           </div>
-          <div class="text-sm" :class="color">
+          <div class="text-sm">
             ${{ format.tokenValue(walletStore.unbondingAmount) }}
           </div>
         </div>

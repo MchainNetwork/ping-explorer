@@ -369,7 +369,10 @@ loadAvatars();
           <div class="text-sm mb-1">Total Staked</div>
           <div class="text-lg font-semibold text-main">
             {{
-              format.formatToken2({ amount: bondedTokens, denom: bondDenom })
+              format.formatToken2({
+                amount: String(bondedTokens),
+                denom: bondDenom,
+              })
             }}
           </div>
         </div>

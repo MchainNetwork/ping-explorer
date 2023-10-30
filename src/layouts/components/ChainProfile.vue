@@ -52,12 +52,7 @@ function changeEndpoint(item: Endpoint) {
       class="dropdown-content -left-6 w-80 menu shadow bg-base-200 rounded-box overflow-auto"
     >
       <!-- rest -->
-      <div
-        class="px-4 py-2 text-sm text-gray-400"
-        v-if="chainStore.current?.endpoints?.rest"
-      >
-        Rest Endpoint
-      </div>
+
       <div
         v-for="(item, index) in chainStore.current?.endpoints?.rest"
         class="px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-[#384059] cursor-pointer"
@@ -66,7 +61,7 @@ function changeEndpoint(item: Endpoint) {
       >
         <div class="flex flex-col">
           <div class="flex items-center justify-between w-full">
-            <div class="text-gray-500 dark:text-gray-200 capitalize">
+            <div class="text-gray-500 dark:text-gray-200 font-bold capitalize">
               {{ item.provider }}
             </div>
             <span
@@ -81,7 +76,6 @@ function changeEndpoint(item: Endpoint) {
       </div>
 
       <!-- rest -->
-      <div class="px-4 py-2 text-sm text-gray-400">Information</div>
       <div class="w-full">
         <div class="py-2 px-4">
           Chain Id:
@@ -101,7 +95,19 @@ function changeEndpoint(item: Endpoint) {
         </div>
       </div>
       <!-- bottom-->
-      <div class="px-4 py-2">&nbsp;</div>
+      <div class="px-4 py-2"></div>
+      <RouterLink
+        class="btn btn-primary btn-sm rounded-full text-white mb-2"
+        :to="`/${chainStore.current?.chainName}/block`"
+      >
+        {{ $t('module.blocks') }}
+      </RouterLink>
+      <RouterLink
+        class="btn btn-primary btn-sm rounded-full text-white"
+        :to="`/${chainStore.current?.chainName}/params`"
+      >
+        {{ $t('module.parameters') }}
+      </RouterLink>
     </div>
   </div>
 </template>

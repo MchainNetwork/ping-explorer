@@ -168,6 +168,7 @@ function checkDomainAvailable(domain: string) {
             @input="resetMessages"
             :placeholder="$t('mns.input_placeholder')"
             class="input focus:outline-none flex-1"
+            v-focus
           />
           <button
             type="submit"

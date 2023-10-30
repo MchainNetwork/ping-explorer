@@ -7,6 +7,7 @@ import {
   useStakingStore,
   useTxDialog,
   useWalletStore,
+  useParamStore,
 } from '@/stores';
 import { computed } from '@vue/reactivity';
 import { onMounted, ref } from 'vue';
@@ -24,6 +25,28 @@ const dialog = useTxDialog();
 const chainStore = useBlockchain();
 const mintStore = useMintStore();
 const walletStore = useWalletStore();
+const paramStore = useParamStore();
+
+const bondDenom = 'umark';
+const bondedTokens = ref(<number>0);
+const totalSupply = ref<number>(0);
+const inflation = ref<number>(0);
+
+const bondedTokensRatio = computed(() => {
+  return bondedTokens.value / totalSupply.value;
+});
+
+// APR Calculation
+const stakingAPR = computed(() => {
+  if (bondedTokensRatio.value === 0 || isNaN(bondedTokensRatio.value)) {
+    return 0;
+  }
+  return inflation.value / bondedTokensRatio.value;
+});
+
+function updateEvent() {
+  walletStore.loadMyAsset();
+}
 
 const cache = JSON.parse(localStorage.getItem('avatars') || '{}');
 const avatars = ref(cache || {});
@@ -34,6 +57,15 @@ const unbondList = ref([] as Validator[]);
 const slashing = ref({} as SlashingParam);
 
 onMounted(() => {
+  paramStore.getMintingInflation().then((res) => {
+    inflation.value = Number(res.inflation);
+  });
+  chainStore.rpc?.getStakingPool().then((res) => {
+    bondedTokens.value = Number(res?.pool?.bonded_tokens);
+  });
+  chainStore.rpc?.getBankSupplyByDenom('umark').then((res) => {
+    totalSupply.value = Number(res.amount.amount);
+  });
   staking.fetchInacitveValdiators().then((res) => {
     unbondList.value = res;
   });
@@ -222,6 +254,66 @@ loadAvatars();
 </script>
 <template>
   <div class="overflow-hidden mx-auto max-w-screen-lg">
+    <div
+      class="flex justify-between items-center"
+      v-if="walletStore.currentAddress"
+    >
+      <h1 class="text-4xl font-bold mb-4 p-4">Your Staking Overview</h1>
+      <div class="pr-4"></div>
+    </div>
+    <div class="bg-base-100 rounded-3xl my-4" v-if="walletStore.currentAddress">
+      <div
+        class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 py-6"
+      >
+        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+          <div class="text-sm mb-1">Your Staked Amount</div>
+          <div class="text-lg font-semibold text-main">
+            {{ format.formatToken(walletStore.stakingAmount) }}
+          </div>
+          <div class="text-sm">
+            ${{ format.tokenValue(walletStore.stakingAmount) }}
+          </div>
+        </div>
+
+        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+          <div class="text-sm mb-1">Claimable Rewards</div>
+          <div class="text-lg font-semibold text-main">
+            {{ format.formatToken(walletStore.rewardAmount) }}
+            <label
+              v-if="walletStore?.rewardAmount?.amount > 0"
+              for="withdraw"
+              class="btn btn-primary btn-xs rounded-full text-white ml-1"
+              @click="dialog.open('withdraw', {}, updateEvent)"
+              >{{ $t('account.btn_withdraw') }}</label
+            >
+          </div>
+          <div class="text-sm">
+            ${{ format.tokenValue(walletStore.rewardAmount) }}
+          </div>
+        </div>
+
+        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+          <div class="text-sm mb-1">{{ $t('index.unbonding') }}</div>
+          <div class="text-lg font-semibold text-main">
+            {{ format.formatToken(walletStore.unbondingAmount) }}
+          </div>
+          <div class="text-sm">
+            ${{ format.tokenValue(walletStore.unbondingAmount) }}
+          </div>
+        </div>
+
+        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+          <div class="text-sm mb-1">Available Balance</div>
+          <div class="text-lg font-semibold text-main">
+            {{ format.formatToken(walletStore.balanceOfStakingToken) }}
+          </div>
+          <div class="text-sm">
+            ${{ format.tokenValue(walletStore.balanceOfStakingToken) }}
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="flex justify-between items-center">
       <h1 class="text-4xl font-bold mb-4 p-4">Staking</h1>
       <div class="pr-4">
@@ -235,44 +327,32 @@ loadAvatars();
       </div>
     </div>
 
-    <div class="bg-base-100 rounded-3xl my-4" v-if="walletStore.currentAddress">
+    <div class="bg-base-100 rounded-3xl my-4">
       <div
-        class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 py-6"
+        class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 py-6 text-center"
       >
         <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('account.balance') }}</div>
+          <div class="text-sm mb-1">Total Staked</div>
           <div class="text-lg font-semibold text-main">
-            {{ format.formatToken(walletStore.balanceOfStakingToken) }}
-          </div>
-          <div class="text-sm">
-            ${{ format.tokenValue(walletStore.balanceOfStakingToken) }}
+            {{
+              format.formatToken2({ amount: bondedTokens, denom: bondDenom })
+            }}
           </div>
         </div>
         <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('module.staking') }}</div>
+          <div class="text-sm mb-1">Staking APR</div>
           <div class="text-lg font-semibold text-main">
-            {{ format.formatToken(walletStore.stakingAmount) }}
-          </div>
-          <div class="text-sm">
-            ${{ format.tokenValue(walletStore.stakingAmount) }}
+            {{ stakingAPR.toFixed(2) }}%
           </div>
         </div>
         <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('index.reward') }}</div>
-          <div class="text-lg font-semibold text-main">
-            {{ format.formatToken(walletStore.rewardAmount) }}
-          </div>
-          <div class="text-sm">
-            ${{ format.tokenValue(walletStore.rewardAmount) }}
-          </div>
+          <div class="text-sm mb-1">Total Validators</div>
+          <div class="text-lg font-semibold text-main">{{ list.length }}</div>
         </div>
         <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('index.unbonding') }}</div>
+          <div class="text-sm mb-1">Inflation</div>
           <div class="text-lg font-semibold text-main">
-            {{ format.formatToken(walletStore.unbondingAmount) }}
-          </div>
-          <div class="text-sm">
-            ${{ format.tokenValue(walletStore.unbondingAmount) }}
+            {{ (inflation * 100).toFixed(2) }}%
           </div>
         </div>
       </div>

@@ -88,6 +88,7 @@ async function callFaucet() {
           v-model="mchainAddress"
           class="mt-1 p-2 block w-full mx-auto border border-gray-300 rounded-full mb-8"
           placeholder="Enter your Mchain address"
+          v-focus
         />
       </div>
 

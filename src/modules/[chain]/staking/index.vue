@@ -44,7 +44,7 @@ const stakingAPR = computed(() => {
   return inflation.value / bondedTokensRatio.value;
 });
 
-function updateEvent() {
+function walletStateChange() {
   walletStore.loadMyAsset();
 }
 
@@ -57,6 +57,8 @@ const unbondList = ref([] as Validator[]);
 const slashing = ref({} as SlashingParam);
 
 onMounted(() => {
+  walletStore.loadMyAsset();
+
   paramStore.getMintingInflation().then((res) => {
     inflation.value = Number(res.inflation);
   });
@@ -254,17 +256,47 @@ loadAvatars();
 </script>
 <template>
   <div class="overflow-hidden mx-auto max-w-screen-lg">
-    <div
-      class="flex justify-between items-center"
-      v-if="walletStore.currentAddress"
-    >
+    <div class="flex justify-between items-center">
       <h1 class="text-4xl font-bold mb-4 p-4">Your Staking Overview</h1>
       <div class="pr-4"></div>
     </div>
+
+    <div
+      class="bg-base-100 rounded-3xl my-4 p-8 text-center"
+      v-if="!walletStore?.currentAddress"
+    >
+      <p class="mb-4 text-lg">
+        View and manage your staking by connecting your wallet.
+      </p>
+      <label
+        for="PingConnectWallet"
+        class="btn btn-md btn-primary text-white rounded-full"
+      >
+        <span class="ml-1 block">Connect Wallet</span>
+      </label>
+      <Teleport to="body">
+        <ping-connect-wallet
+          :chain-id="base.currentChainId"
+          :hd-path="chainStore.defaultHDPath"
+          :addr-prefix="chainStore.current?.bech32Prefix || 'm'"
+          @connect="walletStateChange"
+          @keplr-config="walletStore.suggestChain()"
+        />
+      </Teleport>
+    </div>
+
     <div class="bg-base-100 rounded-3xl my-4" v-if="walletStore.currentAddress">
       <div
         class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 py-6"
       >
+        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+          <div class="text-sm mb-1">Your Delegations</div>
+          <div class="text-lg font-semibold text-main">
+            {{ walletStore.delegations.length }}
+          </div>
+          <div class="text-sm"></div>
+        </div>
+
         <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
           <div class="text-sm mb-1">Your Staked Amount</div>
           <div class="text-lg font-semibold text-main">
@@ -283,7 +315,7 @@ loadAvatars();
               v-if="walletStore?.rewardAmount?.amount > 0"
               for="withdraw"
               class="btn btn-primary btn-xs rounded-full text-white ml-1"
-              @click="dialog.open('withdraw', {}, updateEvent)"
+              @click="dialog.open('withdraw', {}, walletStateChange)"
               >{{ $t('account.btn_withdraw') }}</label
             >
           </div>
@@ -292,6 +324,7 @@ loadAvatars();
           </div>
         </div>
 
+        <!--
         <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
           <div class="text-sm mb-1">{{ $t('index.unbonding') }}</div>
           <div class="text-lg font-semibold text-main">
@@ -301,6 +334,7 @@ loadAvatars();
             ${{ format.tokenValue(walletStore.unbondingAmount) }}
           </div>
         </div>
+        -->
 
         <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
           <div class="text-sm mb-1">Available Balance</div>

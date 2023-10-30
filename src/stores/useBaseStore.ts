@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import type { Block } from '@/types';
 import { hashTx } from '@/libs';
 import { fromBase64 } from '@cosmjs/encoding';
-import { useRouter } from 'vue-router';
 
 export const useBaseStore = defineStore('baseStore', {
   state: () => {
@@ -18,7 +17,8 @@ export const useBaseStore = defineStore('baseStore', {
             recents: [] as Block[],
             theme: defaultTheme as
                 | 'light'
-                | 'dark',
+                | 'dark'
+                | 'system',
             connected: true,
         };
     },

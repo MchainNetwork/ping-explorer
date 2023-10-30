@@ -175,6 +175,7 @@
     "query_contract": "Consultar Contrato"
   },
   "gov": {
+    "deposit": "Depositar",
     "voting": "Votação",
     "passed": "Aprovado",
     "rejected": "Rejeitado",

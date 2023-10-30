@@ -168,6 +168,7 @@
     "query_contract": "查询合约"
   },
   "gov": {
+    "deposit": "质押",
     "voting": "投票中",
     "passed": "已通过",
     "rejected": "已否决",

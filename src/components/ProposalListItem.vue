@@ -72,6 +72,7 @@ const proposalInfo = ref();
           </td>
           <td class="w-60">
             <ProposalProcess
+              v-if="statusMap?.[item?.status] != 'DEPOSIT'"
               :pool="staking.pool"
               :tally="item.final_tally_result"
             ></ProposalProcess>
@@ -103,6 +104,7 @@ const proposalInfo = ref();
                 </div>
               </div>
               <div
+                v-if="statusMap?.[item?.status] != 'DEPOSIT'"
                 class="truncate col-span-2 md:!col-span-1 text-xs text-gray-500 dark:text-gray-400 text-right md:!flex md:!justify-start"
               >
                 {{ format.toDay(item.voting_end_time, 'from') }}

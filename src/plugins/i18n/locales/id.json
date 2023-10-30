@@ -167,6 +167,7 @@
     "query_contract": "Query Kontrak"
   },
   "gov": {
+    "deposit": "Deposit",
     "voting": "Voting",
     "passed": "Disetujui",
     "rejected": "Ditolak",

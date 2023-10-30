@@ -179,6 +179,7 @@
     "query_contract": "Query Contract"
   },
   "gov": {
+    "deposit": "Deposit",
     "voting": "Voting",
     "passed": "Passed",
     "rejected": "Rejected",

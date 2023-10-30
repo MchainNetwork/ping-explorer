@@ -108,10 +108,10 @@ const returns = computed(() =>
 
 <template>
   <div class="mx-auto max-w-screen-md" v-if="stakingAPR > 0">
+    <h1 class="text-4xl font-bold mb-4 p-4">
+      {{ $t('calculator.staking_rewards_calculator') }}
+    </h1>
     <div class="bg-base-100 p-4 my-4 rounded-3xl text-center">
-      <h1 class="text-4xl font-bold mb-4 p-4">
-        {{ $t('calculator.staking_rewards_calculator') }}
-      </h1>
       <div class="mb-4">
         <label for="stake" class="block text-md font-bold mb-4">
           {{
@@ -127,6 +127,7 @@ const returns = computed(() =>
           v-model.number="stake"
           class="input rounded-full text-center text-2xl w-full max-w-xs !input-bordered"
           placeholder="1000000"
+          v-focus
         />
       </div>
       <div class="flex items-center justify-between">

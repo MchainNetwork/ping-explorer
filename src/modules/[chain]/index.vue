@@ -140,7 +140,7 @@ const amount = computed({
       <h1 class="text-4xl font-bold mb-6 p-4">Your Mchain Wallet</h1>
 
       <div
-        class="bg-base-100 rounded-xl my-4"
+        class="bg-base-100 rounded-3xl my-4"
         v-if="walletStore.currentAddress"
       >
         <div
@@ -160,7 +160,7 @@ const amount = computed({
         <div
           class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 pb-6"
         >
-          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-xl px-4 py-3">
+          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
             <div class="text-sm mb-1">{{ $t('account.balance') }}</div>
             <div class="text-lg font-semibold text-main">
               {{ format.formatToken(walletStore.balanceOfStakingToken) }}
@@ -169,7 +169,7 @@ const amount = computed({
               ${{ format.tokenValue(walletStore.balanceOfStakingToken) }}
             </div>
           </div>
-          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-xl px-4 py-3">
+          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
             <div class="text-sm mb-1">{{ $t('module.staking') }}</div>
             <div class="text-lg font-semibold text-main">
               {{ format.formatToken(walletStore.stakingAmount) }}
@@ -178,7 +178,7 @@ const amount = computed({
               ${{ format.tokenValue(walletStore.stakingAmount) }}
             </div>
           </div>
-          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-xl px-4 py-3">
+          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
             <div class="text-sm mb-1">{{ $t('index.reward') }}</div>
             <div class="text-lg font-semibold text-main">
               {{ format.formatToken(walletStore.rewardAmount) }}
@@ -187,7 +187,7 @@ const amount = computed({
               ${{ format.tokenValue(walletStore.rewardAmount) }}
             </div>
           </div>
-          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-xl px-4 py-3">
+          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
             <div class="text-sm mb-1">{{ $t('index.unbonding') }}</div>
             <div class="text-lg font-semibold text-main">
               {{ format.formatToken(walletStore.unbondingAmount) }}
@@ -238,7 +238,7 @@ const amount = computed({
       >
         Your MARK delegations
       </div>
-      <div class="bg-base-100 rounded-xl mb-4">
+      <div class="bg-base-100 rounded-3xl mb-4">
         <div
           v-if="walletStore.delegations.length > 0"
           class="px-4 pb-4 overflow-auto"
@@ -326,7 +326,7 @@ const amount = computed({
     </div>
 
     <div
-      class="bg-base-100 rounded-xl my-4 p-8 text-center"
+      class="bg-base-100 rounded-3xl my-4 p-8 text-center"
       v-if="!walletStore?.currentAddress"
     >
       <h2 class="text-2xl font-bold mb-3">Ready to Dive In?</h2>
@@ -370,7 +370,7 @@ const amount = computed({
       Mchain Stats
     </div>
 
-    <div v-if="coinInfo && coinInfo.name" class="bg-base-100 rounded-xl mb-4">
+    <div v-if="coinInfo && coinInfo.name" class="bg-base-100 rounded-3xl mb-4">
       <div class="grid grid-cols-2 md:grid-cols-3 p-4">
         <div class="col-span-2 md:col-span-1">
           <div class="text-xl font-semibold text-main">
@@ -595,7 +595,7 @@ const amount = computed({
         {{ $t('index.active_proposals') }}
       </div>
 
-      <div class="bg-base-100 rounded-xl">
+      <div class="bg-base-100 rounded-3xl">
         <div class="px-4 pb-4">
           <ProposalListItem :proposals="store?.proposals" />
         </div>
@@ -609,7 +609,7 @@ const amount = computed({
     </template>
 
     <!--
-    <div class="bg-base-100 rounded-xl mt-4">
+    <div class="bg-base-100 rounded-3xl mt-4">
       <div class="px-4 pt-4 pb-2 text-lg font-semibold text-main">
         {{ $t('index.app_versions') }}
       </div>

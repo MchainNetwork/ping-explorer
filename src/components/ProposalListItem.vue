@@ -26,6 +26,7 @@ function showType(v: string) {
 }
 
 const statusMap: Record<string, string> = {
+  PROPOSAL_STATUS_DEPOSIT_PERIOD: 'DEPOSIT',
   PROPOSAL_STATUS_VOTING_PERIOD: 'VOTING',
   PROPOSAL_STATUS_PASSED: 'PASSED',
   PROPOSAL_STATUS_REJECTED: 'REJECTED',
@@ -220,7 +221,6 @@ const proposalInfo = ref();
 
               <span v-else>Vote</span></label
             >
-           
           </div>
         </div>
       </div>
@@ -238,7 +238,12 @@ const proposalInfo = ref();
         <p class="py-4">
           <Component
             v-if="proposalInfo?.content?.description || proposalInfo?.summary"
-            :is="select(proposalInfo?.content?.description || proposalInfo?.summary, 'horizontal')"
+            :is="
+              select(
+                proposalInfo?.content?.description || proposalInfo?.summary,
+                'horizontal'
+              )
+            "
             :value="proposalInfo?.content?.description || proposalInfo?.summary"
           >
           </Component>

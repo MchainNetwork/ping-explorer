@@ -22,7 +22,7 @@ const isPositive = controlledComputed(
 </script>
 
 <template>
-  <div class="bg-base-100 rounded-xl p-4 px-2">
+  <div class="bg-base-100 rounded-3xl p-4 px-2">
     <div class="flex items-center justify-center">
       <div
         v-if="props.icon"

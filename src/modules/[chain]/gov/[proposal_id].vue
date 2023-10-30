@@ -29,7 +29,10 @@ const store = useGovStore();
 const dialog = useTxDialog();
 const stakingStore = useStakingStore();
 
+const isLoading = ref(true);
+
 store.fetchProposal(props.proposal_id).then((res) => {
+  isLoading.value = false;
   const proposalDetail = reactive(res.proposal);
   // when status under the voting, final_tally_result are no data, should request fetchTally
   if (res.proposal?.status === 'PROPOSAL_STATUS_VOTING_PERIOD') {
@@ -162,19 +165,33 @@ function showValidatorName(voter: string) {
   return v ? v.description.moniker : voter;
 }
 
+
 function pageload(p: number) {
   pageRequest.value.setPage(p);
-  store.fetchProposalVotes(props.proposal_id, pageRequest.value).then((x) => {
+   store.fetchProposalVotes(props.proposal_id, pageRequest.value).then((x) => {
     votes.value = x.votes;
     pageResponse.value = x.pagination;
-  });
+   });
 }
 </script>
 
 <template>
-  <div>
+  <div class="mx-auto max-w-screen-lg" v-if="!isLoading">
+      <div class="flex justify-between items-center">
+      <h1 class="text-4xl font-bold mb-4 p-4">Proposal #{{ proposal_id }}</h1>
+      <div class="pr-4" v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'">
+        <label
+        for="deposit"
+        class="btn btn-primary float-right rounded-full mx-auto"
+        @click="dialog.open('deposit', { proposal_id })"
+        >
+        {{ $t('gov.btn_deposit') }}
+        </label>
+      </div>
+    </div>
+
     <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
-      <h2 class="card-title flex flex-col md:!justify-between md:!flex-row">
+      <h2 class="card-title mb-4 flex flex-col md:!justify-between md:!flex-row">
         <p class="truncate w-full">
           {{ proposal_id }}. {{ proposal.title || proposal.content?.title }}
         </p>
@@ -206,7 +223,7 @@ function pageload(p: number) {
     <!-- flex-col lg:!!flex-row flex -->
     <div class="gap-4 mb-4 grid lg:!!grid-cols-3 auto-rows-max">
       <!-- flex-1 -->
-      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl">
+      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl" v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'">
         <h2 class="card-title mb-1">{{ $t('gov.tally') }}</h2>
         <div class="mb-1" v-for="(item, index) of processList" :key="index">
           <label class="block text-sm mb-1">{{ item.name }}</label>
@@ -246,7 +263,7 @@ function pageload(p: number) {
       </div>
 
       <div class="bg-base-100 px-4 pt-3 pb-5 rounded-xl lg:!!col-span-2">
-        <h2 class="card-title">{{ $t('gov.timeline') }}</h2>
+        <h2 class="card-title mb-4">{{ $t('gov.timeline') }}</h2>
 
         <div class="px-1">
           <div class="flex items-center mb-4 mt-2">
@@ -278,7 +295,8 @@ function pageload(p: number) {
               }}
             </div>
           </div>
-          <div class="mb-4">
+        
+          <div class="mb-4" v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'">
             <div class="flex items-center">
               <div class="w-2 h-2 rounded-full bg-yes mr-3"></div>
               <div class="text-base flex-1 text-main">
@@ -292,7 +310,7 @@ function pageload(p: number) {
               <Countdown :time="votingCountdown" />
             </div>
           </div>
-          <div>
+          <div v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'">
             <div class="flex items-center mb-1">
               <div class="w-2 h-2 rounded-full bg-success mr-3"></div>
               <div class="text-base flex-1 text-main">
@@ -336,7 +354,7 @@ function pageload(p: number) {
       </div>
     </div>
 
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4" v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'">
       <h2 class="card-title">{{ $t('gov.votes') }}</h2>
       <div class="overflow-x-auto">
         <table class="table w-full table-zebra">

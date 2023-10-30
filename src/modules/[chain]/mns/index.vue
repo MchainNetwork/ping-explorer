@@ -142,15 +142,15 @@ function checkDomainAvailable(domain: string) {
 
 
 <template>
-  <div class="overflow-hidden mx-auto max-w-screen-lg lg:py-10">
-    <div class="check-domain-box bg-base-100 p-4 rounded-xl mb-6">
-      <h2
-        class="text-primary text-xl text-center md:text-5xl font-bold m-4 mb-6"
-      >
-        {{ $t('mns.title') }}
-      </h2>
+  <div class="overflow-hidden mx-auto max-w-screen-xl lg:p-10">
+    <h2
+      class="text-primary text-xl text-center md:text-5xl font-bold mx-4 mb-8"
+    >
+      {{ $t('mns.title') }}
+    </h2>
 
-      <h3 class="text-lg font-bold text-center mb-4">
+    <div class="check-domain-box bg-base-100 p-4 rounded-3xl mb-6">
+      <h3 class="text-xl font-bold text-center mb-4">
         {{ $t('mns.subtitle') }}
       </h3>
       <p class="text-center text-sm mb-6 md:w-3/6 mx-auto">
@@ -206,7 +206,7 @@ function checkDomainAvailable(domain: string) {
 
       <div
         v-if="isRegistered"
-        class="bg-red-500 dark:bg-red-800 text-center text-white p-4 rounded-xl"
+        class="bg-red-500 dark:bg-red-800 text-center text-white p-4 rounded-3xl"
       >
         <p
           class="text-2xl"
@@ -226,14 +226,16 @@ function checkDomainAvailable(domain: string) {
     </div>
 
     <div class="flex justify-between items-center">
-      <div class="flex mb-4 pl-4">
-        <input
-          type="checkbox"
-          v-model="displayInUSD"
-          id="displayInUSD"
-          class="mr-2"
-        />
-        <label for="displayInUSD">Display price in USD</label>
+      <div class="form-control p-2">
+        <label class="label cursor-pointer">
+          <input
+            type="checkbox"
+            class="checkbox mr-2"
+            id="displayInUSD"
+            v-model="displayInUSD"
+          />
+          <span class="label-text mr-2">Display price in USD</span>
+        </label>
       </div>
 
       <RouterLink
@@ -245,7 +247,7 @@ function checkDomainAvailable(domain: string) {
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-      <div class="bg-base-100 p-4 rounded-xl">
+      <div class="bg-base-100 p-4 rounded-3xl">
         <h3 class="text-lg font-bold mb-4">
           {{ $t('mns.registered_names_title') }}
         </h3>
@@ -322,7 +324,7 @@ function checkDomainAvailable(domain: string) {
         </RouterLink>
       </div>
 
-      <div class="bg-base-100 p-4 rounded-xl">
+      <div class="bg-base-100 p-4 rounded-3xl">
         <h2 class="text-lg font-bold mb-2">
           {{ $t('mns.domains_for_sale_title') }}
         </h2>
@@ -387,7 +389,7 @@ function checkDomainAvailable(domain: string) {
         </RouterLink>
       </div>
 
-      <div class="bg-base-100 p-4 rounded-xl">
+      <div class="bg-base-100 p-4 rounded-3xl">
         <h2 class="text-lg font-bold mb-2">
           {{ $t('mns.domains_in_bid_title') }}
         </h2>

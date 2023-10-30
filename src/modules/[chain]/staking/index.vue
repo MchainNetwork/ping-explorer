@@ -262,7 +262,7 @@ loadAvatars();
     </div>
 
     <div
-      class="bg-base-100 rounded-3xl my-4 p-8 text-center"
+      class="bg-base-100 rounded-3xl mb-8 p-8 text-center"
       v-if="!walletStore?.currentAddress"
     >
       <p class="mb-4 text-lg">
@@ -285,7 +285,7 @@ loadAvatars();
       </Teleport>
     </div>
 
-    <div class="bg-base-100 rounded-3xl my-4" v-if="walletStore.currentAddress">
+    <div class="bg-base-100 rounded-3xl mb-8" v-if="walletStore.currentAddress">
       <div
         class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 py-6"
       >
@@ -311,6 +311,9 @@ loadAvatars();
           <div class="text-sm mb-1">Claimable Rewards</div>
           <div class="text-lg font-semibold text-main">
             {{ format.formatToken(walletStore.rewardAmount) }}
+          </div>
+          <div class="text-sm">
+            ${{ format.tokenValue(walletStore.rewardAmount) }}
             <label
               v-if="walletStore?.rewardAmount?.amount > 0"
               for="withdraw"
@@ -318,9 +321,6 @@ loadAvatars();
               @click="dialog.open('withdraw', {}, walletStateChange)"
               >{{ $t('account.btn_withdraw') }}</label
             >
-          </div>
-          <div class="text-sm">
-            ${{ format.tokenValue(walletStore.rewardAmount) }}
           </div>
         </div>
 
@@ -356,12 +356,12 @@ loadAvatars();
           class="btn btn-primary btn-sm rounded-full text-white"
         >
           <Icon icon="mdi:calculator" class="text-2xl"></Icon>
-          Staking Calculator
+          <span class="hidden md:inline-block">Staking Calculator</span>
         </RouterLink>
       </div>
     </div>
 
-    <div class="bg-base-100 rounded-3xl my-4">
+    <div class="bg-base-100 rounded-3xl mb-8">
       <div
         class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 py-6 text-center"
       >
@@ -394,8 +394,6 @@ loadAvatars();
         </div>
       </div>
     </div>
-
-    <h1 class="text-2xl font-bold p-4">Validators</h1>
 
     <!--
     <div class="bg-base-100 rounded-lg grid sm:grid-cols-1 md:grid-cols-4 p-4">
@@ -432,8 +430,10 @@ loadAvatars();
     </div>
     -->
 
-    <div>
-      <div class="flex items-center justify-between py-1">
+    <div class="mb-8">
+      <div class="flex items-center justify-between p-4">
+        <h1 class="text-2xl font-bold">Validators</h1>
+
         <div class="tabs">
           <!--
           <a
@@ -464,7 +464,7 @@ loadAvatars();
         -->
       </div>
 
-      <div class="bg-base-100 px-4 pt-3 mt-4 pb-4 rounded-xl">
+      <div class="bg-base-100 px-4 pt-3 mt-4 pb-4 rounded-3xl">
         <div class="overflow-x-auto">
           <table class="table staking-table w-full">
             <thead>
@@ -502,9 +502,8 @@ loadAvatars();
               <tr
                 v-for="{ v, logo } in list"
                 :key="v.operator_address"
-                class="hover:bg-gray-100 dark:hover:bg-[#384059]"
+                class="hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
               >
-                <!-- 👉 rank -->
                 <!--
                 <td>
                   <div
@@ -519,10 +518,9 @@ loadAvatars();
                   </div>
                 </td>
                 -->
-                <!-- 👉 Validator -->
                 <td>
                   <div
-                    class="flex items-center overflow-hidden"
+                    class="ml-1 flex items-center overflow-hidden"
                     style="max-width: 300px"
                   >
                     <div
@@ -560,7 +558,6 @@ loadAvatars();
                     </div>
                   </div>
                 </td>
-                <!-- 👉 Voting Power -->
                 <td class="text-right">
                   {{
                     format.formatToken(
@@ -573,8 +570,6 @@ loadAvatars();
                     )
                   }}
                 </td>
-
-                <!-- 👉 Voting Power -->
                 <td class="text-right">
                   {{
                     format.calculatePercent(
@@ -583,7 +578,6 @@ loadAvatars();
                     )
                   }}
                 </td>
-                <!-- 👉 24h Changes -->
                 <!--
                 <td
                   class="text-right text-xs"
@@ -592,7 +586,6 @@ loadAvatars();
                   {{ change24Text(v.consensus_pubkey) }}
                 </td>
                 -->
-                <!-- 👉 commission -->
                 <td class="text-right">
                   {{
                     format.formatCommissionRate(
@@ -600,7 +593,6 @@ loadAvatars();
                     )
                   }}
                 </td>
-                <!-- 👉 Action -->
                 <td class="text-right">
                   <div
                     v-if="v.jailed"
@@ -611,7 +603,7 @@ loadAvatars();
                   <label
                     v-if="!v.jailed && walletStore.currentAddress"
                     for="delegate"
-                    class="btn btn-xs btn-primary rounded-full capitalize text-white"
+                    class="btn btn-xs btn-primary rounded-full capitalize text-white mr-1"
                     @click="
                       dialog.open('delegate', {
                         validator_address: v.operator_address,

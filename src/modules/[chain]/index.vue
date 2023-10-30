@@ -135,7 +135,7 @@ const amount = computed({
 </script>
 
 <template>
-  <div class="overflow-hidden mx-auto max-w-screen-lg lg:py-10">
+  <div class="overflow-hidden mx-auto max-w-screen-lg lg:pb-10">
     <div>
       <h1 class="text-4xl font-bold mb-6 p-4">Your Mchain Wallet</h1>
 

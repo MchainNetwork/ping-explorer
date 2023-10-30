@@ -28,6 +28,7 @@ const inflation = ref<number>(0);
 
 const blocksPerYear = 5057308;
 const mintDecimal = 6;
+const bondDenom = 'umark';
 const bondDenomSymbol = 'MARK';
 
 const communityTax = ref<number>(0.02); // 2%
@@ -44,7 +45,7 @@ onMounted(() => {
   blockchain.rpc?.getStakingPool().then((res) => {
     bondedTokens.value = Number(res?.pool?.bonded_tokens) / 10 ** mintDecimal;
   });
-  blockchain.rpc?.getBankSupplyByDenom('umark').then((res) => {
+  blockchain.rpc?.getBankSupplyByDenom(bondDenom).then((res) => {
     totalSupply.value = Number(res.amount.amount) / 10 ** mintDecimal;
   });
 });

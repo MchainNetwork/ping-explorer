@@ -234,7 +234,7 @@ const amount = computed({
 
       <div
         class="px-4 pt-4 pb-4 text-lg font-semibold text-main"
-        v-if="walletStore.delegations.length > 0"
+        v-if="walletStore.currentAddress"
       >
         Your MARK delegations
       </div>

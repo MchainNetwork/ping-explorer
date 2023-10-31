@@ -11,6 +11,7 @@ export const useTxDialog = defineStore('txDialogStore', {
       sender: "",
       type: "send",
       endpoint: "",
+      locale: "en",
       params: "",
     };
   },

@@ -120,7 +120,7 @@ function pageload(p: number) {
               for="mns_cancelbid"
               class="btn btn-success btn-xs w-full rounded-full"
               @click="
-                dialog.open('mns_cancelbid', { name: item.name }, updateState)
+                dialog.open('mns_cancel_bid', { name: item.name }, updateState)
               "
             >
               Cancel

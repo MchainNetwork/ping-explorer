@@ -8,6 +8,7 @@ import {
 } from '@/stores';
 import { PageRequest, type Pagination, type SmartTokenDenom } from '@/types';
 import { onMounted } from 'vue';
+//@ts-ignore
 import PaginationBar from '@/components/PaginationBar.vue';
 import IdentityIcon from '@/components/IdentityIcon.vue';
 
@@ -46,9 +47,9 @@ function pageload(p: number) {
       <h1 class="text-4xl font-bold mb-6 p-4">Smart Tokens</h1>
       <div class="pr-4">
         <label
-          for="issue"
+          for="smarttoken_issue"
           class="btn btn-primary btn-sm rounded-full text-white"
-          @click="dialog.open('issue', {}, updateState)"
+          @click="dialog.open('smarttoken_issue', {}, updateState)"
         >
           {{ $t('smarttoken.issue') }}
         </label>
@@ -82,9 +83,15 @@ function pageload(p: number) {
           <td class="text-right">
             <label
               v-if="walletStore.currentAddress === item.minter"
-              for="mint"
+              for="smarttoken_mint"
               class="btn btn-success btn-xs ml-2 rounded-full"
-              @click="dialog.open('mint', { denom: item.denom }, updateState)"
+              @click="
+                dialog.open(
+                  'smarttoken_mint',
+                  { denom: item.denom },
+                  updateState
+                )
+              "
             >
               {{ $t('smarttoken.mint') }}
             </label>

@@ -189,10 +189,10 @@ function pageload(p: number) {
       <h1 class="text-4xl font-bold mb-4 p-4">Validator</h1>
       <div class="pr-4">
         <label
-          for="delegate"
+          for="staking_delegate"
           class="btn btn-primary btn-sm rounded-full w-full"
           @click="
-            dialog.open('delegate', {
+            dialog.open('staking_delegate', {
               validator_address: v.operator_address,
             })
           "
@@ -418,10 +418,10 @@ function pageload(p: number) {
           </div>
           <div class="">
             <label
-              for="withdraw_commission"
+              for="staking_withdraw_commission"
               class="btn btn-primary rounded-full w-full"
               @click="
-                dialog.open('withdraw_commission', {
+                dialog.open('staking_withdraw_commission', {
                   validator_address: v.operator_address,
                 })
               "

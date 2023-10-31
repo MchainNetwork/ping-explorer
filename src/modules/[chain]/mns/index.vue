@@ -434,10 +434,14 @@ function checkDomainAvailable(domain: string) {
               </label>
               <label
                 v-if="item.bidder == walletStore.currentAddress"
-                for="mns_cancelbid"
+                for="mns_cancel_bid"
                 class="btn btn-success btn-xs w-full rounded-full"
                 @click="
-                  dialog.open('mns_cancelbid', { name: item.name }, updateState)
+                  dialog.open(
+                    'mns_cancel_bid',
+                    { name: item.name },
+                    updateState
+                  )
                 "
               >
                 Cancel

@@ -115,10 +115,10 @@ const proposalInfo = ref();
           <td v-if="statusMap?.[item?.status] === 'VOTING'" class="w-40">
             <div class="">
               <label
-                for="vote"
+                for="gov_vote"
                 class="btn btn-sm btn-primary rounded-full"
                 @click="
-                  dialog.open('vote', {
+                  dialog.open('gov_vote', {
                     proposal_id: item?.proposal_id,
                   })
                 "
@@ -209,10 +209,10 @@ const proposalInfo = ref();
               </div>
             </div>
             <label
-              for="vote"
+              for="gov_vote"
               class="btn btn-xs btn-primary rounded-sm"
               @click="
-                dialog.open('vote', {
+                dialog.open('gov_vote', {
                   proposal_id: item?.proposal_id,
                 })
               "

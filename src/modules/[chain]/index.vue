@@ -206,15 +206,15 @@ const amount = computed({
             >{{ $t('index.receive') }}
           </RouterLink>
           <label
-            for="send"
+            for="bank_send"
             class="btn btn-sm btn-primary rounded-full !text-white"
-            @click="dialog.open('send', {}, updateState)"
+            @click="dialog.open('bank_send', {}, updateState)"
             >{{ $t('account.btn_send') }}</label
           >
           <label
-            for="delegate"
+            for="staking_delegate"
             class="btn btn-sm btn-primary rounded-full text-white"
-            @click="dialog.open('delegate', {}, updateState)"
+            @click="dialog.open('staking_delegate', {}, updateState)"
             >{{ $t('account.btn_delegate') }}</label
           >
           <RouterLink
@@ -285,11 +285,11 @@ const amount = computed({
                 <td class="text-right">
                   <div>
                     <label
-                      for="delegate"
+                      for="staking_delegate"
                       class="btn !btn-xs !btn-primary rounded-full mr-2"
                       @click="
                         dialog.open(
-                          'delegate',
+                          'staking_delegate',
                           {
                             validator_address:
                               item.delegation.validator_address,

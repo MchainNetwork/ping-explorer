@@ -316,9 +316,9 @@ loadAvatars();
             ${{ format.tokenValue(walletStore.rewardAmount) }}
             <label
               v-if="walletStore?.rewardAmount?.amount > 0"
-              for="withdraw"
+              for="staking_withdraw"
               class="btn btn-primary btn-xs rounded-full text-white ml-1"
-              @click="dialog.open('withdraw', {}, walletStateChange)"
+              @click="dialog.open('staking_withdraw', {}, walletStateChange)"
               >{{ $t('account.btn_withdraw') }}</label
             >
           </div>
@@ -602,10 +602,10 @@ loadAvatars();
                   </div>
                   <label
                     v-if="!v.jailed && walletStore.currentAddress"
-                    for="delegate"
+                    for="staking_delegate"
                     class="btn btn-xs btn-primary rounded-full capitalize text-white mr-1"
                     @click="
-                      dialog.open('delegate', {
+                      dialog.open('staking_delegate', {
                         validator_address: v.operator_address,
                       })
                     "

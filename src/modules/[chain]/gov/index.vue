@@ -40,9 +40,9 @@ function page(p: number) {
       <h1 class="text-4xl font-bold mb-4 p-4">Governance</h1>
       <div class="pr-4">
         <label
-          for="submit_proposal"
+          for="gov_submit_proposal"
           class="btn btn-primary btn-sm rounded-full text-white"
-          @click="dialog.open('submit_proposal', {}, updateState)"
+          @click="dialog.open('gov_submit_proposal', {}, updateState)"
         >
           Submit Proposal
         </label>

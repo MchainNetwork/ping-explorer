@@ -21,7 +21,6 @@ import Countdown from '@/components/Countdown.vue';
 import PaginationBar from '@/components/PaginationBar.vue';
 import { fromBech32, toHex } from '@cosmjs/encoding';
 
-
 const props = defineProps(['proposal_id', 'chain']);
 const proposal = ref({} as GovProposal);
 const format = useFormatter();
@@ -165,33 +164,37 @@ function showValidatorName(voter: string) {
   return v ? v.description.moniker : voter;
 }
 
-
 function pageload(p: number) {
   pageRequest.value.setPage(p);
-   store.fetchProposalVotes(props.proposal_id, pageRequest.value).then((x) => {
+  store.fetchProposalVotes(props.proposal_id, pageRequest.value).then((x) => {
     votes.value = x.votes;
     pageResponse.value = x.pagination;
-   });
+  });
 }
 </script>
 
 <template>
   <div class="mx-auto max-w-screen-lg" v-if="!isLoading">
-      <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center">
       <h1 class="text-4xl font-bold mb-4 p-4">Proposal #{{ proposal_id }}</h1>
-      <div class="pr-4" v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'">
+      <div
+        class="pr-4"
+        v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
+      >
         <label
-        for="deposit"
-        class="btn btn-primary float-right rounded-full mx-auto"
-        @click="dialog.open('deposit', { proposal_id })"
+          for="gov_deposit"
+          class="btn btn-primary float-right rounded-full mx-auto"
+          @click="dialog.open('gov_deposit', { proposal_id })"
         >
-        {{ $t('gov.btn_deposit') }}
+          {{ $t('gov.btn_deposit') }}
         </label>
       </div>
     </div>
 
     <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
-      <h2 class="card-title mb-4 flex flex-col md:!justify-between md:!flex-row">
+      <h2
+        class="card-title mb-4 flex flex-col md:!justify-between md:!flex-row"
+      >
         <p class="truncate w-full">
           {{ proposal_id }}. {{ proposal.title || proposal.content?.title }}
         </p>
@@ -223,7 +226,10 @@ function pageload(p: number) {
     <!-- flex-col lg:!!flex-row flex -->
     <div class="gap-4 mb-4 grid lg:!!grid-cols-3 auto-rows-max">
       <!-- flex-1 -->
-      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl" v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'">
+      <div
+        class="bg-base-100 px-4 pt-3 pb-4 rounded-xl"
+        v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
+      >
         <h2 class="card-title mb-1">{{ $t('gov.tally') }}</h2>
         <div class="mb-1" v-for="(item, index) of processList" :key="index">
           <label class="block text-sm mb-1">{{ item.name }}</label>
@@ -248,15 +254,15 @@ function pageload(p: number) {
         </div>
         <div class="mt-6 grid grid-cols-2">
           <label
-            for="vote"
+            for="gov_vote"
             class="btn btn-primary float-right rounded-full mx-1"
-            @click="dialog.open('vote', { proposal_id })"
+            @click="dialog.open('gov_vote', { proposal_id })"
             >{{ $t('gov.btn_vote') }}</label
           >
           <label
-            for="deposit"
+            for="gov_deposit"
             class="btn btn-primary float-right rounded-full mx-1"
-            @click="dialog.open('deposit', { proposal_id })"
+            @click="dialog.open('gov_deposit', { proposal_id })"
             >{{ $t('gov.btn_deposit') }}</label
           >
         </div>
@@ -269,7 +275,8 @@ function pageload(p: number) {
           <div class="flex items-center mb-4 mt-2">
             <div class="w-2 h-2 rounded-full bg-error mr-3"></div>
             <div class="text-base flex-1 text-main">
-              {{ $t('gov.submit_at') }}: {{ format.toDay(proposal.submit_time) }}
+              {{ $t('gov.submit_at') }}:
+              {{ format.toDay(proposal.submit_time) }}
             </div>
             <div class="text-sm">{{ shortTime(proposal.submit_time) }}</div>
           </div>
@@ -295,12 +302,16 @@ function pageload(p: number) {
               }}
             </div>
           </div>
-        
-          <div class="mb-4" v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'">
+
+          <div
+            class="mb-4"
+            v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
+          >
             <div class="flex items-center">
               <div class="w-2 h-2 rounded-full bg-yes mr-3"></div>
               <div class="text-base flex-1 text-main">
-                {{ $t('gov.vote_start_from') }} {{ format.toDay(proposal.voting_start_time) }}
+                {{ $t('gov.vote_start_from') }}
+                {{ format.toDay(proposal.voting_start_time) }}
               </div>
               <div class="text-sm">
                 {{ shortTime(proposal.voting_start_time) }}
@@ -314,14 +325,16 @@ function pageload(p: number) {
             <div class="flex items-center mb-1">
               <div class="w-2 h-2 rounded-full bg-success mr-3"></div>
               <div class="text-base flex-1 text-main">
-                {{ $t('gov.vote_end') }} {{ format.toDay(proposal.voting_end_time) }}
+                {{ $t('gov.vote_end') }}
+                {{ format.toDay(proposal.voting_end_time) }}
               </div>
               <div class="text-sm">
                 {{ shortTime(proposal.voting_end_time) }}
               </div>
             </div>
             <div class="pl-5 text-sm">
-              {{ $t('gov.current_status') }}: {{ $t(`gov.proposal_statuses.${proposal.status}`) }}
+              {{ $t('gov.current_status') }}:
+              {{ $t(`gov.proposal_statuses.${proposal.status}`) }}
             </div>
           </div>
 
@@ -354,7 +367,10 @@ function pageload(p: number) {
       </div>
     </div>
 
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4" v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'">
+    <div
+      class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4"
+      v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
+    >
       <h2 class="card-title">{{ $t('gov.votes') }}</h2>
       <div class="overflow-x-auto">
         <table class="table w-full table-zebra">
@@ -371,11 +387,18 @@ function pageload(p: number) {
               >
                 {{ String(item.option).replace('VOTE_OPTION_', '') }}
               </td>
-              <td
-                v-if="item.options"
-                class="py-2 text-sm"
-              >
-                {{ item.options.map(x => `${x.option.replace('VOTE_OPTION_', '')}:${format.percent(x.weight)}`).join(', ') }}
+              <td v-if="item.options" class="py-2 text-sm">
+                {{
+                  item.options
+                    .map(
+                      (x) =>
+                        `${x.option.replace(
+                          'VOTE_OPTION_',
+                          ''
+                        )}:${format.percent(x.weight)}`
+                    )
+                    .join(', ')
+                }}
               </td>
             </tr>
           </tbody>

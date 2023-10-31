@@ -276,11 +276,11 @@ function pageload() {
                 </label>
                 <label
                   v-if="domainInfo.value == walletStore.currentAddress"
-                  for="mns_delrecord"
+                  for="mns_del_record"
                   class="btn btn-success ml-2 btn-xs rounded-full"
                   @click="
                     dialog.open(
-                      'mns_delrecord',
+                      'mns_del_record',
                       { name: subdomain.name },
                       updateState
                     )

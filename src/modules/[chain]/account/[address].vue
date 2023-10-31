@@ -161,17 +161,17 @@ function updateEvent() {
         <!-- button -->
         <div class="flex justify-end mb-4 pr-5">
           <label
-            for="send"
+            for="bank_send"
             class="btn btn-primary btn-sm rounded-full mr-2"
-            @click="dialog.open('send', {}, updateEvent)"
+            @click="dialog.open('bank_send', {}, updateEvent)"
             >{{ $t('account.btn_send') }}</label
           >
           <label
-            for="transfer"
+            for="bank_transfer"
             class="btn btn-primary btn-sm rounded-full"
             @click="
               dialog.open(
-                'transfer',
+                'bank_transfer',
                 {
                   chain_name: blockchain.current?.prettyName,
                 },
@@ -390,15 +390,15 @@ function updateEvent() {
         <h2 class="card-title mb-4">{{ $t('account.delegations') }}</h2>
         <div class="flex justify-end mb-4">
           <label
-            for="delegate"
+            for="staking_delegate"
             class="btn btn-primary btn-sm rounded-full mr-2"
-            @click="dialog.open('delegate', {}, updateEvent)"
+            @click="dialog.open('staking_delegate', {}, updateEvent)"
             >{{ $t('account.btn_delegate') }}</label
           >
           <label
-            for="withdraw"
+            for="staking_withdraw"
             class="btn btn-primary btn-sm rounded-full"
-            @click="dialog.open('withdraw', {}, updateEvent)"
+            @click="dialog.open('staking_withdraw', {}, updateEvent)"
             >{{ $t('account.btn_withdraw') }}</label
           >
         </div>
@@ -448,11 +448,11 @@ function updateEvent() {
               <td class="py-3">
                 <div v-if="v.balance" class="flex justify-end">
                   <label
-                    for="delegate"
+                    for="staking_delegate"
                     class="btn btn-primary btn-xs mr-2"
                     @click="
                       dialog.open(
-                        'delegate',
+                        'staking_delegate',
                         {
                           validator_address: v.delegation.validator_address,
                         },
@@ -462,11 +462,11 @@ function updateEvent() {
                     >{{ $t('account.btn_delegate') }}</label
                   >
                   <label
-                    for="redelegate"
+                    for="staking_redelegate"
                     class="btn btn-primary btn-xs mr-2"
                     @click="
                       dialog.open(
-                        'redelegate',
+                        'staking_redelegate',
                         {
                           validator_address: v.delegation.validator_address,
                         },
@@ -476,11 +476,11 @@ function updateEvent() {
                     >{{ $t('account.btn_redelegate') }}</label
                   >
                   <label
-                    for="unbond"
+                    for="staking_unbond"
                     class="btn btn-primary btn-xs"
                     @click="
                       dialog.open(
-                        'unbond',
+                        'staking_unbond',
                         {
                           validator_address: v.delegation.validator_address,
                         },

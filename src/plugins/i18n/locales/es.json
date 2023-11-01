@@ -55,7 +55,9 @@
     "smart_token_details": "Detalles del Smart Token",
     "meta_data": "Metadatos",
     "uri_data": "Datos URI",
-    "uri": "URI"
+    "uri": "URI",
+    "unlimited": "Ilimitado",
+    "no_data": "Sin datos"
   },
   "mns": {
     "title": "Servicios de Nombres Mchain",

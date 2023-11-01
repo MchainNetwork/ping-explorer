@@ -54,7 +54,9 @@
     "smart_token_details": "Detail Smart Token",
     "meta_data": "Data Meta",
     "uri_data": "Data URI",
-    "uri": "URI"
+    "uri": "URI",
+    "unlimited": "Unlimited",
+    "no_data": "Tidak Ada Data"
   },
   "mns": {
     "title": "Layanan Nama Mchain",

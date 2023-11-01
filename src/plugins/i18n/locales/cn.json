@@ -55,7 +55,9 @@
     "smart_token_details": "智能令牌详情",
     "meta_data": "元数据",
     "uri_data": "URI数据",
-    "uri": "URI"
+    "uri": "URI",
+    "unlimited": "无限",
+    "no_data": "没有数据"
   },
   "mns": {
     "title": "Mchain 名称服务",

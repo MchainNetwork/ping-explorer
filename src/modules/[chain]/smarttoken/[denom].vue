@@ -192,7 +192,8 @@ onMounted(() => {
         </h2>
         <div class="flex flex-col">
           <p>
-            <strong>{{ $t('smarttoken.denom') }}:</strong> {{ tokenInfo.denom }}
+            <strong>{{ $t('smarttoken.denom') }}:</strong>
+            {{ tokenInfo.denom }}
           </p>
           <p>
             <strong>{{ $t('smarttoken.current_supply') }}:</strong>
@@ -200,8 +201,11 @@ onMounted(() => {
           </p>
           <p>
             <strong>{{ $t('smarttoken.max_supply') }}:</strong>
-            {{ tokenInfo.max_supply }}
-            {{ subunit }}
+            {{
+              tokenInfo.max_supply === '0'
+                ? $t('smarttoken.unlimited')
+                : tokenInfo.max_supply + ' ' + subunit
+            }}
           </p>
           <p>
             <strong>{{ $t('smarttoken.minter') }}:</strong>
@@ -221,7 +225,7 @@ onMounted(() => {
           </p>
           <p>
             <strong>{{ $t('smarttoken.symbol') }}:</strong>
-            {{ tokenInfo.meta_data.symbol }}
+            {{ tokenInfo.meta_data.symbol.toUpperCase() }}
           </p>
           <p>
             <strong>{{ $t('smarttoken.decimals') }}:</strong>
@@ -233,12 +237,12 @@ onMounted(() => {
           </p>
           <p>
             <strong>{{ $t('smarttoken.uri') }}:</strong>
-            {{ tokenInfo.meta_data.uri }}
+            {{ tokenInfo.meta_data.uri ? tokenInfo.meta_data.uri : '-' }}
           </p>
         </div>
       </div>
 
-      <div v-if="hasMetaData" class="mb-4">
+      <div v-if="tokenInfo.meta_data.uri" class="mb-4">
         <h2 class="text-xl font-semibold mb-2">
           {{ $t('smarttoken.uri_data') }}
         </h2>

@@ -49,16 +49,16 @@ const tipMsg = computed(() => {
   >
     <label
       tabindex="0"
-      class="btn btn-sm border-primary rounded-full hover:dark:bg-[#1e3b47] m-1 lowercase truncate !inline-flex text-xs md:!text-md"
+      class="btn btn-sm pl-1 pr-3 hover:dark:bg-[#1e3b47] m-1 !inline-flex text-sm md:!text-md"
     >
-      <Icon icon="mdi:wallet" />
-      <span class="ml-1 hidden md:block">
+      <IdentityIcon size="small" :address="walletStore.currentAddress" />
+      <span class="hidden ml-1 md:block">
         {{ walletStore.shortAddress || 'Wallet' }}</span
       >
     </label>
     <div
       tabindex="0"
-      class="dropdown-content menu shadow p-2 bg-base-100 rounded-xl w-100 md:!w-64 overflow-auto"
+      class="dropdown-content menu shadow p-2 bg-base-100 rounded-xl w-100 overflow-auto"
     >
       <div class="px-2 mb-1 text-gray-500 dark:text-gray-400 font-semibold">
         {{ walletStore.connectedWallet?.wallet }}

@@ -397,7 +397,7 @@ export const useFormatter = defineStore('formatter', {
     },
     shortAddress(address: string) {
       if(address.length > 4) {
-        return `${address.substring(address.length -4)}`
+        return `${address.substring(0, 8)}...${address.substring(address.length -4)}`
       }
       return ""
     }

@@ -368,7 +368,7 @@ const filteredList = computed(() => {
           :to="`/${chain}/staking/calculator`"
           class="btn btn-primary btn-sm rounded-full text-white"
         >
-          <Icon icon="mdi:calculator" class="text-2xl"></Icon>
+          <Icon icon="uil:calculator-alt" class="text-2xl"></Icon>
           <span class="hidden md:inline-block">Staking Calculator</span>
         </RouterLink>
       </div>

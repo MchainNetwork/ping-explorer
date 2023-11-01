@@ -15,6 +15,7 @@ import {
   type MnsForsale,
 } from '@/types';
 import { onMounted } from 'vue';
+// @ts-ignore
 import PaginationBar from '@/components/PaginationBar.vue';
 import IdentityIcon from '@/components/IdentityIcon.vue';
 
@@ -75,32 +76,23 @@ function pageload(p: number) {
     </div>
     <div class="tabs mb-4 text-center">
       <RouterLink
-        class="tab tab-lg tab-bordered text-gray-400"
+        class="tab tab-bordered tab-active"
         :to="`/${chain}/mns/registered`"
       >
         {{ $t('mns.registered_names_title') }}
       </RouterLink>
-      <RouterLink
-        class="tab tab-lg tab-bordered text-gray-400"
-        :to="`/${chain}/mns/forsale`"
-      >
+      <RouterLink class="tab tab-bordered" :to="`/${chain}/mns/forsale`">
         {{ $t('mns.domains_for_sale_title') }}
       </RouterLink>
-      <RouterLink
-        class="tab tab-lg tab-bordered text-gray-400"
-        :to="`/${chain}/mns/bids`"
-      >
+      <RouterLink class="tab tab-bordered" :to="`/${chain}/mns/bids`">
         {{ $t('mns.domains_in_bid_title') }}
       </RouterLink>
-      <RouterLink
-        class="tab tab-lg tab-bordered text-gray-400"
-        :to="`/${chain}/mns/owned`"
-      >
+      <RouterLink class="tab tab-bordered" :to="`/${chain}/mns/owned`">
         {{ $t('mns.domains_owned_title') }}
       </RouterLink>
     </div>
-    <div class="bg-base-100 p-4 rounded-xl">
-      <table class="table table-compact text-lg">
+    <div class="bg-base-100 p-4 rounded-3xl">
+      <table class="table table-compact">
         <thead>
           <tr>
             <td>{{ $t('mns.domain_label') }}</td>
@@ -111,7 +103,7 @@ function pageload(p: number) {
         <tr
           :key="item.name"
           v-for="item in list"
-          class="odd:bg-gray-100 dark:odd:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
+          class="hover:bg-gray-200 dark:hover:bg-gray-700"
         >
           <td width="20%">
             <RouterLink
@@ -136,7 +128,7 @@ function pageload(p: number) {
             <label
               v-if="item.value != walletStore.currentAddress"
               for="mns_bid"
-              class="btn btn-primary btn-xs w-full rounded-full text-white"
+              class="btn btn-primary btn-xs"
               @click="
                 dialog.open(
                   'mns_bid',
@@ -150,7 +142,7 @@ function pageload(p: number) {
             <label
               v-if="item.value == walletStore.currentAddress"
               for="mns_list"
-              class="btn btn-success btn-xs w-full rounded-full"
+              class="btn btn-primary btn-xs"
               @click="
                 dialog.open(
                   'mns_list',

@@ -4,9 +4,9 @@ import { onMounted, onUnmounted, computed, watch } from 'vue';
 import { useBaseStore } from '@/stores';
 
 const themeMap: Record<string, string> = {
-  system: 'mdi-laptop',
-  light: 'mdi-weather-sunny',
-  dark: 'mdi-weather-night',
+  system: 'uil:laptop',
+  light: 'uil:brightness',
+  dark: 'uil:moon',
 };
 const baseStore = useBaseStore();
 

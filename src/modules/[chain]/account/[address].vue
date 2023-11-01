@@ -140,7 +140,7 @@ function updateEvent() {
             class="w-full inline-flex items-center align-middle flex-none justify-center"
           >
             <Icon
-              icon="mdi-qrcode"
+              icon="uil:qrcode-scan"
               class="text-primary"
               style="width: 27px; height: 27px"
             />

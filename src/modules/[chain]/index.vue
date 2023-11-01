@@ -154,7 +154,7 @@ const amount = computed({
             {{ walletStore.currentAddress }}
           </RouterLink>
           <RouterLink to="/wallet/receive">
-            <Icon icon="mdi:qrcode" class="ml-2 cursor-pointer" />
+            <Icon icon="uil:qrcode-scan" class="ml-2 cursor-pointer" />
           </RouterLink>
         </div>
         <div
@@ -201,16 +201,18 @@ const amount = computed({
         <div class="grid grid-cols-2 gap-4 px-4 pb-6 mt-4">
           <!--<label for="PingTokenConvert" class="btn btn-primary rounded-full text-white">{{ $t('index.btn_swap') }}</label>-->
           <RouterLink
-            class="btn btn-sm btn-primary rounded-full text-white"
+            class="btn btn-sm btn-neutral rounded-full text-white"
             to="/wallet/receive"
             >{{ $t('index.receive') }}
+            <Icon icon="uil:arrow-down" class="ml-2 text-xl" />
           </RouterLink>
           <label
             for="bank_send"
-            class="btn btn-sm btn-primary rounded-full !text-white"
+            class="btn btn-sm btn-neutral !text-white"
             @click="dialog.open('bank_send', {}, updateState)"
-            >{{ $t('account.btn_send') }}</label
-          >
+            >{{ $t('account.btn_send') }}
+            <Icon icon="uil:arrow-up-right" class="ml-2 text-xl" />
+          </label>
         </div>
         <Teleport to="body">
           <ping-token-convert
@@ -242,7 +244,11 @@ const amount = computed({
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, index) in walletStore.delegations" :key="index">
+              <tr
+                class="hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
+                v-for="(item, index) in walletStore.delegations"
+                :key="index"
+              >
                 <td class="flex items-center">
                   <IdentityIcon
                     size="xs"
@@ -275,7 +281,7 @@ const amount = computed({
                   <div>
                     <label
                       for="staking_delegate"
-                      class="btn !btn-xs !btn-primary mr-2"
+                      class="link link-primary link-hover mx-4"
                       @click="
                         dialog.open(
                           'staking_delegate',
@@ -291,7 +297,7 @@ const amount = computed({
                     </label>
                     <label
                       for="staking_withdraw"
-                      class="btn !btn-xs !btn-primary"
+                      class="link link-primary link-hover"
                       @click="
                         dialog.open(
                           'staking_withdraw',

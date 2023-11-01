@@ -8,6 +8,8 @@ import {
 } from '@/stores';
 import { PageRequest, type Pagination, type SmartTokenDenom } from '@/types';
 import { onMounted } from 'vue';
+import { Icon } from '@iconify/vue';
+
 //@ts-ignore
 import PaginationBar from '@/components/PaginationBar.vue';
 import IdentityIcon from '@/components/IdentityIcon.vue';
@@ -68,7 +70,7 @@ function pageload(p: number) {
         <tr
           :key="item.denom"
           v-for="item in list"
-          class="odd:bg-gray-100 dark:odd:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
+          class="hover:bg-gray-200 dark:hover:bg-gray-700"
         >
           <td class="truncate flex" width="80%">
             <IdentityIcon size="small" :address="item.denom" />
@@ -81,20 +83,15 @@ function pageload(p: number) {
           <td width="10%" class="uppercase">{{ item.meta_data.symbol }}</td>
           <td>{{ item.meta_data.name }}</td>
           <td class="text-right">
-            <label
-              v-if="walletStore.currentAddress === item.minter"
-              for="smarttoken_mint"
-              class="btn btn-success btn-xs ml-2 rounded-full"
-              @click="
-                dialog.open(
-                  'smarttoken_mint',
-                  { denom: item.denom },
-                  updateState
-                )
-              "
+            <RouterLink
+              :to="'/mchain/smarttoken/' + item.denom"
+              class="btn btn-ghost btn-circle btn-sm mx-1"
             >
-              {{ $t('smarttoken.mint') }}
-            </label>
+              <Icon
+                icon="uil:info-circle"
+                class="text-2xl text-gray-500 dark:text-gray-400"
+              />
+            </RouterLink>
           </td>
         </tr>
       </table>

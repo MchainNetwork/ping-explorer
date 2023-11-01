@@ -83,98 +83,103 @@ onMounted(() => {
         </div>
       </div>
       <div class="flex" v-if="isCurrentMinter">
-        <label
-          for="smarttoken_mint"
-          class="btn btn-primary btn-sm rounded-full text-white"
-          @click="
-            dialog.open(
-              'smarttoken_mint',
-              { denom: tokenInfo.denom },
-              updateState
-            )
-          "
-        >
-          {{ $t('smarttoken.mint') }}
-        </label>
-        <label
-          for="smarttoken_burn"
-          class="btn btn-primary btn-sm rounded-full text-white mx-2"
-          @click="
-            dialog.open(
-              'smarttoken_burn',
-              { denom: tokenInfo.denom },
-              updateState
-            )
-          "
-        >
-          {{ $t('smarttoken.burn') }}
-        </label>
-
-        <div class="relative group">
-          <button class="btn btn-ghost btn-circle btn-sm mx-1">
+        <details class="dropdown dropdown-bottom dropdown-end">
+          <summary class="btn btn-ghost btn-circle btn-sm mx-1">
             <Icon
               icon="mdi-cog"
               class="text-2xl text-gray-500 dark:text-gray-400"
             />
-          </button>
-
-          <div
-            class="menu absolute bg-base-100 rounded-xl shadow top-10 right-0 ml-12 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          </summary>
+          <ul
+            class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
           >
-            <label
-              for="smarttoken_set_minter"
-              class="btn btn-primary btn-sm rounded-full text-white mb-2"
-              @click="
-                dialog.open(
-                  'smarttoken_set_minter',
-                  { denom: tokenInfo.denom },
-                  updateState
-                )
-              "
-            >
-              {{ $t('smarttoken.set_minter') }}
-            </label>
-            <label
-              for="smarttoken_set_authority"
-              class="btn btn-primary btn-sm rounded-full text-white mb-2"
-              @click="
-                dialog.open(
-                  'smarttoken_set_authority',
-                  { denom: tokenInfo.denom },
-                  updateState
-                )
-              "
-            >
-              {{ $t('smarttoken.set_authority') }}
-            </label>
-            <label
-              for="smarttoken_set_uri"
-              class="btn btn-primary btn-sm rounded-full text-white mb-2"
-              @click="
-                dialog.open(
-                  'smarttoken_set_uri',
-                  { denom: tokenInfo.denom },
-                  updateState
-                )
-              "
-            >
-              {{ $t('smarttoken.set_uri') }}
-            </label>
-            <label
-              for="smarttoken_disable_mint"
-              class="btn btn-primary btn-sm rounded-full text-white mb-2"
-              @click="
-                dialog.open(
-                  'smarttoken_disable_mint',
-                  { denom: tokenInfo.denom },
-                  updateState
-                )
-              "
-            >
-              {{ $t('smarttoken.disable_mint') }}
-            </label>
-          </div>
-        </div>
+            <li>
+              <label
+                for="smarttoken_mint"
+                @click="
+                  dialog.open(
+                    'smarttoken_mint',
+                    { denom: tokenInfo.denom },
+                    updateState
+                  )
+                "
+              >
+                {{ $t('smarttoken.mint') }}
+              </label>
+            </li>
+            <li>
+              <label
+                for="smarttoken_burn"
+                @click="
+                  dialog.open(
+                    'smarttoken_burn',
+                    { denom: tokenInfo.denom },
+                    updateState
+                  )
+                "
+              >
+                {{ $t('smarttoken.burn') }}
+              </label>
+            </li>
+            <li>
+              <label
+                for="smarttoken_set_minter"
+                @click="
+                  dialog.open(
+                    'smarttoken_set_minter',
+                    { denom: tokenInfo.denom },
+                    updateState
+                  )
+                "
+              >
+                {{ $t('smarttoken.set_minter') }}
+              </label>
+            </li>
+            <li>
+              <label
+                for="smarttoken_set_authority"
+                @click="
+                  dialog.open(
+                    'smarttoken_set_authority',
+                    { denom: tokenInfo.denom },
+                    updateState
+                  )
+                "
+              >
+                {{ $t('smarttoken.set_authority') }}
+              </label>
+            </li>
+            <li>
+              <label
+                for="smarttoken_set_uri"
+                @click="
+                  dialog.open(
+                    'smarttoken_set_uri',
+                    { denom: tokenInfo.denom },
+                    updateState
+                  )
+                "
+              >
+                {{ $t('smarttoken.set_uri') }}
+              </label>
+            </li>
+            <li>
+              <label
+                for="smarttoken_disable_mint"
+                class="mb-2"
+                @click="
+                  dialog.open(
+                    'smarttoken_disable_mint',
+                    { denom: tokenInfo.denom },
+                    updateState
+                  )
+                "
+              >
+                {{ $t('smarttoken.disable_mint') }}
+              </label>
+            </li>
+          </ul>
+        </details>
       </div>
     </div>
 

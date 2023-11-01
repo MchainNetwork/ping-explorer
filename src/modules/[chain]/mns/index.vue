@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { ref, computed } from '@vue/reactivity';
 import { onMounted } from 'vue';
+import Cookies from 'js-cookie';
+
 import {
   useFormatter,
   useTxDialog,
@@ -42,6 +44,10 @@ const dialog = useTxDialog();
 const mnsStore = useMnsStore();
 const paramStore = useParamStore();
 const baseStore = useBaseStore();
+
+const getReferrerName = () => {
+  return Cookies.get('referrerName');
+};
 
 const list = ref([] as MnsNames[]);
 const listForSale = ref([] as MnsForsale[]);
@@ -194,7 +200,7 @@ function checkDomainAvailable(domain: string) {
           @click="
             dialog.open(
               'mns_register',
-              { name: domainToCheck, years: 1 },
+              { name: domainToCheck, years: 1, referrer: getReferrerName() },
               updateState
             )
           "
@@ -262,7 +268,7 @@ function checkDomainAvailable(domain: string) {
           <tr
             :key="item.name + item.tld"
             v-for="item in list"
-            class="odd:bg-gray-100 dark:odd:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
+            class="hover:bg-gray-200 dark:hover:bg-gray-700"
           >
             <td width="20%">
               <RouterLink
@@ -287,7 +293,7 @@ function checkDomainAvailable(domain: string) {
               <label
                 v-if="item.value != walletStore.currentAddress"
                 for="mns_bid"
-                class="btn btn-primary btn-xs w-full rounded-full text-white"
+                class="btn btn-primary btn-xs w-full"
                 @click="
                   dialog.open(
                     'mns_bid',
@@ -301,7 +307,7 @@ function checkDomainAvailable(domain: string) {
               <label
                 v-if="item.value == walletStore.currentAddress"
                 for="mns_list"
-                class="btn btn-success btn-xs w-full rounded-full"
+                class="btn btn-success btn-xs w-full"
                 @click="
                   dialog.open(
                     'mns_list',
@@ -339,7 +345,7 @@ function checkDomainAvailable(domain: string) {
           <tr
             :key="item.name"
             v-for="item in listForSale"
-            class="odd:bg-gray-100 dark:odd:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
+            class="hover:bg-gray-200 dark:hover:bg-gray-700"
           >
             <td width="20%">
               <RouterLink
@@ -404,7 +410,7 @@ function checkDomainAvailable(domain: string) {
           <tr
             :key="item.name"
             v-for="item in listBid"
-            class="odd:bg-gray-100 dark:odd:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
+            class="hover:bg-gray-200 dark:hover:bg-gray-700"
           >
             <td width="20%">
               <RouterLink

@@ -1,5 +1,7 @@
 import { useBlockchain } from "@/stores";
 import { createRouter, createWebHistory } from "vue-router";
+import Cookies from 'js-cookie';
+
 // @ts-ignore
 import { setupLayouts } from "virtual:generated-layouts";
 // @ts-ignore
@@ -11,15 +13,23 @@ const router = createRouter({
   routes: [{ path: '/', redirect: '/mchain' }, ...setupLayouts(routes)],
 });
 
-//update current blockchain
 router.beforeEach((to) => {
-    const { chain } = to.params
-    if(chain){
-      const blockchain = useBlockchain()
-      if(chain !== blockchain.chainName) {
-        blockchain.setCurrent(chain.toString())
-      }
-    } 
+  // update current blockchain
+  const { chain } = to.params
+  if(chain){
+    const blockchain = useBlockchain()
+    if(chain !== blockchain.chainName) {
+      blockchain.setCurrent(chain.toString())
+    }
+  } 
+
+  // set referrer
+  if (!Cookies.get('referrerName')) {
+    const referrerName = to.query.ref;
+    if (referrerName) {
+      Cookies.set('referrerName', referrerName as string, { expires: 365 });
+    }
+  }
 })
 
 // Scroll to top smoothly on route change

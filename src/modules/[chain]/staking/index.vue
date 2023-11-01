@@ -32,6 +32,8 @@ const bondedTokens = ref(<number>0);
 const totalSupply = ref<number>(0);
 const inflation = ref<number>(0);
 
+const searchQuery = ref('');
+
 const bondedTokensRatio = computed(() => {
   return bondedTokens.value / totalSupply.value;
 });
@@ -253,6 +255,17 @@ const logo = (identity?: string) => {
 
 fetchChange();
 loadAvatars();
+
+const filteredList = computed(() => {
+  if (!searchQuery.value) {
+    return list.value;
+  }
+  return list.value.filter((item) =>
+    item.v.description.moniker
+      .toLowerCase()
+      .includes(searchQuery.value.toLowerCase())
+  );
+});
 </script>
 <template>
   <div class="overflow-hidden mx-auto max-w-screen-lg">
@@ -431,41 +444,52 @@ loadAvatars();
     -->
 
     <div class="mb-8">
-      <div class="flex items-center justify-between p-4">
-        <h1 class="text-2xl font-bold">Validators</h1>
+      <div class="flex items-center justify-between px-4 py-2">
+        <h1 class="text-2xl font-bold flex-1">Validators</h1>
+      </div>
 
-        <div class="tabs">
-          <!--
+      <div class="bg-base-100 p-4 mt-4 pb-4 pt-2 rounded-3xl">
+        <div class="overflow-x-auto">
+          <div class="flex items-center justify-between">
+            <div class="p-2 mr-4">
+              <input
+                type="text"
+                v-model="searchQuery"
+                placeholder="Search validator..."
+                class="input input-sm input-bordered w-full"
+              />
+            </div>
+
+            <div class="tabs tabs-boxed tabs-neutral">
+              <!--
           <a
-            class="tab tab-lg tab-bordered text-gray-400"
+            class="tab tab-sm text-gray-400"
             :class="{ 'tab-active': tab === 'featured' }"
             @click="tab = 'featured'"
             >{{ $t('staking.popular') }}</a
           >
           -->
-          <a
-            class="tab tab-lg tab-bordered text-gray-400"
-            :class="{ 'tab-active': tab === 'active' }"
-            @click="tab = 'active'"
-            >{{ $t('staking.active') }}</a
-          >
-          <a
-            class="tab tab-lg tab-bordered text-gray-400"
-            :class="{ 'tab-active': tab === 'inactive' }"
-            @click="tab = 'inactive'"
-            >{{ $t('staking.inactive') }}</a
-          >
-        </div>
+              <a
+                class="tab tab-sm"
+                :class="{ 'tab-active': tab === 'active' }"
+                @click="tab = 'active'"
+                >{{ $t('staking.active') }}</a
+              >
+              <a
+                class="tab tab-sm"
+                :class="{ 'tab-active': tab === 'inactive' }"
+                @click="tab = 'inactive'"
+                >{{ $t('staking.inactive') }}</a
+              >
+            </div>
 
-        <!--
+            <!--
         <div class="text-lg font-semibold pr-4">
           {{ list.length }}/{{ staking.params.max_validators }}
         </div>
         -->
-      </div>
+          </div>
 
-      <div class="bg-base-100 px-4 pt-3 mt-4 pb-4 rounded-3xl">
-        <div class="overflow-x-auto">
           <table class="table staking-table w-full">
             <thead>
               <tr>
@@ -500,7 +524,7 @@ loadAvatars();
             </thead>
             <tbody>
               <tr
-                v-for="{ v, logo } in list"
+                v-for="{ v, logo } in filteredList"
                 :key="v.operator_address"
                 class="hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
               >

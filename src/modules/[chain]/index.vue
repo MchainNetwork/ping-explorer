@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import MdEditor from 'md-editor-v3';
+// @ts-ignore
 import PriceMarketChart from '@/components/charts/PriceMarketChart.vue';
 import IdentityIcon from '@/components/IdentityIcon.vue';
 
@@ -17,8 +18,11 @@ import { onMounted, ref } from 'vue';
 import { useIndexModule, colorMap } from './indexStore';
 import { computed } from '@vue/reactivity';
 
+// @ts-ignore
 import CardStatisticsVertical from '@/components/CardStatisticsVertical.vue';
+// @ts-ignore
 import ProposalListItem from '@/components/ProposalListItem.vue';
+// @ts-ignore
 import ArrayObjectElement from '@/components/dynamic/ArrayObjectElement.vue';
 
 const props = defineProps(['chain']);
@@ -200,15 +204,13 @@ const amount = computed({
 
         <div class="grid grid-cols-2 gap-4 px-4 pb-6 mt-4">
           <!--<label for="PingTokenConvert" class="btn btn-primary rounded-full text-white">{{ $t('index.btn_swap') }}</label>-->
-          <RouterLink
-            class="btn btn-sm btn-neutral rounded-full text-white"
-            to="/wallet/receive"
+          <RouterLink class="btn btn-sm btn-primary" to="/wallet/receive"
             >{{ $t('index.receive') }}
             <Icon icon="uil:arrow-down" class="ml-2 text-xl" />
           </RouterLink>
           <label
             for="bank_send"
-            class="btn btn-sm btn-neutral !text-white"
+            class="btn btn-sm btn-primary"
             @click="dialog.open('bank_send', {}, updateState)"
             >{{ $t('account.btn_send') }}
             <Icon icon="uil:arrow-up-right" class="ml-2 text-xl" />

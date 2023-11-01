@@ -97,10 +97,10 @@ function pageload() {
             Place A Bid
           </label>
           <label
-            for="mns_addrecord"
+            for="mns_add_record"
             class="btn btn-primary btn-sm rounded-full text-white dark:text-black"
             @click="
-              dialog.open('mns_addrecord', { name: domainName }, updateState)
+              dialog.open('mns_add_record', { name: domainName }, updateState)
             "
             v-if="domainInfo.value === walletStore.currentAddress"
           >

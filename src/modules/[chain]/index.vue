@@ -198,7 +198,7 @@ const amount = computed({
           </div>
         </div>
 
-        <div class="grid grid-cols-3 gap-4 px-4 pb-6 mt-4">
+        <div class="grid grid-cols-2 gap-4 px-4 pb-6 mt-4">
           <!--<label for="PingTokenConvert" class="btn btn-primary rounded-full text-white">{{ $t('index.btn_swap') }}</label>-->
           <RouterLink
             class="btn btn-sm btn-primary rounded-full text-white"
@@ -210,17 +210,6 @@ const amount = computed({
             class="btn btn-sm btn-primary rounded-full !text-white"
             @click="dialog.open('bank_send', {}, updateState)"
             >{{ $t('account.btn_send') }}</label
-          >
-          <label
-            for="staking_delegate"
-            class="btn btn-sm btn-primary rounded-full text-white"
-            @click="dialog.open('staking_delegate', {}, updateState)"
-            >{{ $t('account.btn_delegate') }}</label
-          >
-          <RouterLink
-            to="/wallet/receive"
-            class="btn !btn-sm !btn-primary rounded-full text-white hidden"
-            >{{ $t('index.receive') }}</RouterLink
           >
         </div>
         <Teleport to="body">
@@ -286,7 +275,7 @@ const amount = computed({
                   <div>
                     <label
                       for="staking_delegate"
-                      class="btn !btn-xs !btn-primary rounded-full mr-2"
+                      class="btn !btn-xs !btn-primary mr-2"
                       @click="
                         dialog.open(
                           'staking_delegate',
@@ -301,11 +290,11 @@ const amount = computed({
                       {{ $t('account.btn_delegate') }}
                     </label>
                     <label
-                      for="withdraw"
-                      class="btn !btn-xs !btn-primary rounded-full"
+                      for="staking_withdraw"
+                      class="btn !btn-xs !btn-primary"
                       @click="
                         dialog.open(
-                          'withdraw',
+                          'staking_withdraw',
                           {
                             validator_address:
                               item.delegation.validator_address,

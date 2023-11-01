@@ -167,11 +167,11 @@ function updateEvent() {
             >{{ $t('account.btn_send') }}</label
           >
           <label
-            for="bank_transfer"
+            for="ibc_transfer"
             class="btn btn-primary btn-sm rounded-full"
             @click="
               dialog.open(
-                'bank_transfer',
+                'ibc_transfer',
                 {
                   chain_name: blockchain.current?.prettyName,
                 },

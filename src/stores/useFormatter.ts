@@ -400,6 +400,13 @@ export const useFormatter = defineStore('formatter', {
         return `${address.substring(0, 8)}...${address.substring(address.length -4)}`
       }
       return ""
+    },
+    shortTokenDenom(denom: string) {
+      const parts = denom.split('-')
+      if(parts[1] && parts[1].length > 4) {
+        return `${parts[0]}-${parts[1].substring(0, 8)}...${parts[1].substring(parts[1].length -4)}`
+      }
+      return denom
     }
   },
 });

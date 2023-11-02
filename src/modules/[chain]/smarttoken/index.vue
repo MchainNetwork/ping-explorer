@@ -76,9 +76,10 @@ function pageload(p: number) {
             <IdentityIcon size="small" :address="item.denom" />
             <RouterLink
               :to="'/mchain/smarttoken/' + item.denom"
-              class="hover:underline text-sm ml-2"
-              >{{ item.denom }}</RouterLink
+              class="hover:underline ml-2"
             >
+              {{ format.shortTokenDenom(item.denom) }}
+            </RouterLink>
           </td>
           <td width="10%" class="uppercase">{{ item.meta_data.symbol }}</td>
           <td>{{ item.meta_data.name }}</td>

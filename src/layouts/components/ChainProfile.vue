@@ -49,7 +49,7 @@ function changeEndpoint(item: Endpoint) {
     </label>
     <div
       tabindex="0"
-      class="dropdown-content -left-6 w-80 menu shadow bg-base-200 rounded-box overflow-auto"
+      class="dropdown-content -left-6 w-80 menu shadow bg-base-100 rounded-box overflow-auto"
     >
       <!-- rest -->
 
@@ -97,13 +97,13 @@ function changeEndpoint(item: Endpoint) {
       <!-- bottom-->
       <div class="px-4 py-2"></div>
       <RouterLink
-        class="btn btn-primary btn-sm rounded-full text-white mb-2"
+        class="btn btn-sm mb-2"
         :to="`/${chainStore.current?.chainName}/block`"
       >
         {{ $t('module.blocks') }}
       </RouterLink>
       <RouterLink
-        class="btn btn-primary btn-sm rounded-full text-white"
+        class="btn btn-sm"
         :to="`/${chainStore.current?.chainName}/params`"
       >
         {{ $t('module.parameters') }}

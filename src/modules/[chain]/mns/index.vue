@@ -246,7 +246,7 @@ function checkDomainAvailable(domain: string) {
 
       <RouterLink
         :to="`/${chain}/mns/owned`"
-        class="btn btn-xs btn-primary rounded-full mb-4"
+        class="btn btn-xs btn-primary mb-4"
       >
         Your Domains
       </RouterLink>
@@ -324,7 +324,7 @@ function checkDomainAvailable(domain: string) {
         <RouterLink
           v-if="list.length >= 10"
           :to="'/mchain/mns/registered'"
-          class="btn btn-primary btn-xs btn-outline rounded-full w-full mt-4"
+          class="btn btn-primary btn-xs btn-outline w-full mt-4"
         >
           See All
         </RouterLink>
@@ -366,7 +366,7 @@ function checkDomainAvailable(domain: string) {
               <label
                 v-if="item.owner != walletStore.currentAddress"
                 for="mns_buy"
-                class="btn btn-primary btn-xs w-full rounded-full text-white"
+                class="btn btn-primary btn-xs w-full text-white"
                 @click="
                   dialog.open('mns_buy', { name: item.name }, updateState)
                 "
@@ -376,7 +376,7 @@ function checkDomainAvailable(domain: string) {
               <label
                 v-if="item.owner == walletStore.currentAddress"
                 for="mns_delist"
-                class="btn btn-success btn-xs w-full rounded-full"
+                class="btn btn-success btn-xs w-full"
                 @click="
                   dialog.open('mns_delist', { name: item.name }, updateState)
                 "
@@ -389,7 +389,7 @@ function checkDomainAvailable(domain: string) {
         <RouterLink
           v-if="listForSale.length >= 10"
           :to="'/mchain/mns/forsale'"
-          class="btn btn-primary btn-xs btn-outline rounded-full w-full mt-4"
+          class="btn btn-primary btn-xs btn-outline w-full mt-4"
         >
           See All
         </RouterLink>
@@ -431,7 +431,7 @@ function checkDomainAvailable(domain: string) {
               <label
                 v-if="item.bidder != walletStore.currentAddress"
                 for="mns_bid"
-                class="btn btn-primary btn-xs w-full rounded-full"
+                class="btn btn-primary btn-xs"
                 @click="
                   dialog.open('mns_bid', { name: item.name }, updateState)
                 "
@@ -441,7 +441,7 @@ function checkDomainAvailable(domain: string) {
               <label
                 v-if="item.bidder == walletStore.currentAddress"
                 for="mns_cancel_bid"
-                class="btn btn-success btn-xs w-full rounded-full"
+                class="btn btn-success btn-xs"
                 @click="
                   dialog.open(
                     'mns_cancel_bid',
@@ -458,7 +458,7 @@ function checkDomainAvailable(domain: string) {
         <RouterLink
           v-if="listBid.length >= 10"
           :to="'/mchain/mns/bids'"
-          class="btn btn-primary btn-xs btn-outline rounded-full w-full mt-4"
+          class="btn btn-primary btn-xs btn-outline w-full mt-4"
         >
           See All
         </RouterLink>

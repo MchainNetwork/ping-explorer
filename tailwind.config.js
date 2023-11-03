@@ -12,7 +12,7 @@ module.exports = {
         light: {
           'color-scheme': 'light',
           primary: '#0099bf',
-          'primary-content': '#E0D2FE',
+          'primary-content': '#ffffff',
           secondary: '#f000b8',
           'secondary-content': '#FFD1F4',
           accent: '#1ECEBC',

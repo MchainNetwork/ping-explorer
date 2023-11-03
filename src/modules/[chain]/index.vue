@@ -150,7 +150,7 @@ const amount = computed({
         <div
           class="flex items-center px-4 pt-4 pb-4 text-lg font-semibold text-main"
         >
-          <IdentityIcon size="small" :address="walletStore.currentAddress" />
+          <IdentityIcon size="sm" :address="walletStore.currentAddress" />
           <RouterLink
             class="ml-2 cursor-pointer link link-primary no-underline font-medium"
             :to="`/${chain}/account/${walletStore.currentAddress}`"

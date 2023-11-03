@@ -51,7 +51,7 @@ const tipMsg = computed(() => {
       tabindex="0"
       class="btn btn-sm pl-1 pr-3 hover:dark:bg-[#1e3b47] m-1 !inline-flex text-sm md:!text-md"
     >
-      <IdentityIcon size="small" :address="walletStore.currentAddress" />
+      <IdentityIcon size="xs" :address="walletStore.currentAddress" />
       <span class="hidden ml-1 md:block">
         {{ walletStore.shortAddress || 'Wallet' }}</span
       >
@@ -70,7 +70,7 @@ const tipMsg = computed(() => {
           @click="copyAdress(walletStore.currentAddress)"
         >
           <IdentityIcon
-            size="small"
+            size="xs"
             class="mr-2"
             :address="walletStore.currentAddress"
           />

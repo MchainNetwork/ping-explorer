@@ -555,7 +555,7 @@ const filteredList = computed(() => {
                       </div>
                       <IdentityIcon
                         v-else
-                        size="large"
+                        size="lg"
                         :address="v.operator_address"
                       />
                     </div>

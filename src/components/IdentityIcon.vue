@@ -1,9 +1,20 @@
 <template>
-  <div ref="iconContainer" class="rounded-full" :style="iconStyle"></div>
+  <div
+    ref="iconContainer"
+    class="rounded-full text-white font-bold flex justify-center items-center"
+    :style="iconStyle"
+  >
+    <div
+      class="flex justify-center items-center w-full h-full"
+      :class="sizeClass"
+    >
+      {{ formattedCharacter }}
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
+import { defineComponent, ref, onMounted, computed } from 'vue';
 import { picasso } from '../libs/picasso';
 
 interface IconStyle {
@@ -16,6 +27,10 @@ interface IconStyle {
 
 export default defineComponent({
   props: {
+    text: {
+      type: String,
+      default: '',
+    },
     address: {
       type: String,
       required: true,
@@ -30,9 +45,9 @@ export default defineComponent({
     },
     size: {
       type: String,
-      default: '',
+      default: 'md', // Default size
       validator: (value: string) =>
-        ['small', 'medium', 'large', ''].includes(value),
+        ['xs', 'sm', 'md', 'lg', 'xl', ''].includes(value),
     },
   },
   setup(props) {
@@ -42,35 +57,39 @@ export default defineComponent({
       backgroundSize: 'cover',
     });
 
+    const formattedCharacter = computed(() => {
+      return props.text.charAt(0).toUpperCase();
+    });
+
+    const sizeClass = computed(() => {
+      // Map the size prop to the corresponding Tailwind text size class
+      const sizeMap: { [key: string]: string } = {
+        xs: 'text-xs',
+        sm: 'text-lg',
+        md: 'text-3xl',
+        lg: 'text-4xl',
+        xl: 'text-6xl',
+      };
+      return sizeMap[props.size] || '';
+    });
+
     onMounted(() => {
       const svg = picasso(props.address);
       iconStyle.value.background = `no-repeat url('data:image/svg+xml;utf8,${svg}')`;
 
-      switch (props.size) {
-        case 'xs':
-          iconStyle.value.width = '16px';
-          iconStyle.value.height = '16px';
-          break;
-        case 'small':
-          iconStyle.value.width = '24px';
-          iconStyle.value.height = '24px';
-          break;
-        case 'medium':
-          iconStyle.value.width = '50px';
-          iconStyle.value.height = '50px';
-          break;
-        case 'large':
-          iconStyle.value.width = '80px';
-          iconStyle.value.height = '80px';
-          break;
-        default:
-          iconStyle.value.width = props.width;
-          iconStyle.value.height = props.height;
-          break;
-      }
+      // Set the width and height based on the size prop
+      const sizeToDimensionMap: { [key: string]: string } = {
+        xs: '24px',
+        sm: '32px',
+        md: '48px',
+        lg: '64px',
+        xl: '96px',
+      };
+      iconStyle.value.width = sizeToDimensionMap[props.size] || props.width;
+      iconStyle.value.height = sizeToDimensionMap[props.size] || props.height;
     });
 
-    return { iconStyle };
+    return { iconStyle, formattedCharacter, sizeClass };
   },
 });
 </script>

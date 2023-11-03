@@ -72,7 +72,11 @@ onMounted(() => {
   <div class="overflow-auto mx-auto max-w-screen-lg" v-if="hasMetaData">
     <div class="flex justify-between items-center m-4 mb-6">
       <div class="flex gap-4">
-        <IdentityIcon size="medium" :address="tokenInfo.denom" />
+        <IdentityIcon
+          :text="tokenInfo.meta_data.symbol"
+          size="md"
+          :address="tokenInfo.denom"
+        />
         <div>
           <h2 class="text-xl flex font-bold text-base">
             {{ tokenInfo.meta_data.name }} ({{

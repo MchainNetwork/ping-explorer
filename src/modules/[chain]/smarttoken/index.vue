@@ -58,7 +58,7 @@ function pageload(p: number) {
       </div>
     </div>
 
-    <div class="bg-base-100 p-4 rounded-xl">
+    <div class="bg-base-100 p-4 rounded-3xl">
       <table class="table table-compact text-base">
         <thead>
           <tr>
@@ -73,7 +73,11 @@ function pageload(p: number) {
           class="hover:bg-gray-200 dark:hover:bg-gray-700"
         >
           <td class="truncate flex" width="80%">
-            <IdentityIcon size="small" :address="item.denom" />
+            <IdentityIcon
+              :text="item.meta_data.symbol"
+              size="sm"
+              :address="item.denom"
+            />
             <RouterLink
               :to="'/mchain/smarttoken/' + item.denom"
               class="hover:underline ml-2"

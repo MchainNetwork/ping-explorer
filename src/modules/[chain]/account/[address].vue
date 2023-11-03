@@ -5,6 +5,7 @@ import {
   useStakingStore,
   useTxDialog,
 } from '@/stores';
+// @ts-ignore
 import DynamicComponent from '@/components/dynamic/DynamicComponent.vue';
 import DonutChart from '@/components/charts/DonutChart.vue';
 import { computed, ref } from '@vue/reactivity';
@@ -21,6 +22,7 @@ import type {
   MnsNames,
 } from '@/types';
 import type { Coin } from '@cosmjs/amino';
+//@ts-ignore
 import Countdown from '@/components/Countdown.vue';
 
 const props = defineProps(['address', 'chain']);
@@ -38,9 +40,11 @@ const unbonding = ref([] as UnbondingResponses[]);
 const unbondingTotal = ref(0);
 const domains = ref([] as MnsNames[]);
 const chart = {};
+
 onMounted(() => {
   loadAccount(props.address);
 });
+
 const totalAmountByCategory = computed(() => {
   let sumDel = 0;
   delegations.value?.forEach((x) => {
@@ -129,7 +133,7 @@ function updateEvent() {
   <div v-if="account" class="overflow-hidden mx-auto max-w-screen-lg">
     <h1 class="text-4xl font-bold mb-4 p-4">Account</h1>
     <!-- address -->
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
       <div class="flex items-center">
         <!-- img -->
         <div class="inline-flex relative w-11 h-11 rounded-md">
@@ -155,9 +159,10 @@ function updateEvent() {
     </div>
 
     <!-- Assets -->
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
+    <h2 class="card-title p-4 mb-4">{{ $t('account.assets') }}</h2>
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
       <div class="flex justify-between">
-        <h2 class="card-title mb-4">{{ $t('account.assets') }}</h2>
+        <div></div>
         <!-- button -->
         <div class="flex justify-end mb-4 pr-5">
           <label
@@ -183,9 +188,11 @@ function updateEvent() {
         </div>
       </div>
       <div class="grid md:!grid-cols-3">
+        <!--
         <div class="md:!col-span-1">
           <DonutChart :series="totalAmountByCategory" :labels="labels" />
         </div>
+        -->
         <div class="mt-4 md:!col-span-2 md:!mt-0 md:!ml-4">
           <!-- list-->
           <div class="">
@@ -207,18 +214,22 @@ function updateEvent() {
                 <div class="text-sm font-semibold">
                   {{ format.formatToken(balanceItem) }}
                 </div>
-                <div class="text-xs">
-                  {{ format.calculatePercent(balanceItem.amount, totalAmount) }}
-                </div>
               </div>
-              <div
-                class="text-xs truncate relative py-1 px-3 rounded-full w-fit text-primary mr-2"
+              <!--
+              <label
+                for="bank_send"
+                class="btn btn-primary btn-sm mx-2"
+                @click="
+                  dialog.open(
+                    'bank_send',
+                    { denom: balanceItem.denom },
+                    updateEvent
+                  )
+                "
               >
-                <span
-                  class="inset-x-0 inset-y-0 opacity-10 absolute bg-primary text-sm"
-                ></span>
-                ${{ format.tokenValue(balanceItem) }}
-              </div>
+                {{ $t('account.btn_send') }}
+              </label>
+              -->
             </div>
             <!--delegations  -->
             <div
@@ -238,22 +249,6 @@ function updateEvent() {
                 <div class="text-sm font-semibold">
                   {{ format.formatToken(delegationItem?.balance) }}
                 </div>
-                <div class="text-xs">
-                  {{
-                    format.calculatePercent(
-                      delegationItem?.balance?.amount,
-                      totalAmount
-                    )
-                  }}
-                </div>
-              </div>
-              <div
-                class="text-xs truncate relative py-1 px-3 rounded-full w-fit text-primary mr-2"
-              >
-                <span
-                  class="inset-x-0 inset-y-0 opacity-10 absolute bg-primary dark:invert text-sm"
-                ></span>
-                ${{ format.tokenValue(delegationItem?.balance) }}
               </div>
             </div>
             <!-- rewards.total -->
@@ -278,17 +273,6 @@ function updateEvent() {
                 <div class="text-sm font-semibold">
                   {{ format.formatToken(rewardItem) }}
                 </div>
-                <div class="text-xs">
-                  {{ format.calculatePercent(rewardItem.amount, totalAmount) }}
-                </div>
-              </div>
-              <div
-                class="text-xs truncate relative py-1 px-3 rounded-full w-fit text-primary mr-2"
-              >
-                <span
-                  class="inset-x-0 inset-y-0 opacity-10 absolute bg-primary dark:invert text-sm"
-                ></span
-                >${{ format.tokenValue(rewardItem) }}
               </div>
             </div>
             <!-- mdi-account-arrow-right -->
@@ -314,37 +298,16 @@ function updateEvent() {
                     })
                   }}
                 </div>
-                <div class="text-xs">
-                  {{ format.calculatePercent(unbondingTotal, totalAmount) }}
-                </div>
-              </div>
-              <div
-                class="text-xs truncate relative py-1 px-3 rounded-full w-fit text-primary mr-2"
-              >
-                <span
-                  class="inset-x-0 inset-y-0 opacity-10 absolute bg-primary dark:invert"
-                ></span>
-                ${{
-                  format.tokenValue({
-                    amount: String(unbondingTotal),
-                    denom: stakingStore.params.bond_denom,
-                  })
-                }}
               </div>
             </div>
-          </div>
-          <div
-            class="mt-4 text-lg font-semibold mr-5 pl-5 border-t pt-4 text-right"
-          >
-            {{ $t('account.total_value') }}: ${{ totalValue }}
           </div>
         </div>
       </div>
     </div>
 
     <!-- Domains -->
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
-      <h2 class="card-title mb-4">{{ $t('account.domains') }}</h2>
+    <h2 class="card-title p-4 mb-4">{{ $t('account.domains') }}</h2>
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
       <div class="overflow-x-auto">
         <table class="table w-full text-sm">
           <thead>
@@ -385,9 +348,10 @@ function updateEvent() {
     </div>
 
     <!-- Delegations -->
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
+    <h2 class="card-title p-4 mb-4">{{ $t('account.delegations') }}</h2>
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
       <div class="flex justify-between">
-        <h2 class="card-title mb-4">{{ $t('account.delegations') }}</h2>
+        <div></div>
         <div class="flex justify-end mb-4">
           <label
             for="staking_delegate"
@@ -498,11 +462,13 @@ function updateEvent() {
     </div>
 
     <!-- Unbonding Delegations -->
+    <h2 class="card-title p-4 mb-4">
+      {{ $t('account.unbonding_delegations') }}
+    </h2>
     <div
-      class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4"
+      class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4"
       v-if="unbonding && unbonding.length > 0"
     >
-      <h2 class="card-title mb-4">{{ $t('account.unbonding_delegations') }}</h2>
       <div class="overflow-x-auto">
         <table class="table text-sm w-full">
           <thead>
@@ -524,7 +490,7 @@ function updateEvent() {
                 }}</RouterLink>
               </td>
             </tr>
-            <tr v-for="entry in v.entries">
+            <tr :key="index" v-for="(entry, index) in v.entries">
               <td class="py-3">{{ entry.creation_height }}</td>
               <td class="py-3">
                 {{
@@ -565,8 +531,8 @@ function updateEvent() {
     </div>
 
     <!-- Transactions -->
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
-      <h2 class="card-title mb-4">{{ $t('account.transactions') }}</h2>
+    <h2 class="card-title p-4 mb-4">{{ $t('account.transactions') }}</h2>
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
       <div class="overflow-x-auto">
         <table class="table w-full text-sm">
           <thead>
@@ -625,8 +591,8 @@ function updateEvent() {
     </div>
 
     <!-- Account -->
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
-      <h2 class="card-title mb-4">{{ $t('account.acc') }}</h2>
+    <h2 class="card-title p-4 mb-4">{{ $t('account.acc') }}</h2>
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
       <DynamicComponent :value="account" />
     </div>
   </div>

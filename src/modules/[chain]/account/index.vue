@@ -69,7 +69,7 @@ function showPubkey(v: any) {
             <td width="50%">{{ $t('account.type') }}</td>
           </tr>
         </thead>
-        <tr :key="acc" v-for="acc in accounts">
+        <tr :key="index" v-for="(acc, index) in accounts">
           <td class="flex items-center">
             <IdentityIcon size="sm" :address="showAddress(acc)" class="mr-4" />
             <RouterLink

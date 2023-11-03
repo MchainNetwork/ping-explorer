@@ -188,61 +188,98 @@ onMounted(() => {
     </div>
 
     <div class="bg-base-100 p-6 rounded-xl">
-      <h1 class="text-2xl font-bold mb-4"></h1>
-
-      <div class="mb-4">
-        <h2 class="text-xl font-semibold mb-2">
+      <div class="mb-8">
+        <h2 class="text-xl px-2 font-semibold mb-4">
           {{ $t('smarttoken.smart_token_details') }}
         </h2>
-        <div class="flex flex-col">
-          <p>
-            <strong>{{ $t('smarttoken.denom') }}:</strong>
-            {{ tokenInfo.denom }}
-          </p>
-          <p>
-            <strong>{{ $t('smarttoken.current_supply') }}:</strong>
-            {{ supply?.amount }} {{ subunit }}
-          </p>
-          <p>
-            <strong>{{ $t('smarttoken.max_supply') }}:</strong>
-            {{
-              tokenInfo.max_supply === '0'
-                ? $t('smarttoken.unlimited')
-                : tokenInfo.max_supply + ' ' + subunit
-            }}
-          </p>
-          <p>
-            <strong>{{ $t('smarttoken.minter') }}:</strong>
-            {{ tokenInfo.minter }}
-          </p>
+        <div class="overflow-x-auto">
+          <table class="table border w-full">
+            <tbody>
+              <!-- row 1 -->
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.denom') }}</strong>
+                </td>
+                <td>{{ tokenInfo.denom }}</td>
+              </tr>
+              <!-- row 2 -->
+              <tr>
+                <td>
+                  <strong>{{ $t('smarttoken.current_supply') }}</strong>
+                </td>
+                <td>{{ supply?.amount }} {{ subunit }}</td>
+              </tr>
+              <!-- row 3 -->
+              <tr>
+                <td>
+                  <strong>{{ $t('smarttoken.max_supply') }}</strong>
+                </td>
+                <td>
+                  {{
+                    tokenInfo.max_supply === '0'
+                      ? $t('smarttoken.unlimited')
+                      : tokenInfo.max_supply + ' ' + subunit
+                  }}
+                </td>
+              </tr>
+              <!-- row 4 -->
+              <tr>
+                <td>
+                  <strong>{{ $t('smarttoken.minter') }}</strong>
+                </td>
+                <td>{{ tokenInfo.minter }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <div class="mb-4">
-        <h2 class="text-xl font-semibold mb-2">
+      <div class="mb-8">
+        <h2 class="text-xl px-2 font-semibold mb-4">
           {{ $t('smarttoken.meta_data') }}
         </h2>
-        <div class="flex flex-col">
-          <p>
-            <strong>{{ $t('smarttoken.name') }}:</strong>
-            {{ tokenInfo.meta_data.name }}
-          </p>
-          <p>
-            <strong>{{ $t('smarttoken.symbol') }}:</strong>
-            {{ tokenInfo.meta_data.symbol.toUpperCase() }}
-          </p>
-          <p>
-            <strong>{{ $t('smarttoken.decimals') }}:</strong>
-            {{ tokenInfo.meta_data.decimals }}
-          </p>
-          <p>
-            <strong>{{ $t('smarttoken.authority') }}:</strong>
-            {{ tokenInfo.meta_data.authority }}
-          </p>
-          <p>
-            <strong>{{ $t('smarttoken.uri') }}:</strong>
-            {{ tokenInfo.meta_data.uri ? tokenInfo.meta_data.uri : '-' }}
-          </p>
+        <div class="overflow-x-auto">
+          <table class="table border w-full">
+            <tbody>
+              <!-- row 1 -->
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.name') }}</strong>
+                </td>
+                <td>{{ tokenInfo.meta_data.name }}</td>
+              </tr>
+              <!-- row 2 -->
+              <tr>
+                <td>
+                  <strong>{{ $t('smarttoken.symbol') }}</strong>
+                </td>
+                <td>{{ tokenInfo.meta_data.symbol.toUpperCase() }}</td>
+              </tr>
+              <!-- row 3 -->
+              <tr>
+                <td>
+                  <strong>{{ $t('smarttoken.decimals') }}</strong>
+                </td>
+                <td>{{ tokenInfo.meta_data.decimals }}</td>
+              </tr>
+              <!-- row 4 -->
+              <tr>
+                <td>
+                  <strong>{{ $t('smarttoken.authority') }}</strong>
+                </td>
+                <td>{{ tokenInfo.meta_data.authority }}</td>
+              </tr>
+              <!-- row 5 -->
+              <tr>
+                <td>
+                  <strong>{{ $t('smarttoken.uri') }}</strong>
+                </td>
+                <td>
+                  {{ tokenInfo.meta_data.uri ? tokenInfo.meta_data.uri : '-' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 

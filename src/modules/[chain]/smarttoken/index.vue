@@ -99,6 +99,7 @@ function pageload(p: number) {
         </tr>
       </table>
       <PaginationBar
+        v-if="pageResponse.total > list.length"
         :limit="pageRequest.limit"
         :total="pageResponse.total"
         :callback="pageload"

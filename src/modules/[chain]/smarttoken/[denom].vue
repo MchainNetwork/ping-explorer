@@ -18,6 +18,7 @@ const smartTokenStore = useSmartTokenStore();
 const blockchain = useBlockchain();
 const dialog = useTxDialog();
 const mnsStore = useMnsStore();
+const format = useFormatter();
 
 let denom: string = props.denom;
 let tokenInfo = ref({} as any);
@@ -219,8 +220,14 @@ onMounted(() => {
           {{ $t('smarttoken.token_identification') }}
         </h2>
         <div class="overflow-x-auto">
-          <table class="table border w-full">
+          <table class="table table-compact w-full">
             <tbody>
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.denom') }}</strong>
+                </td>
+                <td>{{ tokenInfo.denom }}</td>
+              </tr>
               <tr>
                 <td width="30%">
                   <strong>{{ $t('smarttoken.name') }}</strong>
@@ -233,12 +240,6 @@ onMounted(() => {
                 </td>
                 <td>{{ tokenInfo.symbol.toUpperCase() }}</td>
               </tr>
-              <tr>
-                <td width="30%">
-                  <strong>{{ $t('smarttoken.denom') }}</strong>
-                </td>
-                <td>{{ tokenInfo.denom }}</td>
-              </tr>
             </tbody>
           </table>
         </div>
@@ -250,7 +251,7 @@ onMounted(() => {
           {{ $t('smarttoken.token_economics') }}
         </h2>
         <div class="overflow-x-auto">
-          <table class="table border w-full">
+          <table class="table table-compact w-full">
             <tbody>
               <tr>
                 <td width="30%">
@@ -287,19 +288,19 @@ onMounted(() => {
           {{ $t('smarttoken.token_management') }}
         </h2>
         <div class="overflow-x-auto">
-          <table class="table border w-full">
+          <table class="table table-compact w-full">
             <tbody>
-              <tr>
-                <td width="30%">
-                  <strong>{{ $t('smarttoken.minter') }}</strong>
-                </td>
-                <td>{{ minterName || tokenInfo.minter }}</td>
-              </tr>
               <tr>
                 <td width="30%">
                   <strong>{{ $t('smarttoken.authority') }}</strong>
                 </td>
                 <td>{{ authorityName || tokenInfo.authority }}</td>
+              </tr>
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.minter') }}</strong>
+                </td>
+                <td>{{ minterName || tokenInfo.minter }}</td>
               </tr>
               <tr>
                 <td width="30%" class="align-top">
@@ -308,12 +309,11 @@ onMounted(() => {
                 <td class="p-0">
                   <table class="table table-compact w-full">
                     <tbody>
-                      <!-- Repeat this block for each feature in the TokenFeature_name map -->
                       <tr
                         v-for="(featureName, featureId) in TokenFeature_name"
                         :key="featureId"
                       >
-                        <td class="w-6">
+                        <td class="w-6 p-2">
                           <Icon
                             v-if="tokenInfo.features.includes(featureName)"
                             icon="uil:check"
@@ -325,9 +325,10 @@ onMounted(() => {
                             class="text-error text-3xl"
                           ></Icon>
                         </td>
-                        <td>{{ $t(`smarttoken.${featureName}`) }}</td>
+                        <td class="pl-2">
+                          {{ $t(`smarttoken.${featureName}`) }}
+                        </td>
                       </tr>
-                      <!-- End of block -->
                     </tbody>
                   </table>
                 </td>
@@ -343,20 +344,32 @@ onMounted(() => {
           {{ $t('smarttoken.token_rates') }}
         </h2>
         <div class="overflow-x-auto">
-          <table class="table border w-full">
+          <table class="table table-compact w-full">
             <tbody>
               <tr>
                 <td width="30%">
                   <strong>{{ $t('smarttoken.send_burn_rate') }}</strong>
                 </td>
-                <td>{{ tokenInfo.sendBurnRate || '-' }}</td>
+                <td>
+                  {{
+                    format.calculatePercent(
+                      tokenInfo.send_burn_rate * 100,
+                      100
+                    ) || '-'
+                  }}
+                </td>
               </tr>
               <tr>
                 <td width="30%">
                   <strong>{{ $t('smarttoken.send_commission_rate') }}</strong>
                 </td>
                 <td>
-                  {{ tokenInfo.sendCommissionRate || '-' }}
+                  {{
+                    format.calculatePercent(
+                      tokenInfo.send_commission_rate * 100,
+                      100
+                    ) || '-'
+                  }}
                 </td>
               </tr>
             </tbody>
@@ -370,7 +383,7 @@ onMounted(() => {
           {{ $t('smarttoken.additional_information') }}
         </h2>
         <div class="overflow-x-auto">
-          <table class="table border w-full">
+          <table class="table table-compact w-full">
             <tbody>
               <tr>
                 <td width="30%">
@@ -382,10 +395,10 @@ onMounted(() => {
           </table>
         </div>
         <pre
-          class="bg-gray-100 dark:bg-[#384059] text-base p-4 rounded overflow-x-auto"
+          class="bg-gray-100 dark:bg-[#384059] text-sm p-4 rounded-3xl overflow-x-auto"
         >
-      <code>{{ JSON.stringify(additionalData, null, 2) }}</code>
-    </pre>
+<code>{{ JSON.stringify(additionalData, null, 2) }}</code>
+</pre>
       </div>
     </div>
   </div>

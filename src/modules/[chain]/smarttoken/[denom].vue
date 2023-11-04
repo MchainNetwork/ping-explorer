@@ -11,7 +11,7 @@ import { onMounted, ref, computed } from 'vue';
 import { Icon } from '@iconify/vue';
 import IdentityIcon from '@/components/IdentityIcon.vue';
 
-const props = defineProps(['denom']);
+const props = defineProps(['denom', 'chain']);
 
 const walletStore = useWalletStore();
 const smartTokenStore = useSmartTokenStore();

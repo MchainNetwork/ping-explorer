@@ -30,7 +30,7 @@ const mnsStore = useMnsStore();
 const baseStore = useBaseStore();
 
 const list = ref([] as MnsNames[]);
-const reverse = ref([] as MnsReverses[]);
+const reverse = ref({} as MnsReverses);
 
 const pageRequest = ref(new PageRequest());
 const pageResponse = ref({} as Pagination);

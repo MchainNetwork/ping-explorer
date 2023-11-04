@@ -14,7 +14,7 @@ import {
   PageRequest,
   type GovProposal,
   type GovVote,
-  type PaginatedProposalDeposit,
+  type ProposalDeposit,
   type Pagination,
 } from '@/types';
 import { ref, reactive } from 'vue';
@@ -61,20 +61,33 @@ const status = computed(() => {
   return '';
 });
 
-const deposit = ref({} as PaginatedProposalDeposit);
-store.fetchProposalDeposits(props.proposal_id).then((x) => (deposit.value = x));
+const deposits = ref([] as ProposalDeposit[]);
+store
+  .fetchProposalDeposits(props.proposal_id)
+  .then((x) => (deposits.value = x.deposits));
+
+const bondDenom = 'umark';
 
 const totalDeposited = computed(() => {
-  if (Array.isArray(deposit.value.deposits)) {
-    return deposit.value.deposits.reduce((total, deposit) => {
-      const amount = deposit.amount.reduce(
-        (sum, { amount }) => sum + parseInt(amount),
-        0
-      );
-      return { amount: total + amount, denom: deposit.amount[0].denom };
-    }, 0);
+  if (Array.isArray(deposits.value) && deposits.value.length > 0) {
+    return deposits.value.reduce(
+      (total, deposit) => {
+        const validAmounts = deposit.amount.filter(
+          (coin) => coin.denom === bondDenom
+        );
+        const depositTotal = validAmounts.reduce(
+          (sum, coin) => sum + parseInt(coin.amount),
+          0
+        );
+        return {
+          amount: depositTotal.toString(),
+          denom: bondDenom,
+        };
+      },
+      { amount: '0', denom: bondDenom }
+    );
   }
-  return 0;
+  return { amount: '0', denom: bondDenom };
 });
 
 const votes = ref({} as GovVote[]);
@@ -419,10 +432,7 @@ function pageload(p: number) {
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="depositItem in deposit.deposits"
-              :key="depositItem.depositor"
-            >
+            <tr v-for="depositItem in deposits" :key="depositItem.depositor">
               <td class="py-2 text-sm">
                 {{ depositItem.depositor }}
               </td>
@@ -484,7 +494,9 @@ function pageload(p: number) {
           </tbody>
         </table>
         <PaginationBar
-          v-if="pageResponse.total > votes.length"
+          v-if="
+            pageResponse.total && parseInt(pageResponse.total) > votes.length
+          "
           :limit="pageRequest.limit"
           :total="pageResponse.total"
           :callback="pageload"

@@ -19,7 +19,7 @@ import { onMounted } from 'vue';
 import IdentityIcon from '@/components/IdentityIcon.vue';
 import { Icon } from '@iconify/vue';
 
-const props = defineProps(['domain']);
+const props = defineProps(['domain', 'chain']);
 
 const format = useFormatter();
 const walletStore = useWalletStore();

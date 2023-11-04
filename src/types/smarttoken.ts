@@ -8,16 +8,29 @@ export interface SmartTokenParams {
   }
 }
 
+export enum TokenFeature {
+  minting = 0,
+  burning = 1,
+  sending = 2,
+  free_send = 3,
+  whitelist = 4,
+  freezing = 5,
+}
+
 export interface SmartTokenDenom {
-  denom: string,
-  max_supply: string,
-  minter: string,
-  meta_data: {
-      name: string,
-      symbol: string,
-      uri: string,
-      authority: string
-  }
+  denom: string;
+  version: number;
+  admin: string;
+  name: string;
+  symbol: string;
+  decimals: string;
+  authority: string;
+  uri: string;
+  minter: string;
+  maxSupply: string;
+  sendBurnRate: string;
+  sendCommissionRate: string;
+  features: TokenFeature[];
 }
 
 export interface PaginatedSmartTokens extends PaginatedResponse{

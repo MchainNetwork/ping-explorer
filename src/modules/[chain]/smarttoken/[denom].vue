@@ -5,6 +5,7 @@ import {
   useSmartTokenStore,
   useWalletStore,
   useTxDialog,
+  useMnsStore,
 } from '@/stores';
 import { onMounted, ref, computed } from 'vue';
 import { Icon } from '@iconify/vue';
@@ -16,6 +17,7 @@ const walletStore = useWalletStore();
 const smartTokenStore = useSmartTokenStore();
 const blockchain = useBlockchain();
 const dialog = useTxDialog();
+const mnsStore = useMnsStore();
 
 let denom: string = props.denom;
 let tokenInfo = ref({} as any);
@@ -23,6 +25,9 @@ let supply = ref({} as any);
 let subunit = ref('');
 
 let additionalData = ref({} as any);
+
+const minterName = ref(false as boolean | string);
+const authorityName = ref(false as boolean | string);
 
 const TokenFeature_name = {
   0: 'minting',
@@ -59,6 +64,15 @@ function pageload() {
           })
           .catch((error) => console.error('Error fetching data:', error));
       }
+      if (res?.smarttoken?.minter) {
+        mnsStore.fetchMnsReverse(res.smarttoken.minter).then((x: any) => {
+          minterName.value = x.reverse?.name;
+        });
+      }
+
+      mnsStore.fetchMnsReverse(res.smarttoken.authority).then((x: any) => {
+        authorityName.value = x.reverse?.name;
+      });
 
       blockchain.rpc.getBankSupplyByDenom(denom).then((x) => {
         supply.value = x.amount;
@@ -279,20 +293,20 @@ onMounted(() => {
                 <td width="30%">
                   <strong>{{ $t('smarttoken.minter') }}</strong>
                 </td>
-                <td>{{ tokenInfo.minter }}</td>
+                <td>{{ minterName || tokenInfo.minter }}</td>
               </tr>
               <tr>
                 <td width="30%">
                   <strong>{{ $t('smarttoken.authority') }}</strong>
                 </td>
-                <td>{{ tokenInfo.authority }}</td>
+                <td>{{ authorityName || tokenInfo.authority }}</td>
               </tr>
               <tr>
                 <td width="30%" class="align-top">
                   <strong>{{ $t('smarttoken.features') }}</strong>
                 </td>
-                <td>
-                  <table class="table w-full">
+                <td class="p-0">
+                  <table class="table table-compact w-full">
                     <tbody>
                       <!-- Repeat this block for each feature in the TokenFeature_name map -->
                       <tr

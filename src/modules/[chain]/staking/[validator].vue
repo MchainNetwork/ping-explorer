@@ -9,6 +9,7 @@ import {
 import { onMounted, computed, ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import IdentityIcon from '@/components/IdentityIcon.vue';
+//@ts-ignore
 import CommissionRate from '@/components/ValidatorCommissionRate.vue';
 import {
   consensusPubkeyToHexAddress,
@@ -24,6 +25,7 @@ import {
   type PaginatedTxs,
   type Validator,
 } from '@/types';
+//@ts-ignore
 import PaginationBar from '@/components/PaginationBar.vue';
 
 const props = defineProps(['validator', 'chain']);
@@ -206,33 +208,33 @@ function pageload(p: number) {
         >
       </div>
     </div>
-    <div class="bg-base-100 px-4 pt-3 pb-4 mb-4 rounded-xl">
-      <div class="flex flex-col lg:!flex-row pt-2 pb-1" v-if="v">
-        <div class="flex-1">
-          <div class="flex">
-            <div class="avatar mr-4 relative w-24 rounded-lg overflow-hidden">
-              <div class="w-24 rounded-lg absolute opacity-10"></div>
-              <div class="w-24 rounded-full" v-if="identity">
-                <img
-                  v-if="avatars[identity] !== 'undefined'"
-                  v-lazy="logo(identity)"
-                  class="object-contain"
-                />
-              </div>
-              <IdentityIcon
-                v-if="v.operator_address && !identity"
-                width="24"
-                height="24"
-                :address="v?.operator_address || ''"
-              />
-            </div>
-            <div class="mx-2 flex-1">
-              <h4 class="font-bold text-2xl">{{ v.description?.moniker }}</h4>
-              <div class="text-sm mb-4" v-if="v.description?.identity">
-                {{ v.description?.identity || '-' }}
-              </div>
-            </div>
+    <div class="bg-base-100 px-4 pt-3 pb-4 mb-4 rounded-3xl" v-if="v">
+      <div class="flex p-4 items-center">
+        <div class="overflow-hidden">
+          <div class="w-24 rounded-full" v-if="identity">
+            <img
+              v-if="avatars[identity] !== 'undefined'"
+              v-lazy="logo(identity)"
+              class="object-contain"
+            />
           </div>
+          <IdentityIcon
+            v-if="v.operator_address && !identity"
+            width="24"
+            height="24"
+            :address="v?.operator_address || ''"
+          />
+        </div>
+        <div class="mx-4 flex-1">
+          <h4 class="font-bold text-2xl">{{ v.description?.moniker }}</h4>
+          <div class="text-sm mb-4" v-if="v.description?.identity">
+            {{ v.description?.identity || '-' }}
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col lg:!flex-row pt-2 pb-1">
+        <div class="flex-1">
           <div class="m-4 text-sm">
             <p class="text-sm mb-3 font-medium">{{ $t('staking.about_us') }}</p>
             <div class="card-list">
@@ -391,7 +393,7 @@ function pageload(p: number) {
       <div class="mb-4">
         <CommissionRate :commission="v.commission"></CommissionRate>
       </div>
-      <div class="bg-base-100 rounded-xl relative overflow-auto mb-4">
+      <div class="bg-base-100 rounded-3xl relative overflow-auto mb-4">
         <div class="text-lg font-semibold text-main px-4 pt-4">
           {{ $t('staking.commissions_&_rewards') }}
         </div>
@@ -438,7 +440,7 @@ function pageload(p: number) {
       </div>
     </div>
 
-    <div class="bg-base-100 rounded-xl overflow-x-auto mb-4">
+    <div class="bg-base-100 rounded-3xl overflow-x-auto mb-4">
       <div class="px-4 pt-4 mb-2 text-main font-lg font-semibold">
         {{ $t('staking.addresses') }}
       </div>
@@ -515,7 +517,7 @@ function pageload(p: number) {
 
     <div
       v-if="delegations.delegation_responses"
-      class="mt-5 bg-base-100 rounded-xl p-4 mb-4"
+      class="mt-5 bg-base-100 rounded-3xl p-4 mb-4"
     >
       <div class="text-lg mb-4 font-semibold">
         {{ $t('account.delegations') }}
@@ -557,7 +559,7 @@ function pageload(p: number) {
       </div>
     </div>
 
-    <div class="mt-5 bg-base-100 rounded-xl p-4 mb-4">
+    <div class="mt-5 bg-base-100 rounded-3xl p-4 mb-4">
       <div class="text-lg mb-4 font-semibold">
         {{ $t('account.transactions') }}
       </div>

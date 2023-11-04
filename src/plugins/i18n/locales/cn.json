@@ -57,7 +57,21 @@
     "uri_data": "URI数据",
     "uri": "URI",
     "unlimited": "无限",
-    "no_data": "没有数据"
+    "no_data": "没有数据",
+    "token_identification": "代币识别",
+    "token_economics": "代币经济",
+    "token_management": "代币管理",
+    "token_rates": "代币费率",
+    "additional_information": "附加信息",
+    "features": "功能特性",
+    "send_burn_rate": "发送燃烧率",
+    "send_commission_rate": "发送佣金率",
+    "minting": "铸币",
+    "burning": "销毁",
+    "sending": "发送",
+    "free_send": "免费发送",
+    "whitelist": "白名单",
+    "freezing": "冻结"
   },
   "mns": {
     "title": "Mchain 名称服务",
@@ -170,6 +184,12 @@
     "query_contract": "查询合约"
   },
   "gov": {
+    "proposal": "提案",
+    "deposits": "存款",
+    "depositor": "存款人",
+    "amount": "金额",
+    "title": "标题",
+    "description": "描述",
     "deposit": "质押",
     "voting": "投票中",
     "passed": "已通过",
@@ -182,7 +202,10 @@
     "deposited_at": "质押时间",
     "vote_start_from": "开始投票时间",
     "vote_end": "投票截止时间",
+    "deposit_end": "质押截止时间",
     "current_status": "当前状态",
+    "deposit_period": "质押期",
+    "total_deposited": "存入總額",
     "proposal_statuses": {
       "PROPOSAL_STATUS_DEPOSIT_PERIOD": "存款期",
       "PROPOSAL_STATUS_VOTING_PERIOD": "投票期",

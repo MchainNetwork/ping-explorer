@@ -29,6 +29,12 @@ export const useMnsStore = defineStore('mnsStore', {
     async fetchMnsName(index: string) {
       return await this.blockchain.rpc?.getMnsName(index);
     },
+    async fetchMnsReverse(address?: string) {
+      return await this.blockchain.rpc?.getMnsReverse(address);
+    },
+    async fetchMnsReverses(req?: PageRequest) {
+      return await this.blockchain.rpc?.getMnsReverses(req);
+    },
     async fetchMnsListOwnedNames(address?: string) {
       return await this.blockchain.rpc?.getMnsListOwnedNames(address);
     },

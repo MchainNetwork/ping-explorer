@@ -17,6 +17,7 @@ import {
 } from '@/types';
 import { onMounted } from 'vue';
 import IdentityIcon from '@/components/IdentityIcon.vue';
+import { Icon } from '@iconify/vue';
 
 const props = defineProps(['domain']);
 
@@ -83,14 +84,23 @@ function pageload() {
   <div class="overflow-auto mx-auto max-w-screen-lg">
     <div v-if="isLoading" class="loading-indicator">Loading...</div>
     <template v-if="!isLoading">
-      <div class="flex justify-between items-center m-4 mb-6">
-        <h2 class="text-xl md:text-5xl font-bold text-base">
+      <div class="flex justify-between items-center m-4 ml-0 mb-6">
+        <RouterLink
+          :to="`/${chain}/mns`"
+          class="btn btn-ghost btn-circle btn-sm mx-1"
+        >
+          <Icon
+            icon="uil:angle-left"
+            class="text-3xl text-gray-500 dark:text-gray-400"
+          />
+        </RouterLink>
+        <h2 class="text-xl md:text-4xl font-bold flex-1 ml-2">
           {{ domainName }}
         </h2>
         <div v-if="isDomainRegistered">
           <label
             for="mns_bid"
-            class="btn btn-primary btn-sm rounded-full text-white dark:text-black"
+            class="btn btn-primary btn-sm"
             @click="dialog.open('mns_bid', { name: domainName }, updateState)"
             v-if="domainInfo.value != walletStore.currentAddress"
           >
@@ -98,7 +108,7 @@ function pageload() {
           </label>
           <label
             for="mns_add_record"
-            class="btn btn-primary btn-sm rounded-full text-white dark:text-black"
+            class="btn btn-primary btn-sm"
             @click="
               dialog.open('mns_add_record', { name: domainName }, updateState)
             "
@@ -109,7 +119,7 @@ function pageload() {
           <label
             v-if="domainInfo.value == walletStore.currentAddress"
             for="mns_update"
-            class="btn btn-primary ml-4 btn-sm rounded-full text-white dark:text-black"
+            class="btn btn-primary ml-4 btn-sm"
             @click="
               dialog.open(
                 'mns_update',
@@ -123,14 +133,14 @@ function pageload() {
           <label
             v-if="domainInfo.value == walletStore.currentAddress"
             for="mns_list"
-            class="btn btn-primary ml-4 btn-sm rounded-full text-white dark:text-black"
+            class="btn btn-primary ml-4 btn-sm"
             @click="dialog.open('mns_list', { name: domainName }, updateState)"
           >
             Sell
           </label>
           <label
             for="mns_transfer"
-            class="btn btn-primary ml-4 btn-sm rounded-full text-white dark:text-black"
+            class="btn btn-primary ml-4 btn-sm"
             @click="
               dialog.open('mns_transfer', { name: domainName }, updateState)
             "

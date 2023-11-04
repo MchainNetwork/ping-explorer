@@ -56,7 +56,21 @@
     "uri_data": "Data URI",
     "uri": "URI",
     "unlimited": "Unlimited",
-    "no_data": "Tidak Ada Data"
+    "no_data": "Tidak Ada Data",
+    "token_identification": "Identifikasi Token",
+    "token_economics": "Ekonomi Token",
+    "token_management": "Manajemen Token",
+    "token_rates": "Tarif Token",
+    "additional_information": "Informasi Tambahan",
+    "features": "Fitur",
+    "send_burn_rate": "Tarif Pembakaran Pengiriman",
+    "send_commission_rate": "Tarif Komisi Pengiriman",
+    "minting": "pencetakan",
+    "burning": "pembakaran",
+    "sending": "pengiriman",
+    "free_send": "kirim gratis",
+    "whitelist": "daftar putih",
+    "freezing": "pembekuan"
   },
   "mns": {
     "title": "Layanan Nama Mchain",
@@ -169,6 +183,12 @@
     "query_contract": "Query Kontrak"
   },
   "gov": {
+    "proposal": "Proposal",
+    "deposits": "Deposito",
+    "depositor": "Penyetor",
+    "amount": "Jumlah",
+    "title": "Judul",
+    "description": "Deskripsi",
     "deposit": "Deposit",
     "voting": "Voting",
     "passed": "Disetujui",
@@ -181,7 +201,10 @@
     "deposited_at": "Didepositkan pada",
     "vote_start_from": "Voting dimulai dari",
     "vote_end": "Voting berakhir",
+    "deposit_end": "Deposit berakhir",
     "current_status": "Status Saat Ini",
+    "deposit_period": "Periode Deposit",
+    "total_deposited": "Total Deposit",
     "proposal_statuses": {
       "PROPOSAL_STATUS_DEPOSIT_PERIOD": "Periode Deposit",
       "PROPOSAL_STATUS_VOTING_PERIOD": "Periode Pemungutan Suara",

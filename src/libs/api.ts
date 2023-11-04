@@ -149,6 +149,8 @@ export const DEFAULT: RequestRegistry = {
   mns_bids_by_index: { url: '/mchain/mns/v1beta1/bids/{index}', adapter },
   mns_forsale: { url: '/mchain/mns/v1beta1/forsale', adapter },
   mns_forsale_name: { url: '/mchain/mns/v1beta1/forsale/{name}', adapter },
+  mns_reverse: { url: '/mchain/mns/v1beta1/reverses/{address}', adapter },
+  mns_reverses: { url: '/mchain/mns/v1beta1/reverses', adapter },
 
   bmint_params: { url: '/mchain/bmint/v1beta1/params', adapter },
 

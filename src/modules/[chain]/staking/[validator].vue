@@ -185,9 +185,15 @@ function pageload(p: number) {
 </script>
 <template>
   <div class="overflow-hidden mx-auto max-w-screen-lg">
-    <div class="flex items-center justify-between">
-      <h1 class="text-4xl font-bold mb-4 p-4">Validator</h1>
-      <div class="pr-4">
+    <div class="flex justify-between items-center m-4 ml-0 mb-6">
+      <a @click="$router.go(-1)" class="btn btn-ghost btn-circle btn-sm mx-1">
+        <Icon
+          icon="uil:angle-left"
+          class="text-3xl text-gray-500 dark:text-gray-400"
+        />
+      </a>
+      <h2 class="text-xl md:text-4xl font-bold flex-1 ml-2">Validator</h2>
+      <div>
         <label
           for="staking_delegate"
           class="btn btn-primary btn-sm rounded-full w-full"

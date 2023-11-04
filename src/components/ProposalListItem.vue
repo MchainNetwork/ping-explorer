@@ -7,6 +7,7 @@ import {
 } from '@/stores';
 import { select } from '@/components/dynamic/index';
 import type { PaginatedProposals } from '@/types';
+//@ts-ignore
 import ProposalProcess from './ProposalProcess.vue';
 import type { PropType } from 'vue';
 import { ref } from 'vue';
@@ -41,11 +42,11 @@ const voterStatusMap: Record<string, string> = {
 const proposalInfo = ref();
 </script>
 <template>
-  <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-xl text-sm">
+  <div class="bg-base-100 p-4 rounded-3xl mb-4">
     <table class="table-compact w-full table-fixed hidden lg:!table">
       <tbody>
         <tr v-for="(item, index) in proposals?.proposals" :key="index">
-          <td class="px-4 w-20">
+          <td class="px-4 w-12">
             <label
               for="proposal-detail-modal"
               class="text-main text-base hover:underline cursor-pointer"
@@ -58,13 +59,13 @@ const proposalInfo = ref();
             <div>
               <RouterLink
                 :to="`/${chain.chainName}/gov/${item?.proposal_id}`"
-                class="text-main text-base hover:underline mb-1 block truncate"
+                class="text-main text-base font-bold hover:underline mb-2 block truncate"
               >
                 {{ item?.content?.title || item?.title }}
               </RouterLink>
               <div
                 v-if="item.content"
-                class="bg-[#f6f2ff] text-[#9c6cff] dark:bg-gray-600 dark:text-gray-300 inline-block rounded-full px-2 py-[1px] text-xs mb-1"
+                class="bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-300 inline-block rounded-full px-2 py-[1px] text-xs mb-1"
               >
                 {{ showType(item.content['@type']) }}
               </div>
@@ -96,12 +97,14 @@ const proposalInfo = ref();
                       ? 'bg-yes'
                       : statusMap?.[item?.status] === 'REJECTED'
                       ? 'bg-no'
-                      : 'bg-info'
+                      : ''
                   "
                 ></div>
+                <!--
                 <div class="text-xs">
                   {{ statusMap?.[item?.status] || item?.status }}
                 </div>
+                -->
               </div>
               <div
                 v-if="statusMap?.[item?.status] != 'DEPOSIT'"

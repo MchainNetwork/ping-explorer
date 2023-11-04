@@ -13,11 +13,13 @@ import {
   type Pagination,
   type MnsNames,
   type MnsForsale,
+  type MnsReverses,
 } from '@/types';
 import { onMounted } from 'vue';
 // @ts-ignore
 import PaginationBar from '@/components/PaginationBar.vue';
 import IdentityIcon from '@/components/IdentityIcon.vue';
+import { Icon } from '@iconify/vue';
 
 const props = defineProps(['chain']);
 
@@ -28,6 +30,7 @@ const mnsStore = useMnsStore();
 const baseStore = useBaseStore();
 
 const list = ref([] as MnsNames[]);
+const reverse = ref([] as MnsReverses[]);
 
 const pageRequest = ref(new PageRequest());
 const pageResponse = ref({} as Pagination);
@@ -64,15 +67,27 @@ function pageload(p: number) {
     list.value = x.names;
     pageResponse.value = x.pagination;
   });
+  mnsStore.fetchMnsReverse(walletStore.currentAddress).then((x: any) => {
+    reverse.value = x.reverse;
+  });
 }
 </script>
 <template>
   <div class="overflow-auto mx-auto max-w-screen-lg">
-    <div class="flex justify-between items-center m-4 mb-6">
-      <h2 class="text-xl md:text-4xl font-bold text-base">
+    <div class="flex justify-between items-center m-4 ml-0 mb-6">
+      <RouterLink
+        :to="`/${chain}/mns`"
+        class="btn btn-ghost btn-circle btn-sm mx-1"
+      >
+        <Icon
+          icon="uil:angle-left"
+          class="text-3xl text-gray-500 dark:text-gray-400"
+        />
+      </RouterLink>
+      <h2 class="text-xl md:text-4xl font-bold flex-1 ml-2">
         {{ $t('mns.domains_owned_title') }}
       </h2>
-      <div></div>
+      <div>{{ reverse.name }}</div>
     </div>
     <div class="tabs mb-4 text-center">
       <RouterLink class="tab tab-bordered" :to="`/${chain}/mns/registered`">

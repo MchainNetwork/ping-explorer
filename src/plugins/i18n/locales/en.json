@@ -57,7 +57,21 @@
     "uri_data": "URI Data",
     "uri": "URI",
     "unlimited": "Unlimited",
-    "no_data": "No Data"
+    "no_data": "No Data",
+    "token_identification": "Token Identification",
+    "token_economics": "Token Economics",
+    "token_management": "Token Management",
+    "token_rates": "Token Rates",
+    "additional_information": "Additional Information",
+    "features": "Features",
+    "send_burn_rate": "Send Burn Rate",
+    "send_commission_rate": "Send Commission Rate",
+    "minting": "acuñación",
+    "burning": "quema",
+    "sending": "enviando",
+    "free_send": "envío gratis",
+    "whitelist": "lista blanca",
+    "freezing": "congelación"
   },
   "mns": {
     "title": "Mchain Name Services",
@@ -181,6 +195,12 @@
     "query_contract": "Query Contract"
   },
   "gov": {
+    "proposal": "Proposal",
+    "deposits": "Deposits",
+    "depositor": "Depositor",
+    "amount": "Amount",
+    "title": "Title",
+    "description": "Description",
     "deposit": "Deposit",
     "voting": "Voting",
     "passed": "Passed",
@@ -193,7 +213,10 @@
     "deposited_at": "Deposited at",
     "vote_start_from": "Voting start from",
     "vote_end": "Voting end",
+    "deposit_end": "Deposit end",
     "current_status": "Current Status",
+    "deposit_period": "Deposit period",
+    "total_deposited": "Total deposited",
     "proposal_statuses": {
       "PROPOSAL_STATUS_DEPOSIT_PERIOD": "Deposit period",
       "PROPOSAL_STATUS_VOTING_PERIOD": "Voting period",

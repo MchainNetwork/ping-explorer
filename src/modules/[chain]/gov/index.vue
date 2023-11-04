@@ -1,9 +1,12 @@
 <script lang="ts" setup>
 import { useGovStore, useTxDialog } from '@/stores';
+//@ts-ignore
 import ProposalListItem from '@/components/ProposalListItem.vue';
 import { ref, onMounted } from 'vue';
+//@ts-ignore
 import PaginationBar from '@/components/PaginationBar.vue';
 import { PageRequest } from '@/types';
+import { Icon } from '@iconify/vue';
 
 const tab = ref('2');
 const store = useGovStore();
@@ -48,36 +51,44 @@ function page(p: number) {
         </label>
       </div>
     </div>
-    <div class="tabs mb-4 text-center">
+    <div class="tabs mb-8 text-center">
       <a
-        class="tab tab-lg tab-bordered text-gray-400"
+        class="tab tab-bordered"
         :class="{ 'tab-active': tab === '1' }"
         @click="changeTab('1')"
-        >{{ $t('gov.deposit') }}</a
+        >{{ $t('gov.deposit_period') }}</a
       >
       <a
-        class="tab tab-lg tab-bordered text-gray-400"
+        class="tab tab-bordered"
         :class="{ 'tab-active': tab === '2' }"
         @click="changeTab('2')"
         >{{ $t('gov.voting') }}</a
       >
       <a
-        class="tab tab-lg tab-bordered text-gray-400"
+        class="tab tab-bordered"
         :class="{ 'tab-active': tab === '3' }"
         @click="changeTab('3')"
         >{{ $t('gov.passed') }}</a
       >
       <a
-        class="tab tab-lg tab-bordered text-gray-400"
+        class="tab tab-bordered"
         :class="{ 'tab-active': tab === '4' }"
         @click="changeTab('4')"
         >{{ $t('gov.rejected') }}</a
       >
     </div>
-    <ProposalListItem :proposals="store?.proposals[tab]" />
-    <div v-if="!store?.proposals[tab]?.proposals?.length">
-      No proposal matching the specified criteria was found.
+    <div
+      class="text-center py-20"
+      v-if="!store?.proposals[tab]?.proposals?.length"
+    >
+      <Icon
+        icon="uil:file-landscape-alt"
+        class="text-5xl text-gray-500 dark:text-gray-400 inline-block mb-8"
+      />
+      <div>No proposal matching the specified criteria was found.</div>
     </div>
+    <ProposalListItem v-else :proposals="store?.proposals[tab]" />
+
     <PaginationBar
       :total="store?.proposals[tab]?.pagination?.total"
       :limit="pageRequest.limit"

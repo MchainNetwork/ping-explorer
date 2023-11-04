@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity';
 import MdEditor from 'md-editor-v3';
+//@ts-ignore
 import ObjectElement from '@/components/dynamic/ObjectElement.vue';
 import {
   useBaseStore,
@@ -17,9 +18,12 @@ import {
   type Pagination,
 } from '@/types';
 import { ref, reactive } from 'vue';
+//@ts-ignore
 import Countdown from '@/components/Countdown.vue';
+//@ts-ignore
 import PaginationBar from '@/components/PaginationBar.vue';
 import { fromBech32, toHex } from '@cosmjs/encoding';
+import { Icon } from '@iconify/vue';
 
 const props = defineProps(['proposal_id', 'chain']);
 const proposal = ref({} as GovProposal);
@@ -59,6 +63,19 @@ const status = computed(() => {
 
 const deposit = ref({} as PaginatedProposalDeposit);
 store.fetchProposalDeposits(props.proposal_id).then((x) => (deposit.value = x));
+
+const totalDeposited = computed(() => {
+  if (Array.isArray(deposit.value.deposits)) {
+    return deposit.value.deposits.reduce((total, deposit) => {
+      const amount = deposit.amount.reduce(
+        (sum, { amount }) => sum + parseInt(amount),
+        0
+      );
+      return { amount: total + amount, denom: deposit.amount[0].denom };
+    }, 0);
+  }
+  return 0;
+});
 
 const votes = ref({} as GovVote[]);
 const pageRequest = ref(new PageRequest());
@@ -175,15 +192,32 @@ function pageload(p: number) {
 
 <template>
   <div class="mx-auto max-w-screen-lg" v-if="!isLoading">
-    <div class="flex justify-between items-center">
-      <h1 class="text-4xl font-bold mb-4 p-4">Proposal #{{ proposal_id }}</h1>
+    <div class="flex justify-between items-center justify-center">
+      <div class="flex items-center mb-2 flex-1">
+        <RouterLink
+          :to="`/${chain}/gov`"
+          class="btn btn-ghost btn-circle btn-sm mx-1"
+        >
+          <Icon
+            icon="uil:angle-left"
+            class="text-3xl text-gray-500 dark:text-gray-400"
+          />
+        </RouterLink>
+        <h1 class="text-4xl font-bold p-4">
+          {{ $t('gov.proposal') }} #{{ proposal_id }}
+        </h1>
+      </div>
+      <h2 class="font-bold mr-4">
+        {{ $t('gov.total_deposited') }}:
+        {{ format.formatToken(totalDeposited) }}
+      </h2>
       <div
         class="pr-4"
-        v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
+        v-if="proposal.status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
       >
         <label
           for="gov_deposit"
-          class="btn btn-primary float-right rounded-full mx-auto"
+          class="btn btn-primary btn-sm float-right rounded-full mx-auto"
           @click="dialog.open('gov_deposit', { proposal_id })"
         >
           {{ $t('gov.btn_deposit') }}
@@ -191,13 +225,10 @@ function pageload(p: number) {
       </div>
     </div>
 
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-8">
       <h2
         class="card-title mb-4 flex flex-col md:!justify-between md:!flex-row"
       >
-        <p class="truncate w-full">
-          {{ proposal_id }}. {{ proposal.title || proposal.content?.title }}
-        </p>
         <div
           class="badge badge-ghost"
           :class="
@@ -208,7 +239,7 @@ function pageload(p: number) {
               : 'text-info'
           "
         >
-          {{ status }}
+          {{ $t(`gov.proposal_statuses.PROPOSAL_STATUS_${status}`) }}
         </div>
       </h2>
       <div class="">
@@ -224,7 +255,7 @@ function pageload(p: number) {
     </div>
     <!-- grid lg:!!grid-cols-3 auto-rows-max-->
     <!-- flex-col lg:!!flex-row flex -->
-    <div class="gap-4 mb-4 grid lg:!!grid-cols-3 auto-rows-max">
+    <div class="gap-4 mb-8 grid lg:!!grid-cols-3 auto-rows-max">
       <!-- flex-1 -->
       <div
         class="bg-base-100 px-4 pt-3 pb-4 rounded-xl"
@@ -268,24 +299,21 @@ function pageload(p: number) {
         </div>
       </div>
 
-      <div class="bg-base-100 px-4 pt-3 pb-5 rounded-xl lg:!!col-span-2">
-        <h2 class="card-title mb-4">{{ $t('gov.timeline') }}</h2>
-
-        <div class="px-1">
-          <div class="flex items-center mb-4 mt-2">
-            <div class="w-2 h-2 rounded-full bg-error mr-3"></div>
-            <div class="text-base flex-1 text-main">
-              {{ $t('gov.submit_at') }}:
-              {{ format.toDay(proposal.submit_time) }}
+      <h2 class="card-title px-4 mb-4">{{ $t('gov.timeline') }}</h2>
+      <div class="bg-base-100 p-4 rounded-3xl lg:!!col-span-2">
+        <div class="px-2">
+          <div class="flex items-center mb-4 mt-4">
+            <div class="flex-1 text-main">
+              <span class="opacity-70">{{ $t('gov.submit_at') }}:</span>
+              {{ format.toLocaleDate(proposal.submit_time) }}
             </div>
             <div class="text-sm">{{ shortTime(proposal.submit_time) }}</div>
           </div>
           <div class="flex items-center mb-4">
-            <div class="w-2 h-2 rounded-full bg-primary mr-3"></div>
-            <div class="text-base flex-1 text-main">
-              {{ $t('gov.deposited_at') }}:
+            <div class="flex-1 text-main">
+              <span class="opacity-70"> {{ $t('gov.deposit_end') }}:</span>
               {{
-                format.toDay(
+                format.toLocaleDate(
                   proposal.status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD'
                     ? proposal.deposit_end_time
                     : proposal.voting_start_time
@@ -310,8 +338,8 @@ function pageload(p: number) {
             <div class="flex items-center">
               <div class="w-2 h-2 rounded-full bg-yes mr-3"></div>
               <div class="text-base flex-1 text-main">
-                {{ $t('gov.vote_start_from') }}
-                {{ format.toDay(proposal.voting_start_time) }}
+                <span class="opacity-70">{{ $t('gov.vote_start_from') }}:</span>
+                {{ format.toLocaleDate(proposal.voting_start_time) }}
               </div>
               <div class="text-sm">
                 {{ shortTime(proposal.voting_start_time) }}
@@ -325,8 +353,8 @@ function pageload(p: number) {
             <div class="flex items-center mb-1">
               <div class="w-2 h-2 rounded-full bg-success mr-3"></div>
               <div class="text-base flex-1 text-main">
-                {{ $t('gov.vote_end') }}
-                {{ format.toDay(proposal.voting_end_time) }}
+                <span class="opacity-70"> {{ $t('gov.vote_end') }}:</span>
+                {{ format.toLocaleDate(proposal.voting_end_time) }}
               </div>
               <div class="text-sm">
                 {{ shortTime(proposal.voting_end_time) }}
@@ -347,13 +375,13 @@ function pageload(p: number) {
             <div class="flex items-center">
               <div class="w-2 h-2 rounded-full bg-warning mr-3"></div>
               <div class="text-base flex-1 text-main">
-                {{ $t('gov.upgrade_plan') }}:
+                <span class="opacity-70">{{ $t('gov.upgrade_plan') }}:</span>
                 <span v-if="Number(proposal.content?.plan?.height || '0') > 0">
                   (EST)</span
                 >
-                <span v-else>{{
-                  format.toDay(proposal.content?.plan?.time)
-                }}</span>
+                <span v-else>
+                  {{ format.toLocaleDate(proposal.content?.plan?.time) }}
+                </span>
               </div>
               <div class="text-sm">
                 {{ shortTime(proposal.voting_end_time) }}
@@ -367,11 +395,51 @@ function pageload(p: number) {
       </div>
     </div>
 
+    <h2
+      class="card-title px-4 mb-8"
+      v-if="proposal.status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
+    >
+      {{ $t('gov.deposits') }}
+    </h2>
     <div
-      class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4"
+      v-if="proposal.status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
+      class="bg-base-100 p-4 rounded-3xl mb-8"
+    >
+      <div class="overflow-x-auto">
+        <table class="table w-full table-zebra">
+          <thead>
+            <tr>
+              <th>{{ $t('gov.depositor') }}</th>
+              <th class="text-right">{{ $t('gov.amount') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="depositItem in deposit.deposits"
+              :key="depositItem.depositor"
+            >
+              <td class="py-2 text-sm">
+                {{ depositItem.depositor }}
+              </td>
+              <td class="py-2 text-sm text-right">
+                {{ format.formatToken(depositItem.amount[0]) }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2
+      class="card-title px-4 mb-8"
       v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
     >
-      <h2 class="card-title">{{ $t('gov.votes') }}</h2>
+      {{ $t('gov.votes') }}
+    </h2>
+    <div
+      class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4"
+      v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
+    >
       <div class="overflow-x-auto">
         <table class="table w-full table-zebra">
           <tbody>

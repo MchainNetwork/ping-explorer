@@ -46,3 +46,11 @@ export interface MnsParams {
 }
 
 
+export interface MnsReverses {
+  address: string;
+  name: string;
+}
+
+export interface PaginatedReverses extends PaginatedResponse {
+  reverses: MnsReverses[];
+}

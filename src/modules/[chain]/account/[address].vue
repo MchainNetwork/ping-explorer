@@ -131,7 +131,17 @@ function updateEvent() {
 </script>
 <template>
   <div v-if="account" class="overflow-hidden mx-auto max-w-screen-lg">
-    <h1 class="text-4xl font-bold mb-4 p-4">Account</h1>
+    <div class="flex justify-between items-center m-4 ml-0 mb-6">
+      <a @click="$router.go(-1)" class="btn btn-ghost btn-circle btn-sm mx-1">
+        <Icon
+          icon="uil:angle-left"
+          class="text-3xl text-gray-500 dark:text-gray-400"
+        />
+      </a>
+      <h2 class="text-xl md:text-4xl font-bold flex-1 ml-2">Account</h2>
+      <div></div>
+    </div>
+
     <!-- address -->
     <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
       <div class="flex items-center">

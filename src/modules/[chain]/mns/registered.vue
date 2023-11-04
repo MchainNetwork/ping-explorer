@@ -18,6 +18,7 @@ import { onMounted } from 'vue';
 // @ts-ignore
 import PaginationBar from '@/components/PaginationBar.vue';
 import IdentityIcon from '@/components/IdentityIcon.vue';
+import { Icon } from '@iconify/vue';
 
 const props = defineProps(['chain']);
 
@@ -68,8 +69,17 @@ function pageload(p: number) {
 </script>
 <template>
   <div class="overflow-auto mx-auto max-w-screen-lg">
-    <div class="flex justify-between items-center m-4 mb-6">
-      <h2 class="text-xl md:text-4xl font-bold text-base">
+    <div class="flex justify-between items-center m-4 ml-0 mb-6">
+      <RouterLink
+        :to="`/${chain}/mns`"
+        class="btn btn-ghost btn-circle btn-sm mx-1"
+      >
+        <Icon
+          icon="uil:angle-left"
+          class="text-3xl text-gray-500 dark:text-gray-400"
+        />
+      </RouterLink>
+      <h2 class="text-xl md:text-4xl font-bold flex-1 ml-2">
         {{ $t('mns.registered_names_title') }}
       </h2>
       <div></div>

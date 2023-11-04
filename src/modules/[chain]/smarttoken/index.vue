@@ -72,21 +72,19 @@ function pageload(p: number) {
           v-for="item in list"
           class="hover:bg-gray-200 dark:hover:bg-gray-700"
         >
-          <td class="truncate flex" width="80%">
-            <IdentityIcon
-              :text="item.meta_data.symbol"
-              size="sm"
-              :address="item.denom"
-            />
-            <RouterLink
-              :to="'/mchain/smarttoken/' + item.denom"
-              class="hover:underline ml-2"
-            >
-              {{ format.shortTokenDenom(item.denom) }}
-            </RouterLink>
+          <td class="flex" width="80%">
+            <IdentityIcon :text="item.symbol" size="sm" :address="item.denom" />
+            <div class="tooltip" :data-tip="item.denom">
+              <RouterLink
+                :to="'/mchain/smarttoken/' + item.denom"
+                class="hover:underline ml-4"
+              >
+                {{ format.shortTokenDenom(item.denom) }}
+              </RouterLink>
+            </div>
           </td>
-          <td width="10%" class="uppercase">{{ item.meta_data.symbol }}</td>
-          <td>{{ item.meta_data.name }}</td>
+          <td width="10%" class="uppercase">{{ item.symbol }}</td>
+          <td>{{ item.name }}</td>
           <td class="text-right">
             <RouterLink
               :to="'/mchain/smarttoken/' + item.denom"

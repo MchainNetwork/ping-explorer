@@ -385,4 +385,12 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
   async getMnsForsaleName(name: string) {
     return this.request(this.registry.mns_forsale_name, {name});
   }
+  async getMnsReverse(address?: string) {
+    return this.request(this.registry.mns_reverse, {address});
+  }
+  async getMnsReverses(page?: PageRequest) {
+    if (!page) page = new PageRequest()
+    const query = `?pagination.limit=${page.limit || 20}&pagination.offset=${page.offset || 0}`
+    return this.request(this.registry.mns_reverses, {}, query)
+  }
 }

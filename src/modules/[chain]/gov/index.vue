@@ -44,7 +44,7 @@ function page(p: number) {
       <div class="pr-4">
         <label
           for="gov_submit_proposal"
-          class="btn btn-primary btn-sm rounded-full text-white"
+          class="btn btn-primary btn-sm"
           @click="dialog.open('gov_submit_proposal', {}, updateState)"
         >
           Submit Proposal

@@ -225,7 +225,9 @@
       "PROPOSAL_STATUS_FAILED": "Failed"
     },
     "upgrade_plan": "Upgrade Plan",
-    "votes": "Votes"
+    "votes": "Votes",
+    "voter": "Voter",
+    "voted": "Voted"
   },
   "ibc": {
     "title": "IBC Connections",

@@ -59,7 +59,7 @@ const proposalInfo = ref();
             <div>
               <RouterLink
                 :to="`/${chain.chainName}/gov/${item?.proposal_id}`"
-                class="text-main text-base font-bold hover:underline mb-2 block truncate"
+                class="text-main text-base text-primary font-bold hover:underline mb-2 block truncate"
               >
                 {{ item?.content?.title || item?.title }}
               </RouterLink>
@@ -115,6 +115,7 @@ const proposalInfo = ref();
             </div>
           </td>
 
+          <!--
           <td v-if="statusMap?.[item?.status] === 'VOTING'" class="w-40">
             <div class="">
               <label
@@ -133,7 +134,9 @@ const proposalInfo = ref();
                 <span v-else>Vote</span>
               </label>
             </div>
+            
           </td>
+          -->
         </tr>
       </tbody>
     </table>
@@ -149,12 +152,12 @@ const proposalInfo = ref();
         >
           <RouterLink
             :to="`/${chain.chainName}/gov/${item?.proposal_id}`"
-            class="flex-1 w-0 truncate mr-4"
+            class="flex-1 w-0 truncate mr-4 text-primary font-bold hover:underline"
             >{{ item?.content?.title || item?.title }}</RouterLink
           >
           <label
             for="proposal-detail-modal"
-            class="text-main text-base hover:text-indigo-400 cursor-pointer"
+            class="text-main text-base cursor-pointer"
             @click="proposalInfo = item"
           >
             #{{ item?.proposal_id }}</label
@@ -165,7 +168,7 @@ const proposalInfo = ref();
           <div class="col-span-2">
             <div
               v-if="item.content"
-              class="bg-[#f6f2ff] text-[#9c6cff] dark:bg-gray-600 dark:text-gray-300 inline-block rounded-full px-2 py-[1px] text-xs mb-1"
+              class="bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-300 inline-block rounded-full px-2 py-[1px] text-xs mb-1"
             >
               {{ showType(item.content['@type']) }}
             </div>

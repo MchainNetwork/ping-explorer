@@ -207,20 +207,30 @@ function pageload(p: number) {
           {{ $t('gov.proposal') }} #{{ proposal_id }}
         </h1>
       </div>
-      <h2 class="font-bold mr-4">
+      <h2
+        class="font-bold mr-4"
+        v-if="proposal.status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
+      >
         {{ $t('gov.total_deposited') }}:
         {{ format.formatToken(totalDeposited) }}
       </h2>
-      <div
-        class="pr-4"
-        v-if="proposal.status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
-      >
+      <div class="pr-4">
         <label
+          v-if="proposal.status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
           for="gov_deposit"
-          class="btn btn-primary btn-sm float-right rounded-full mx-auto"
+          class="btn btn-primary btn-sm"
           @click="dialog.open('gov_deposit', { proposal_id })"
         >
           {{ $t('gov.btn_deposit') }}
+        </label>
+
+        <label
+          v-if="proposal.status === 'PROPOSAL_STATUS_VOTING_PERIOD'"
+          for="gov_vote"
+          class="btn btn-primary btn-sm"
+          @click="dialog.open('gov_vote', { proposal_id })"
+        >
+          {{ $t('gov.btn_vote') }}
         </label>
       </div>
     </div>
@@ -255,148 +265,143 @@ function pageload(p: number) {
     </div>
     <!-- grid lg:!!grid-cols-3 auto-rows-max-->
     <!-- flex-col lg:!!flex-row flex -->
-    <div class="gap-4 mb-8 grid lg:!!grid-cols-3 auto-rows-max">
+
+    <div class="gap-4 mb-8 grid md:!grid-cols-2 auto-rows-max">
       <!-- flex-1 -->
-      <div
-        class="bg-base-100 px-4 pt-3 pb-4 rounded-xl"
-        v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
-      >
-        <h2 class="card-title mb-1">{{ $t('gov.tally') }}</h2>
-        <div class="mb-1" v-for="(item, index) of processList" :key="index">
-          <label class="block text-sm mb-1">{{ item.name }}</label>
-          <div class="h-5 w-full relative">
-            <div
-              class="absolute inset-x-0 inset-y-0 w-full opacity-10 rounded-sm"
-              :class="`${item.class}`"
-            ></div>
-            <div
-              class="absolute inset-x-0 inset-y-0 rounded-sm"
-              :class="`${item.class}`"
-              :style="`width: ${
-                item.value === '-' || item.value === 'NaN%' ? '0%' : item.value
-              }`"
-            ></div>
-            <p
-              class="absolute inset-x-0 inset-y-0 text-center text-sm text-[#666] dark:text-white font-semibold flex items-center justify-center"
-            >
-              {{ item.value }}
-            </p>
+
+      <div>
+        <h2 class="card-title px-4 mb-4">{{ $t('gov.tally') }}</h2>
+        <div
+          class="bg-base-100 p-8 rounded-3xl"
+          v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
+        >
+          <div class="mb-1" v-for="(item, index) of processList" :key="index">
+            <label class="block text-sm mb-1">{{ item.name }}</label>
+            <div class="h-5 w-full relative">
+              <div
+                class="absolute inset-x-0 inset-y-0 w-full opacity-10 rounded-sm"
+                :class="`${item.class}`"
+              ></div>
+              <div
+                class="absolute inset-x-0 inset-y-0 rounded-sm"
+                :class="`${item.class}`"
+                :style="`width: ${
+                  item.value === '-' || item.value === 'NaN%'
+                    ? '0%'
+                    : item.value
+                }`"
+              ></div>
+              <p
+                class="absolute inset-x-0 inset-y-0 text-center text-sm text-[#666] dark:text-white font-semibold flex items-center justify-center"
+              >
+                {{ item.value }}
+              </p>
+            </div>
           </div>
-        </div>
-        <div class="mt-6 grid grid-cols-2">
-          <label
-            for="gov_vote"
-            class="btn btn-primary float-right rounded-full mx-1"
-            @click="dialog.open('gov_vote', { proposal_id })"
-            >{{ $t('gov.btn_vote') }}</label
-          >
-          <label
-            for="gov_deposit"
-            class="btn btn-primary float-right rounded-full mx-1"
-            @click="dialog.open('gov_deposit', { proposal_id })"
-            >{{ $t('gov.btn_deposit') }}</label
-          >
         </div>
       </div>
-
-      <h2 class="card-title px-4 mb-4">{{ $t('gov.timeline') }}</h2>
-      <div class="bg-base-100 p-4 rounded-3xl lg:!!col-span-2">
-        <div class="px-2">
-          <div class="flex items-center mb-4 mt-4">
-            <div class="flex-1 text-main">
-              <span class="opacity-70">{{ $t('gov.submit_at') }}:</span>
-              {{ format.toLocaleDate(proposal.submit_time) }}
+      <div>
+        <h2 class="card-title px-4 mb-4">{{ $t('gov.timeline') }}</h2>
+        <div class="bg-base-100 p-4 rounded-3xl lg:!!col-span-2">
+          <div class="p-4">
+            <div class="flex items-center mb-8">
+              <div class="flex-1">
+                <span class="opacity-70">{{ $t('gov.submit_at') }}:</span>
+                {{ format.toLocaleDate(proposal.submit_time) }}
+              </div>
+              <div class="text-sm">{{ shortTime(proposal.submit_time) }}</div>
             </div>
-            <div class="text-sm">{{ shortTime(proposal.submit_time) }}</div>
-          </div>
-          <div class="flex items-center mb-4">
-            <div class="flex-1 text-main">
-              <span class="opacity-70"> {{ $t('gov.deposit_end') }}:</span>
-              {{
-                format.toLocaleDate(
-                  proposal.status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD'
-                    ? proposal.deposit_end_time
-                    : proposal.voting_start_time
+            <div class="flex items-center mb-8">
+              <div class="flex-1">
+                <span class="opacity-70"> {{ $t('gov.deposit_end') }}:</span>
+                {{
+                  format.toLocaleDate(
+                    proposal.status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD'
+                      ? proposal.deposit_end_time
+                      : proposal.voting_start_time
+                  )
+                }}
+              </div>
+              <div class="text-sm">
+                {{
+                  shortTime(
+                    proposal.status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD'
+                      ? proposal.deposit_end_time
+                      : proposal.voting_start_time
+                  )
+                }}
+              </div>
+            </div>
+            <div
+              class="mb-8"
+              v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
+            >
+              <div class="flex items-center">
+                <div class="text-base flex-1 text-main">
+                  <span class="opacity-70"
+                    >{{ $t('gov.vote_start_from') }}:</span
+                  >
+                  {{ format.toLocaleDate(proposal.voting_start_time) }}
+                </div>
+                <div class="text-sm">
+                  {{ shortTime(proposal.voting_start_time) }}
+                </div>
+              </div>
+              <div class="pl-5 text-sm mt-2">
+                <Countdown :time="votingCountdown" />
+              </div>
+            </div>
+            <div v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'">
+              <div class="flex items-center mb-1">
+                <div class="text-base flex-1 text-main">
+                  <span class="opacity-70"> {{ $t('gov.vote_end') }}:</span>
+                  {{ format.toLocaleDate(proposal.voting_end_time) }}
+                </div>
+                <div class="text-sm">
+                  {{ shortTime(proposal.voting_end_time) }}
+                </div>
+              </div>
+              <div class="pl-5 text-sm">
+                {{ $t('gov.current_status') }}:
+                {{ $t(`gov.proposal_statuses.${proposal.status}`) }}
+              </div>
+            </div>
+
+            <div
+              class="mt-4"
+              v-if="
+                proposal?.content?.['@type']?.endsWith(
+                  'SoftwareUpgradeProposal'
                 )
-              }}
-            </div>
-            <div class="text-sm">
-              {{
-                shortTime(
-                  proposal.status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD'
-                    ? proposal.deposit_end_time
-                    : proposal.voting_start_time
-                )
-              }}
-            </div>
-          </div>
-
-          <div
-            class="mb-4"
-            v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
-          >
-            <div class="flex items-center">
-              <div class="w-2 h-2 rounded-full bg-yes mr-3"></div>
-              <div class="text-base flex-1 text-main">
-                <span class="opacity-70">{{ $t('gov.vote_start_from') }}:</span>
-                {{ format.toLocaleDate(proposal.voting_start_time) }}
+              "
+            >
+              <div class="flex items-center">
+                <div class="w-2 h-2 rounded-full bg-warning mr-3"></div>
+                <div class="text-base flex-1 text-main">
+                  <span class="opacity-70">{{ $t('gov.upgrade_plan') }}:</span>
+                  <span
+                    v-if="Number(proposal.content?.plan?.height || '0') > 0"
+                  >
+                    (EST)</span
+                  >
+                  <span v-else>
+                    {{ format.toLocaleDate(proposal.content?.plan?.time) }}
+                  </span>
+                </div>
+                <div class="text-sm">
+                  {{ shortTime(proposal.voting_end_time) }}
+                </div>
               </div>
-              <div class="text-sm">
-                {{ shortTime(proposal.voting_start_time) }}
+              <div class="pl-5 text-sm mt-2">
+                <Countdown :time="upgradeCountdown" />
               </div>
-            </div>
-            <div class="pl-5 text-sm mt-2">
-              <Countdown :time="votingCountdown" />
-            </div>
-          </div>
-          <div v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'">
-            <div class="flex items-center mb-1">
-              <div class="w-2 h-2 rounded-full bg-success mr-3"></div>
-              <div class="text-base flex-1 text-main">
-                <span class="opacity-70"> {{ $t('gov.vote_end') }}:</span>
-                {{ format.toLocaleDate(proposal.voting_end_time) }}
-              </div>
-              <div class="text-sm">
-                {{ shortTime(proposal.voting_end_time) }}
-              </div>
-            </div>
-            <div class="pl-5 text-sm">
-              {{ $t('gov.current_status') }}:
-              {{ $t(`gov.proposal_statuses.${proposal.status}`) }}
-            </div>
-          </div>
-
-          <div
-            class="mt-4"
-            v-if="
-              proposal?.content?.['@type']?.endsWith('SoftwareUpgradeProposal')
-            "
-          >
-            <div class="flex items-center">
-              <div class="w-2 h-2 rounded-full bg-warning mr-3"></div>
-              <div class="text-base flex-1 text-main">
-                <span class="opacity-70">{{ $t('gov.upgrade_plan') }}:</span>
-                <span v-if="Number(proposal.content?.plan?.height || '0') > 0">
-                  (EST)</span
-                >
-                <span v-else>
-                  {{ format.toLocaleDate(proposal.content?.plan?.time) }}
-                </span>
-              </div>
-              <div class="text-sm">
-                {{ shortTime(proposal.voting_end_time) }}
-              </div>
-            </div>
-            <div class="pl-5 text-sm mt-2">
-              <Countdown :time="upgradeCountdown" />
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <h2
-      class="card-title px-4 mb-8"
+      class="card-title px-4 mb-4"
       v-if="proposal.status === 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
     >
       {{ $t('gov.deposits') }}
@@ -431,7 +436,7 @@ function pageload(p: number) {
     </div>
 
     <h2
-      class="card-title px-4 mb-8"
+      class="card-title px-4 mb-4"
       v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
     >
       {{ $t('gov.votes') }}
@@ -442,6 +447,13 @@ function pageload(p: number) {
     >
       <div class="overflow-x-auto">
         <table class="table w-full table-zebra">
+          <thead>
+            <tr>
+              <th>{{ $t('gov.voter') }}</th>
+              <th>{{ $t('gov.voted') }}</th>
+              <th></th>
+            </tr>
+          </thead>
           <tbody>
             <tr v-for="(item, index) of votes" :key="index">
               <td class="py-2 text-sm">{{ showValidatorName(item.voter) }}</td>
@@ -472,6 +484,7 @@ function pageload(p: number) {
           </tbody>
         </table>
         <PaginationBar
+          v-if="pageResponse.total > votes.length"
           :limit="pageRequest.limit"
           :total="pageResponse.total"
           :callback="pageload"

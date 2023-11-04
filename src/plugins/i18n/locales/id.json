@@ -213,7 +213,9 @@
       "PROPOSAL_STATUS_FAILED": "Gagal"
     },
     "upgrade_plan": "Peningkatan Rencana",
-    "votes": "Suara"
+    "votes": "Suara",
+    "voter": "Pemilih",
+    "voted": "Telah memilih"
   },
   "ibc": {
     "title": "Koneksi IBC",

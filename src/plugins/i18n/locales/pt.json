@@ -221,7 +221,9 @@
       "PROPOSAL_STATUS_FAILED": "Falhou"
     },
     "upgrade_plan": "Plano de Atualização",
-    "votes": "Votos"
+    "votes": "Votos",
+    "voter": "Eleitor",
+    "voted": "Votou"
   },
   "ibc": {
     "title": "Conexões IBC",

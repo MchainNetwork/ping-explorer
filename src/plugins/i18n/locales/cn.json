@@ -214,7 +214,9 @@
       "PROPOSAL_STATUS_FAILED": "失败"
     },
     "upgrade_plan": "升级计划",
-    "votes": "投票"
+    "votes": "投票",
+    "voter": "投票者",
+    "voted": "已投票"
   },
   "ibc": {
     "title": "IBC 连接",

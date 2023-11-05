@@ -12,7 +12,7 @@ import {
   useTxDialog,
   useWalletStore,
   useStakingStore,
-  useParamStore,
+  useParamStore,useMnsStore
 } from '@/stores';
 import { onMounted, ref } from 'vue';
 import { useIndexModule, colorMap } from './indexStore';
@@ -35,6 +35,7 @@ const format = useFormatter();
 const dialog = useTxDialog();
 const stakingStore = useStakingStore();
 const paramStore = useParamStore();
+const mnsStore = useMnsStore();
 
 const coinInfo = computed(() => {
   return store.coinInfo;
@@ -43,8 +44,12 @@ const coinInfo = computed(() => {
 walletStore.$subscribe((m, s) => {
   console.log(m, s);
 });
+
+const accountName = ref(false as boolean | string);
+
 function walletStateChange(res: any) {
   walletStore.setConnectedWallet(res.detail?.value);
+
 }
 
 onMounted(() => {
@@ -53,6 +58,10 @@ onMounted(() => {
   paramStore.handleAbciInfo();
   // if(!(coinInfo.value && coinInfo.value.name)) {
   // }
+
+  mnsStore.fetchMnsReverse(walletStore.currentAddress).then((x: any) => {
+    accountName.value = x.reverse?.name;
+  });
 });
 const ticker = computed(() => store.coinInfo.tickers[store.tickerIndex]);
 
@@ -155,7 +164,7 @@ const amount = computed({
             class="ml-2 cursor-pointer link link-primary no-underline font-medium"
             :to="`/${chain}/account/${walletStore.currentAddress}`"
           >
-            {{ walletStore.currentAddress }}
+            {{ accountName || walletStore.currentAddress }}
           </RouterLink>
           <RouterLink to="/wallet/receive">
             <Icon icon="uil:qrcode-scan" class="ml-2 cursor-pointer" />

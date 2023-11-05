@@ -66,12 +66,12 @@
     "features": "Características",
     "send_burn_rate": "Tasa de Quema al Enviar",
     "send_commission_rate": "Tasa de Comisión al Enviar",
-    "minting": "acuñación",
-    "burning": "quema",
-    "sending": "enviando",
-    "free_send": "envío gratis",
-    "whitelist": "lista blanca",
-    "freezing": "congelación"
+    "minting": "Acuñación",
+    "burning": "Quema",
+    "sending": "Envío",
+    "free_send": "Envío Gratis",
+    "whitelist": "Lista Blanca",
+    "freezing": "Congelación"
   },
   "mns": {
     "title": "Servicios de Nombres Mchain",
@@ -222,7 +222,8 @@
     "upgrade_plan": "Plan de actualización",
     "votes": "Votos",
     "voter": "Votante",
-    "voted": "Votó"
+    "voted": "Votó",
+    "no_votes_message": "No existen votos, sé el primero en votar a esta propuesta."
   },
   "ibc": {
     "title": "Conexiones IBC",

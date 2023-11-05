@@ -52,7 +52,7 @@ const tipMsg = computed(() => {
       class="btn btn-sm pl-1 pr-3 hover:dark:bg-[#1e3b47] m-1 !inline-flex text-sm md:!text-md"
     >
       <IdentityIcon size="xs" :address="walletStore.currentAddress" />
-      <span class="hidden ml-1 md:block">
+      <span class="hidden ml-1 md:!block">
         {{ walletStore.shortAddress || 'Wallet' }}</span
       >
     </label>

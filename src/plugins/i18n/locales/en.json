@@ -66,12 +66,12 @@
     "features": "Features",
     "send_burn_rate": "Send Burn Rate",
     "send_commission_rate": "Send Commission Rate",
-    "minting": "acuñación",
-    "burning": "quema",
-    "sending": "enviando",
-    "free_send": "envío gratis",
-    "whitelist": "lista blanca",
-    "freezing": "congelación"
+    "minting": "Minting",
+    "burning": "Burning",
+    "sending": "Sending",
+    "free_send": "Free Send",
+    "whitelist": "Whitelist",
+    "freezing": "Freezing"
   },
   "mns": {
     "title": "Mchain Name Services",
@@ -227,7 +227,8 @@
     "upgrade_plan": "Upgrade Plan",
     "votes": "Votes",
     "voter": "Voter",
-    "voted": "Voted"
+    "voted": "Voted",
+    "no_votes_message": "No votes yet, be the first to vote on this proposal."
   },
   "ibc": {
     "title": "IBC Connections",

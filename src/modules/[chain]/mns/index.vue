@@ -150,7 +150,7 @@ function checkDomainAvailable(domain: string) {
 <template>
   <div class="overflow-hidden mx-auto max-w-screen-xl lg:p-10">
     <h2
-      class="text-primary text-xl text-center md:text-5xl font-bold mx-4 mb-8"
+      class="text-primary text-xl text-center md:!text-5xl font-bold mx-4 mb-8"
     >
       {{ $t('mns.title') }}
     </h2>

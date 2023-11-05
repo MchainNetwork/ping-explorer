@@ -14,7 +14,7 @@ function changeEndpoint(item: Endpoint) {
 <template>
   <div class="dropdown">
     <label tabindex="0" class="flex items-center">
-      <div class="p-1 relative mr-3 cursor-pointer block md:hidden">
+      <div class="p-1 relative mr-3 cursor-pointer lg:!hidden">
         <img v-lazy="chainStore.logo" class="w-9 h-9 rounded-full" />
         <div
           class="w-2 h-2 rounded-full bg-yes absolute right-0 bottom-0 shadow"

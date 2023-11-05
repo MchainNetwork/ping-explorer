@@ -455,9 +455,19 @@ function pageload(p: number) {
       class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4"
       v-if="proposal.status != 'PROPOSAL_STATUS_DEPOSIT_PERIOD'"
     >
-      <div class="overflow-x-auto">
+      <div v-if="votes.length === 0" class="text-center p-8">
+        <div class="mb-4">{{ $t('gov.no_votes_message') }}</div>
+        <label
+          for="gov_vote"
+          class="btn btn-primary btn-sm mx-auto"
+          @click="dialog.open('gov_vote', { proposal_id })"
+        >
+          {{ $t('gov.btn_vote') }}
+        </label>
+      </div>
+      <div class="overflow-x-auto" v-if="votes.length > 0">
         <table class="table w-full table-zebra">
-          <thead>
+          <thead v-if="votes.length != 0">
             <tr>
               <th>{{ $t('gov.voter') }}</th>
               <th>{{ $t('gov.voted') }}</th>
@@ -465,6 +475,18 @@ function pageload(p: number) {
             </tr>
           </thead>
           <tbody>
+            <tr class="text-center">
+              <td colspan="3">
+                <div class="mb-4">{{ $t('gov.no_votes_message') }}</div>
+                <label
+                  for="gov_vote"
+                  class="btn btn-primary btn-sm mx-auto"
+                  @click="dialog.open('gov_vote', { proposal_id })"
+                >
+                  {{ $t('gov.btn_vote') }}
+                </label>
+              </td>
+            </tr>
             <tr v-for="(item, index) of votes" :key="index">
               <td class="py-2 text-sm">{{ showValidatorName(item.voter) }}</td>
               <td

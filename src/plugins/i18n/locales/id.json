@@ -65,12 +65,12 @@
     "features": "Fitur",
     "send_burn_rate": "Tarif Pembakaran Pengiriman",
     "send_commission_rate": "Tarif Komisi Pengiriman",
-    "minting": "pencetakan",
-    "burning": "pembakaran",
-    "sending": "pengiriman",
-    "free_send": "kirim gratis",
-    "whitelist": "daftar putih",
-    "freezing": "pembekuan"
+    "minting": "Mencetak",
+    "burning": "Pembakaran",
+    "sending": "Pengiriman",
+    "free_send": "Pengiriman Gratis",
+    "whitelist": "Daftar Putih",
+    "freezing": "Pembekuan"
   },
   "mns": {
     "title": "Layanan Nama Mchain",
@@ -215,7 +215,8 @@
     "upgrade_plan": "Peningkatan Rencana",
     "votes": "Suara",
     "voter": "Pemilih",
-    "voted": "Telah memilih"
+    "voted": "Telah memilih",
+    "no_votes_message": "Belum ada suara, jadilah yang pertama untuk memberikan suara pada usulan ini."
   },
   "ibc": {
     "title": "Koneksi IBC",

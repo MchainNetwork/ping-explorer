@@ -69,7 +69,8 @@ html[data-theme='dark'] {
 }
 
 
-[data-theme=light] {
+html.light,
+html[data-theme='light']{
   color-scheme: light;
   --pf: 192 100% 30%;
   --sf: 314 100% 40%;
@@ -107,8 +108,8 @@ html[data-theme='dark'] {
   --btn-text-case: none;
 }
 
-@media (prefers-color-scheme: dark) {
- [data-theme=dark] {
+html.dark,
+html[data-theme='dark']{
     color-scheme: dark;
     --pf: 192 100% 30%;
     --sf: 316 70% 43%;
@@ -145,4 +146,3 @@ html[data-theme='dark'] {
     --tab-radius: .5rem;
     --btn-text-case: none;
   }
-}

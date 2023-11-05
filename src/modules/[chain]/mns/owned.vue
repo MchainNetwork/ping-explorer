@@ -84,7 +84,7 @@ function pageload(p: number) {
           class="text-3xl text-gray-500 dark:text-gray-400"
         />
       </RouterLink>
-      <h2 class="text-xl md:text-4xl font-bold flex-1 ml-2">
+      <h2 class="text-xl md:!text-4xl font-bold flex-1 ml-2">
         {{ $t('mns.domains_owned_title') }}
       </h2>
       <div>{{ reverse.name }}</div>

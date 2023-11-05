@@ -194,7 +194,7 @@ function pageload(p: number) {
           class="text-3xl text-gray-500 dark:text-gray-400"
         />
       </a>
-      <h2 class="text-xl md:text-4xl font-bold flex-1 ml-2">Validator</h2>
+      <h2 class="text-xl md:!text-4xl font-bold flex-1 ml-2">Validator</h2>
       <div>
         <label
           for="staking_delegate"

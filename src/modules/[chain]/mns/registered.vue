@@ -79,7 +79,7 @@ function pageload(p: number) {
           class="text-3xl text-gray-500 dark:text-gray-400"
         />
       </RouterLink>
-      <h2 class="text-xl md:text-4xl font-bold flex-1 ml-2">
+      <h2 class="text-xl md:!text-4xl font-bold flex-1 ml-2">
         {{ $t('mns.registered_names_title') }}
       </h2>
       <div></div>

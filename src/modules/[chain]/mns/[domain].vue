@@ -94,7 +94,7 @@ function pageload() {
             class="text-3xl text-gray-500 dark:text-gray-400"
           />
         </RouterLink>
-        <h2 class="text-xl md:text-4xl font-bold flex-1 ml-2">
+        <h2 class="text-xl md:!text-4xl font-bold flex-1 ml-2">
           {{ domainName }}
         </h2>
         <div v-if="isDomainRegistered">
@@ -306,5 +306,3 @@ function pageload() {
     </template>
   </div>
 </template>
-
-

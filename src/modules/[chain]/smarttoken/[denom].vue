@@ -39,6 +39,13 @@ const TokenFeature_name = {
   5: 'freezing',
 };
 
+const hasMintingFeature = computed(() =>
+  tokenInfo.value.features.includes(TokenFeature_name[0])
+);
+const hasBurningFeature = computed(() =>
+  tokenInfo.value.features.includes(TokenFeature_name[1])
+);
+
 const isCurrentMinter = computed(
   () => tokenInfo.value.minter === walletStore.currentAddress
 );
@@ -123,43 +130,46 @@ onMounted(() => {
           <ul
             class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
           >
-            <li>
+            <li :class="{ disabled: !hasMintingFeature }">
               <label
                 for="smarttoken_mint"
                 @click="
-                  dialog.open(
-                    'smarttoken_mint',
-                    { denom: tokenInfo.denom },
-                    updateState
-                  )
+                  hasMintingFeature &&
+                    dialog.open(
+                      'smarttoken_mint',
+                      { denom: tokenInfo.denom },
+                      updateState
+                    )
                 "
               >
                 {{ $t('smarttoken.mint') }}
               </label>
             </li>
-            <li>
+            <li :class="{ disabled: !hasBurningFeature }">
               <label
                 for="smarttoken_burn"
                 @click="
-                  dialog.open(
-                    'smarttoken_burn',
-                    { denom: tokenInfo.denom },
-                    updateState
-                  )
+                  hasBurningFeature &&
+                    dialog.open(
+                      'smarttoken_burn',
+                      { denom: tokenInfo.denom },
+                      updateState
+                    )
                 "
               >
                 {{ $t('smarttoken.burn') }}
               </label>
             </li>
-            <li>
+            <li :class="{ disabled: !hasMintingFeature }">
               <label
                 for="smarttoken_set_minter"
                 @click="
-                  dialog.open(
-                    'smarttoken_set_minter',
-                    { denom: tokenInfo.denom },
-                    updateState
-                  )
+                  hasMintingFeature &&
+                    dialog.open(
+                      'smarttoken_set_minter',
+                      { denom: tokenInfo.denom },
+                      updateState
+                    )
                 "
               >
                 {{ $t('smarttoken.set_minter') }}
@@ -193,16 +203,17 @@ onMounted(() => {
                 {{ $t('smarttoken.set_uri') }}
               </label>
             </li>
-            <li>
+            <li :class="{ disabled: !hasMintingFeature }">
               <label
                 for="smarttoken_disable_mint"
                 class="mb-2"
                 @click="
-                  dialog.open(
-                    'smarttoken_disable_mint',
-                    { denom: tokenInfo.denom },
-                    updateState
-                  )
+                  hasMintingFeature &&
+                    dialog.open(
+                      'smarttoken_disable_mint',
+                      { denom: tokenInfo.denom },
+                      updateState
+                    )
                 "
               >
                 {{ $t('smarttoken.disable_mint') }}
@@ -403,4 +414,3 @@ onMounted(() => {
     </div>
   </div>
 </template>
-

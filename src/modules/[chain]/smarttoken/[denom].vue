@@ -120,7 +120,7 @@ onMounted(() => {
         </div>
       </div>
       <div class="flex" v-if="isCurrentMinter">
-        <details class="dropdown dropdown-bottom dropdown-end">
+        <details class="dropdown dropdown-hover dropdown-bottom dropdown-end">
           <summary class="btn btn-ghost btn-circle btn-sm mx-1">
             <Icon
               icon="mdi-cog"

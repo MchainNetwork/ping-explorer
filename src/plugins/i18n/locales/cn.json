@@ -184,6 +184,9 @@
     "query_contract": "查询合约"
   },
   "gov": {
+    "governance": "治理",
+    "submit_proposal": "提交提案",
+    "no_proposal_found": "没有找到符合指定条件的提案。",
     "proposal": "提案",
     "deposits": "存款",
     "depositor": "存款人",
@@ -288,7 +291,21 @@
     "hex_addr": "Hex 地址",
     "signer_addr": "验证人地址",
     "consensus_pub_key": "验证人公钥",
-    "staked_amount": "Staked Amount"
+    "staked_amount": "质押金额",
+    "your_staking_overview": "您的质押概览",
+    "view_and_manage_your_staking": "通过连接您的钱包来查看和管理您的质押。",
+    "connect_wallet": "连接钱包",
+    "your_delegations": "您的委托",
+    "your_staked_amount": "您的质押金额",
+    "claimable_rewards": "可领取的奖励",
+    "available_balance": "可用余额",
+    "total_staked": "总质押",
+    "staking_apr": "质押年化收益率",
+    "total_validators": "验证者总数",
+    "validators": "验证者",
+    "search_validator": "搜索验证者...",
+    "staking": "质押",
+    "staking_calculator": "质押计算器"
   },
   "statesync": {
     "title": "What's State Sync?",
@@ -360,7 +377,15 @@
     "supply": "供应量",
     "bonded_tokens": "绑定的令牌",
     "inflation": "通货膨胀",
-    "community_pool": "社区池"
+    "community_pool": "社区池",
+    "your_mchain_wallet": "您的Mchain钱包",
+    "mchain_stats": "Mchain统计数据",
+    "your_delegations": "您的委托",
+    "no_wallet_title": "准备好开始了吗？",
+    "no_wallet_description": "立即连接您的钱包，加入我们的社区并解锁独家功能！",
+    "connect_wallet": "连接钱包",
+    "need_a_wallet": "需要一个钱包吗？",
+    "install_keplr": "安装Keplr"
   },
   "params": {
     "height": "高度",
@@ -392,5 +417,12 @@
     "disclaimer_text_3": "市场条件、代币价值波动、质押政策和其他因素可能会显著影响实际的质押奖励。建议用户进行自己的研究，并在作出任何投资决策之前咨询财务专家。",
     "disclaimer_text_4": "使用此计算器，即表示您承认开发者及任何相关方均不对因使用或依赖此计算器提供的信息而产生的任何损失、损害或后果负责。使用此计算器完全由您自己承担风险。",
     "variable_apr_note": "请注意，质押 APR 是可变的。详情请见下方免责声明。"
+  },
+  "faucet": {
+    "title": "Mchain 测试网水龙头",
+    "description": "立即接收 Mchain 测试网代币，无风险地探索和测试 dApps。输入您的地址，点击按钮，开始吧！",
+    "input_placeholder": "输入您的 Mchain 地址",
+    "sending": "发送中...",
+    "get_tokens": "获取测试网代币"
   }
 }

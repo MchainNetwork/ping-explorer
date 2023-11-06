@@ -40,14 +40,16 @@ function page(p: number) {
 <template>
   <div class="mx-auto max-w-screen-lg">
     <div class="flex justify-between items-center">
-      <h1 class="text-4xl font-bold mb-4 p-4">Governance</h1>
+      <h1 class="text-4xl font-bold mb-4 p-4">
+        {{ $t('gov.governance') }}
+      </h1>
       <div class="pr-4">
         <label
           for="gov_submit_proposal"
           class="btn btn-primary btn-sm"
           @click="dialog.open('gov_submit_proposal', {}, updateState)"
         >
-          Submit Proposal
+          {{ $t('gov.submit_proposal') }}
         </label>
       </div>
     </div>
@@ -85,7 +87,7 @@ function page(p: number) {
         icon="uil:file-landscape-alt"
         class="text-5xl text-gray-500 dark:text-gray-400 inline-block mb-8"
       />
-      <div>No proposal matching the specified criteria was found.</div>
+      <div>{{ $t('gov.no_proposal_found') }}</div>
     </div>
     <ProposalListItem v-else :proposals="store?.proposals[tab]" />
 

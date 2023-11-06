@@ -12,7 +12,8 @@ import {
   useTxDialog,
   useWalletStore,
   useStakingStore,
-  useParamStore,useMnsStore
+  useParamStore,
+  useMnsStore,
 } from '@/stores';
 import { onMounted, ref } from 'vue';
 import { useIndexModule, colorMap } from './indexStore';
@@ -49,7 +50,6 @@ const accountName = ref(false as boolean | string);
 
 function walletStateChange(res: any) {
   walletStore.setConnectedWallet(res.detail?.value);
-
 }
 
 onMounted(() => {
@@ -150,7 +150,9 @@ const amount = computed({
 <template>
   <div class="overflow-hidden mx-auto max-w-screen-lg lg:pb-10">
     <div>
-      <h1 class="text-4xl font-bold mb-6 p-4">Your Mchain Wallet</h1>
+      <h1 class="text-xl md:!text-4xl font-bold mb-6 p-4">
+        {{ $t('index.your_mchain_wallet') }}
+      </h1>
 
       <div
         class="bg-base-100 rounded-3xl my-4"
@@ -238,7 +240,7 @@ const amount = computed({
         class="px-4 pt-4 pb-4 text-lg font-semibold text-main"
         v-if="walletStore.currentAddress"
       >
-        Your MARK delegations
+        {{ $t('index.your_delegations') }}
       </div>
       <div class="bg-base-100 rounded-3xl mb-4">
         <div
@@ -335,17 +337,16 @@ const amount = computed({
       class="bg-base-100 rounded-3xl my-4 p-8 text-center"
       v-if="!walletStore?.currentAddress"
     >
-      <h2 class="text-2xl font-bold mb-3">Ready to Dive In?</h2>
+      <h2 class="text-2xl font-bold mb-3">{{ $t('index.no_wallet_title') }}</h2>
       <p class="mb-4 text-lg">
-        Join our community and unlock exclusive features by connecting your
-        wallet now!
+        {{ $t('index.no_wallet_description') }}
       </p>
 
       <label
         for="PingConnectWallet"
         class="btn btn-md btn-primary text-white rounded-full"
       >
-        <span class="ml-1 block">Connect Wallet</span>
+        <span class="ml-1 block">{{ $t('index.connect_wallet') }}</span>
       </label>
 
       <Teleport to="body">
@@ -367,13 +368,13 @@ const amount = computed({
           class="inline-flex items-center bg-white border border-gray-200 px-4 py-2 rounded-full shadow-sm text-sm font-medium text-gray-700"
         >
           <img src="/logos/keplr-logo.svg" alt="Keplr Logo" class="h-6 mr-2" />
-          Need a Wallet? Install Keplr
+          {{ $t('index.need_a_wallet') }} {{ $t('index.install_keplr') }}
         </div>
       </a>
     </div>
 
     <div class="px-4 pt-4 pb-4 text-lg font-semibold text-main">
-      Mchain Stats
+      {{ $t('index.mchain_stats') }}
     </div>
 
     <div v-if="coinInfo && coinInfo.name" class="bg-base-100 rounded-3xl mb-4">

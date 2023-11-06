@@ -71,14 +71,12 @@ async function callFaucet() {
 <template>
   <div class="container mx-auto text-center p-4">
     <h2 class="text-2xl md:text-5xl font-bold text-primary mb-6">
-      Mchain Testnet Faucet
+      {{ $t('faucet.title') }}
     </h2>
 
     <div class="mb-6 mx-auto" style="max-width: 600px">
       <div class="mb-6 mx-auto">
-        Instantly receive Mchain testnet tokens to explore and test dApps in a
-        risk-free environment. Enter your address, click the button, and get
-        started!
+        {{ $t('faucet.description') }}
       </div>
 
       <div class="text-left">
@@ -87,7 +85,7 @@ async function callFaucet() {
           id="mchainAddress"
           v-model="mchainAddress"
           class="mt-1 p-2 block w-full mx-auto border border-gray-300 rounded-full mb-8"
-          placeholder="Enter your Mchain address"
+          :placeholder="$t('faucet.input_placeholder')"
           v-focus
         />
       </div>
@@ -97,8 +95,8 @@ async function callFaucet() {
         @click="callFaucet"
         class="btn btn-primary btn-md text-white rounded-full"
       >
-        <span v-if="isLoading">Sending...</span>
-        <span v-else>Get Testnet Tokens</span>
+        <span v-if="isLoading">{{ $t('faucet.sending') }}</span>
+        <span v-else>{{ $t('faucet.get_tokens') }}</span>
       </button>
 
       <div

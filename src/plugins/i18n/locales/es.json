@@ -190,6 +190,9 @@
     "query_contract": "Consultar contrato"
   },
   "gov": {
+    "governance": "Gobernanza",
+    "submit_proposal": "Presentar Propuesta",
+    "no_proposal_found": "No se encontró ninguna propuesta que coincida con los criterios especificados.",
     "proposal": "Propuesta",
     "deposits": "Depositos",
     "depositor": "Depositante",
@@ -297,7 +300,21 @@
     "liquid_staking": "Staking líquido",
     "liquid_staking_shares": "Participaciones en Staking Líquido",
     "validator_bond_share": "Participación vinculada del validador",
-    "staked_amount": "Cantidad en Stake"
+    "staked_amount": "Cantidad en Stake",
+    "your_staking_overview": "Tu Resumen de Staking",
+    "view_and_manage_your_staking": "Visualiza y gestiona tu staking conectando tu cartera.",
+    "connect_wallet": "Conectar Cartera",
+    "your_delegations": "Tus Delegaciones",
+    "your_staked_amount": "Tu Cantidad en Staking",
+    "claimable_rewards": "Recompensas Reclamables",
+    "available_balance": "Saldo Disponible",
+    "total_staked": "Total en Staking",
+    "staking_apr": "APR de Staking",
+    "total_validators": "Total de Validadores",
+    "validators": "Validadores",
+    "search_validator": "Buscar validador...",
+    "staking": "Staking",
+    "staking_calculator": "Calculadora de Staking"
   },
   "statesync": {
     "title": "¿Qué es la sincronización de estado?",
@@ -369,7 +386,15 @@
     "supply": "Suministro",
     "bonded_tokens": "Tokens vinculados",
     "inflation": "Inflación",
-    "community_pool": "Fondo comunitario"
+    "community_pool": "Fondo comunitario",
+    "your_mchain_wallet": "Tu Cartera Mchain",
+    "mchain_stats": "Estadísticas de Mchain",
+    "your_delegations": "Tus Delegaciones",
+    "no_wallet_title": "¿Listo para sumergirte?",
+    "no_wallet_description": "Únete a nuestra comunidad y desbloquea características exclusivas conectando tu cartera ahora mismo!",
+    "connect_wallet": "Conectar Cartera",
+    "need_a_wallet": "¿Necesitas una cartera?",
+    "install_keplr": "Instalar Keplr"
   },
   "params": {
     "height": "Altura",
@@ -401,5 +426,12 @@
     "disclaimer_text_3": "Las condiciones del mercado, las fluctuaciones en el valor de los tokens, las políticas de staking y otros factores pueden afectar significativamente las recompensas reales de staking. Se aconseja a los usuarios realizar su propia investigación y consultar con expertos financieros antes de tomar cualquier decisión de inversión.",
     "disclaimer_text_4": "Al usar esta calculadora, reconoces que ni los desarrolladores ni ninguna parte asociada serán responsables de ninguna pérdida, daño o implicaciones resultantes del uso o la confianza en la información proporcionada por esta calculadora. El uso de esta calculadora es únicamente bajo tu propio riesgo.",
     "variable_apr_note": "Ten en cuenta que el APR de Staking es variable. Consulta el aviso legal a continuación para más detalles."
+  },
+  "faucet": {
+    "title": "Grifo de Testnet de Mchain",
+    "description": "Recibe instantáneamente tokens de testnet de Mchain para explorar y probar dApps en un entorno libre de riesgos. ¡Ingresa tu dirección, haz clic en el botón y comienza!",
+    "input_placeholder": "Ingresa tu dirección de Mchain",
+    "sending": "Enviando...",
+    "get_tokens": "Obtener Tokens de Testnet"
   }
 }

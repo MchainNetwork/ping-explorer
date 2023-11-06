@@ -5,6 +5,14 @@ import { useI18n } from 'vue-i18n';
 
 const i18nLangs: Array<{ label: string; i18nLang: string }> = [
   {
+    label: '中文',
+    i18nLang: 'cn',
+  },
+  {
+    label: 'Deutsch',
+    i18nLang: 'de',
+  },
+  {
     label: 'English',
     i18nLang: 'en',
   },
@@ -13,16 +21,16 @@ const i18nLangs: Array<{ label: string; i18nLang: string }> = [
     i18nLang: 'es',
   },
   {
-    label: 'Português Brasileiro',
-    i18nLang: 'pt',
-  },
-  {
-    label: '中文',
-    i18nLang: 'cn',
+    label: 'Français',
+    i18nLang: 'fr',
   },
   {
     label: 'Indonesian',
     i18nLang: 'id',
+  },
+  {
+    label: 'Português Brasileiro',
+    i18nLang: 'pt',
   },
 ];
 

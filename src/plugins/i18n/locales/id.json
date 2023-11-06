@@ -183,6 +183,9 @@
     "query_contract": "Query Kontrak"
   },
   "gov": {
+    "governance": "Tata Kelola",
+    "submit_proposal": "Ajukan Proposal",
+    "no_proposal_found": "Tidak ada proposal yang cocok dengan kriteria yang ditentukan.",
     "proposal": "Proposal",
     "deposits": "Deposito",
     "depositor": "Penyetor",
@@ -287,7 +290,21 @@
     "hex_addr": "Alamat Hex",
     "signer_addr": "Alamat Penandatangan",
     "consensus_pub_key": "Kunci Publik Konsensus",
-    "staked_amount": "Staked Amount"
+    "staked_amount": "Jumlah Staked",
+    "your_staking_overview": "Ikhtisar Staking Anda",
+    "view_and_manage_your_staking": "Lihat dan kelola staking Anda dengan menghubungkan dompet Anda.",
+    "connect_wallet": "Hubungkan Dompet",
+    "your_delegations": "Delegasi Anda",
+    "your_staked_amount": "Jumlah Staked Anda",
+    "claimable_rewards": "Hadiah yang Dapat Diklaim",
+    "available_balance": "Saldo Tersedia",
+    "total_staked": "Total Staked",
+    "staking_apr": "APR Staking",
+    "total_validators": "Total Validator",
+    "validators": "Validator",
+    "search_validator": "Cari validator...",
+    "staking": "Staking",
+    "staking_calculator": "Kalkulator Staking"
   },
   "statesync": {
     "title": "Apa itu State Sync?",
@@ -359,7 +376,15 @@
     "supply": "Pasokan",
     "bonded_tokens": "Token Terikat",
     "inflation": "Inflasi",
-    "community_pool": "Kolam Komunitas"
+    "community_pool": "Kolam Komunitas",
+    "your_mchain_wallet": "Dompet Mchain Anda",
+    "mchain_stats": "Statistik Mchain",
+    "your_delegations": "Delegasi Anda",
+    "no_wallet_title": "Siap untuk Memulai?",
+    "no_wallet_description": "Bergabung dengan komunitas kami dan buka fitur eksklusif dengan menghubungkan dompet Anda sekarang!",
+    "connect_wallet": "Hubungkan Dompet",
+    "need_a_wallet": "Butuh dompet?",
+    "install_keplr": "Pasang Keplr"
   },
   "params": {
     "height": "Tinggi",
@@ -391,5 +416,12 @@
     "disclaimer_text_3": "Kondisi pasar, fluktuasi nilai token, kebijakan staking, dan faktor lainnya dapat mempengaruhi secara signifikan hadiah staking aktual. Pengguna disarankan untuk melakukan penelitian mereka sendiri dan berkonsultasi dengan ahli keuangan sebelum membuat keputusan investasi.",
     "disclaimer_text_4": "Dengan menggunakan kalkulator ini, Anda mengakui bahwa baik pengembang maupun pihak terkait lainnya tidak akan bertanggung jawab atas kerugian, kerusakan, atau implikasi apa pun yang timbul dari penggunaan, atau ketergantungan pada, informasi yang disediakan oleh kalkulator ini. Penggunaan kalkulator ini sepenuhnya atas risiko Anda sendiri.",
     "variable_apr_note": "Harap dicatat bahwa APR Staking adalah variabel. Lihat penafian di bawah ini untuk detailnya."
+  },
+  "faucet": {
+    "title": "Keran Testnet Mchain",
+    "description": "Terima token testnet Mchain secara instan untuk menjelajahi dan menguji dApps dalam lingkungan bebas risiko. Masukkan alamat Anda, klik tombol, dan mulai!",
+    "input_placeholder": "Masukkan alamat Mchain Anda",
+    "sending": "Mengirim...",
+    "get_tokens": "Dapatkan Token Testnet"
   }
 }

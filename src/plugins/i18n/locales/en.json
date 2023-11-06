@@ -195,6 +195,9 @@
     "query_contract": "Query Contract"
   },
   "gov": {
+    "governance": "Governance",
+    "submit_proposal": "Submit Proposal",
+    "no_proposal_found": "No proposal matching the specified criteria was found.",
     "proposal": "Proposal",
     "deposits": "Deposits",
     "depositor": "Depositor",
@@ -302,7 +305,21 @@
     "liquid_staking": "Liquid Staking",
     "liquid_staking_shares": "Liquid Shares",
     "validator_bond_share": "Validator Bonded",
-    "staked_amount": "Staked Amount"
+    "staked_amount": "Staked Amount",
+    "your_staking_overview": "Your Staking Overview",
+    "view_and_manage_your_staking": "View and manage your staking by connecting your wallet.",
+    "connect_wallet": "Connect Wallet",
+    "your_delegations": "Your Delegations",
+    "your_staked_amount": "Your Staked Amount",
+    "claimable_rewards": "Claimable Rewards",
+    "available_balance": "Available Balance",
+    "total_staked": "Total Staked",
+    "staking_apr": "Staking APR",
+    "total_validators": "Total Validators",
+    "validators": "Validators",
+    "search_validator": "Search validator...",
+    "staking": "Staking",
+    "staking_calculator": "Staking Calculator"
   },
   "statesync": {
     "title": "What's State Sync?",
@@ -374,7 +391,15 @@
     "supply": "Supply",
     "bonded_tokens": "Bonded Tokens",
     "inflation": "Inflation",
-    "community_pool": "Community Pool"
+    "community_pool": "Community Pool",
+    "your_mchain_wallet": "Your Mchain Wallet",
+    "mchain_stats": "Mchain Stats",
+    "your_delegations": "Your Delegations",
+    "no_wallet_title": "Ready to Dive In?",
+    "no_wallet_description": "Join our community and unlock exclusive features by connecting your wallet now!",
+    "connect_wallet": "Connect Wallet",
+    "need_a_wallet": "Need a wallet?",
+    "install_keplr": "Install Keplr"
   },
   "params": {
     "height": "Height",
@@ -406,5 +431,12 @@
     "disclaimer_text_3": "Market conditions, token value fluctuations, staking policies, and other factors can significantly affect the actual staking rewards. Users are advised to conduct their own research and consult with financial experts before making any investment decisions.",
     "disclaimer_text_4": "By using this calculator, you acknowledge that neither the developers nor any associated parties will be responsible for any losses, damages, or implications resulting from the use of, or reliance on, the information provided by this calculator. The use of this calculator is solely at your own risk.",
     "variable_apr_note": "Please note that the Staking APR is variable. See the disclaimer below for details."
+  },
+  "faucet": {
+    "title": "Mchain Testnet Faucet",
+    "description": "Instantly receive Mchain testnet tokens to explore and test dApps in a risk-free environment. Enter your address, click the button, and get started!",
+    "input_placeholder": "Enter your Mchain address",
+    "sending": "Sending...",
+    "get_tokens": "Get Testnet Tokens"
   }
 }

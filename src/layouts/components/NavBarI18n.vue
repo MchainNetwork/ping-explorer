@@ -25,6 +25,10 @@ const i18nLangs: Array<{ label: string; i18nLang: string }> = [
     i18nLang: 'fr',
   },
   {
+    label: 'हिन्दी',
+    i18nLang: 'hi',
+  },
+  {
     label: 'Indonesian',
     i18nLang: 'id',
   },
@@ -73,7 +77,9 @@ const handleLangChange = (lang: string) => {
           class="hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
           :class="{ 'text-primary': currentLang === lang.i18nLang }"
           @click="handleLangChange(lang.i18nLang)"
-          >{{ lang.label }}</a
+        >
+          <img :src="`/flags/${lang.i18nLang}.svg`" class="h-3 border mr-2" />
+          {{ lang.label }}</a
         >
       </li>
     </ul>

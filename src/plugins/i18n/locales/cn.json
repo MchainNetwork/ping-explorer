@@ -32,7 +32,7 @@
     "title_all": "404",
     "tag": "测试版",
     "tag_all": "哦呦，页面搞丢了！",
-    "description_all": "We couldn't find the page you are looking for.",
+    "description_all": "我们找不到您要查找的页面。",
     "btn_index": "返回主页"
   },
   "smarttoken": {
@@ -369,7 +369,7 @@
     "unbonding": "赎回",
     "btn_withdraw_reward": "提取奖励",
     "btn_swap": "Swap",
-    "receive": "Receive",
+    "receive": "接收",
     "app_versions": "应用版本",
     "node_info": "节点信息",
     "height": "高度",

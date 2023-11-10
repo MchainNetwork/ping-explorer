@@ -1,0 +1,111 @@
+<script lang="ts" setup>
+import { useBlockchain, useFormatter } from '@/stores';
+// @ts-ignore
+import { computed, ref } from '@vue/reactivity';
+import { onMounted } from 'vue';
+import { Icon } from '@iconify/vue';
+import IdentityIcon from '@/components/IdentityIcon.vue';
+//@ts-ignore
+import PaginationBar from '@/components/PaginationBar.vue';
+import { PageRequest } from '@/types';
+
+import type { TxResponse } from '@/types';
+
+const props = defineProps(['address', 'chain']);
+
+const txs = ref({} as TxResponse[]);
+const pageRequest = ref(new PageRequest());
+
+const blockchain = useBlockchain();
+const format = useFormatter();
+
+function loadTxs() {
+  blockchain.rpc
+    .getTxs(
+      '?&pagination.reverse=true&events=message.action=%27%27',
+      {},
+      pageRequest.value
+    )
+    .then((x) => {
+      txs.value = x.tx_responses?.reverse();
+    });
+}
+
+function page(p: number) {
+  pageRequest.value.setPage(p);
+  loadTxs();
+}
+
+onMounted(() => {
+  loadTxs();
+});
+</script>
+<template>
+  <div class="overflow-hidden mx-auto max-w-screen-lg">
+    <div class="flex justify-between items-center m-4 ml-0 mb-6">
+      <h2 class="text-xl md:!text-4xl font-bold flex-1 ml-2">
+        {{ $t('account.transactions') }}
+      </h2>
+      <div></div>
+    </div>
+
+    <!-- Transactions -->
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
+      <div class="overflow-x-auto">
+        <table class="table w-full text-sm">
+          <thead>
+            <tr>
+              <th class="py-3">{{ $t('account.height') }}</th>
+              <th class="py-3">{{ $t('account.hash') }}</th>
+              <th class="py-3">{{ $t('account.messages') }}</th>
+              <th class="py-3">{{ $t('account.time') }}</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm">
+            <tr v-if="txs.length === 0">
+              <td colspan="10">
+                <div class="text-center">
+                  {{ $t('account.no_transactions') }}
+                </div>
+              </td>
+            </tr>
+            <tr v-for="(v, index) in txs" :key="index">
+              <td class="text-sm py-3">
+                <RouterLink
+                  :to="`/${chain}/block/${v.height}`"
+                  class="text-primary"
+                  >{{ v.height }}</RouterLink
+                >
+              </td>
+              <td class="truncate py-3" style="max-width: 200px">
+                <RouterLink
+                  :to="`/${chain}/tx/${v.txhash}`"
+                  class="text-primary"
+                >
+                  {{ v.txhash }}
+                </RouterLink>
+              </td>
+              <td class="flex items-center py-3">
+                <div class="mr-2">
+                  {{ format.messages(v.tx.body.messages) }}
+                </div>
+                <Icon
+                  v-if="v.code === 0"
+                  icon="mdi-check"
+                  class="text-success text-lg"
+                />
+                <Icon v-else icon="mdi-multiply" class="text-error text-lg" />
+              </td>
+              <td class="py-3">
+                {{ format.toLocaleDate(v.timestamp) }}
+                <span class="text-xs"
+                  >({{ format.toDay(v.timestamp, 'from') }})</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>

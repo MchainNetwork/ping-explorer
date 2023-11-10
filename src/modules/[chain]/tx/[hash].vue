@@ -59,15 +59,12 @@ const events = computed(() => {
 <template>
   <div class="mx-auto max-w-screen-lg">
     <div class="flex items-center mb-2 flex-1">
-      <RouterLink
-        :to="`/${chain}/block/${tx.tx_response?.height}`"
-        class="btn btn-ghost btn-circle btn-sm mx-1"
-      >
+      <a @click="$router.go(-1)" class="btn btn-ghost btn-circle btn-sm mx-1">
         <Icon
           icon="uil:angle-left"
           class="text-3xl text-gray-500 dark:text-gray-400"
         />
-      </RouterLink>
+      </a>
       <h1 class="text-4xl font-bold p-4">
         {{ $t('tx.title') }}
       </h1>

@@ -21,7 +21,8 @@
     "links": "Tautan",
     "smart_tokens": "Smart Tokens",
     "mns": "Name Services",
-    "faucet": "Faucet"
+    "faucet": "Faucet",
+    "explorer": "Explorer"
   },
   "pages": {
     "title": "Ping Dashboard",

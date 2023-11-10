@@ -2,6 +2,7 @@
 import { useParamStore } from '@/stores';
 import { ref, onMounted } from 'vue';
 import CardParameter from '@/components/CardParameter.vue';
+import { Icon } from '@iconify/vue';
 import ArrayObjectElement from '@/components/dynamic/ArrayObjectElement.vue';
 const store = useParamStore();
 const chain = ref(store.chain);
@@ -12,7 +13,16 @@ onMounted(() => {
 </script>
 <template>
   <div class="overflow-hidden mx-auto max-w-screen-lg">
-    <h1 class="text-4xl font-bold mb-4 p-4">Parameters</h1>
+    <div class="flex items-center mb-2 flex-1">
+      <a @click="$router.go(-1)" class="btn btn-ghost btn-circle btn-sm mx-1">
+        <Icon
+          icon="uil:angle-left"
+          class="text-3xl text-gray-500 dark:text-gray-400"
+        />
+      </a>
+      <h1 class="text-4xl font-bold p-4">{{ $t('module.parameters') }}</h1>
+    </div>
+
     <!-- Chain ID -->
     <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl">
       <div class="text-base mb-3 text-main">{{ chain.title }}</div>

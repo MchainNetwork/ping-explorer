@@ -33,6 +33,7 @@ const dialog = useTxDialog();
 const format = useFormatter();
 const account = ref({} as AuthAccount);
 const txs = ref({} as TxResponse[]);
+const txsRecipient = ref({} as TxResponse[]);
 const delegations = ref([] as Delegation[]);
 const rewards = ref({} as DelegatorRewards);
 const balances = ref([] as Coin[]);
@@ -101,6 +102,9 @@ function loadAccount(address: string) {
   });
   blockchain.rpc.getTxsBySender(address).then((x) => {
     txs.value = x.tx_responses;
+  });
+  blockchain.rpc.getTxsByRecipient(address).then((x) => {
+    txsRecipient.value = x.tx_responses;
   });
   blockchain.rpc.getDistributionDelegatorRewards(address).then((x) => {
     rewards.value = x;
@@ -560,6 +564,66 @@ function updateEvent() {
               </td>
             </tr>
             <tr v-for="(v, index) in txs" :key="index">
+              <td class="text-sm py-3">
+                <RouterLink
+                  :to="`/${chain}/block/${v.height}`"
+                  class="text-primary"
+                  >{{ v.height }}</RouterLink
+                >
+              </td>
+              <td class="truncate py-3" style="max-width: 200px">
+                <RouterLink
+                  :to="`/${chain}/tx/${v.txhash}`"
+                  class="text-primary"
+                >
+                  {{ v.txhash }}
+                </RouterLink>
+              </td>
+              <td class="flex items-center py-3">
+                <div class="mr-2">
+                  {{ format.messages(v.tx.body.messages) }}
+                </div>
+                <Icon
+                  v-if="v.code === 0"
+                  icon="mdi-check"
+                  class="text-success text-lg"
+                />
+                <Icon v-else icon="mdi-multiply" class="text-error text-lg" />
+              </td>
+              <td class="py-3">
+                {{ format.toLocaleDate(v.timestamp) }}
+                <span class="text-xs"
+                  >({{ format.toDay(v.timestamp, 'from') }})</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Transactions -->
+    <h2 class="card-title p-4 mb-4">{{ $t('account.transactions') }}</h2>
+    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
+      <div class="overflow-x-auto">
+        <table class="table w-full text-sm">
+          <thead>
+            <tr>
+              <th class="py-3">{{ $t('account.height') }}</th>
+              <th class="py-3">{{ $t('account.hash') }}</th>
+              <th class="py-3">{{ $t('account.messages') }}</th>
+              <th class="py-3">{{ $t('account.time') }}</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm">
+            <tr v-if="txsRecipient.length === 0">
+              <td colspan="10">
+                <div class="text-center">
+                  {{ $t('account.no_transactions') }}
+                </div>
+              </td>
+            </tr>
+            <tr v-for="(v, index) in txsRecipient" :key="index">
               <td class="text-sm py-3">
                 <RouterLink
                   :to="`/${chain}/block/${v.height}`"

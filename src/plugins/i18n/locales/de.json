@@ -22,7 +22,8 @@
     "links": "Links",
     "smart_tokens": "Intelligente Token",
     "mns": "Namensdienste",
-    "faucet": "Wasserhahn"
+    "faucet": "Wasserhahn",
+    "explorer": "Explorer"
   },
   "pages": {
     "title": "Ping Armaturenbrett",

@@ -22,7 +22,8 @@
     "links": "Liens",
     "smart_tokens": "Jetons Intelligents",
     "mns": "Services de Noms",
-    "faucet": "Robinet"
+    "faucet": "Robinet",
+    "explorer": "Explorer"
   },
   "pages": {
     "title": "Tableau de bord Ping",

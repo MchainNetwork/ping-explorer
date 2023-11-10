@@ -21,7 +21,8 @@
     "links": "链接",
     "smart_tokens": "Smart Tokens",
     "mns": "Name Services",
-    "faucet": "Faucet"
+    "faucet": "Faucet",
+    "explorer": "浏览器"
   },
   "pages": {
     "title": "Ping Dashboard",

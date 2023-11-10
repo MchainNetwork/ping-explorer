@@ -22,7 +22,8 @@
     "links": "Enlaces",
     "smart_tokens": "Smart Tokens",
     "mns": "Name Services",
-    "faucet": "Faucet"
+    "faucet": "Faucet",
+    "explorer": "Explorador"
   },
   "pages": {
     "title": "Tablero Ping",

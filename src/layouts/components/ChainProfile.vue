@@ -96,18 +96,6 @@ function changeEndpoint(item: Endpoint) {
       </div>
       <!-- bottom-->
       <div class="px-4 py-2"></div>
-      <RouterLink
-        class="btn btn-sm mb-2"
-        :to="`/${chainStore.current?.chainName}/block`"
-      >
-        {{ $t('module.blocks') }}
-      </RouterLink>
-      <RouterLink
-        class="btn btn-sm"
-        :to="`/${chainStore.current?.chainName}/params`"
-      >
-        {{ $t('module.parameters') }}
-      </RouterLink>
     </div>
   </div>
 </template>

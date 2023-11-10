@@ -75,8 +75,9 @@ function showPubkey(v: any) {
             <RouterLink
               :to="`/${chain}/account/${showAddress(acc)}`"
               class="link link-primary hover:underline"
-              >{{ showAddress(acc) }}</RouterLink
             >
+              {{ showAddress(acc) }}
+            </RouterLink>
           </td>
           <td>{{ showType(acc['@type']) }}</td>
         </tr>

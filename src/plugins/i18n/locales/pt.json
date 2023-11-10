@@ -22,7 +22,8 @@
     "links": "Links",
     "smart_tokens": "Smart Tokens",
     "mns": "Name Services",
-    "faucet": "Faucet"
+    "faucet": "Faucet",
+    "explorer": "Explorador"
   },
   "pages": {
     "title": "Painel Ping",

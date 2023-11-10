@@ -24,21 +24,27 @@
     "order": 4
   },
   {
+    "title": "module.explorer",
+    "to": { "path": "/mchain/explorer" },
+    "i18n": true,
+    "order": 5
+  },
+  {
     "title": "module.governance",
     "to": { "path": "/mchain/gov" },
     "i18n": true,
-    "order": 5
+    "order": 6
   },
   {
     "title": "module.faucet",
     "to": { "path": "/mchain/faucet" },
     "i18n": true,
-    "order": 200
+    "order": 7
   },
   {
     "title": "Keplr Config",
     "to": { "path": "/wallet/keplr" },
     "i18n": true,
-    "order": 400
+    "order": 8
   }
 ]

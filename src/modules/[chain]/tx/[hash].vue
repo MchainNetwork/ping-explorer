@@ -3,12 +3,39 @@ import { useBlockchain, useFormatter } from '@/stores';
 import DynamicComponent from '@/components/dynamic/DynamicComponent.vue';
 import { computed, ref } from '@vue/reactivity';
 import type { Tx, TxResponse } from '@/types';
+import { Icon } from '@iconify/vue';
 
 import { JsonViewer } from 'vue3-json-viewer';
 // if you used v1.0.5 or latster ,you should add import "vue3-json-viewer/dist/index.css"
 import 'vue3-json-viewer/dist/index.css';
 
 const props = defineProps(['hash', 'chain']);
+
+const tab = ref('1');
+const changeTab = (val: '1' | '2') => {
+  tab.value = val;
+};
+
+let showCopyToast = ref(0);
+async function copyAdress(text: string) {
+  try {
+    await navigator.clipboard.writeText(text);
+    showCopyToast.value = 1;
+    setTimeout(() => {
+      showCopyToast.value = 0;
+    }, 1000);
+  } catch (err) {
+    showCopyToast.value = 2;
+    setTimeout(() => {
+      showCopyToast.value = 0;
+    }, 1000);
+  }
+}
+const tipMsg = computed(() => {
+  return showCopyToast.value === 2
+    ? { class: 'error', msg: 'Copy Error!' }
+    : { class: 'success', msg: 'Copy Success!' };
+});
 
 const blockchain = useBlockchain();
 const format = useFormatter();
@@ -31,53 +58,66 @@ const events = computed(() => {
 </script>
 <template>
   <div class="mx-auto max-w-screen-lg">
+    <div class="flex items-center mb-2 flex-1">
+      <RouterLink
+        :to="`/${chain}/block/${tx.tx_response?.height}`"
+        class="btn btn-ghost btn-circle btn-sm mx-1"
+      >
+        <Icon
+          icon="uil:angle-left"
+          class="text-3xl text-gray-500 dark:text-gray-400"
+        />
+      </RouterLink>
+      <h1 class="text-4xl font-bold p-4">
+        {{ $t('tx.title') }}
+      </h1>
+    </div>
+
     <div
       v-if="tx.tx_response"
-      class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4"
+      class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-8"
     >
-      <h2 class="card-title truncate mb-2">{{ $t('tx.title') }}</h2>
       <div class="overflow-auto-x">
         <table class="table text-sm">
           <tbody>
             <tr>
               <td>{{ $t('tx.tx_hash') }}</td>
-              <td>{{ tx.tx_response.txhash }}</td>
+              <td>
+                {{ tx.tx_response.txhash }}
+                <Icon
+                  @click="copyAdress(tx.tx_response.txhash)"
+                  icon="uil:copy"
+                  class="inline-block text-primary cursor-pointer ml-2 text-lg text-gray-500 dark:text-gray-400"
+                />
+              </td>
             </tr>
             <tr>
               <td>{{ $t('account.height') }}</td>
               <td>
                 <RouterLink
                   :to="`/${props.chain}/block/${tx.tx_response.height}`"
-                  class="text-primary dark:invert"
-                  >{{ tx.tx_response.height }}
+                  class="text-primary font-bold hover:underline"
+                >
+                  #{{ tx.tx_response.height }}
                 </RouterLink>
+                <Icon
+                  @click="copyAdress(tx.tx_response.height)"
+                  icon="uil:copy"
+                  class="inline-block text-primary cursor-pointer ml-2 text-lg text-gray-500 dark:text-gray-400"
+                />
               </td>
             </tr>
             <tr>
               <td>{{ $t('staking.status') }}</td>
               <td>
                 <div
-                  class="text-xs truncate relative py-2 px-4 w-fit mr-2 rounded"
+                  class="font-bold"
                   :class="`text-${
-                    tx.tx_response.code === 0 ? 'success' : 'error'
+                    tx.tx_response.code === 0 ? 'green-500' : 'error'
                   }`"
                 >
-                  <span
-                    class="inset-x-0 inset-y-0 opacity-10 absolute"
-                    :class="`bg-${
-                      tx.tx_response.code === 0 ? 'success' : 'error'
-                    }`"
-                  ></span>
                   {{ tx.tx_response.code === 0 ? 'Success' : 'Failed' }}
                 </div>
-              </td>
-            </tr>
-            <tr>
-              <td>{{ $t('account.time') }}</td>
-              <td>
-                {{ format.toLocaleDate(tx.tx_response.timestamp) }} ({{
-                  format.toDay(tx.tx_response.timestamp, 'from')
-                }})
               </td>
             </tr>
             <tr>
@@ -99,23 +139,56 @@ const events = computed(() => {
               </td>
             </tr>
             <tr>
-              <td>{{ $t('tx.memo') }}</td>
-              <td>{{ tx.tx.body.memo }}</td>
+              <td>{{ $t('account.time') }}</td>
+              <td>
+                {{ format.toLocaleDate(tx.tx_response.timestamp) }} ({{
+                  format.toDay(tx.tx_response.timestamp, 'from')
+                }})
+              </td>
+            </tr>
+            <tr>
+              <td>Raw Transaction</td>
+              <td>
+                <a
+                  class="text-primary font-bold text-sm hover:underline"
+                  :href="
+                    blockchain.rpc.endpoint +
+                    '/cosmos/tx/v1beta1/txs/' +
+                    tx.tx_response.txhash
+                  "
+                  target="_blank"
+                  >View</a
+                >
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
+    <div class="tabs tabs-boxed mb-4">
+      <a
+        class="tab"
+        :class="{ 'tab-active': tab === '1' }"
+        @click="changeTab('1')"
+      >
+        {{ $t('account.messages') }}: ({{ messages.length }})</a
+      >
+      <a
+        class="tab"
+        :class="{ 'tab-active': tab === '2' }"
+        @click="changeTab('2')"
+      >
+        {{ $t('tx.events') }}: ({{ events.length }})
+      </a>
+    </div>
+
     <div
-      v-if="tx.tx_response"
-      class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4"
+      v-if="tx.tx_response && tab === '1'"
+      class="bg-base-100 p-4 rounded-3xl mb-8"
     >
-      <h2 class="card-title truncate mb-2">
-        {{ $t('account.messages') }}: ({{ messages.length }})
-      </h2>
       <div v-for="(msg, i) in messages">
-        <div class="border border-base-300 rounded-3xl mt-4">
+        <div class="border border-base-300 rounded-3xl">
           <DynamicComponent :value="msg" />
         </div>
       </div>
@@ -123,33 +196,33 @@ const events = computed(() => {
     </div>
 
     <div
-      v-if="events.length > 0"
-      class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4"
+      v-if="tx.tx_response && tab === '2'"
+      class="bg-base-100 p-4 rounded-3xl mb-4"
     >
-      <h2 class="card-title truncate mb-2">
-        {{ $t('tx.events') }}: ({{ events.length }})
-      </h2>
-
       <div
-        class="border border-base-300 rounded-3xl mt-4"
+        class="border border-base-300 rounded-3xl mb-4 overflow-hidden"
         v-for="(event, eventIndex) in events"
         :key="eventIndex"
       >
         <div class="text-md font-bold m-2 pl-2">{{ event.type }}</div>
-        <table class="table text-xs">
-          <tbody>
-            <tr v-for="(attr, attrIndex) in event.attributes" :key="attrIndex">
-              <td>{{ attr.key }}</td>
-              <td>{{ attr.value }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <JsonViewer :value="event.attributes" boxed expand-depth="5" />
       </div>
+      <div v-if="events.length === 0">{{ $t('tx.no_events') }}</div>
     </div>
 
-    <div v-if="tx.tx_response" class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl">
-      <h2 class="card-title truncate mb-2">JSON</h2>
-      <JsonViewer :value="tx" copyable boxed sort expand-depth="5" />
+    <div class="toast" v-show="showCopyToast === 1">
+      <div class="alert alert-success">
+        <div class="text-xs md:!text-sm">
+          <span>{{ tipMsg.msg }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="toast" v-show="showCopyToast === 2">
+      <div class="alert alert-error">
+        <div class="text-xs md:!text-sm">
+          <span>{{ tipMsg.msg }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>

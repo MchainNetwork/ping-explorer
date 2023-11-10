@@ -209,7 +209,7 @@ onBeforeUnmount(() => {
               <thead>
                 <tr>
                   <th class="py-3">{{ $t('account.hash') }}</th>
-                  <th class="py-3">{{ $t('account.messages') }}</th>
+                  <th class="py-3">{{ $t('account.message') }}</th>
                   <th class="py-3">{{ $t('account.height') }}</th>
                   <th class="py-3 text-right">{{ $t('account.time') }}</th>
                 </tr>
@@ -219,30 +219,22 @@ onBeforeUnmount(() => {
                   <td class="truncate py-2 h-14" style="max-width: 200px">
                     <RouterLink
                       :to="`/${chain}/tx/${v.txhash}`"
-                      class="text-sm text-primary"
+                      class="text-sm text-primary font-bold"
                     >
                       {{ v.txhash }}
                     </RouterLink>
                   </td>
                   <td class="flex items-center pt-4">
-                    <div class="mr-2 text-sm">
+                    <span
+                      class="badge badge-success bg-green-100 text-green-800 mr-2"
+                    >
                       {{ format.messages(v.tx.body.messages) }}
-                    </div>
-                    <Icon
-                      v-if="v.code === 0"
-                      icon="mdi-check"
-                      class="text-success text-lg"
-                    />
-                    <Icon
-                      v-else
-                      icon="mdi-multiply"
-                      class="text-error text-lg"
-                    />
+                    </span>
                   </td>
                   <td class="text-sm py-2">
                     <RouterLink
                       :to="`/${chain}/block/${v.height}`"
-                      class="text-primary"
+                      class="text-primary font-bold"
                       >#{{ v.height }}</RouterLink
                     >
                   </td>

@@ -125,10 +125,12 @@
     "balance": "Balance",
     "completion_time": "Tiempo de completado",
     "transactions": "Transacciones",
+    "transaction": "Transacción",
     "no_transactions": "Sin transacciones",
     "height": "Altura",
     "hash": "Hash",
     "messages": "Mensajes",
+    "message": "Mensaje",
     "time": "Tiempo",
     "error": "La cuenta no existe en la cadena"
   },

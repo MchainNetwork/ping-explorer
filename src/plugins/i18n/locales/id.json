@@ -123,10 +123,12 @@
     "balance": "Saldo",
     "completion_time": "Waktu Penyelesaian",
     "transactions": "Transaksi",
+    "transaction": "Transaksi",
     "no_transactions": "Tidak Ada Transaksi",
     "height": "Ketinggian",
     "hash": "Hash",
     "messages": "Pesan",
+    "message": "Pesan",
     "time": "Waktu",
     "error": "Akun tidak ada di dalam rantai"
   },

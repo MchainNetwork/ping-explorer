@@ -125,10 +125,12 @@
     "balance": "Saldo",
     "completion_time": "Tempo de Conclusão",
     "transactions": "Transações",
+    "transaction": "Transação",
     "no_transactions": "Sem Transações",
     "height": "Altura",
     "hash": "Hash",
     "messages": "Mensagens",
+    "message": "Mensagem",
     "time": "Tempo",
     "error": "A conta não existe na cadeia"
   },

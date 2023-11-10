@@ -40,11 +40,5 @@
     "to": { "path": "/mchain/faucet" },
     "i18n": true,
     "order": 7
-  },
-  {
-    "title": "Keplr Config",
-    "to": { "path": "/wallet/keplr" },
-    "i18n": true,
-    "order": 8
   }
 ]

@@ -32,35 +32,53 @@ const blocks = computed(() => {
       </h1>
     </div>
 
-    <div class="grid grid-cols-1 gap-3">
-      <RouterLink
-        v-for="item in blocks"
-        :key="item.block.header.height"
-        class="flex flex-col justify-between rounded-xl p-4 bg-base-100 dark:bg-[#1e3b47] transform transition-all ease-in-out duration-500 opacity-0 translate-y-3 animate-fadeInSlideDown"
-        :to="`/${chain}/block/${item.block.header.height}`"
-      >
-        <div class="flex justify-between">
-          <h3 class="text-md font-bold sm:!text-lg">
-            {{ item.block.header.height }}
-          </h3>
-          {{ item.block.header.last_block_id.hash }}
-          <span
-            class="rounded text-xs whitespace-nowrap font-medium text-green-600"
-          >
-            {{ format.toDay(item.block?.header?.time, 'from') }}
-          </span>
-        </div>
-        <div class="flex justify-between tooltip" data-tip="Block Proposor">
-          <div class="mt-2 hidden text-sm sm:!block truncate">
-            <span>{{
-              format.validator(item.block?.header?.proposer_address)
-            }}</span>
-          </div>
-          <span class="text-right mt-1 whitespace-nowrap">
-            {{ item.block?.data?.txs.length }} txs
-          </span>
-        </div>
-      </RouterLink>
+    <div class="bg-base-100 shadow-lg p-4 rounded-3xl mb-4">
+      <div class="overflow-x-auto">
+        <table class="table table-md w-full text-sm">
+          <thead>
+            <tr>
+              <th class="py-3">
+                {{ $t('account.height') }}
+              </th>
+              <th class="py-3">{{ $t('account.validator') }}</th>
+              <th class="py-3">{{ $t('account.transactions') }}</th>
+              <th class="py-3 text-right">
+                {{ $t('account.time') }}
+              </th>
+            </tr>
+          </thead>
+          <tbody class="text-sm">
+            <tr
+              v-for="(item, index) in blocks"
+              :key="index"
+              class="hover:bg-gray-200 dark:hover:bg-gray-700"
+            >
+              <td class="truncate py-2" style="max-width: 200px">
+                <RouterLink
+                  :to="`/${chain}/block/${item.block.header.height}`"
+                  class="text-sm font-bold text-primary hover:underline"
+                >
+                  #{{ item.block.header.height }}
+                </RouterLink>
+              </td>
+              <td class="py-2">
+                <div class="text-sm font-bold">
+                  {{ format.validator(item.block?.header?.proposer_address) }}
+                </div>
+              </td>
+
+              <td class="py-2 h-14" width="20%">
+                <div class="text-xs">
+                  {{ item.block?.data?.txs.length }} txs
+                </div>
+              </td>
+              <td class="text-xs text-right" width="20%">
+                {{ format.toDay(item.block?.header?.time, 'from') }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>

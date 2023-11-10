@@ -124,10 +124,12 @@
     "balance": "余额",
     "completion_time": "完成时间",
     "transactions": "交易",
+    "transaction": "交易",
     "no_transactions": "没有交易",
     "height": "高度",
     "hash": "哈希",
     "messages": "消息",
+    "message": "消息",
     "time": "时间",
     "error": "区块链上没有这个账号！"
   },

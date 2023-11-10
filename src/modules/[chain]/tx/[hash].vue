@@ -66,7 +66,7 @@ const events = computed(() => {
         />
       </a>
       <h1 class="text-4xl font-bold p-4">
-        {{ $t('tx.title') }}
+        {{ $t('account.transaction') }}
       </h1>
     </div>
 

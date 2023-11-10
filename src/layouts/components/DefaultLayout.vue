@@ -77,7 +77,7 @@ function selected(route: any, nav: NavLink) {
     >
       <div class="flex justify-between mt-1 pl-6 py-4 mb-10">
         <RouterLink to="/" class="flex items-center">
-          <img class="w-10 h-10 ml-2" src="../../assets/mchain.svg" />
+          <img class="w-10 h-10 ml-4" src="../../assets/mchain.svg" />
           <h1
             class="flex-1 ml-3 text-lg md:text-2xl font-semibold dark:text-white"
           >

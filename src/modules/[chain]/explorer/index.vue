@@ -36,6 +36,7 @@ const blocks = computed(() => {
 
 const txs = ref({} as TxResponse[]);
 const pageRequest = ref(new PageRequest());
+const isFocused = ref(false);
 
 let searchQuery = ref('');
 let errorMessage = ref('');
@@ -80,12 +81,12 @@ let intervalId: number | NodeJS.Timer | undefined;
 function loadTxs() {
   blockchain.rpc
     .getTxs(
-      '?&pagination.reverse=true&limit=10&events=message.action=%27%27',
+      '?&pagination.reverse=true&events=message.action=%27%27',
       {},
       pageRequest.value
     )
     .then((x) => {
-      txs.value = x.tx_responses?.reverse();
+      txs.value = x.tx_responses?.reverse().slice(0, 10);
     });
 }
 
@@ -114,11 +115,13 @@ onBeforeUnmount(() => {
         <input
           class="input flex-1 w-full"
           v-model="searchQuery"
-          placeholder="Height/Transaction/Account Address"
-          v-focus
+          :placeholder="isFocused ? '' : $t('block.search_placeholder')"
+          @focus="isFocused = true"
+          @blur="isFocused = false"
+          @keyup.enter="confirm"
         />
         <button class="btn btn-primary rounded-full btn-md" @click="confirm">
-          Search
+          <Icon icon="uil:search" class="text-lg" />
         </button>
       </div>
       <div
@@ -129,7 +132,7 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
-    <div class="px-4 pt-4 pb-4 text-lg font-semibold text-main">
+    <div class="px-4 pt-4 pb-4 card-title">
       {{ $t('index.mchain_stats') }}
     </div>
     <div class="grid grid-cols-2 gap-4 md:!grid-cols-3 lg:!grid-cols-6 mb-8">
@@ -145,10 +148,10 @@ onBeforeUnmount(() => {
           <RouterLink
             :to="`/${chain}/block/`"
             class="btn btn-xs btn-outline btn-neutral"
-            >View All</RouterLink
           >
+            {{ $t('module.view_all') }}
+          </RouterLink>
         </div>
-
         <div class="bg-base-100 shadow-lg pb-4 rounded-3xl mb-4">
           <div class="overflow-x-auto">
             <table class="table table-zebra table-md w-full text-sm">
@@ -195,9 +198,9 @@ onBeforeUnmount(() => {
       <div class="transactions md:w-2/3">
         <div class="flex justify-between p-4">
           <h2 class="card-title">{{ $t('account.transactions') }}</h2>
-          <RouterLink :to="`/${chain}/tx/`" class="btn btn-xs btn-outline"
-            >View All</RouterLink
-          >
+          <RouterLink :to="`/${chain}/tx/`" class="btn btn-xs btn-outline">
+            {{ $t('module.view_all') }}
+          </RouterLink>
         </div>
         <!-- Transactions -->
         <div class="bg-base-100 shadow-lg pb-4 rounded-3xl mb-4">
@@ -208,17 +211,10 @@ onBeforeUnmount(() => {
                   <th class="py-3">{{ $t('account.hash') }}</th>
                   <th class="py-3">{{ $t('account.messages') }}</th>
                   <th class="py-3">{{ $t('account.height') }}</th>
-                  <th class="py-3">{{ $t('account.time') }}</th>
+                  <th class="py-3 text-right">{{ $t('account.time') }}</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-if="txs.length === 0">
-                  <td colspan="10">
-                    <div class="text-center">
-                      {{ $t('account.no_transactions') }}
-                    </div>
-                  </td>
-                </tr>
                 <tr v-for="(v, index) in txs" :key="index">
                   <td class="truncate py-2 h-14" style="max-width: 200px">
                     <RouterLink
@@ -247,10 +243,10 @@ onBeforeUnmount(() => {
                     <RouterLink
                       :to="`/${chain}/block/${v.height}`"
                       class="text-primary"
-                      >{{ v.height }}</RouterLink
+                      >#{{ v.height }}</RouterLink
                     >
                   </td>
-                  <td class="py-3 text-xs">
+                  <td class="py-3 text-xs text-right">
                     {{ format.toDay(v.timestamp, 'from') }}
                   </td>
                 </tr>

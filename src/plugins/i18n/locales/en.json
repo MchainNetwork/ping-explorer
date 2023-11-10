@@ -23,7 +23,9 @@
     "smart_tokens": "Smart Tokens",
     "mns": "Name Services",
     "faucet": "Faucet",
-    "explorer": "Explorer"
+    "explorer": "Explorer",
+    "view_all": "View All",
+    "search": "Search"
   },
   "pages": {
     "title": "Ping Dashboard",
@@ -148,7 +150,8 @@
     "recent": "Recent",
     "future": "Future",
     "fees": "Fees",
-    "only_tx": "Only show txs in recent blocks"
+    "only_tx": "Only show txs in recent blocks",
+    "search_placeholder": "Search for transaction, block, address, Smart Token or domain"
   },
   "consensus": {
     "monitor": "Monitor",

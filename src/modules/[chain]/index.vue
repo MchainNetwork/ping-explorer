@@ -373,10 +373,7 @@ const amount = computed({
       </a>
     </div>
 
-    <div class="px-4 pt-4 pb-4 text-lg font-semibold text-main">
-      {{ $t('index.mchain_stats') }}
-    </div>
-
+    <!--
     <div v-if="coinInfo && coinInfo.name" class="bg-base-100 rounded-3xl mb-4">
       <div class="grid grid-cols-2 md:grid-cols-3 p-4">
         <div class="col-span-2 md:col-span-1">
@@ -507,7 +504,7 @@ const amount = computed({
                   </g>
                 </svg>
               </label>
-              <!-- Put this part before </body> tag -->
+
               <input type="checkbox" id="calculator" class="modal-toggle" />
               <div class="modal">
                 <div class="modal-box">
@@ -590,12 +587,7 @@ const amount = computed({
         </div>
       </div>
     </div>
-
-    <div class="grid grid-cols-2 gap-4 md:!grid-cols-3 lg:!grid-cols-6 mb-4">
-      <div v-for="(item, key) in store.stats" :key="key">
-        <CardStatisticsVertical v-bind="item" />
-      </div>
-    </div>
+  -->
 
     <template v-if="store.proposals?.proposals?.length != 0">
       <div class="px-4 pt-4 pb-4 text-lg font-semibold text-main">

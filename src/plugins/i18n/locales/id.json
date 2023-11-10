@@ -22,7 +22,9 @@
     "smart_tokens": "Smart Tokens",
     "mns": "Name Services",
     "faucet": "Faucet",
-    "explorer": "Explorer"
+    "explorer": "Explorer",
+    "view_all": "Lihat Semua",
+    "search": "Cari"
   },
   "pages": {
     "title": "Ping Dashboard",
@@ -141,7 +143,8 @@
     "recent": "Terkini",
     "future": "Masa Depan",
     "fees": "Biaya",
-    "only_tx": "Hanya menampilkan txs di blok terbaru"
+    "only_tx": "Hanya menampilkan txs di blok terbaru",
+    "search_placeholder": "Cari transaksi, blok, alamat, Smart Token, atau domain"
   },
   "consensus": {
     "monitor": "Memantau",

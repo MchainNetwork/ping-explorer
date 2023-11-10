@@ -58,7 +58,7 @@ const tipMsg = computed(() => {
     </label>
     <div
       tabindex="0"
-      class="dropdown-content menu shadow p-2 bg-base-100 rounded-xl w-100 overflow-auto"
+      class="dropdown-content menu shadow-lg p-2 bg-base-100 rounded-xl w-100 overflow-auto"
     >
       <div class="px-2 mb-1 text-gray-500 dark:text-gray-400 font-semibold">
         {{ walletStore.connectedWallet?.wallet }}

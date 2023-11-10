@@ -23,7 +23,9 @@
     "smart_tokens": "Smart Tokens",
     "mns": "Name Services",
     "faucet": "Faucet",
-    "explorer": "Explorador"
+    "explorer": "Explorador",
+    "view_all": "Ver Todos",
+    "search": "Buscar"
   },
   "pages": {
     "title": "Tablero Ping",
@@ -143,7 +145,8 @@
     "recent": "Reciente",
     "future": "Futuro",
     "fees": "Comisiones",
-    "only_tx": "Se muestran solo transacciones en bloques recientes"
+    "only_tx": "Se muestran solo transacciones en bloques recientes",
+    "search_placeholder": "Buscar transacción, bloque, dirección, Smart Token o dominio"
   },
   "consensus": {
     "monitor": "Monitor",

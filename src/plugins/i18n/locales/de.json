@@ -23,7 +23,9 @@
     "smart_tokens": "Intelligente Token",
     "mns": "Namensdienste",
     "faucet": "Wasserhahn",
-    "explorer": "Explorer"
+    "explorer": "Explorer",
+    "view_all": "Alle anzeigen",
+    "search": "Suche"
   },
   "pages": {
     "title": "Ping Armaturenbrett",
@@ -148,7 +150,8 @@
     "recent": "Kürzlich",
     "future": "Zukunft",
     "fees": "Gebühren",
-    "only_tx": "Nur Transaktionen in kürzlichen Blöcken anzeigen"
+    "only_tx": "Nur Transaktionen in kürzlichen Blöcken anzeigen",
+    "search_placeholder": "Suchen Sie nach Transaktion, Block, Adresse, Smart Token oder Domain"
   },
   "consensus": {
     "monitor": "Monitor",

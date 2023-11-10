@@ -22,7 +22,9 @@
     "smart_tokens": "Smart Tokens",
     "mns": "Name Services",
     "faucet": "Faucet",
-    "explorer": "浏览器"
+    "explorer": "浏览器",
+    "view_all": "查看全部",
+    "search": "搜索"
   },
   "pages": {
     "title": "Ping Dashboard",
@@ -142,7 +144,8 @@
     "recent": "最近区块",
     "future": "未来区块",
     "fees": "GAS费用",
-    "only_tx": "本页面只显示最近区块里包含的交易"
+    "only_tx": "本页面只显示最近区块里包含的交易",
+    "search_placeholder": "搜索交易、区块、地址、智能代币或域名"
   },
   "consensus": {
     "monitor": "更新",

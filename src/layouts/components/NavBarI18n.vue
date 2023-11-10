@@ -58,7 +58,7 @@ const handleLangChange = (lang: string) => {
 
 <template>
   <div
-    class="dropdown"
+    class="dropdown dropdown-hover"
     :class="
       currentLang === 'ar' ? 'dropdown-right' : 'dropdown-bottom dropdown-end'
     "
@@ -70,7 +70,7 @@ const handleLangChange = (lang: string) => {
     </label>
     <ul
       tabindex="0"
-      class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-40"
+      class="dropdown-content menu p-2 shadow-lg bg-base-100 rounded-box w-40"
     >
       <li v-for="lang in i18nLangs" :key="lang.i18nLang">
         <a

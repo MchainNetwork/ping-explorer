@@ -23,7 +23,9 @@
     "smart_tokens": "Jetons Intelligents",
     "mns": "Services de Noms",
     "faucet": "Robinet",
-    "explorer": "Explorer"
+    "explorer": "Explorer",
+    "view_all": "Voir Tout",
+    "search": "Rechercher"
   },
   "pages": {
     "title": "Tableau de bord Ping",
@@ -148,7 +150,8 @@
     "recent": "Récent",
     "future": "Futur",
     "fees": "Frais",
-    "only_tx": "Afficher uniquement les txs dans les blocs récents"
+    "only_tx": "Afficher uniquement les txs dans les blocs récents",
+    "search_placeholder": "Recherchez une transaction, un bloc, une adresse, un Smart Token ou un domaine"
   },
   "consensus": {
     "monitor": "Moniteur",

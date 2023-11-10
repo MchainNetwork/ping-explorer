@@ -146,7 +146,6 @@ function checkDomainAvailable(domain: string) {
 }
 </script>
 
-
 <template>
   <div class="overflow-hidden mx-auto max-w-screen-xl lg:p-10">
     <h2
@@ -271,12 +270,14 @@ function checkDomainAvailable(domain: string) {
             class="hover:bg-gray-200 dark:hover:bg-gray-700"
           >
             <td width="20%">
-              <RouterLink
-                :to="'/mchain/mns/' + item.name + '.' + item.tld"
-                class="hover:underline"
-              >
-                {{ item.name }}.{{ item.tld }}
-              </RouterLink>
+              <div class="truncate">
+                <RouterLink
+                  :to="'/mchain/mns/' + item.name + '.' + item.tld"
+                  class="hover:underline"
+                >
+                  {{ item.name }}.{{ item.tld }}
+                </RouterLink>
+              </div>
             </td>
             <td>
               {{
@@ -347,7 +348,7 @@ function checkDomainAvailable(domain: string) {
             v-for="item in listForSale"
             class="hover:bg-gray-200 dark:hover:bg-gray-700"
           >
-            <td width="20%">
+            <td width="20%" class="truncate">
               <RouterLink
                 :to="'/mchain/mns/' + item.name"
                 class="hover:underline"
@@ -413,12 +414,14 @@ function checkDomainAvailable(domain: string) {
             class="hover:bg-gray-200 dark:hover:bg-gray-700"
           >
             <td width="20%">
-              <RouterLink
-                :to="'/mchain/mns/' + item.name"
-                class="hover:underline"
-              >
-                {{ item.name }}
-              </RouterLink>
+              <div class="truncate">
+                <RouterLink
+                  :to="'/mchain/mns/' + item.name"
+                  class="hover:underline"
+                >
+                  {{ item.name }}
+                </RouterLink>
+              </div>
             </td>
             <td>
               {{
@@ -475,4 +478,3 @@ function checkDomainAvailable(domain: string) {
     }
   }
 </route>
-

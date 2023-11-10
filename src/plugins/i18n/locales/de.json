@@ -344,7 +344,8 @@
     "gas": "Gas",
     "fee": "Gebühr",
     "memo": "Memo",
-    "no_messages": "Keine Nachrichten"
+    "no_messages": "Keine Nachrichten",
+    "events": "Ereignisse"
   },
   "uptime": {
     "overall": "Gesamt",

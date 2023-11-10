@@ -344,7 +344,8 @@
     "gas": "Gas",
     "fee": "Frais",
     "memo": "Mémo",
-    "no_messages": "Pas de messages"
+    "no_messages": "Pas de messages",
+    "events": "Événements"
   },
   "uptime": {
     "overall": "Global",

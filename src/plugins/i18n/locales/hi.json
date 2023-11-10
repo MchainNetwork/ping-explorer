@@ -339,12 +339,13 @@
     "text_title_3": "To make state sync works, we can enable snapshot in $DAEMON_HOME/config/app.toml"
   },
   "tx": {
-    "title": "Summary",
-    "tx_hash": "Tx Hash",
-    "gas": "Gas",
-    "fee": "Fee",
-    "memo": "Memo",
-    "no_messages": "No messages"
+    "title": "सारांश",
+    "tx_hash": "टीएक्स हैश",
+    "gas": "गैस",
+    "fee": "शुल्क",
+    "memo": "मेमो",
+    "no_messages": "कोई संदेश नहीं",
+    "events": "घटनाएँ"
   },
   "uptime": {
     "overall": "Overall",

@@ -339,7 +339,8 @@
     "gas": "Gas",
     "fee": "Tarifa",
     "memo": "Memo",
-    "no_messages": "Sin mensajes"
+    "no_messages": "Sin mensajes",
+    "events": "Eventos"
   },
   "uptime": {
     "overall": "General",

@@ -329,7 +329,8 @@
     "gas": "Bahan bakar",
     "fee": "Biaya",
     "memo": "Memo",
-    "no_messages": "Tidak ada pesan"
+    "no_messages": "Tidak ada pesan",
+    "events": "Event"
   },
   "uptime": {
     "overall": "Secara keseluruhan",

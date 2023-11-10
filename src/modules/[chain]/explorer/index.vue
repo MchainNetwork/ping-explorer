@@ -75,7 +75,7 @@ function confirm() {
   }
 }
 
-let intervalId;
+let intervalId: number | NodeJS.Timer | undefined;
 
 function loadTxs() {
   blockchain.rpc

@@ -17,7 +17,7 @@ function changeEndpoint(item: Endpoint) {
   if (chainStore.current) router.push(`/${chainStore.current.chainName}`);
 }
 
-const testnet = window.location.hostname.search('localhost') > -1;
+const testnet = window.location.hostname.search('testnet') > -1;
 </script>
 
 <template>

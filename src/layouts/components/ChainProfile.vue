@@ -9,6 +9,7 @@ function changeEndpoint(item: Endpoint) {
   chainStore.setRestEndpoint(item);
   if (chainStore.current) router.push(`/${chainStore.current.chainName}`);
 }
+const testnet = window.location.hostname.search('testnet') > -1;
 </script>
 
 <template>
@@ -20,14 +21,14 @@ function changeEndpoint(item: Endpoint) {
           class="w-2 h-2 rounded-full bg-yes absolute right-0 bottom-0 shadow"
         ></div>
       </div>
-      <div class="flex-1 w-0">
+      <div class="flex-1 flex items-center">
         <div
           :key="
             baseStore.latest?.block?.header?.height ||
             chainStore.chainName ||
             ''
           "
-          class="capitalize whitespace-nowrap text-base font-semibold text-gray-600 dark:text-gray-200 hidden md:!block"
+          class="capitalize w-20 whitespace-nowrap text-base font-semibold text-gray-600 dark:text-gray-200 hidden md:!block"
         >
           #{{
             baseStore.latest?.block?.header?.height ||
@@ -45,6 +46,13 @@ function changeEndpoint(item: Endpoint) {
           {{ chainStore.connErr || chainStore.endpoint.address }}
         </div>
         -->
+
+        <div
+          class="badge badge-warning bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-200 text-xs ml-2"
+          v-if="!testnet"
+        >
+          Testnet
+        </div>
       </div>
     </label>
     <div

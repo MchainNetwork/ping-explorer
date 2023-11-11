@@ -82,7 +82,9 @@ function pageload() {
 </script>
 <template>
   <div class="overflow-auto mx-auto max-w-screen-lg">
-    <div v-if="isLoading" class="loading-indicator">Loading...</div>
+    <div v-if="isLoading" class="loading-indicator">
+      {{ $t('mns.loading') }}
+    </div>
     <template v-if="!isLoading">
       <div class="flex justify-between items-center m-4 ml-0 mb-6">
         <RouterLink
@@ -104,7 +106,7 @@ function pageload() {
             @click="dialog.open('mns_bid', { name: domainName }, updateState)"
             v-if="domainInfo.value != walletStore.currentAddress"
           >
-            Place A Bid
+            {{ $t('mns.place_bid') }}
           </label>
           <label
             for="mns_add_record"
@@ -114,7 +116,7 @@ function pageload() {
             "
             v-if="domainInfo.value === walletStore.currentAddress"
           >
-            Add Subdomain
+            {{ $t('mns.add_subdomain') }}
           </label>
           <label
             v-if="domainInfo.value == walletStore.currentAddress"
@@ -128,7 +130,7 @@ function pageload() {
               )
             "
           >
-            Update
+            {{ $t('mns.update') }}
           </label>
           <label
             v-if="domainInfo.value == walletStore.currentAddress"
@@ -136,7 +138,7 @@ function pageload() {
             class="btn btn-primary ml-4 btn-sm"
             @click="dialog.open('mns_list', { name: domainName }, updateState)"
           >
-            Sell
+            {{ $t('mns.sell') }}
           </label>
           <label
             for="mns_transfer"
@@ -146,7 +148,7 @@ function pageload() {
             "
             v-if="domainInfo.value === walletStore.currentAddress"
           >
-            Transfer Domain
+            {{ $t('mns.transfer_domain') }}
           </label>
         </div>
       </div>
@@ -156,7 +158,7 @@ function pageload() {
         class="bg-blue-100 p-8 text-4xl rounded-xl mb-4 text-center border border-success border-dashed"
       >
         <h3 class="text-lg font-bold text-gray-500 mb-2">
-          Domain <span class="text-base">{{ domainName }}</span> is Available!
+          {{ $t('mns.domain_available', { domainName }) }}
         </h3>
         <label
           for="mns_register"
@@ -165,7 +167,7 @@ function pageload() {
             dialog.open('mns_register', { name: domainName }, updateState)
           "
         >
-          Register Now!
+          {{ $t('mns.register_now') }}
         </label>
       </div>
 
@@ -179,11 +181,7 @@ function pageload() {
         "
       >
         <h3 class="text-lg font-bold text-gray-500 dark:text-white mb-2">
-          Domain
-          <span class="text-base"
-            >{{ domainInfo.name }}.{{ domainInfo.tld }}</span
-          >
-          is For Sale!
+          {{ $t('mns.domain_for_sale', domainInfo) }}
         </h3>
         <div>
           <div>
@@ -204,7 +202,7 @@ function pageload() {
               )
             "
           >
-            Buy Domain Now!
+            {{ $t('mns.buy_domain_now') }}
           </label>
 
           <label
@@ -221,24 +219,32 @@ function pageload() {
               )
             "
           >
-            Delist Domain
+            {{ $t('mns.delist_domain') }}
           </label>
         </div>
       </div>
 
       <div v-if="isDomainRegistered" class="bg-base-100 p-4 rounded-xl mb-4">
-        <h3 class="text-lg font-bold px-2 mb-4">Domain Information</h3>
+        <h3 class="text-lg font-bold px-2 mb-4">
+          {{ $t('mns.domain_information') }}
+        </h3>
         <table class="table mb-4">
           <tr>
-            <td width="10%"><strong>Name:</strong></td>
+            <td width="10%">
+              <strong> {{ $t('mns.name') }} </strong>
+            </td>
             <td>{{ domainInfo.name }}</td>
           </tr>
           <tr>
-            <td><strong>TLD:</strong></td>
+            <td>
+              <strong> {{ $t('mns.tld') }} </strong>
+            </td>
             <td>{{ domainInfo.tld }}</td>
           </tr>
           <tr>
-            <td><strong>Expires:</strong></td>
+            <td>
+              <strong> {{ $t('mns.expires') }} </strong>
+            </td>
             <td>
               {{
                 format.toDay(
@@ -252,11 +258,15 @@ function pageload() {
             </td>
           </tr>
           <tr>
-            <td><strong>Value:</strong></td>
+            <td>
+              <strong> {{ $t('mns.value') }} </strong>
+            </td>
             <td>{{ domainInfo.value }}</td>
           </tr>
           <tr>
-            <td><strong>Data:</strong></td>
+            <td>
+              <strong> {{ $t('mns.data') }} </strong>
+            </td>
             <td>{{ domainInfo.data }}</td>
           </tr>
         </table>
@@ -266,13 +276,13 @@ function pageload() {
         v-if="domainInfo.subdomains && domainInfo.subdomains.length"
         class="bg-base-100 p-4 rounded-xl"
       >
-        <h3 class="text-lg font-bold mb-2">Subdomains</h3>
+        <h3 class="text-lg font-bold mb-2">{{ $t('mns.subdomains') }}</h3>
 
         <table class="table table-compact table-zebra text-base">
           <thead>
             <tr>
-              <th>Subdomain</th>
-              <th>Value</th>
+              <th>{{ $t('mns.subdomain') }}</th>
+              <th>{{ $t('mns.value') }}</th>
               <th></th>
             </tr>
           </thead>
@@ -296,7 +306,7 @@ function pageload() {
                     )
                   "
                 >
-                  Update
+                  {{ $t('mns.update') }}
                 </label>
                 <label
                   v-if="domainInfo.value == walletStore.currentAddress"
@@ -310,7 +320,7 @@ function pageload() {
                     )
                   "
                 >
-                  Delete
+                  {{ $t('mns.delete') }}
                 </label>
               </td>
             </tr>

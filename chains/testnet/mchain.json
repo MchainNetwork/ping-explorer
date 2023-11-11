@@ -3,6 +3,7 @@
   "api": ["https://testnet.api.mchain.network"],
   "rpc": ["https://testnet.rpc.mchain.network"],
   "faucet": "https://faucet.mchain.network",
+  "testnet": true,
   "sdk_version": "0.45.1",
   "addr_prefix": "m",
   "coin_type": "118",

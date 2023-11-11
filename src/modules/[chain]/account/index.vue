@@ -55,44 +55,47 @@ function showPubkey(v: any) {
 }
 </script>
 <template>
-  <div class="overflow-auto mx-auto max-w-screen-lg">
-    <div class="flex justify-between items-center">
-      <h1 class="text-2xl md:!text-4xl font-bold mb-6 p-4">Accounts</h1>
-      <div class="pr-4"></div>
-    </div>
-
-    <div class="bg-base-100 p-4 rounded-3xl">
-      <div class="overflow-x-auto">
-        <table class="table table-compact">
-          <thead>
-            <tr>
-              <td>{{ $t('account.address') }}</td>
-              <td width="50%">{{ $t('account.type') }}</td>
-            </tr>
-          </thead>
-          <tr :key="index" v-for="(acc, index) in accounts">
-            <td class="flex items-center">
-              <IdentityIcon
-                size="sm"
-                :address="showAddress(acc)"
-                class="mr-4"
-              />
-              <RouterLink
-                :to="`/${chain}/account/${showAddress(acc)}`"
-                class="link link-primary hover:underline"
-              >
-                {{ showAddress(acc) }}
-              </RouterLink>
-            </td>
-            <td>{{ showType(acc['@type']) }}</td>
-          </tr>
-        </table>
+  <div>
+    <bg-gradient-blur variant="big home"></bg-gradient-blur>
+    <div class="relative overflow-auto mx-auto max-w-screen-lg">
+      <div class="flex justify-between items-center">
+        <h1 class="text-2xl md:!text-4xl font-bold mb-6 p-4">Accounts</h1>
+        <div class="pr-4"></div>
       </div>
-      <PaginationBar
-        :limit="pageRequest.limit"
-        :total="pageResponse.total"
-        :callback="pageload"
-      />
+
+      <div class="bg-base-100 p-4 rounded-3xl">
+        <div class="overflow-x-auto">
+          <table class="table table-compact">
+            <thead>
+              <tr>
+                <td>{{ $t('account.address') }}</td>
+                <td width="50%">{{ $t('account.type') }}</td>
+              </tr>
+            </thead>
+            <tr :key="index" v-for="(acc, index) in accounts">
+              <td class="flex items-center">
+                <IdentityIcon
+                  size="sm"
+                  :address="showAddress(acc)"
+                  class="mr-4"
+                />
+                <RouterLink
+                  :to="`/${chain}/account/${showAddress(acc)}`"
+                  class="link link-primary hover:underline"
+                >
+                  {{ showAddress(acc) }}
+                </RouterLink>
+              </td>
+              <td>{{ showType(acc['@type']) }}</td>
+            </tr>
+          </table>
+        </div>
+        <PaginationBar
+          :limit="pageRequest.limit"
+          :total="pageResponse.total"
+          :callback="pageload"
+        />
+      </div>
     </div>
   </div>
 </template>

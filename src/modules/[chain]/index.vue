@@ -175,11 +175,11 @@ const amount = computed({
             </RouterLink>
           </div>
           <div
-            class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 pb-6"
+            class="grid grid-cols-2 md:!grid-cols-4 auto-cols-auto gap-4 px-4 pb-6"
           >
             <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
               <div class="text-sm mb-1">{{ $t('account.balance') }}</div>
-              <div class="text-lg font-semibold text-main">
+              <div class="text-md md:!text-lg font-semibold text-main">
                 {{ format.formatToken(walletStore.balanceOfStakingToken) }}
               </div>
               <div class="text-sm" :class="color">
@@ -188,7 +188,7 @@ const amount = computed({
             </div>
             <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
               <div class="text-sm mb-1">{{ $t('module.staking') }}</div>
-              <div class="text-lg font-semibold text-main">
+              <div class="text-md md:!text-lg font-semibold text-main">
                 {{ format.formatToken(walletStore.stakingAmount) }}
               </div>
               <div class="text-sm" :class="color">
@@ -197,7 +197,7 @@ const amount = computed({
             </div>
             <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
               <div class="text-sm mb-1">{{ $t('index.reward') }}</div>
-              <div class="text-lg font-semibold text-main">
+              <div class="text-md md:!text-lg font-semibold text-main">
                 {{ format.formatToken(walletStore.rewardAmount) }}
               </div>
               <div class="text-sm" :class="color">
@@ -206,7 +206,7 @@ const amount = computed({
             </div>
             <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
               <div class="text-sm mb-1">{{ $t('index.unbonding') }}</div>
-              <div class="text-lg font-semibold text-main">
+              <div class="text-md md:!text-lg font-semibold text-main">
                 {{ format.formatToken(walletStore.unbondingAmount) }}
               </div>
               <div class="text-sm" :class="color">

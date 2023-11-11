@@ -114,7 +114,11 @@
     "data": "Data:",
     "subdomain": "Subdomain",
     "update": "Perbarui",
-    "delete": "Hapus"
+    "delete": "Hapus",
+    "display_price_in_usd": "Tampilkan harga dalam USD",
+    "your_domains": "Domain Anda",
+    "see_all": "Lihat Semua",
+    "cancel": "Batal"
   },
   "account": {
     "type": "Tipe",

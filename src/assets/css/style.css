@@ -153,3 +153,7 @@ html[data-theme='dark']{
     --tab-radius: .5rem;
     --btn-text-case: none;
   }
+
+.shadow-left {
+    box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.1);
+}

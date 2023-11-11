@@ -115,7 +115,11 @@
     "data": "Dados:",
     "subdomain": "Subdomínio",
     "update": "Atualizar",
-    "delete": "Deletar"
+    "delete": "Deletar",
+    "display_price_in_usd": "Mostrar preço em USD",
+    "your_domains": "Seus Domínios",
+    "see_all": "Ver Todos",
+    "cancel": "Cancelar"
   },
   "account": {
     "type": "Tipo",

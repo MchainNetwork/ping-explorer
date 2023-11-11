@@ -75,7 +75,7 @@ function pageload(p: number) {
               v-for="item in list"
               class="hover:bg-gray-200 dark:hover:bg-gray-700"
             >
-              <td class="flex no-wrap" width="80%">
+              <td class="flex" width="80%">
                 <IdentityIcon
                   :text="item.symbol"
                   size="sm"

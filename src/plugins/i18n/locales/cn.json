@@ -115,7 +115,11 @@
     "data": "数据：",
     "subdomain": "子域名",
     "update": "更新",
-    "delete": "删除"
+    "delete": "删除",
+    "display_price_in_usd": "以美元显示价格",
+    "your_domains": "您的域名",
+    "see_all": "查看所有",
+    "cancel": "取消"
   },
   "account": {
     "type": "类型",

@@ -115,7 +115,11 @@
     "data": "डेटा:",
     "subdomain": "उपडोमेन",
     "update": "अपडेट करें",
-    "delete": "हटाएं"
+    "delete": "हटाएं",
+    "display_price_in_usd": "मूल्य USD में दिखाएं",
+    "your_domains": "आपके डोमेन",
+    "see_all": "सभी देखें",
+    "cancel": "रद्द करें"
   },
   "account": {
     "type": "प्रकार",

@@ -75,64 +75,67 @@ function getFormattedAmount(denom: string, amount: string) {
 }
 </script>
 <template>
-  <div class="overflow-auto mx-auto max-w-screen-lg">
-    <h1 class="text-4xl font-bold mb-6 p-4">Supply</h1>
-    <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl">
-      <table class="table table-compact table-zebra text-base">
-        <thead>
-          <tr>
-            <td>Token</td>
-            <td class="text-right">Amount</td>
-            <td>Issuer</td>
-            <td></td>
-          </tr>
-        </thead>
-        <template v-for="item in list" :key="item.denom">
-          <tr
-            v-if="item.denom === 'umark' || item.denom === 'beer'"
-            class="odd:bg-gray-100 dark:odd:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
-          >
-            <td class="uppercase">
-              {{ getFormattedDenom(item.denom) }}
-            </td>
-            <td class="text-right">
-              {{ getFormattedAmount(item.denom, item.amount) }}
-            </td>
-            <td>Mchain</td>
-            <td></td>
-          </tr>
-        </template>
-        <template v-for="item in list" :key="item.denom">
-          <tr
-            v-if="item.denom != 'umark' && item.denom != 'beer'"
-            class="odd:bg-gray-100 dark:odd:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
-          >
-            <td class="uppercase">
-              {{ getDenomPretty(getFormattedDenom(item.denom)) }}
-            </td>
-            <td class="text-right">
-              {{ getFormattedAmount(item.denom, item.amount) }}
-            </td>
-            <td>{{ getIssuer(item.denom) }}</td>
-            <td class="text-right">
-              <RouterLink
-                :to="`/${chain}/smarttoken/${item.denom}`"
-                class="btn btn-ghost btn-circle btn-sm mx-1"
-              >
-                <Icon
-                  icon="mdi:info-circle"
-                  class="text-2xl text-gray-500 dark:text-gray-400"
-                />
-              </RouterLink>
-            </td>
-          </tr>
-        </template>
-      </table>
-      <PaginationBar
-        :limit="pageRequest.limit"
-        :total="pageResponse.total"
-        :callback="pageload"
-      />
+  <div>
+    <bg-gradient-blur variant="big supply"></bg-gradient-blur>
+    <div class="overflow-auto mx-auto max-w-screen-lg">
+      <h1 class="text-4xl font-bold mb-6 p-4">Supply</h1>
+      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl">
+        <table class="table table-compact table-zebra text-base">
+          <thead>
+            <tr>
+              <td>Token</td>
+              <td class="text-right">Amount</td>
+              <td>Issuer</td>
+              <td></td>
+            </tr>
+          </thead>
+          <template v-for="item in list" :key="item.denom">
+            <tr
+              v-if="item.denom === 'umark' || item.denom === 'beer'"
+              class="odd:bg-gray-100 dark:odd:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
+            >
+              <td class="uppercase">
+                {{ getFormattedDenom(item.denom) }}
+              </td>
+              <td class="text-right">
+                {{ getFormattedAmount(item.denom, item.amount) }}
+              </td>
+              <td>Mchain</td>
+              <td></td>
+            </tr>
+          </template>
+          <template v-for="item in list" :key="item.denom">
+            <tr
+              v-if="item.denom != 'umark' && item.denom != 'beer'"
+              class="odd:bg-gray-100 dark:odd:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
+            >
+              <td class="uppercase">
+                {{ getDenomPretty(getFormattedDenom(item.denom)) }}
+              </td>
+              <td class="text-right">
+                {{ getFormattedAmount(item.denom, item.amount) }}
+              </td>
+              <td>{{ getIssuer(item.denom) }}</td>
+              <td class="text-right">
+                <RouterLink
+                  :to="`/${chain}/smarttoken/${item.denom}`"
+                  class="btn btn-ghost btn-circle btn-sm mx-1"
+                >
+                  <Icon
+                    icon="mdi:info-circle"
+                    class="text-2xl text-gray-500 dark:text-gray-400"
+                  />
+                </RouterLink>
+              </td>
+            </tr>
+          </template>
+        </table>
+        <PaginationBar
+          :limit="pageRequest.limit"
+          :total="pageResponse.total"
+          :callback="pageload"
+        />
+      </div>
     </div>
   </div>
 </template>

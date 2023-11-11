@@ -1,0 +1,167 @@
+
+.bg-gradient-blur-wrapper {
+  transition: all 0.3s ease;
+  position: absolute;
+  width: 100%;
+  max-width: 44%;
+  min-height: 74%;
+  opacity: 0.4;
+  -webkit-filter: blur(100px);
+  filter: blur(100px);
+}
+
+.bg-gradient-blur-wrapper.home {
+  right: -212px;
+  bottom: 140px;
+  opacity: 0.5;
+}
+
+.bg-gradient-blur-wrapper.big {
+  max-width: 35%;
+  min-height: 90%;
+}
+
+.bg-gradient-blur-wrapper.smarttoken {
+  top: 147px;
+  right: 0px;
+  bottom: -148px;
+}
+
+.bg-gradient-blur-wrapper.big.staking {
+  top: -529px;
+  left: -100px;
+  opacity: 0.4;
+}
+
+.bg-gradient-blur-wrapper.big.tx {
+  top: -329px;
+  right: -177px;
+}
+
+.bg-gradient-blur-wrapper.faucet {
+  left: 24px;
+  top: -200px;
+  max-width: 40%;
+  min-height: 40%;
+}
+
+.bg-gradient-blur-wrapper.gov {
+  left: -224px;
+  top: 467px;
+  min-height: 37%;
+}
+
+.bg-gradient-blur-wrapper.gov-proposal {
+  left: -359px;
+  bottom: -63px;
+}
+
+.bg-gradient-blur-wrapper.mns {
+  left: 40%;
+  top: -300px;
+  min-height: 40%;
+}
+
+.bg-gradient-blur-wrapper.mns-page {
+  right: 0px;
+  bottom: 417px;
+  min-height: 22%;
+}
+
+.bg-gradient-blur-wrapper.params {
+  left: -386px;
+  top: -228px;
+  min-height: 70%;
+}
+
+.bg-gradient-blur-wrapper.explorer {
+  right: 40%;
+  top: -270px;
+  min-height: 90%;
+}
+
+.bg-gradient-blur-wrapper.full {
+  left: 0%;
+  top: 0%;
+  right: 0%;
+  bottom: 0%;
+  max-width: 100%;
+  min-height: 100%;
+}
+
+.bg-gradient-blur-wrapper.calculator {
+  left: 30%;
+  top: -169px;
+  min-height: 83%;
+  opacity: 0.21;
+}
+
+.bg-gradient-blur-wrapper.bottom-right {
+  right: -286px;
+  bottom: -325.208px;
+  min-height: 83%;
+}
+
+.bg-gradient-blur-wrapper.help {
+  left: -598px;
+  top: 69px;
+  max-width: 105%;
+  min-height: 59%;
+}
+
+.bg-gradient-blur-circle {
+  position: absolute;
+  width: 70%;
+  max-height: 70%;
+  min-height: 70%;
+  min-width: 70%;
+  border-radius: 1000000px;
+}
+
+.bg-gradient-blur-circle.circle-1 {
+  width: 70%;
+}
+
+.bg-gradient-blur-circle.big {
+  bottom: 0px;
+  width: 87%;
+  max-height: 87%;
+  min-height: 87%;
+  min-width: 87%;
+}
+
+.bg-gradient-blur-circle.circle-2 {
+  right: 0px;
+  bottom: 0px;
+}
+
+.bg-gradient-blur-circle.circle-2.color-1.left {
+  right: auto;
+}
+
+.bg-gradient-blur-circle.circle-3 {
+  top: 0px;
+  right: 0px;
+}
+
+.bg-gradient-blur-circle.top {
+  top: -41px;
+  right: -112px;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+.color-1 {
+  background-color: hsl(var(--p) / var(--tw-bg-opacity));
+}
+
+.color-2 {
+  background-color: hsl(var(--p) / var(--tw-bg-opacity));
+}
+
+.color-3 {
+  background-color: hsl(var(--su) / var(--tw-bg-opacity));
+}
+
+
+

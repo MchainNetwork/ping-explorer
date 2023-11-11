@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed } from '@vue/reactivity';
+import { ref } from '@vue/reactivity';
 import { onMounted } from 'vue';
 import Cookies from 'js-cookie';
 
@@ -15,10 +15,8 @@ import {
   PageRequest,
   type Pagination,
   type MnsNames,
-  type PaginatedNames,
   type MnsForsale,
   type MnsBids,
-  type PaginatedForsale,
 } from '@/types';
 import IdentityIcon from '@/components/IdentityIcon.vue';
 
@@ -147,324 +145,331 @@ function checkDomainAvailable(domain: string) {
 </script>
 
 <template>
-  <div class="overflow-hidden mx-auto max-w-screen-xl lg:p-10">
-    <h2
-      class="text-primary text-xl text-center md:!text-5xl font-bold mx-4 mb-8"
-    >
-      {{ $t('mns.title') }}
-    </h2>
-
-    <div class="check-domain-box bg-base-100 p-4 rounded-3xl mb-6">
-      <h3 class="text-xl font-bold text-center mb-4">
-        {{ $t('mns.subtitle') }}
-      </h3>
-      <p class="text-center text-sm mb-6 md:w-3/6 mx-auto">
-        {{ $t('mns.description') }}
-      </p>
-
-      <div class="md:w-4/6 mx-auto">
-        <form
-          @submit.prevent="verifyDomain"
-          class="flex justify-center w-100 items-center overflow-hidden rounded-full border border-primary mb-6"
-        >
-          <input
-            v-model="domainToCheck"
-            type="text"
-            @input="resetMessages"
-            :placeholder="$t('mns.input_placeholder')"
-            class="input focus:outline-none flex-1"
-            v-focus
-          />
-          <button
-            type="submit"
-            class="btn btn-primary text-white rounded-full w-24"
-          >
-            {{ $t('mns.check_button') }}
-          </button>
-        </form>
-        <p class="text-center text-red-500" v-if="errorMessage">
-          {{ errorMessage }}
-        </p>
-      </div>
-      <div
-        v-if="isAvailable"
-        class="bg-green-500 dark:bg-green-800 text-center text-white p-4 rounded-xl"
+  <div>
+    <bg-gradient-blur variant="big mns"></bg-gradient-blur>
+    <div class="relative overflow-hidden mx-auto max-w-screen-xl lg:p-10">
+      <h2
+        class="text-primary text-xl text-center md:!text-5xl font-bold mx-4 mb-8"
       >
-        <p
-          class="text-2xl"
-          v-html="$t('mns.domain_available_message', { domain: domainToCheck })"
-        ></p>
-        <label
-          for="mns_register"
-          @click="
-            dialog.open(
-              'mns_register',
-              { name: domainToCheck, years: 1, referrer: getReferrerName() },
-              updateState
-            )
-          "
-          class="btn btn-sm text-green-800 dark:text-green-500 rounded-full mt-2"
-        >
-          {{ $t('mns.register_now_button') }}
-        </label>
-      </div>
+        {{ $t('mns.title') }}
+      </h2>
 
-      <div
-        v-if="isRegistered"
-        class="bg-red-500 dark:bg-red-800 text-center text-white p-4 rounded-3xl"
-      >
-        <p
-          class="text-2xl"
-          v-html="
-            $t('mns.domain_registered_message', { domain: domainToCheck })
-          "
-        ></p>
-
-        <label
-          for="mns_bid"
-          @click="dialog.open('mns_bid', { name: domainToCheck }, updateState)"
-          class="btn btn-sm text-red-800 dark:text-red-500 rounded-full mt-2"
-        >
-          {{ $t('mns.place_bid_button') }}
-        </label>
-      </div>
-    </div>
-
-    <div class="flex justify-between items-center">
-      <div class="form-control p-2">
-        <label class="label cursor-pointer">
-          <input
-            type="checkbox"
-            class="checkbox mr-2"
-            id="displayInUSD"
-            v-model="displayInUSD"
-          />
-          <span class="label-text mr-2">Display price in USD</span>
-        </label>
-      </div>
-
-      <RouterLink
-        :to="`/${chain}/mns/owned`"
-        class="btn btn-xs btn-primary mb-4"
-      >
-        Your Domains
-      </RouterLink>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-      <div class="bg-base-100 p-4 rounded-3xl">
-        <h3 class="text-lg font-bold mb-4">
-          {{ $t('mns.registered_names_title') }}
+      <div class="check-domain-box bg-base-100 p-4 rounded-3xl mb-6">
+        <h3 class="text-xl font-bold text-center mb-4">
+          {{ $t('mns.subtitle') }}
         </h3>
-        <table class="table table-compact text-xs">
-          <thead>
-            <tr>
-              <td>{{ $t('mns.domain_label') }}</td>
-              <td>{{ $t('mns.expires_label') }}</td>
-              <td></td>
-            </tr>
-          </thead>
-          <tr
-            :key="item.name + item.tld"
-            v-for="item in list"
-            class="hover:bg-gray-200 dark:hover:bg-gray-700"
+        <p class="text-center text-sm mb-6 md:w-3/6 mx-auto">
+          {{ $t('mns.description') }}
+        </p>
+
+        <div class="md:w-4/6 mx-auto">
+          <form
+            @submit.prevent="verifyDomain"
+            class="flex justify-center w-100 items-center overflow-hidden rounded-full border border-primary mb-6"
           >
-            <td width="20%">
-              <div class="truncate">
-                <RouterLink
-                  :to="'/mchain/mns/' + item.name + '.' + item.tld"
-                  class="hover:underline"
+            <input
+              v-model="domainToCheck"
+              type="text"
+              @input="resetMessages"
+              :placeholder="$t('mns.input_placeholder')"
+              class="input focus:outline-none flex-1"
+              v-focus
+            />
+            <button
+              type="submit"
+              class="btn btn-primary text-white rounded-full w-24"
+            >
+              {{ $t('mns.check_button') }}
+            </button>
+          </form>
+          <p class="text-center text-red-500" v-if="errorMessage">
+            {{ errorMessage }}
+          </p>
+        </div>
+        <div
+          v-if="isAvailable"
+          class="bg-green-500 dark:bg-green-800 text-center text-white p-4 rounded-xl"
+        >
+          <p
+            class="text-2xl"
+            v-html="
+              $t('mns.domain_available_message', { domain: domainToCheck })
+            "
+          ></p>
+          <label
+            for="mns_register"
+            @click="
+              dialog.open(
+                'mns_register',
+                { name: domainToCheck, years: 1, referrer: getReferrerName() },
+                updateState
+              )
+            "
+            class="btn btn-sm text-green-800 dark:text-green-500 rounded-full mt-2"
+          >
+            {{ $t('mns.register_now_button') }}
+          </label>
+        </div>
+
+        <div
+          v-if="isRegistered"
+          class="bg-red-500 dark:bg-red-800 text-center text-white p-4 rounded-3xl"
+        >
+          <p
+            class="text-2xl"
+            v-html="
+              $t('mns.domain_registered_message', { domain: domainToCheck })
+            "
+          ></p>
+
+          <label
+            for="mns_bid"
+            @click="
+              dialog.open('mns_bid', { name: domainToCheck }, updateState)
+            "
+            class="btn btn-sm text-red-800 dark:text-red-500 rounded-full mt-2"
+          >
+            {{ $t('mns.place_bid_button') }}
+          </label>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <div class="form-control p-2">
+          <label class="label cursor-pointer">
+            <input
+              type="checkbox"
+              class="checkbox mr-2"
+              id="displayInUSD"
+              v-model="displayInUSD"
+            />
+            <span class="label-text mr-2">Display price in USD</span>
+          </label>
+        </div>
+
+        <RouterLink
+          :to="`/${chain}/mns/owned`"
+          class="btn btn-xs btn-primary mb-4"
+        >
+          Your Domains
+        </RouterLink>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="bg-base-100 p-4 rounded-3xl">
+          <h3 class="text-lg font-bold mb-4">
+            {{ $t('mns.registered_names_title') }}
+          </h3>
+          <table class="table table-compact text-xs">
+            <thead>
+              <tr>
+                <td>{{ $t('mns.domain_label') }}</td>
+                <td>{{ $t('mns.expires_label') }}</td>
+                <td></td>
+              </tr>
+            </thead>
+            <tr
+              :key="item.name + item.tld"
+              v-for="item in list"
+              class="hover:bg-gray-200 dark:hover:bg-gray-700"
+            >
+              <td width="20%">
+                <div class="truncate">
+                  <RouterLink
+                    :to="'/mchain/mns/' + item.name + '.' + item.tld"
+                    class="hover:underline"
+                  >
+                    {{ item.name }}.{{ item.tld }}
+                  </RouterLink>
+                </div>
+              </td>
+              <td>
+                {{
+                  format.toDay(
+                    calculateExpiryTime(
+                      item.expires,
+                      Number(baseStore.latest?.block?.header?.height) || 0
+                    ),
+                    'date'
+                  )
+                }}
+              </td>
+              <td class="text-right">
+                <label
+                  v-if="item.value != walletStore.currentAddress"
+                  for="mns_bid"
+                  class="btn btn-primary btn-xs w-full"
+                  @click="
+                    dialog.open(
+                      'mns_bid',
+                      { name: item.name + '.' + item.tld },
+                      updateState
+                    )
+                  "
                 >
-                  {{ item.name }}.{{ item.tld }}
-                </RouterLink>
-              </div>
-            </td>
-            <td>
-              {{
-                format.toDay(
-                  calculateExpiryTime(
-                    item.expires,
-                    Number(baseStore.latest?.block?.header?.height) || 0
-                  ),
-                  'date'
-                )
-              }}
-            </td>
-            <td class="text-right">
-              <label
-                v-if="item.value != walletStore.currentAddress"
-                for="mns_bid"
-                class="btn btn-primary btn-xs w-full"
-                @click="
-                  dialog.open(
-                    'mns_bid',
-                    { name: item.name + '.' + item.tld },
-                    updateState
-                  )
-                "
-              >
-                {{ $t('mns.bid_label') }}
-              </label>
-              <label
-                v-if="item.value == walletStore.currentAddress"
-                for="mns_list"
-                class="btn btn-success btn-xs w-full"
-                @click="
-                  dialog.open(
-                    'mns_list',
-                    { name: item.name + '.' + item.tld },
-                    updateState
-                  )
-                "
-              >
-                Sell
-              </label>
-            </td>
-          </tr>
-        </table>
-        <RouterLink
-          v-if="list.length >= 10"
-          :to="'/mchain/mns/registered'"
-          class="btn btn-primary btn-xs btn-outline w-full mt-4"
-        >
-          See All
-        </RouterLink>
-      </div>
-
-      <div class="bg-base-100 p-4 rounded-3xl">
-        <h2 class="text-lg font-bold mb-2">
-          {{ $t('mns.domains_for_sale_title') }}
-        </h2>
-        <table class="table table-compact text-xs">
-          <thead>
-            <tr>
-              <td>{{ $t('mns.domain_label') }}</td>
-              <td>{{ $t('mns.price_label') }}</td>
-              <td></td>
+                  {{ $t('mns.bid_label') }}
+                </label>
+                <label
+                  v-if="item.value == walletStore.currentAddress"
+                  for="mns_list"
+                  class="btn btn-success btn-xs w-full"
+                  @click="
+                    dialog.open(
+                      'mns_list',
+                      { name: item.name + '.' + item.tld },
+                      updateState
+                    )
+                  "
+                >
+                  Sell
+                </label>
+              </td>
             </tr>
-          </thead>
-          <tr
-            :key="item.name"
-            v-for="item in listForSale"
-            class="hover:bg-gray-200 dark:hover:bg-gray-700"
+          </table>
+          <RouterLink
+            v-if="list.length >= 10"
+            :to="'/mchain/mns/registered'"
+            class="btn btn-primary btn-xs btn-outline w-full mt-4"
           >
-            <td width="20%" class="truncate">
-              <RouterLink
-                :to="'/mchain/mns/' + item.name"
-                class="hover:underline"
-              >
-                {{ item.name }}
-              </RouterLink>
-            </td>
-            <td>
-              {{
-                displayInUSD
-                  ? '$' + convertMarkToUsd(item.price)
-                  : format.formatToken2(format.parseCoin(item.price), true)
-              }}
-            </td>
-            <td class="text-right">
-              <label
-                v-if="item.owner != walletStore.currentAddress"
-                for="mns_buy"
-                class="btn btn-primary btn-xs w-full text-white"
-                @click="
-                  dialog.open('mns_buy', { name: item.name }, updateState)
-                "
-              >
-                {{ $t('mns.buy_button') }}
-              </label>
-              <label
-                v-if="item.owner == walletStore.currentAddress"
-                for="mns_delist"
-                class="btn btn-success btn-xs w-full"
-                @click="
-                  dialog.open('mns_delist', { name: item.name }, updateState)
-                "
-              >
-                Cancel
-              </label>
-            </td>
-          </tr>
-        </table>
-        <RouterLink
-          v-if="listForSale.length >= 10"
-          :to="'/mchain/mns/forsale'"
-          class="btn btn-primary btn-xs btn-outline w-full mt-4"
-        >
-          See All
-        </RouterLink>
-      </div>
+            See All
+          </RouterLink>
+        </div>
 
-      <div class="bg-base-100 p-4 rounded-3xl">
-        <h2 class="text-lg font-bold mb-2">
-          {{ $t('mns.domains_in_bid_title') }}
-        </h2>
-        <table class="table table-compact text-xs">
-          <thead>
-            <tr>
-              <td>{{ $t('mns.domain_label') }}</td>
-              <td>{{ $t('mns.bid_label') }}</td>
-              <td></td>
-            </tr>
-          </thead>
-          <tr
-            :key="item.name"
-            v-for="item in listBid"
-            class="hover:bg-gray-200 dark:hover:bg-gray-700"
-          >
-            <td width="20%">
-              <div class="truncate">
+        <div class="bg-base-100 p-4 rounded-3xl">
+          <h2 class="text-lg font-bold mb-2">
+            {{ $t('mns.domains_for_sale_title') }}
+          </h2>
+          <table class="table table-compact text-xs">
+            <thead>
+              <tr>
+                <td>{{ $t('mns.domain_label') }}</td>
+                <td>{{ $t('mns.price_label') }}</td>
+                <td></td>
+              </tr>
+            </thead>
+            <tr
+              :key="item.name"
+              v-for="item in listForSale"
+              class="hover:bg-gray-200 dark:hover:bg-gray-700"
+            >
+              <td width="20%" class="truncate">
                 <RouterLink
                   :to="'/mchain/mns/' + item.name"
                   class="hover:underline"
                 >
                   {{ item.name }}
                 </RouterLink>
-              </div>
-            </td>
-            <td>
-              {{
-                displayInUSD
-                  ? '$' + convertMarkToUsd(item.price)
-                  : format.formatToken2(format.parseCoin(item.price), true)
-              }}
-            </td>
-            <td class="text-right">
-              <label
-                v-if="item.bidder != walletStore.currentAddress"
-                for="mns_bid"
-                class="btn btn-primary btn-xs"
-                @click="
-                  dialog.open('mns_bid', { name: item.name }, updateState)
-                "
-              >
-                {{ $t('mns.bid_label') }}
-              </label>
-              <label
-                v-if="item.bidder == walletStore.currentAddress"
-                for="mns_cancel_bid"
-                class="btn btn-success btn-xs"
-                @click="
-                  dialog.open(
-                    'mns_cancel_bid',
-                    { name: item.name },
-                    updateState
-                  )
-                "
-              >
-                Cancel
-              </label>
-            </td>
-          </tr>
-        </table>
-        <RouterLink
-          v-if="listBid.length >= 10"
-          :to="'/mchain/mns/bids'"
-          class="btn btn-primary btn-xs btn-outline w-full mt-4"
-        >
-          See All
-        </RouterLink>
+              </td>
+              <td>
+                {{
+                  displayInUSD
+                    ? '$' + convertMarkToUsd(item.price)
+                    : format.formatToken2(format.parseCoin(item.price), true)
+                }}
+              </td>
+              <td class="text-right">
+                <label
+                  v-if="item.owner != walletStore.currentAddress"
+                  for="mns_buy"
+                  class="btn btn-primary btn-xs w-full text-white"
+                  @click="
+                    dialog.open('mns_buy', { name: item.name }, updateState)
+                  "
+                >
+                  {{ $t('mns.buy_button') }}
+                </label>
+                <label
+                  v-if="item.owner == walletStore.currentAddress"
+                  for="mns_delist"
+                  class="btn btn-success btn-xs w-full"
+                  @click="
+                    dialog.open('mns_delist', { name: item.name }, updateState)
+                  "
+                >
+                  Cancel
+                </label>
+              </td>
+            </tr>
+          </table>
+          <RouterLink
+            v-if="listForSale.length >= 10"
+            :to="'/mchain/mns/forsale'"
+            class="btn btn-primary btn-xs btn-outline w-full mt-4"
+          >
+            See All
+          </RouterLink>
+        </div>
+
+        <div class="bg-base-100 p-4 rounded-3xl">
+          <h2 class="text-lg font-bold mb-2">
+            {{ $t('mns.domains_in_bid_title') }}
+          </h2>
+          <table class="table table-compact text-xs">
+            <thead>
+              <tr>
+                <td>{{ $t('mns.domain_label') }}</td>
+                <td>{{ $t('mns.bid_label') }}</td>
+                <td></td>
+              </tr>
+            </thead>
+            <tr
+              :key="item.name"
+              v-for="item in listBid"
+              class="hover:bg-gray-200 dark:hover:bg-gray-700"
+            >
+              <td width="20%">
+                <div class="truncate">
+                  <RouterLink
+                    :to="'/mchain/mns/' + item.name"
+                    class="hover:underline"
+                  >
+                    {{ item.name }}
+                  </RouterLink>
+                </div>
+              </td>
+              <td>
+                {{
+                  displayInUSD
+                    ? '$' + convertMarkToUsd(item.price)
+                    : format.formatToken2(format.parseCoin(item.price), true)
+                }}
+              </td>
+              <td class="text-right">
+                <label
+                  v-if="item.bidder != walletStore.currentAddress"
+                  for="mns_bid"
+                  class="btn btn-primary btn-xs"
+                  @click="
+                    dialog.open('mns_bid', { name: item.name }, updateState)
+                  "
+                >
+                  {{ $t('mns.bid_label') }}
+                </label>
+                <label
+                  v-if="item.bidder == walletStore.currentAddress"
+                  for="mns_cancel_bid"
+                  class="btn btn-success btn-xs"
+                  @click="
+                    dialog.open(
+                      'mns_cancel_bid',
+                      { name: item.name },
+                      updateState
+                    )
+                  "
+                >
+                  Cancel
+                </label>
+              </td>
+            </tr>
+          </table>
+          <RouterLink
+            v-if="listBid.length >= 10"
+            :to="'/mchain/mns/bids'"
+            class="btn btn-primary btn-xs btn-outline w-full mt-4"
+          >
+            See All
+          </RouterLink>
+        </div>
       </div>
     </div>
   </div>

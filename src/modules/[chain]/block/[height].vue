@@ -63,126 +63,134 @@ onBeforeRouteUpdate(async (to, from, next) => {
 });
 </script>
 <template>
-  <div class="mx-auto max-w-screen-lg">
-    <h1 class="text-4xl font-bold mb-4 p-4">Future Block</h1>
-    <div v-if="isFutureBlock" class="text-center">
-      <div class="tabs mb-4">
+  <div>
+    <bg-gradient-blur variant="big explorer"></bg-gradient-blur>
+    <div class="relative mx-auto max-w-screen-lg">
+      <div class="flex items-center mb-2 flex-1">
         <RouterLink
-          class="tab tab-lg tab-bordered text-gray-400"
-          :to="`/${chain}/block`"
-          >{{ $t('block.recent') }}</RouterLink
+          :to="`/${chain}/explorer`"
+          class="btn btn-ghost btn-circle btn-sm mx-1"
         >
-        <a class="tab tab-lg tab-bordered text-gray-400 tab-active">{{
-          $t('block.future')
-        }}</a>
-        <RouterLink
-          class="tab tab-lg tab-bordered text-gray-400"
-          :to="`/${chain}/block/#transactions`"
-          >{{ $t('account.transactions') }}</RouterLink
-        >
+          <Icon
+            icon="uil:angle-left"
+            class="text-3xl text-gray-500 dark:text-gray-400"
+          />
+        </RouterLink>
+        <h1 class="text-4xl font-bold p-4">
+          {{ isFutureBlock ? 'Future Block' : 'Block' }}
+        </h1>
       </div>
-      <div v-if="remainingBlocks > 0">
-        <div class="text-primary font-bold text-lg my-10">#{{ target }}</div>
-        <Countdown :time="estimateTime" css="md:!text-5xl font-sans md:mx-5" />
-        <div class="my-5">
-          {{ $t('block.estimated_time') }}:
-          <span class="text-xl font-bold">{{
-            format.toLocaleDate(estimateDate)
-          }}</span>
-        </div>
-        <div class="pt-10 flex justify-center">
-          <table class="table w-max rounded-lg bg-base-100">
-            <tbody>
-              <tr class="hover cursor-pointer" @click="edit = !edit">
-                <td>{{ $t('block.countdown_for_block') }}:</td>
-                <td class="text-right">
-                  <span class="md:!ml-40">{{ target }}</span>
-                </td>
-              </tr>
-              <tr v-if="edit">
-                <td colspan="2" class="text-center">
-                  <h3 class="text-lg font-bold">
-                    {{ $t('block.countdown_for_block_input') }}
-                  </h3>
-                  <div class="join">
-                    <input
-                      class="input input-bordered join-item"
-                      v-model="newHeight"
-                      type="number"
-                    />
-                    <button
-                      class="btn btn-primary join-item"
-                      @click="updateTarget()"
-                    >
-                      {{ $t('block.btn_update') }}
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>{{ $t('block.current_height') }}:</td>
-                <td class="text-right">
-                  #{{ store.latest?.block?.header.height }}
-                </td>
-              </tr>
-              <tr>
-                <td>{{ $t('block.remaining_blocks') }}:</td>
-                <td class="text-right">{{ remainingBlocks }}</td>
-              </tr>
-              <tr>
-                <td>{{ $t('block.average_block_time') }}:</td>
-                <td class="text-right">
-                  {{ (store.blocktime / 1000).toFixed(1) }}s
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <div v-else>
-      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
-        <h2 class="card-title flex flex-row justify-between">
-          <p class="">#{{ current.block?.header?.height }}</p>
-          <div class="flex" v-if="props.height">
-            <RouterLink
-              :to="`/${store.blockchain.chainName}/block/${height - 1}`"
-              class="btn btn-primary btn-sm p-1 rounded-xl text-2xl mr-2"
-            >
-              <Icon icon="mdi-arrow-left" class="w-full h-full" />
-            </RouterLink>
-            <RouterLink
-              :to="`/${store.blockchain.chainName}/block/${height + 1}`"
-              class="btn btn-primary btn-sm p-1 rounded-xl text-2xl"
-            >
-              <Icon icon="mdi-arrow-right" class="w-full h-full" />
-            </RouterLink>
+
+      <div
+        v-if="isFutureBlock"
+        class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4 text-center"
+      >
+        <div v-if="remainingBlocks > 0">
+          <div class="text-primary font-bold text-lg my-10">#{{ target }}</div>
+          <Countdown
+            :time="estimateTime"
+            css="md:!text-5xl font-sans md:mx-5"
+          />
+          <div class="my-5">
+            {{ $t('block.estimated_time') }}:
+            <span class="text-xl font-bold">{{
+              format.toLocaleDate(estimateDate)
+            }}</span>
           </div>
-        </h2>
-        <div>
-          <DynamicComponent :value="current.block_id" />
+          <div class="pt-10 flex justify-center">
+            <table class="table w-max rounded-lg bg-base-100">
+              <tbody>
+                <tr class="hover cursor-pointer" @click="edit = !edit">
+                  <td>{{ $t('block.countdown_for_block') }}:</td>
+                  <td class="text-right">
+                    <span class="md:!ml-40">{{ target }}</span>
+                  </td>
+                </tr>
+                <tr v-if="edit">
+                  <td colspan="2" class="text-center">
+                    <h3 class="text-lg font-bold">
+                      {{ $t('block.countdown_for_block_input') }}
+                    </h3>
+                    <div class="join">
+                      <input
+                        class="input input-bordered join-item"
+                        v-model="newHeight"
+                        type="number"
+                      />
+                      <button
+                        class="btn btn-primary join-item"
+                        @click="updateTarget()"
+                      >
+                        {{ $t('block.btn_update') }}
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ $t('block.current_height') }}:</td>
+                  <td class="text-right">
+                    #{{ store.latest?.block?.header.height }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ $t('block.remaining_blocks') }}:</td>
+                  <td class="text-right">{{ remainingBlocks }}</td>
+                </tr>
+                <tr>
+                  <td>{{ $t('block.average_block_time') }}:</td>
+                  <td class="text-right">
+                    {{ (store.blocktime / 1000).toFixed(1) }}s
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
-      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
-        <h2 class="card-title flex flex-row justify-between">
-          {{ $t('block.block_header') }}
-        </h2>
-        <DynamicComponent :value="current.block?.header" />
-      </div>
+      <div v-if="!isFutureBlock">
+        <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
+          <h2 class="card-title flex flex-row justify-between">
+            <p class="">#{{ current.block?.header?.height }}</p>
+            <div class="flex" v-if="props.height">
+              <RouterLink
+                :to="`/${store.blockchain.chainName}/block/${height - 1}`"
+                class="btn btn-primary btn-sm p-1 rounded-xl text-2xl mr-2"
+              >
+                <Icon icon="mdi-arrow-left" class="w-full h-full" />
+              </RouterLink>
+              <RouterLink
+                :to="`/${store.blockchain.chainName}/block/${height + 1}`"
+                class="btn btn-primary btn-sm p-1 rounded-xl text-2xl"
+              >
+                <Icon icon="mdi-arrow-right" class="w-full h-full" />
+              </RouterLink>
+            </div>
+          </h2>
+          <div>
+            <DynamicComponent :value="current.block_id" />
+          </div>
+        </div>
+        <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
+          <h2 class="card-title flex flex-row justify-between">
+            {{ $t('block.block_header') }}
+          </h2>
+          <DynamicComponent :value="current.block?.header" />
+        </div>
 
-      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mb-4">
-        <h2 class="card-title flex flex-row justify-between">
-          {{ $t('account.transactions') }}
-        </h2>
-        <TxsElement :value="current.block?.data?.txs" />
-      </div>
+        <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
+          <h2 class="card-title flex flex-row justify-between">
+            {{ $t('account.transactions') }}
+          </h2>
+          <TxsElement :value="current.block?.data?.txs" />
+        </div>
 
-      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl">
-        <h2 class="card-title flex flex-row justify-between">
-          {{ $t('block.last_commit') }}
-        </h2>
-        <DynamicComponent :value="current.block?.last_commit" />
+        <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl">
+          <h2 class="card-title flex flex-row justify-between">
+            {{ $t('block.last_commit') }}
+          </h2>
+          <DynamicComponent :value="current.block?.last_commit" />
+        </div>
       </div>
     </div>
   </div>

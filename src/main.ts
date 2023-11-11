@@ -1,7 +1,7 @@
 // import 'ping-widget';
 import App from '@/App.vue';
 import i18n from '@/plugins/i18n';
-import '@/style.css';
+import '@/assets/css/style.css';
 import { createApp, ref } from 'vue';
 import { createPinia } from 'pinia';
 import LazyLoad from 'lazy-load-vue3';
@@ -9,8 +9,8 @@ import LazyLoad from 'lazy-load-vue3';
 import router from './router';
 import { useBaseStore } from './stores/useBaseStore';
 
-
-
+//@ts-ignore
+import BgGradientBlur from './components/BgGradientBlur.vue';
 
 // Create vue app
 const app = createApp(App);
@@ -20,10 +20,12 @@ app.use(createPinia());
 app.use(router);
 app.use(LazyLoad, { component: true });
 
+app.component('bg-gradient-blur', BgGradientBlur);
+
 app.directive('focus', {
   mounted(el) {
     el.focus();
-  }
+  },
 });
 
 // Mount vue app

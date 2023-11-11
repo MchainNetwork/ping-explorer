@@ -101,149 +101,152 @@ onBeforeUnmount(() => {
 });
 </script>
 <template>
-  <div class="mx-auto max-w-screen-lg">
-    <div class="flex items-center justify-between mb-2 flex-1">
-      <h1 class="text-4xl font-bold p-4">{{ $t('module.explorer') }}</h1>
-      <RouterLink class="btn text-primary btn-sm" :to="`/${chain}/params`">
-        <Icon icon="uil:wrench" class="text-lg text-primary" />
-        {{ $t('module.parameters') }}
-      </RouterLink>
-    </div>
-
-    <div class="search-hero mb-8">
-      <div class="input-group shadow-lg rounded-full flex">
-        <input
-          class="input flex-1 w-full"
-          v-model="searchQuery"
-          :placeholder="isFocused ? '' : $t('block.search_placeholder')"
-          @focus="isFocused = true"
-          @blur="isFocused = false"
-          @keyup.enter="confirm"
-        />
-        <button class="btn btn-primary rounded-full btn-md" @click="confirm">
-          <Icon icon="uil:search" class="text-lg" />
-        </button>
+  <div>
+    <bg-gradient-blur variant="big explorer"></bg-gradient-blur>
+    <div class="relative mx-auto max-w-screen-lg">
+      <div class="flex items-center justify-between mb-2 flex-1">
+        <h1 class="text-4xl font-bold p-4">{{ $t('module.explorer') }}</h1>
+        <RouterLink class="btn text-primary btn-sm" :to="`/${chain}/params`">
+          <Icon icon="uil:wrench" class="text-lg text-primary" />
+          {{ $t('module.parameters') }}
+        </RouterLink>
       </div>
-      <div
-        class="mt-2 mb-4 text-center text-sm text-error"
-        v-show="errorMessage"
-      >
-        {{ errorMessage }}
-      </div>
-    </div>
 
-    <div class="px-4 pt-4 pb-4 card-title">
-      {{ $t('index.mchain_stats') }}
-    </div>
-    <div class="grid grid-cols-2 gap-4 md:!grid-cols-3 lg:!grid-cols-6 mb-8">
-      <div v-for="(item, key) in store.stats" :key="key">
-        <CardStatisticsVertical class="shadow-lg" v-bind="item" />
-      </div>
-    </div>
-
-    <div class="md:flex flex-row gap-4">
-      <div class="blocks md:w-1/3">
-        <div class="flex justify-between p-4">
-          <h2 class="card-title">{{ $t('module.blocks') }}</h2>
-          <RouterLink
-            :to="`/${chain}/block/`"
-            class="btn btn-xs btn-outline btn-neutral"
-          >
-            {{ $t('module.view_all') }}
-          </RouterLink>
+      <div class="search-hero mb-8">
+        <div class="input-group shadow-lg rounded-full flex">
+          <input
+            class="input flex-1 w-full"
+            v-model="searchQuery"
+            :placeholder="isFocused ? '' : $t('block.search_placeholder')"
+            @focus="isFocused = true"
+            @blur="isFocused = false"
+            @keyup.enter="confirm"
+          />
+          <button class="btn btn-primary rounded-full btn-md" @click="confirm">
+            <Icon icon="uil:search" class="text-lg" />
+          </button>
         </div>
-        <div class="bg-base-100 shadow-lg pb-4 rounded-3xl mb-4">
-          <div class="overflow-x-auto">
-            <table class="table table-zebra table-md w-full text-sm">
-              <thead>
-                <tr>
-                  <th class="py-3">
-                    {{ $t('account.height') }}/{{ $t('account.time') }}
-                  </th>
-                  <th class="py-3 text-right">
-                    {{ $t('account.validator') }}/txs
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="text-sm">
-                <tr v-for="(item, index) in blocks" :key="index">
-                  <td class="truncate py-2" style="max-width: 200px">
-                    <RouterLink
-                      :to="`/${chain}/block/${item.block.header.height}`"
-                      class="text-sm font-bold text-primary hover:underline"
-                    >
-                      #{{ item.block.header.height }}
-                    </RouterLink>
-                    <div class="text-xs">
-                      {{ format.toDay(item.block?.header?.time, 'from') }}
-                    </div>
-                  </td>
-                  <td class="py-2 h-14 text-right">
-                    <div class="text-sm font-bold">
-                      {{
-                        format.validator(item.block?.header?.proposer_address)
-                      }}
-                    </div>
-                    <div class="text-xs">
-                      {{ item.block?.data?.txs.length }} txs
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        <div
+          class="mt-2 mb-4 text-center text-sm text-error"
+          v-show="errorMessage"
+        >
+          {{ errorMessage }}
+        </div>
+      </div>
+
+      <div class="px-4 pt-4 pb-4 card-title">
+        {{ $t('index.mchain_stats') }}
+      </div>
+      <div class="grid grid-cols-2 gap-4 md:!grid-cols-3 lg:!grid-cols-6 mb-8">
+        <div v-for="(item, key) in store.stats" :key="key">
+          <CardStatisticsVertical class="shadow-lg" v-bind="item" />
+        </div>
+      </div>
+
+      <div class="md:flex flex-row gap-4">
+        <div class="blocks md:w-1/3">
+          <div class="flex justify-between p-4">
+            <h2 class="card-title">{{ $t('module.blocks') }}</h2>
+            <RouterLink
+              :to="`/${chain}/block/`"
+              class="btn btn-xs btn-outline btn-neutral"
+            >
+              {{ $t('module.view_all') }}
+            </RouterLink>
+          </div>
+          <div class="bg-base-100 shadow-lg pb-4 rounded-3xl mb-4">
+            <div class="overflow-x-auto">
+              <table class="table table-zebra table-md w-full text-sm">
+                <thead>
+                  <tr>
+                    <th class="py-3">
+                      {{ $t('account.height') }}/{{ $t('account.time') }}
+                    </th>
+                    <th class="py-3 text-right">
+                      {{ $t('account.validator') }}/txs
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="text-sm">
+                  <tr v-for="(item, index) in blocks" :key="index">
+                    <td class="truncate py-2" style="max-width: 200px">
+                      <RouterLink
+                        :to="`/${chain}/block/${item.block.header.height}`"
+                        class="text-sm font-bold text-primary hover:underline"
+                      >
+                        #{{ item.block.header.height }}
+                      </RouterLink>
+                      <div class="text-xs">
+                        {{ format.toDay(item.block?.header?.time, 'from') }}
+                      </div>
+                    </td>
+                    <td class="py-2 h-14 text-right">
+                      <div class="text-sm font-bold">
+                        {{
+                          format.validator(item.block?.header?.proposer_address)
+                        }}
+                      </div>
+                      <div class="text-xs">
+                        {{ item.block?.data?.txs.length }} txs
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="transactions md:w-2/3">
-        <div class="flex justify-between p-4">
-          <h2 class="card-title">{{ $t('account.transactions') }}</h2>
-          <RouterLink :to="`/${chain}/tx/`" class="btn btn-xs btn-outline">
-            {{ $t('module.view_all') }}
-          </RouterLink>
-        </div>
-        <!-- Transactions -->
-        <div class="bg-base-100 shadow-lg pb-4 rounded-3xl mb-4">
-          <div class="overflow-x-auto">
-            <table class="table table-zebra table-lg w-full">
-              <thead>
-                <tr>
-                  <th class="py-3">{{ $t('account.hash') }}</th>
-                  <th class="py-3">{{ $t('account.message') }}</th>
-                  <th class="py-3">{{ $t('account.height') }}</th>
-                  <th class="py-3 text-right">{{ $t('account.time') }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(v, index) in txs" :key="index">
-                  <td class="truncate py-2 h-14" style="max-width: 200px">
-                    <RouterLink
-                      :to="`/${chain}/tx/${v.txhash}`"
-                      class="text-sm text-primary font-bold"
-                    >
-                      {{ v.txhash }}
-                    </RouterLink>
-                  </td>
-                  <td class="flex items-center pt-4">
-                    <span
-                      class="badge badge-success bg-green-100 text-green-800 mr-2"
-                    >
-                      {{ format.messages(v.tx.body.messages) }}
-                    </span>
-                  </td>
-                  <td class="text-sm py-2">
-                    <RouterLink
-                      :to="`/${chain}/block/${v.height}`"
-                      class="text-primary font-bold"
-                      >#{{ v.height }}</RouterLink
-                    >
-                  </td>
-                  <td class="py-3 text-xs text-right">
-                    {{ format.toDay(v.timestamp, 'from') }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="transactions md:w-2/3">
+          <div class="flex justify-between p-4">
+            <h2 class="card-title">{{ $t('account.transactions') }}</h2>
+            <RouterLink :to="`/${chain}/tx/`" class="btn btn-xs btn-outline">
+              {{ $t('module.view_all') }}
+            </RouterLink>
+          </div>
+          <!-- Transactions -->
+          <div class="bg-base-100 shadow-lg pb-4 rounded-3xl mb-4">
+            <div class="overflow-x-auto">
+              <table class="table table-zebra table-lg w-full">
+                <thead>
+                  <tr>
+                    <th class="py-3">{{ $t('account.hash') }}</th>
+                    <th class="py-3">{{ $t('account.message') }}</th>
+                    <th class="py-3">{{ $t('account.height') }}</th>
+                    <th class="py-3 text-right">{{ $t('account.time') }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(v, index) in txs" :key="index">
+                    <td class="truncate py-2 h-14" style="max-width: 200px">
+                      <RouterLink
+                        :to="`/${chain}/tx/${v.txhash}`"
+                        class="text-sm text-primary font-bold"
+                      >
+                        {{ v.txhash }}
+                      </RouterLink>
+                    </td>
+                    <td class="flex items-center pt-4">
+                      <span
+                        class="badge badge-success bg-green-100 text-green-800 mr-2"
+                      >
+                        {{ format.messages(v.tx.body.messages) }}
+                      </span>
+                    </td>
+                    <td class="text-sm py-2">
+                      <RouterLink
+                        :to="`/${chain}/block/${v.height}`"
+                        class="text-primary font-bold"
+                        >#{{ v.height }}</RouterLink
+                      >
+                    </td>
+                    <td class="py-3 text-xs text-right">
+                      {{ format.toDay(v.timestamp, 'from') }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

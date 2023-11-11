@@ -69,47 +69,50 @@ async function callFaucet() {
 </script>
 
 <template>
-  <div class="container mx-auto text-center p-4">
-    <h2 class="text-2xl md:text-5xl font-bold text-primary mb-6">
-      {{ $t('faucet.title') }}
-    </h2>
+  <div>
+    <bg-gradient-blur variant="big faucet"></bg-gradient-blur>
+    <div class="relative container mx-auto text-center p-4">
+      <h2 class="text-2xl md:text-5xl font-bold text-primary mb-6">
+        {{ $t('faucet.title') }}
+      </h2>
 
-    <div class="mb-6 mx-auto" style="max-width: 600px">
-      <div class="mb-6 mx-auto">
-        {{ $t('faucet.description') }}
-      </div>
+      <div class="mb-6 mx-auto" style="max-width: 600px">
+        <div class="mb-6 mx-auto">
+          {{ $t('faucet.description') }}
+        </div>
 
-      <div class="text-left">
-        <input
-          type="text"
-          id="mchainAddress"
-          v-model="mchainAddress"
-          class="mt-1 p-2 block w-full mx-auto border border-gray-300 rounded-full mb-8"
-          :placeholder="$t('faucet.input_placeholder')"
-          v-focus
-        />
-      </div>
+        <div class="text-left">
+          <input
+            type="text"
+            id="mchainAddress"
+            v-model="mchainAddress"
+            class="mt-1 p-2 block w-full mx-auto border border-gray-300 rounded-full mb-8"
+            :placeholder="$t('faucet.input_placeholder')"
+            v-focus
+          />
+        </div>
 
-      <button
-        :disabled="isLoading"
-        @click="callFaucet"
-        class="btn btn-primary btn-md text-white rounded-full"
-      >
-        <span v-if="isLoading">{{ $t('faucet.sending') }}</span>
-        <span v-else>{{ $t('faucet.get_tokens') }}</span>
-      </button>
+        <button
+          :disabled="isLoading"
+          @click="callFaucet"
+          class="btn btn-primary btn-md text-white rounded-full"
+        >
+          <span v-if="isLoading">{{ $t('faucet.sending') }}</span>
+          <span v-else>{{ $t('faucet.get_tokens') }}</span>
+        </button>
 
-      <div
-        v-if="responseMessage"
-        :class="{
-          'bg-red-200 dark:bg-red-700 text-red-700 dark:text-white':
-            isErrorMessage,
-          'bg-green-200 dark:bg-green-700 text-green-700 dark:text-white':
-            !isErrorMessage,
-        }"
-        class="mt-8 p-4 rounded"
-      >
-        {{ responseMessage }}
+        <div
+          v-if="responseMessage"
+          :class="{
+            'bg-red-200 dark:bg-red-700 text-red-700 dark:text-white':
+              isErrorMessage,
+            'bg-green-200 dark:bg-green-700 text-green-700 dark:text-white':
+              !isErrorMessage,
+          }"
+          class="mt-8 p-4 rounded"
+        >
+          {{ responseMessage }}
+        </div>
       </div>
     </div>
   </div>

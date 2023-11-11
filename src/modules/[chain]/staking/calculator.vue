@@ -108,188 +108,199 @@ const returns = computed(() =>
 </script>
 
 <template>
-  <div class="mx-auto max-w-screen-md" v-if="stakingAPR > 0">
-    <h1 class="text-4xl font-bold mb-4 p-4">
-      {{ $t('calculator.staking_rewards_calculator') }}
-    </h1>
-    <div class="bg-base-100 p-4 my-4 rounded-3xl text-center">
-      <div class="mb-4">
-        <label for="stake" class="block text-md font-bold mb-4">
-          {{
-            $t('calculator.enter_your_stake', {
-              chain: 'Mchain',
-              symbol: bondDenomSymbol,
-            })
-          }}
-        </label>
-        <input
-          type="number"
-          id="stake"
-          v-model.number="stake"
-          class="input rounded-full text-center text-2xl w-full max-w-xs !input-bordered"
-          placeholder="1000000"
-          v-focus
-        />
-      </div>
-      <div class="flex items-center justify-between">
-        <div class="p-2">
-          {{ $t('calculator.your_investment') }} = ${{ investment.toFixed(2) }}
-        </div>
-        <div class="form-control p-2">
-          <label class="label cursor-pointer">
-            <span class="label-text mr-2">{{
-              $t('calculator.compound_weekly')
-            }}</span>
-            <input type="checkbox" class="checkbox" v-model="compoundWeekly" />
-          </label>
-        </div>
-      </div>
-      <div class="bg-base-300 px-4 py-8 rounded-3xl">
+  <div>
+    <bg-gradient-blur variant="big calculator"></bg-gradient-blur>
+    <div class="relative mx-auto max-w-screen-md" v-if="stakingAPR > 0">
+      <h1 class="text-4xl font-bold mb-4 p-4">
+        {{ $t('calculator.staking_rewards_calculator') }}
+      </h1>
+      <div class="bg-base-100 p-4 my-4 rounded-3xl text-center">
         <div class="mb-4">
-          <p class="text-sm font-medium text-gray-600">
-            {{ $t('calculator.staking_apr_title') }}
-          </p>
-          <p class="text-xl font-bold text-green-600">
-            {{ finalStakingAPR.toFixed(2) }}%
-          </p>
+          <label for="stake" class="block text-md font-bold mb-4">
+            {{
+              $t('calculator.enter_your_stake', {
+                chain: 'Mchain',
+                symbol: bondDenomSymbol,
+              })
+            }}
+          </label>
+          <input
+            type="number"
+            id="stake"
+            v-model.number="stake"
+            class="input rounded-full text-center text-2xl w-full max-w-xs !input-bordered"
+            placeholder="1000000"
+            v-focus
+          />
         </div>
-        <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <div>
-            <p class="text-sm font-medium text-gray-600">
-              {{ $t('calculator.daily_returns') }}
-            </p>
-            <p class="text-xl font-bold">
-              {{ returns.dailyTokens.toFixed(2) }} {{ bondDenomSymbol }}
-            </p>
-            <p class="text-lg text-gray-600">
-              ${{ returns.dailyUSD.toFixed(2) }}
-            </p>
+        <div class="flex items-center justify-between">
+          <div class="p-2">
+            {{ $t('calculator.your_investment') }} = ${{
+              investment.toFixed(2)
+            }}
           </div>
-          <div>
-            <p class="text-sm font-medium text-gray-600">
-              {{ $t('calculator.monthly_returns') }}
-            </p>
-            <p class="text-xl font-bold">
-              {{ returns.monthlyTokens.toFixed(2) }} {{ bondDenomSymbol }}
-            </p>
-            <p class="text-lg text-gray-600">
-              ${{ returns.monthlyUSD.toFixed(2) }}
-            </p>
-          </div>
-          <div class="md:col-span-2">
-            <p class="text-sm font-medium text-gray-600">
-              {{ $t('calculator.yearly_returns') }}
-            </p>
-            <p class="text-xl font-bold">
-              {{ returns.annualTokens.toFixed(2) }} {{ bondDenomSymbol }}
-            </p>
-            <p class="text-lg text-gray-600">
-              ${{ returns.annualUSD.toFixed(2) }}
-            </p>
+          <div class="form-control p-2">
+            <label class="label cursor-pointer">
+              <span class="label-text mr-2">{{
+                $t('calculator.compound_weekly')
+              }}</span>
+              <input
+                type="checkbox"
+                class="checkbox"
+                v-model="compoundWeekly"
+              />
+            </label>
           </div>
         </div>
-      </div>
-      <div class="mt-4 text-xs">
-        {{ $t('calculator.variable_apr_note') }}
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4 text-center">
-      <div class="bg-base-100 rounded-3xl">
-        <div class="p-4">
-          <p class="text-xs">{{ $t('calculator.staking_apr_title') }}</p>
-          <p class="text-md">{{ Number(stakingAPR).toFixed(2) }}%</p>
+        <div class="bg-base-300 px-4 py-8 rounded-3xl">
+          <div class="mb-4">
+            <p class="text-sm font-medium text-gray-600">
+              {{ $t('calculator.staking_apr_title') }}
+            </p>
+            <p class="text-xl font-bold text-green-600">
+              {{ finalStakingAPR.toFixed(2) }}%
+            </p>
+          </div>
+          <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <p class="text-sm font-medium text-gray-600">
+                {{ $t('calculator.daily_returns') }}
+              </p>
+              <p class="text-xl font-bold">
+                {{ returns.dailyTokens.toFixed(2) }} {{ bondDenomSymbol }}
+              </p>
+              <p class="text-lg text-gray-600">
+                ${{ returns.dailyUSD.toFixed(2) }}
+              </p>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-gray-600">
+                {{ $t('calculator.monthly_returns') }}
+              </p>
+              <p class="text-xl font-bold">
+                {{ returns.monthlyTokens.toFixed(2) }} {{ bondDenomSymbol }}
+              </p>
+              <p class="text-lg text-gray-600">
+                ${{ returns.monthlyUSD.toFixed(2) }}
+              </p>
+            </div>
+            <div class="md:col-span-2">
+              <p class="text-sm font-medium text-gray-600">
+                {{ $t('calculator.yearly_returns') }}
+              </p>
+              <p class="text-xl font-bold">
+                {{ returns.annualTokens.toFixed(2) }} {{ bondDenomSymbol }}
+              </p>
+              <p class="text-lg text-gray-600">
+                ${{ returns.annualUSD.toFixed(2) }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 text-xs">
+          {{ $t('calculator.variable_apr_note') }}
         </div>
       </div>
 
-      <div class="bg-base-100 rounded-3xl">
-        <div class="p-4">
-          <p class="text-xs">{{ $t('calculator.community_tax_title') }}</p>
-          <p class="text-md">{{ (communityTax * 100).toFixed(0) }}%</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4 text-center">
+        <div class="bg-base-100 rounded-3xl">
+          <div class="p-4">
+            <p class="text-xs">{{ $t('calculator.staking_apr_title') }}</p>
+            <p class="text-md">{{ Number(stakingAPR).toFixed(2) }}%</p>
+          </div>
+        </div>
+
+        <div class="bg-base-100 rounded-3xl">
+          <div class="p-4">
+            <p class="text-xs">{{ $t('calculator.community_tax_title') }}</p>
+            <p class="text-md">{{ (communityTax * 100).toFixed(0) }}%</p>
+          </div>
+        </div>
+
+        <div class="bg-base-100 rounded-3xl">
+          <div class="p-4">
+            <p class="text-xs">
+              {{ $t('calculator.validator_commission_title') }}
+            </p>
+            <p class="text-md">{{ (validatorCommission * 100).toFixed(0) }}%</p>
+          </div>
+        </div>
+
+        <div class="bg-base-100 rounded-3xl">
+          <div class="p-4">
+            <p class="text-xs">
+              {{ $t('calculator.final_staking_apr_title') }}
+            </p>
+            <p class="text-md">{{ Number(finalStakingAPR).toFixed(2) }}%</p>
+          </div>
+        </div>
+
+        <div class="bg-base-100 rounded-3xl">
+          <div class="p-4">
+            <p class="text-xs">{{ $t('calculator.token_price_title') }}</p>
+            <p class="text-md">$ {{ Number(tokenValueUSD).toFixed(4) }}</p>
+          </div>
+        </div>
+
+        <div class="bg-base-100 rounded-3xl">
+          <div class="p-4">
+            <p class="text-xs">{{ $t('calculator.bonded_tokens_title') }}</p>
+            <p class="text-md">
+              {{ Number(bondedTokens).toFixed(0) }} {{ bondDenomSymbol }}
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-base-100 rounded-3xl">
+          <div class="p-4">
+            <p class="text-xs">{{ $t('calculator.actual_inflation_title') }}</p>
+            <p class="text-md">{{ (inflation * 100).toFixed(2) }}%</p>
+          </div>
+        </div>
+
+        <div class="bg-base-100 rounded-3xl">
+          <div class="p-4">
+            <p class="text-xs">{{ $t('calculator.tokens_per_block_title') }}</p>
+            <p class="text-md">
+              {{ Number(tokensPerBlock).toFixed(2) }} {{ bondDenomSymbol }}
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-base-100 rounded-3xl">
+          <div class="p-4">
+            <p class="text-xs">{{ $t('calculator.blocks_per_year_title') }}</p>
+            <p class="text-md">{{ blocksPerYear }}</p>
+          </div>
+        </div>
+
+        <div class="bg-base-100 rounded-3xl">
+          <div class="p-4">
+            <p class="text-xs">{{ $t('calculator.total_supply_title') }}</p>
+            <p class="text-md">
+              {{ Number(totalSupply).toFixed(0) }} {{ bondDenomSymbol }}
+            </p>
+          </div>
         </div>
       </div>
 
-      <div class="bg-base-100 rounded-3xl">
-        <div class="p-4">
-          <p class="text-xs">
-            {{ $t('calculator.validator_commission_title') }}
-          </p>
-          <p class="text-md">{{ (validatorCommission * 100).toFixed(0) }}%</p>
-        </div>
+      <div class="bg-base-100 p-8 rounded-3xl">
+        <h2 class="text-lg font-semibold text-gray-700 mb-4">
+          {{ $t('calculator.disclaimer_title') }}
+        </h2>
+        <p class="text-sm text-gray-600">
+          {{ $t('calculator.disclaimer_text_1') }}
+        </p>
+        <p class="mt-4 text-sm text-gray-600">
+          {{ $t('calculator.disclaimer_text_2') }}
+        </p>
+        <p class="mt-4 text-sm text-gray-600">
+          {{ $t('calculator.disclaimer_text_3') }}
+        </p>
+        <p class="mt-4 text-sm text-gray-600">
+          {{ $t('calculator.disclaimer_text_4') }}
+        </p>
       </div>
-
-      <div class="bg-base-100 rounded-3xl">
-        <div class="p-4">
-          <p class="text-xs">{{ $t('calculator.final_staking_apr_title') }}</p>
-          <p class="text-md">{{ Number(finalStakingAPR).toFixed(2) }}%</p>
-        </div>
-      </div>
-
-      <div class="bg-base-100 rounded-3xl">
-        <div class="p-4">
-          <p class="text-xs">{{ $t('calculator.token_price_title') }}</p>
-          <p class="text-md">$ {{ Number(tokenValueUSD).toFixed(4) }}</p>
-        </div>
-      </div>
-
-      <div class="bg-base-100 rounded-3xl">
-        <div class="p-4">
-          <p class="text-xs">{{ $t('calculator.bonded_tokens_title') }}</p>
-          <p class="text-md">
-            {{ Number(bondedTokens).toFixed(0) }} {{ bondDenomSymbol }}
-          </p>
-        </div>
-      </div>
-
-      <div class="bg-base-100 rounded-3xl">
-        <div class="p-4">
-          <p class="text-xs">{{ $t('calculator.actual_inflation_title') }}</p>
-          <p class="text-md">{{ (inflation * 100).toFixed(2) }}%</p>
-        </div>
-      </div>
-
-      <div class="bg-base-100 rounded-3xl">
-        <div class="p-4">
-          <p class="text-xs">{{ $t('calculator.tokens_per_block_title') }}</p>
-          <p class="text-md">
-            {{ Number(tokensPerBlock).toFixed(2) }} {{ bondDenomSymbol }}
-          </p>
-        </div>
-      </div>
-
-      <div class="bg-base-100 rounded-3xl">
-        <div class="p-4">
-          <p class="text-xs">{{ $t('calculator.blocks_per_year_title') }}</p>
-          <p class="text-md">{{ blocksPerYear }}</p>
-        </div>
-      </div>
-
-      <div class="bg-base-100 rounded-3xl">
-        <div class="p-4">
-          <p class="text-xs">{{ $t('calculator.total_supply_title') }}</p>
-          <p class="text-md">
-            {{ Number(totalSupply).toFixed(0) }} {{ bondDenomSymbol }}
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="bg-base-100 p-8 rounded-3xl">
-      <h2 class="text-lg font-semibold text-gray-700 mb-4">
-        {{ $t('calculator.disclaimer_title') }}
-      </h2>
-      <p class="text-sm text-gray-600">
-        {{ $t('calculator.disclaimer_text_1') }}
-      </p>
-      <p class="mt-4 text-sm text-gray-600">
-        {{ $t('calculator.disclaimer_text_2') }}
-      </p>
-      <p class="mt-4 text-sm text-gray-600">
-        {{ $t('calculator.disclaimer_text_3') }}
-      </p>
-      <p class="mt-4 text-sm text-gray-600">
-        {{ $t('calculator.disclaimer_text_4') }}
-      </p>
     </div>
   </div>
 </template>

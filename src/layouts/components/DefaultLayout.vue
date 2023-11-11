@@ -193,7 +193,7 @@ function selected(route: any, nav: NavLink) {
       <!-- 👉 Pages -->
       <div style="min-height: calc(100vh - 72px)" class="p-4">
         <RouterView v-slot="{ Component }">
-          <Transition mode="out-in">
+          <Transition name="fade">
             <Component :is="Component" />
           </Transition>
         </RouterView>
@@ -203,3 +203,14 @@ function selected(route: any, nav: NavLink) {
     </div>
   </div>
 </template>
+<style>
+.fade-enter-from {
+  opacity: 0;
+}
+.fade-enter-to {
+  opacity: 1;
+}
+.fade-enter-active {
+  transition: opacity 0.5s ease;
+}
+</style>

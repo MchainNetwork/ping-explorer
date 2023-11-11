@@ -268,80 +268,89 @@ const filteredList = computed(() => {
 });
 </script>
 <template>
-  <div class="overflow-hidden mx-auto max-w-screen-lg">
-    <div class="flex justify-between items-center">
-      <h1 class="text-4xl font-bold mb-4 p-4">
-        {{ $t('staking.your_staking_overview') }}
-      </h1>
-      <div class="pr-4"></div>
-    </div>
+  <div>
+    <bg-gradient-blur variant="big staking"></bg-gradient-blur>
+    <div class="relative overflow-hidden mx-auto max-w-screen-lg">
+      <div class="flex justify-between items-center">
+        <h1 class="text-4xl font-bold mb-4 p-4">
+          {{ $t('staking.your_staking_overview') }}
+        </h1>
+        <div class="pr-4"></div>
+      </div>
 
-    <div
-      class="bg-base-100 rounded-3xl mb-8 p-8 text-center"
-      v-if="!walletStore?.currentAddress"
-    >
-      <p class="mb-4 text-lg">
-        {{ $t('staking.view_and_manage_your_staking') }}
-      </p>
-      <label
-        for="PingConnectWallet"
-        class="btn btn-md btn-primary text-white rounded-full"
-      >
-        <span class="ml-1 block">{{ $t('staking.connect_wallet') }}</span>
-      </label>
-      <Teleport to="body">
-        <ping-connect-wallet
-          :chain-id="base.currentChainId"
-          :hd-path="chainStore.defaultHDPath"
-          :addr-prefix="chainStore.current?.bech32Prefix || 'm'"
-          @connect="walletStateChange"
-          @keplr-config="walletStore.suggestChain()"
-        />
-      </Teleport>
-    </div>
-
-    <div class="bg-base-100 rounded-3xl mb-8" v-if="walletStore.currentAddress">
       <div
-        class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 py-6"
+        class="bg-base-100 rounded-3xl mb-8 p-8 text-center"
+        v-if="!walletStore?.currentAddress"
       >
-        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('staking.your_delegations') }}</div>
-          <div class="text-lg font-semibold text-main">
-            {{ walletStore.delegations.length }}
-          </div>
-          <div class="text-sm"></div>
-        </div>
+        <p class="mb-4 text-lg">
+          {{ $t('staking.view_and_manage_your_staking') }}
+        </p>
+        <label
+          for="PingConnectWallet"
+          class="btn btn-md btn-primary text-white rounded-full"
+        >
+          <span class="ml-1 block">{{ $t('staking.connect_wallet') }}</span>
+        </label>
+        <Teleport to="body">
+          <ping-connect-wallet
+            :chain-id="base.currentChainId"
+            :hd-path="chainStore.defaultHDPath"
+            :addr-prefix="chainStore.current?.bech32Prefix || 'm'"
+            @connect="walletStateChange"
+            @keplr-config="walletStore.suggestChain()"
+          />
+        </Teleport>
+      </div>
 
-        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('staking.your_staked_amount') }}</div>
-          <div class="text-lg font-semibold text-main">
-            {{ format.formatToken(walletStore.stakingAmount) }}
+      <div
+        class="bg-base-100 rounded-3xl mb-8"
+        v-if="walletStore.currentAddress"
+      >
+        <div
+          class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 py-6"
+        >
+          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+            <div class="text-sm mb-1">{{ $t('staking.your_delegations') }}</div>
+            <div class="text-lg font-semibold text-main">
+              {{ walletStore.delegations.length }}
+            </div>
+            <div class="text-sm"></div>
           </div>
-          <div class="text-sm">
-            ${{ format.tokenValue(walletStore.stakingAmount) }}
-          </div>
-        </div>
 
-        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('staking.claimable_rewards') }}</div>
-          <div class="text-lg font-semibold text-main">
-            {{ format.formatToken(walletStore.rewardAmount) }}
+          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+            <div class="text-sm mb-1">
+              {{ $t('staking.your_staked_amount') }}
+            </div>
+            <div class="text-lg font-semibold text-main">
+              {{ format.formatToken(walletStore.stakingAmount) }}
+            </div>
+            <div class="text-sm">
+              ${{ format.tokenValue(walletStore.stakingAmount) }}
+            </div>
           </div>
-          <div class="text-sm">
-            ${{ format.tokenValue(walletStore.rewardAmount) }}
-            <label
-              v-if="walletStore?.rewardAmount?.amount > 0"
-              for="staking_withdraw"
-              class="btn btn-primary btn-xs rounded-full text-white ml-1"
-              @click="
-                dialog.open('staking.staking_withdraw', {}, walletStateChange)
-              "
-              >{{ $t('account.btn_withdraw') }}</label
-            >
-          </div>
-        </div>
 
-        <!--
+          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+            <div class="text-sm mb-1">
+              {{ $t('staking.claimable_rewards') }}
+            </div>
+            <div class="text-lg font-semibold text-main">
+              {{ format.formatToken(walletStore.rewardAmount) }}
+            </div>
+            <div class="text-sm">
+              ${{ format.tokenValue(walletStore.rewardAmount) }}
+              <label
+                v-if="walletStore?.rewardAmount?.amount > 0"
+                for="staking_withdraw"
+                class="btn btn-primary btn-xs rounded-full text-white ml-1"
+                @click="
+                  dialog.open('staking.staking_withdraw', {}, walletStateChange)
+                "
+                >{{ $t('account.btn_withdraw') }}</label
+              >
+            </div>
+          </div>
+
+          <!--
         <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
           <div class="text-sm mb-1">{{ $t('index.unbonding') }}</div>
           <div class="text-lg font-semibold text-main">
@@ -353,68 +362,70 @@ const filteredList = computed(() => {
         </div>
         -->
 
-        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('staking.available_balance') }}</div>
-          <div class="text-lg font-semibold text-main">
-            {{ format.formatToken(walletStore.balanceOfStakingToken) }}
-          </div>
-          <div class="text-sm">
-            ${{ format.tokenValue(walletStore.balanceOfStakingToken) }}
+          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+            <div class="text-sm mb-1">
+              {{ $t('staking.available_balance') }}
+            </div>
+            <div class="text-lg font-semibold text-main">
+              {{ format.formatToken(walletStore.balanceOfStakingToken) }}
+            </div>
+            <div class="text-sm">
+              ${{ format.tokenValue(walletStore.balanceOfStakingToken) }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="flex justify-between items-center">
-      <h1 class="text-4xl font-bold mb-4 p-4">{{ $t('staking.staking') }}</h1>
-      <div class="pr-4">
-        <RouterLink
-          :to="`/${chain}/staking/calculator`"
-          class="btn btn-primary btn-sm rounded-full text-white"
+      <div class="flex justify-between items-center">
+        <h1 class="text-4xl font-bold mb-4 p-4">{{ $t('staking.staking') }}</h1>
+        <div class="pr-4">
+          <RouterLink
+            :to="`/${chain}/staking/calculator`"
+            class="btn btn-primary btn-sm rounded-full text-white"
+          >
+            <Icon icon="uil:calculator-alt" class="text-2xl"></Icon>
+            <span class="hidden md:inline-block">
+              {{ $t('staking.staking_calculator') }}
+            </span>
+          </RouterLink>
+        </div>
+      </div>
+
+      <div class="bg-base-100 rounded-3xl mb-8">
+        <div
+          class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 py-6 text-center"
         >
-          <Icon icon="uil:calculator-alt" class="text-2xl"></Icon>
-          <span class="hidden md:inline-block">
-            {{ $t('staking.staking_calculator') }}
-          </span>
-        </RouterLink>
-      </div>
-    </div>
-
-    <div class="bg-base-100 rounded-3xl mb-8">
-      <div
-        class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 py-6 text-center"
-      >
-        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('staking.total_staked') }}</div>
-          <div class="text-lg font-semibold text-main">
-            {{
-              format.formatToken2({
-                amount: String(bondedTokens),
-                denom: bondDenom,
-              })
-            }}
+          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+            <div class="text-sm mb-1">{{ $t('staking.total_staked') }}</div>
+            <div class="text-lg font-semibold text-main">
+              {{
+                format.formatToken2({
+                  amount: String(bondedTokens),
+                  denom: bondDenom,
+                })
+              }}
+            </div>
           </div>
-        </div>
-        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('staking.staking_apr') }}</div>
-          <div class="text-lg font-semibold text-main">
-            {{ stakingAPR.toFixed(2) }}%
+          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+            <div class="text-sm mb-1">{{ $t('staking.staking_apr') }}</div>
+            <div class="text-lg font-semibold text-main">
+              {{ stakingAPR.toFixed(2) }}%
+            </div>
           </div>
-        </div>
-        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('staking.total_validators') }}</div>
-          <div class="text-lg font-semibold text-main">{{ list.length }}</div>
-        </div>
-        <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
-          <div class="text-sm mb-1">{{ $t('staking.inflation') }}</div>
-          <div class="text-lg font-semibold text-main">
-            {{ (inflation * 100).toFixed(2) }}%
+          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+            <div class="text-sm mb-1">{{ $t('staking.total_validators') }}</div>
+            <div class="text-lg font-semibold text-main">{{ list.length }}</div>
+          </div>
+          <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
+            <div class="text-sm mb-1">{{ $t('staking.inflation') }}</div>
+            <div class="text-lg font-semibold text-main">
+              {{ (inflation * 100).toFixed(2) }}%
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!--
+      <!--
     <div class="bg-base-100 rounded-lg grid sm:grid-cols-1 md:grid-cols-4 p-4">
       <div class="flex">
         <span>
@@ -449,27 +460,27 @@ const filteredList = computed(() => {
     </div>
     -->
 
-    <div class="mb-8">
-      <div class="flex items-center justify-between px-4 py-2">
-        <h1 class="text-2xl font-bold flex-1">
-          {{ $t('staking.validators') }}
-        </h1>
-      </div>
+      <div class="mb-8">
+        <div class="flex items-center justify-between px-4 py-2">
+          <h1 class="text-2xl font-bold flex-1">
+            {{ $t('staking.validators') }}
+          </h1>
+        </div>
 
-      <div class="bg-base-100 p-4 mt-4 pb-4 pt-2 rounded-3xl">
-        <div class="overflow-x-auto">
-          <div class="flex items-center justify-between">
-            <div class="p-2 mr-4">
-              <input
-                type="text"
-                v-model="searchQuery"
-                :placeholder="$t('staking.search_validator')"
-                class="input input-sm input-bordered w-full"
-              />
-            </div>
+        <div class="bg-base-100 p-4 mt-4 pb-4 pt-2 rounded-3xl">
+          <div class="overflow-x-auto">
+            <div class="flex items-center justify-between">
+              <div class="p-2 mr-4">
+                <input
+                  type="text"
+                  v-model="searchQuery"
+                  :placeholder="$t('staking.search_validator')"
+                  class="input input-sm input-bordered w-full"
+                />
+              </div>
 
-            <div class="tabs tabs-boxed tabs-neutral">
-              <!--
+              <div class="tabs tabs-boxed tabs-neutral">
+                <!--
           <a
             class="tab tab-sm text-gray-400"
             :class="{ 'tab-active': tab === 'featured' }"
@@ -477,31 +488,31 @@ const filteredList = computed(() => {
             >{{ $t('staking.popular') }}</a
           >
           -->
-              <a
-                class="tab tab-sm"
-                :class="{ 'tab-active': tab === 'active' }"
-                @click="tab = 'active'"
-                >{{ $t('staking.active') }}</a
-              >
-              <a
-                class="tab tab-sm"
-                :class="{ 'tab-active': tab === 'inactive' }"
-                @click="tab = 'inactive'"
-                >{{ $t('staking.inactive') }}</a
-              >
-            </div>
+                <a
+                  class="tab tab-sm"
+                  :class="{ 'tab-active': tab === 'active' }"
+                  @click="tab = 'active'"
+                  >{{ $t('staking.active') }}</a
+                >
+                <a
+                  class="tab tab-sm"
+                  :class="{ 'tab-active': tab === 'inactive' }"
+                  @click="tab = 'inactive'"
+                  >{{ $t('staking.inactive') }}</a
+                >
+              </div>
 
-            <!--
+              <!--
         <div class="text-lg font-semibold pr-4">
           {{ list.length }}/{{ staking.params.max_validators }}
         </div>
         -->
-          </div>
+            </div>
 
-          <table class="table staking-table w-full">
-            <thead>
-              <tr>
-                <!--
+            <table class="table staking-table w-full">
+              <thead>
+                <tr>
+                  <!--
                 <th
                   scope="col"
                   class="uppercase"
@@ -510,33 +521,33 @@ const filteredList = computed(() => {
                   {{ $t('staking.rank') }}
                 </th>
                 -->
-                <th scope="col" class="uppercase">
-                  {{ $t('staking.validator') }}
-                </th>
-                <th scope="col" class="text-right uppercase">
-                  {{ $t('staking.staked_amount') }}
-                </th>
-                <th scope="col" class="text-right uppercase">
-                  {{ $t('staking.voting_power') }}
-                </th>
-                <!--
+                  <th scope="col" class="uppercase">
+                    {{ $t('staking.validator') }}
+                  </th>
+                  <th scope="col" class="text-right uppercase">
+                    {{ $t('staking.staked_amount') }}
+                  </th>
+                  <th scope="col" class="text-right uppercase">
+                    {{ $t('staking.voting_power') }}
+                  </th>
+                  <!--
                 <th scope="col" class="text-right uppercase">
                   {{ $t('staking.24h_changes') }}
                 </th>
                 -->
-                <th scope="col" class="text-right uppercase">
-                  {{ $t('staking.commission') }}
-                </th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="{ v, logo } in filteredList"
-                :key="v.operator_address"
-                class="hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
-              >
-                <!--
+                  <th scope="col" class="text-right uppercase">
+                    {{ $t('staking.commission') }}
+                  </th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="{ v, logo } in filteredList"
+                  :key="v.operator_address"
+                  class="hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
+                >
+                  <!--
                 <td>
                   <div
                     class="text-xs truncate relative px-2 py-1 rounded-full w-fit"
@@ -550,67 +561,67 @@ const filteredList = computed(() => {
                   </div>
                 </td>
                 -->
-                <td>
-                  <div
-                    class="ml-1 flex items-center overflow-hidden"
-                    style="max-width: 300px"
-                  >
+                  <td>
                     <div
-                      class="avatar mr-4 relative w-8 h-8 rounded-full overflow-hidden"
+                      class="ml-1 flex items-center overflow-hidden"
+                      style="max-width: 300px"
                     >
-                      <div class="w-8 h-8 rounded-full" v-if="logo">
-                        <img :src="logo" class="object-contain" />
-                      </div>
-                      <IdentityIcon
-                        v-else
-                        size="lg"
-                        :address="v.operator_address"
-                      />
-                    </div>
-
-                    <div class="flex flex-col">
-                      <span
-                        class="text-sm text-primary whitespace-nowrap overflow-hidden"
+                      <div
+                        class="avatar mr-4 relative w-8 h-8 rounded-full overflow-hidden"
                       >
-                        <RouterLink
-                          :to="{
-                            name: 'chain-staking-validator',
-                            params: {
-                              validator: v.operator_address,
-                            },
-                          }"
-                          class="font-bold text-base"
+                        <div class="w-8 h-8 rounded-full" v-if="logo">
+                          <img :src="logo" class="object-contain" />
+                        </div>
+                        <IdentityIcon
+                          v-else
+                          size="lg"
+                          :address="v.operator_address"
+                        />
+                      </div>
+
+                      <div class="flex flex-col">
+                        <span
+                          class="text-sm text-primary whitespace-nowrap overflow-hidden"
                         >
-                          {{ v.description?.moniker }}
-                        </RouterLink>
-                      </span>
-                      <span class="text-xs">
-                        {{ formatString(v.operator_address) }}
-                      </span>
+                          <RouterLink
+                            :to="{
+                              name: 'chain-staking-validator',
+                              params: {
+                                validator: v.operator_address,
+                              },
+                            }"
+                            class="font-bold text-base"
+                          >
+                            {{ v.description?.moniker }}
+                          </RouterLink>
+                        </span>
+                        <span class="text-xs">
+                          {{ formatString(v.operator_address) }}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td class="text-right">
-                  {{
-                    format.formatToken(
-                      {
-                        amount: parseInt(v.tokens).toString(),
-                        denom: staking.params.bond_denom,
-                      },
-                      true,
-                      '0,0'
-                    )
-                  }}
-                </td>
-                <td class="text-right">
-                  {{
-                    format.calculatePercent(
-                      v.delegator_shares,
-                      staking.totalPower
-                    )
-                  }}
-                </td>
-                <!--
+                  </td>
+                  <td class="text-right">
+                    {{
+                      format.formatToken(
+                        {
+                          amount: parseInt(v.tokens).toString(),
+                          denom: staking.params.bond_denom,
+                        },
+                        true,
+                        '0,0'
+                      )
+                    }}
+                  </td>
+                  <td class="text-right">
+                    {{
+                      format.calculatePercent(
+                        v.delegator_shares,
+                        staking.totalPower
+                      )
+                    }}
+                  </td>
+                  <!--
                 <td
                   class="text-right text-xs"
                   :class="change24Color(v.consensus_pubkey)"
@@ -618,38 +629,38 @@ const filteredList = computed(() => {
                   {{ change24Text(v.consensus_pubkey) }}
                 </td>
                 -->
-                <td class="text-right">
-                  {{
-                    format.formatCommissionRate(
-                      v.commission?.commission_rates?.rate
-                    )
-                  }}
-                </td>
-                <td class="text-right">
-                  <div
-                    v-if="v.jailed"
-                    class="badge badge-error gap-2 text-white"
-                  >
-                    {{ $t('staking.jailed') }}
-                  </div>
-                  <label
-                    v-if="!v.jailed && walletStore.currentAddress"
-                    for="staking_delegate"
-                    class="btn btn-xs btn-primary rounded-full capitalize text-white mr-1"
-                    @click="
-                      dialog.open('staking_delegate', {
-                        validator_address: v.operator_address,
-                      })
-                    "
-                    >{{ $t('account.btn_delegate') }}
-                  </label>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                  <td class="text-right">
+                    {{
+                      format.formatCommissionRate(
+                        v.commission?.commission_rates?.rate
+                      )
+                    }}
+                  </td>
+                  <td class="text-right">
+                    <div
+                      v-if="v.jailed"
+                      class="badge badge-error gap-2 text-white"
+                    >
+                      {{ $t('staking.jailed') }}
+                    </div>
+                    <label
+                      v-if="!v.jailed && walletStore.currentAddress"
+                      for="staking_delegate"
+                      class="btn btn-xs btn-primary rounded-full capitalize text-white mr-1"
+                      @click="
+                        dialog.open('staking_delegate', {
+                          validator_address: v.operator_address,
+                        })
+                      "
+                      >{{ $t('account.btn_delegate') }}
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-        <!--
+          <!--
         <div class="divider"></div>
         <div class="flex flex-row items-center">
           <div
@@ -672,7 +683,7 @@ const filteredList = computed(() => {
             {{ $t('staking.description') }}
           </div>
         </div>
-        -->
+        --></div>
       </div>
     </div>
   </div>

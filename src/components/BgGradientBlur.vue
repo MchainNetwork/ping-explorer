@@ -18,18 +18,24 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    variant: String,
-    circles: {
-      type: Array,
-      default: () => [
-        { color: 'bg-primary', size: 'circle-1', style: {} },
-        { color: 'bg-success', size: 'circle-2', style: {} },
-        { color: 'bg-info', size: 'circle-3', style: {} },
-      ],
-    },
-  },
+<script setup lang="ts">
+import type { PropType } from 'vue';
+
+type Circle = {
+  color: string;
+  size: string;
+  style: Record<string, any>;
 };
+
+const props = defineProps({
+  variant: String,
+  circles: {
+    type: Array as PropType<Circle[]>,
+    default: () => [
+      { color: 'bg-primary', size: 'circle-1', style: {} },
+      { color: 'bg-success', size: 'circle-2', style: {} },
+      { color: 'bg-info', size: 'circle-3', style: {} },
+    ],
+  },
+});
 </script>

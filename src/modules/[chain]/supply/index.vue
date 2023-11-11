@@ -78,7 +78,7 @@ function getFormattedAmount(denom: string, amount: string) {
   <div>
     <bg-gradient-blur variant="big supply"></bg-gradient-blur>
     <div class="overflow-auto mx-auto max-w-screen-lg">
-      <h1 class="text-4xl font-bold mb-6 p-4">Supply</h1>
+      <h1 class="text-2xl md:!text-4xl font-bold mb-6 p-4">Supply</h1>
       <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl">
         <table class="table table-compact table-zebra text-base">
           <thead>

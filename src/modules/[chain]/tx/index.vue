@@ -54,7 +54,7 @@ onMounted(() => {
             class="text-3xl text-gray-500 dark:text-gray-400"
           />
         </RouterLink>
-        <h1 class="text-4xl font-bold p-4">
+        <h1 class="text-2xl md:!text-4xl font-bold p-4">
           {{ $t('account.transactions') }}
         </h1>
       </div>

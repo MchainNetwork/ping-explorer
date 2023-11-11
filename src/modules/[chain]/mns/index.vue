@@ -149,7 +149,7 @@ function checkDomainAvailable(domain: string) {
     <bg-gradient-blur variant="big mns"></bg-gradient-blur>
     <div class="relative overflow-hidden mx-auto max-w-screen-xl lg:p-10">
       <h2
-        class="text-primary text-xl text-center md:!text-5xl font-bold mx-4 mb-8"
+        class="text-primary text-3xl text-center md:!text-5xl font-bold mx-4 mb-8"
       >
         {{ $t('mns.title') }}
       </h2>
@@ -260,72 +260,74 @@ function checkDomainAvailable(domain: string) {
           <h3 class="text-lg font-bold mb-4">
             {{ $t('mns.registered_names_title') }}
           </h3>
-          <table class="table table-compact text-xs">
-            <thead>
-              <tr>
-                <td>{{ $t('mns.domain_label') }}</td>
-                <td>{{ $t('mns.expires_label') }}</td>
-                <td></td>
-              </tr>
-            </thead>
-            <tr
-              :key="item.name + item.tld"
-              v-for="item in list"
-              class="hover:bg-gray-200 dark:hover:bg-gray-700"
-            >
-              <td width="20%">
-                <div class="truncate">
-                  <RouterLink
-                    :to="'/mchain/mns/' + item.name + '.' + item.tld"
-                    class="hover:underline"
+          <div class="overflow-x-auto">
+            <table class="table table-compact text-xs">
+              <thead>
+                <tr>
+                  <td>{{ $t('mns.domain_label') }}</td>
+                  <td>{{ $t('mns.expires_label') }}</td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tr
+                :key="item.name + item.tld"
+                v-for="item in list"
+                class="hover:bg-gray-200 dark:hover:bg-gray-700"
+              >
+                <td width="20%">
+                  <div class="truncate">
+                    <RouterLink
+                      :to="'/mchain/mns/' + item.name + '.' + item.tld"
+                      class="hover:underline"
+                    >
+                      {{ item.name }}.{{ item.tld }}
+                    </RouterLink>
+                  </div>
+                </td>
+                <td>
+                  {{
+                    format.toDay(
+                      calculateExpiryTime(
+                        item.expires,
+                        Number(baseStore.latest?.block?.header?.height) || 0
+                      ),
+                      'date'
+                    )
+                  }}
+                </td>
+                <td class="text-right">
+                  <label
+                    v-if="item.value != walletStore.currentAddress"
+                    for="mns_bid"
+                    class="btn btn-primary btn-xs w-full"
+                    @click="
+                      dialog.open(
+                        'mns_bid',
+                        { name: item.name + '.' + item.tld },
+                        updateState
+                      )
+                    "
                   >
-                    {{ item.name }}.{{ item.tld }}
-                  </RouterLink>
-                </div>
-              </td>
-              <td>
-                {{
-                  format.toDay(
-                    calculateExpiryTime(
-                      item.expires,
-                      Number(baseStore.latest?.block?.header?.height) || 0
-                    ),
-                    'date'
-                  )
-                }}
-              </td>
-              <td class="text-right">
-                <label
-                  v-if="item.value != walletStore.currentAddress"
-                  for="mns_bid"
-                  class="btn btn-primary btn-xs w-full"
-                  @click="
-                    dialog.open(
-                      'mns_bid',
-                      { name: item.name + '.' + item.tld },
-                      updateState
-                    )
-                  "
-                >
-                  {{ $t('mns.bid_label') }}
-                </label>
-                <label
-                  v-if="item.value == walletStore.currentAddress"
-                  for="mns_list"
-                  class="btn btn-success btn-xs w-full"
-                  @click="
-                    dialog.open(
-                      'mns_list',
-                      { name: item.name + '.' + item.tld },
-                      updateState
-                    )
-                  "
-                >
-                  Sell
-                </label>
-              </td>
-            </tr>
-          </table>
+                    {{ $t('mns.bid_label') }}
+                  </label>
+                  <label
+                    v-if="item.value == walletStore.currentAddress"
+                    for="mns_list"
+                    class="btn btn-success btn-xs w-full"
+                    @click="
+                      dialog.open(
+                        'mns_list',
+                        { name: item.name + '.' + item.tld },
+                        updateState
+                      )
+                    "
+                  >
+                    Sell
+                  </label>
+                </td>
+              </tr>
+            </table>
+          </div>
           <RouterLink
             v-if="list.length >= 10"
             :to="'/mchain/mns/registered'"
@@ -339,58 +341,64 @@ function checkDomainAvailable(domain: string) {
           <h2 class="text-lg font-bold mb-2">
             {{ $t('mns.domains_for_sale_title') }}
           </h2>
-          <table class="table table-compact text-xs">
-            <thead>
-              <tr>
-                <td>{{ $t('mns.domain_label') }}</td>
-                <td>{{ $t('mns.price_label') }}</td>
-                <td></td>
+          <div class="overflow-x-auto">
+            <table class="table table-compact text-xs">
+              <thead>
+                <tr>
+                  <td>{{ $t('mns.domain_label') }}</td>
+                  <td>{{ $t('mns.price_label') }}</td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tr
+                :key="item.name"
+                v-for="item in listForSale"
+                class="hover:bg-gray-200 dark:hover:bg-gray-700"
+              >
+                <td width="20%" class="truncate">
+                  <RouterLink
+                    :to="'/mchain/mns/' + item.name"
+                    class="hover:underline"
+                  >
+                    {{ item.name }}
+                  </RouterLink>
+                </td>
+                <td>
+                  {{
+                    displayInUSD
+                      ? '$' + convertMarkToUsd(item.price)
+                      : format.formatToken2(format.parseCoin(item.price), true)
+                  }}
+                </td>
+                <td class="text-right">
+                  <label
+                    v-if="item.owner != walletStore.currentAddress"
+                    for="mns_buy"
+                    class="btn btn-primary btn-xs w-full text-white"
+                    @click="
+                      dialog.open('mns_buy', { name: item.name }, updateState)
+                    "
+                  >
+                    {{ $t('mns.buy_button') }}
+                  </label>
+                  <label
+                    v-if="item.owner == walletStore.currentAddress"
+                    for="mns_delist"
+                    class="btn btn-success btn-xs w-full"
+                    @click="
+                      dialog.open(
+                        'mns_delist',
+                        { name: item.name },
+                        updateState
+                      )
+                    "
+                  >
+                    Cancel
+                  </label>
+                </td>
               </tr>
-            </thead>
-            <tr
-              :key="item.name"
-              v-for="item in listForSale"
-              class="hover:bg-gray-200 dark:hover:bg-gray-700"
-            >
-              <td width="20%" class="truncate">
-                <RouterLink
-                  :to="'/mchain/mns/' + item.name"
-                  class="hover:underline"
-                >
-                  {{ item.name }}
-                </RouterLink>
-              </td>
-              <td>
-                {{
-                  displayInUSD
-                    ? '$' + convertMarkToUsd(item.price)
-                    : format.formatToken2(format.parseCoin(item.price), true)
-                }}
-              </td>
-              <td class="text-right">
-                <label
-                  v-if="item.owner != walletStore.currentAddress"
-                  for="mns_buy"
-                  class="btn btn-primary btn-xs w-full text-white"
-                  @click="
-                    dialog.open('mns_buy', { name: item.name }, updateState)
-                  "
-                >
-                  {{ $t('mns.buy_button') }}
-                </label>
-                <label
-                  v-if="item.owner == walletStore.currentAddress"
-                  for="mns_delist"
-                  class="btn btn-success btn-xs w-full"
-                  @click="
-                    dialog.open('mns_delist', { name: item.name }, updateState)
-                  "
-                >
-                  Cancel
-                </label>
-              </td>
-            </tr>
-          </table>
+            </table>
+          </div>
           <RouterLink
             v-if="listForSale.length >= 10"
             :to="'/mchain/mns/forsale'"
@@ -404,64 +412,66 @@ function checkDomainAvailable(domain: string) {
           <h2 class="text-lg font-bold mb-2">
             {{ $t('mns.domains_in_bid_title') }}
           </h2>
-          <table class="table table-compact text-xs">
-            <thead>
-              <tr>
-                <td>{{ $t('mns.domain_label') }}</td>
-                <td>{{ $t('mns.bid_label') }}</td>
-                <td></td>
-              </tr>
-            </thead>
-            <tr
-              :key="item.name"
-              v-for="item in listBid"
-              class="hover:bg-gray-200 dark:hover:bg-gray-700"
-            >
-              <td width="20%">
-                <div class="truncate">
-                  <RouterLink
-                    :to="'/mchain/mns/' + item.name"
-                    class="hover:underline"
+          <div class="overflow-x-auto">
+            <table class="table table-compact text-xs">
+              <thead>
+                <tr>
+                  <td>{{ $t('mns.domain_label') }}</td>
+                  <td>{{ $t('mns.bid_label') }}</td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tr
+                :key="item.name"
+                v-for="item in listBid"
+                class="hover:bg-gray-200 dark:hover:bg-gray-700"
+              >
+                <td width="20%">
+                  <div class="truncate">
+                    <RouterLink
+                      :to="'/mchain/mns/' + item.name"
+                      class="hover:underline"
+                    >
+                      {{ item.name }}
+                    </RouterLink>
+                  </div>
+                </td>
+                <td>
+                  {{
+                    displayInUSD
+                      ? '$' + convertMarkToUsd(item.price)
+                      : format.formatToken2(format.parseCoin(item.price), true)
+                  }}
+                </td>
+                <td class="text-right">
+                  <label
+                    v-if="item.bidder != walletStore.currentAddress"
+                    for="mns_bid"
+                    class="btn btn-primary btn-xs"
+                    @click="
+                      dialog.open('mns_bid', { name: item.name }, updateState)
+                    "
                   >
-                    {{ item.name }}
-                  </RouterLink>
-                </div>
-              </td>
-              <td>
-                {{
-                  displayInUSD
-                    ? '$' + convertMarkToUsd(item.price)
-                    : format.formatToken2(format.parseCoin(item.price), true)
-                }}
-              </td>
-              <td class="text-right">
-                <label
-                  v-if="item.bidder != walletStore.currentAddress"
-                  for="mns_bid"
-                  class="btn btn-primary btn-xs"
-                  @click="
-                    dialog.open('mns_bid', { name: item.name }, updateState)
-                  "
-                >
-                  {{ $t('mns.bid_label') }}
-                </label>
-                <label
-                  v-if="item.bidder == walletStore.currentAddress"
-                  for="mns_cancel_bid"
-                  class="btn btn-success btn-xs"
-                  @click="
-                    dialog.open(
-                      'mns_cancel_bid',
-                      { name: item.name },
-                      updateState
-                    )
-                  "
-                >
-                  Cancel
-                </label>
-              </td>
-            </tr>
-          </table>
+                    {{ $t('mns.bid_label') }}
+                  </label>
+                  <label
+                    v-if="item.bidder == walletStore.currentAddress"
+                    for="mns_cancel_bid"
+                    class="btn btn-success btn-xs"
+                    @click="
+                      dialog.open(
+                        'mns_cancel_bid',
+                        { name: item.name },
+                        updateState
+                      )
+                    "
+                  >
+                    Cancel
+                  </label>
+                </td>
+              </tr>
+            </table>
+          </div>
           <RouterLink
             v-if="listBid.length >= 10"
             :to="'/mchain/mns/bids'"

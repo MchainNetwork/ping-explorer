@@ -272,7 +272,7 @@ const filteredList = computed(() => {
     <bg-gradient-blur variant="big staking"></bg-gradient-blur>
     <div class="relative overflow-hidden mx-auto max-w-screen-lg">
       <div class="flex justify-between items-center">
-        <h1 class="text-4xl font-bold mb-4 p-4">
+        <h1 class="text-2xl md:!text-4xl font-bold mb-4 p-4">
           {{ $t('staking.your_staking_overview') }}
         </h1>
         <div class="pr-4"></div>
@@ -377,7 +377,9 @@ const filteredList = computed(() => {
       </div>
 
       <div class="flex justify-between items-center">
-        <h1 class="text-4xl font-bold mb-4 p-4">{{ $t('staking.staking') }}</h1>
+        <h1 class="text-2xl md:!text-4xl font-bold mb-4 p-4">
+          {{ $t('staking.staking') }}
+        </h1>
         <div class="pr-4">
           <RouterLink
             :to="`/${chain}/staking/calculator`"
@@ -462,23 +464,22 @@ const filteredList = computed(() => {
 
       <div class="mb-8">
         <div class="flex items-center justify-between px-4 py-2">
-          <h1 class="text-2xl font-bold flex-1">
+          <h1 class="text-xl md:!text-2xl font-bold flex-1">
             {{ $t('staking.validators') }}
           </h1>
         </div>
 
         <div class="bg-base-100 p-4 mt-4 pb-4 pt-2 rounded-3xl">
-          <div class="overflow-x-auto">
-            <div class="flex items-center justify-between">
-              <div class="p-2 mr-4">
-                <input
-                  type="text"
-                  v-model="searchQuery"
-                  :placeholder="$t('staking.search_validator')"
-                  class="input input-sm input-bordered w-full"
-                />
-              </div>
-
+          <div class="md:flex items-center justify-between">
+            <div class="p-2 mr-4">
+              <input
+                type="text"
+                v-model="searchQuery"
+                :placeholder="$t('staking.search_validator')"
+                class="input input-sm input-bordered w-full"
+              />
+            </div>
+            <div>
               <div class="tabs tabs-boxed tabs-neutral">
                 <!--
           <a
@@ -501,14 +502,14 @@ const filteredList = computed(() => {
                   >{{ $t('staking.inactive') }}</a
                 >
               </div>
-
-              <!--
+            </div>
+            <!--
         <div class="text-lg font-semibold pr-4">
           {{ list.length }}/{{ staking.params.max_validators }}
         </div>
         -->
-            </div>
-
+          </div>
+          <div class="overflow-x-auto">
             <table class="table staking-table w-full">
               <thead>
                 <tr>

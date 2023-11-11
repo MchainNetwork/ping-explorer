@@ -48,7 +48,7 @@ function pageload(p: number) {
     <bg-gradient-blur variant="big smarttoken"></bg-gradient-blur>
     <div class="relative overflow-auto mx-auto max-w-screen-lg">
       <div class="flex justify-between items-center">
-        <h1 class="text-4xl font-bold mb-6 p-4">Smart Tokens</h1>
+        <h1 class="text-xl md:!text-4xl font-bold p-4">Smart Tokens</h1>
         <div class="pr-4">
           <label
             for="smarttoken_issue"
@@ -61,49 +61,51 @@ function pageload(p: number) {
       </div>
 
       <div class="bg-base-100 p-4 rounded-3xl">
-        <table class="table table-compact text-base">
-          <thead>
-            <tr>
-              <td>{{ $t('smarttoken.denom') }}</td>
-              <td>{{ $t('smarttoken.symbol') }}</td>
-              <td>{{ $t('smarttoken.name') }}</td>
-            </tr>
-          </thead>
-          <tr
-            :key="item.denom"
-            v-for="item in list"
-            class="hover:bg-gray-200 dark:hover:bg-gray-700"
-          >
-            <td class="flex" width="80%">
-              <IdentityIcon
-                :text="item.symbol"
-                size="sm"
-                :address="item.denom"
-              />
-              <div class="tooltip" :data-tip="item.denom">
+        <div class="overflow-x-auto">
+          <table class="table table-compact text-base">
+            <thead>
+              <tr>
+                <td>{{ $t('smarttoken.denom') }}</td>
+                <td>{{ $t('smarttoken.symbol') }}</td>
+                <td>{{ $t('smarttoken.name') }}</td>
+              </tr>
+            </thead>
+            <tr
+              :key="item.denom"
+              v-for="item in list"
+              class="hover:bg-gray-200 dark:hover:bg-gray-700"
+            >
+              <td class="flex no-wrap" width="80%">
+                <IdentityIcon
+                  :text="item.symbol"
+                  size="sm"
+                  :address="item.denom"
+                />
+                <div class="tooltip" :data-tip="item.denom">
+                  <RouterLink
+                    :to="'/mchain/smarttoken/' + item.denom"
+                    class="hover:underline ml-4"
+                  >
+                    {{ format.shortTokenDenom(item.denom) }}
+                  </RouterLink>
+                </div>
+              </td>
+              <td width="10%" class="uppercase">{{ item.symbol }}</td>
+              <td>{{ item.name }}</td>
+              <td class="text-right">
                 <RouterLink
                   :to="'/mchain/smarttoken/' + item.denom"
-                  class="hover:underline ml-4"
+                  class="btn btn-ghost btn-circle btn-sm mx-1"
                 >
-                  {{ format.shortTokenDenom(item.denom) }}
+                  <Icon
+                    icon="uil:info-circle"
+                    class="text-2xl text-gray-500 dark:text-gray-400"
+                  />
                 </RouterLink>
-              </div>
-            </td>
-            <td width="10%" class="uppercase">{{ item.symbol }}</td>
-            <td>{{ item.name }}</td>
-            <td class="text-right">
-              <RouterLink
-                :to="'/mchain/smarttoken/' + item.denom"
-                class="btn btn-ghost btn-circle btn-sm mx-1"
-              >
-                <Icon
-                  icon="uil:info-circle"
-                  class="text-2xl text-gray-500 dark:text-gray-400"
-                />
-              </RouterLink>
-            </td>
-          </tr>
-        </table>
+              </td>
+            </tr>
+          </table>
+        </div>
         <PaginationBar
           v-if="
             pageResponse.total && parseInt(pageResponse.total) > list.length

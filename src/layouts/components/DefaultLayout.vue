@@ -185,13 +185,13 @@ function selected(route: any, nav: NavLink) {
 
         <!-- <NavSearchBar />-->
         <NavbarSearch class="!inline-block" />
-        <NavBarI18n class="hidden md:!inline-block" />
+        <NavBarI18n class="!inline-block" />
         <NavbarThemeSwitcher class="!inline-block mr-2" />
         <NavBarWallet />
       </div>
 
       <!-- 👉 Pages -->
-      <div style="min-height: calc(100vh - 72px)" class="p-4">
+      <div style="min-height: calc(100vh - 72px)" class="p-4 relative">
         <RouterView v-slot="{ Component }">
           <Transition name="fade">
             <Component :is="Component" />

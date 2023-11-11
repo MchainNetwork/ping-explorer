@@ -42,7 +42,7 @@ function page(p: number) {
     <bg-gradient-blur variant="big gov"></bg-gradient-blur>
     <div class="relative mx-auto max-w-screen-lg">
       <div class="flex justify-between items-center">
-        <h1 class="text-4xl font-bold mb-4 p-4">
+        <h1 class="text-2xl md:!text-4xl font-bold mb-4 p-4">
           {{ $t('gov.governance') }}
         </h1>
         <div class="pr-4">

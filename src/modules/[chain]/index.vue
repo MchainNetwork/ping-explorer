@@ -152,7 +152,7 @@ const amount = computed({
     <bg-gradient-blur variant="big home"></bg-gradient-blur>
     <div class="relative overflow-hidden mx-auto max-w-screen-lg lg:pb-10">
       <div v-if="walletStore.currentAddress">
-        <h1 class="text-xl md:!text-4xl font-bold mb-6 p-4">
+        <h1 class="text-2xl md:!text-4xl font-bold md:mb-6 p-4">
           {{ $t('index.your_mchain_wallet') }}
         </h1>
 

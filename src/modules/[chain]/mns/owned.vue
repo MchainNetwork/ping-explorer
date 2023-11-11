@@ -107,55 +107,57 @@ function pageload(p: number) {
       </RouterLink>
     </div>
     <div class="bg-base-100 p-4 rounded-3xl">
-      <table class="table table-compact">
-        <thead>
-          <tr>
-            <td>{{ $t('mns.domain_label') }}</td>
-            <td>{{ $t('mns.expires_label') }}</td>
-            <td></td>
-          </tr>
-        </thead>
-        <tr
-          :key="item.name"
-          v-for="item in list"
-          class="hover:bg-gray-200 dark:hover:bg-gray-700"
-        >
-          <td width="20%">
-            <RouterLink
-              :to="'/mchain/mns/' + item.name + '.' + item.tld"
-              class="hover:underline"
-            >
-              {{ item.name }}.{{ item.tld }}
-            </RouterLink>
-          </td>
-          <td>
-            {{
-              format.toDay(
-                calculateExpiryTime(
-                  item.expires,
-                  Number(baseStore.latest?.block?.header?.height) || 0
-                ),
-                'date'
-              )
-            }}
-          </td>
-          <td class="text-right">
-            <label
-              for="mns_list"
-              class="btn btn-primary btn-xs"
-              @click="
-                dialog.open(
-                  'mns_list',
-                  { name: item.name + '.' + item.tld },
-                  updateState
+      <div class="overflow-x-auto">
+        <table class="table table-compact">
+          <thead>
+            <tr>
+              <td>{{ $t('mns.domain_label') }}</td>
+              <td>{{ $t('mns.expires_label') }}</td>
+              <td></td>
+            </tr>
+          </thead>
+          <tr
+            :key="item.name"
+            v-for="item in list"
+            class="hover:bg-gray-200 dark:hover:bg-gray-700"
+          >
+            <td width="20%">
+              <RouterLink
+                :to="'/mchain/mns/' + item.name + '.' + item.tld"
+                class="hover:underline"
+              >
+                {{ item.name }}.{{ item.tld }}
+              </RouterLink>
+            </td>
+            <td>
+              {{
+                format.toDay(
+                  calculateExpiryTime(
+                    item.expires,
+                    Number(baseStore.latest?.block?.header?.height) || 0
+                  ),
+                  'date'
                 )
-              "
-            >
-              Sell
-            </label>
-          </td>
-        </tr>
-      </table>
+              }}
+            </td>
+            <td class="text-right">
+              <label
+                for="mns_list"
+                class="btn btn-primary btn-xs"
+                @click="
+                  dialog.open(
+                    'mns_list',
+                    { name: item.name + '.' + item.tld },
+                    updateState
+                  )
+                "
+              >
+                Sell
+              </label>
+            </td>
+          </tr>
+        </table>
+      </div>
       <PaginationBar
         :limit="pageRequest.limit"
         :total="pageResponse.total"

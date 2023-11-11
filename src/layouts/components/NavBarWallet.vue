@@ -49,7 +49,7 @@ const tipMsg = computed(() => {
   >
     <label
       tabindex="0"
-      class="btn btn-sm pl-1 pr-3 hover:dark:bg-[#1e3b47] m-1 !inline-flex text-sm md:!text-md"
+      class="btn btn-sm px-1 md:pr-3 hover:dark:bg-[#1e3b47] m-1 !inline-flex text-sm md:!text-md"
     >
       <IdentityIcon size="xs" :address="walletStore.currentAddress" />
       <span class="hidden ml-1 md:!block">
@@ -58,7 +58,7 @@ const tipMsg = computed(() => {
     </label>
     <div
       tabindex="0"
-      class="dropdown-content menu shadow-lg p-2 bg-base-100 rounded-xl w-100 overflow-auto"
+      class="dropdown-content menu shadow-lg p-2 bg-base-100 rounded-xl w-60 md:w-100 overflow-auto"
     >
       <div class="px-2 mb-1 text-gray-500 dark:text-gray-400 font-semibold">
         {{ walletStore.connectedWallet?.wallet }}

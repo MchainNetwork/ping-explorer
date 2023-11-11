@@ -111,7 +111,7 @@ const returns = computed(() =>
   <div>
     <bg-gradient-blur variant="big calculator"></bg-gradient-blur>
     <div class="relative mx-auto max-w-screen-md" v-if="stakingAPR > 0">
-      <h1 class="text-4xl font-bold mb-4 p-4">
+      <h1 class="text-2xl md:!text-4xl font-bold mb-4 p-4">
         {{ $t('calculator.staking_rewards_calculator') }}
       </h1>
       <div class="bg-base-100 p-4 my-4 rounded-3xl text-center">

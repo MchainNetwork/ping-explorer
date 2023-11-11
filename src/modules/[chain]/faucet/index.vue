@@ -72,7 +72,7 @@ async function callFaucet() {
   <div>
     <bg-gradient-blur variant="big faucet"></bg-gradient-blur>
     <div class="relative container mx-auto text-center p-4">
-      <h2 class="text-2xl md:text-5xl font-bold text-primary mb-6">
+      <h2 class="text-3xl md:text-5xl font-bold text-primary mb-6">
         {{ $t('faucet.title') }}
       </h2>
 

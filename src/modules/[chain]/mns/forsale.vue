@@ -83,52 +83,56 @@ function pageload(p: number) {
       </RouterLink>
     </div>
     <div class="bg-base-100 p-4 rounded-3xl">
-      <table class="table table-compact">
-        <thead>
-          <tr>
-            <td>{{ $t('mns.domain_label') }}</td>
-            <td>{{ $t('mns.price_label') }}</td>
-            <td></td>
+      <div class="overflow-x-auto">
+        <table class="table table-compact">
+          <thead>
+            <tr>
+              <td>{{ $t('mns.domain_label') }}</td>
+              <td>{{ $t('mns.price_label') }}</td>
+              <td></td>
+            </tr>
+          </thead>
+          <tr
+            :key="item.name"
+            v-for="item in list"
+            class="hover:bg-gray-200 dark:hover:bg-gray-700"
+          >
+            <td width="20%">
+              <RouterLink
+                :to="'/mchain/mns/' + item.name"
+                class="hover:underline"
+              >
+                {{ item.name }}
+              </RouterLink>
+            </td>
+            <td>
+              {{ format.formatToken2(format.parseCoin(item.price), true) }}
+            </td>
+            <td class="text-right" width="10%">
+              <label
+                v-if="item.owner != walletStore.currentAddress"
+                for="mns_buy"
+                class="btn btn-primary btn-xs"
+                @click="
+                  dialog.open('mns_buy', { name: item.name }, updateState)
+                "
+              >
+                {{ $t('mns.buy_button') }}
+              </label>
+              <label
+                v-if="item.owner == walletStore.currentAddress"
+                for="mns_delist"
+                class="btn btn-primary btn-xs"
+                @click="
+                  dialog.open('mns_delist', { name: item.name }, updateState)
+                "
+              >
+                Cancel
+              </label>
+            </td>
           </tr>
-        </thead>
-        <tr
-          :key="item.name"
-          v-for="item in list"
-          class="hover:bg-gray-200 dark:hover:bg-gray-700"
-        >
-          <td width="20%">
-            <RouterLink
-              :to="'/mchain/mns/' + item.name"
-              class="hover:underline"
-            >
-              {{ item.name }}
-            </RouterLink>
-          </td>
-          <td>
-            {{ format.formatToken2(format.parseCoin(item.price), true) }}
-          </td>
-          <td class="text-right" width="10%">
-            <label
-              v-if="item.owner != walletStore.currentAddress"
-              for="mns_buy"
-              class="btn btn-primary btn-xs"
-              @click="dialog.open('mns_buy', { name: item.name }, updateState)"
-            >
-              {{ $t('mns.buy_button') }}
-            </label>
-            <label
-              v-if="item.owner == walletStore.currentAddress"
-              for="mns_delist"
-              class="btn btn-primary btn-xs"
-              @click="
-                dialog.open('mns_delist', { name: item.name }, updateState)
-              "
-            >
-              Cancel
-            </label>
-          </td>
-        </tr>
-      </table>
+        </table>
+      </div>
       <PaginationBar
         :limit="pageRequest.limit"
         :total="pageResponse.total"

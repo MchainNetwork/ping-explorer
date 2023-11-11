@@ -239,7 +239,7 @@ function checkDomainAvailable(domain: string) {
           <label class="label cursor-pointer">
             <input
               type="checkbox"
-              class="checkbox mr-2"
+              class="checkbox checkbox-primary mr-2"
               id="displayInUSD"
               v-model="displayInUSD"
             />

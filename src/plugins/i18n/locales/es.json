@@ -401,7 +401,9 @@
     "no_wallet_description": "Únete a nuestra comunidad y desbloquea características exclusivas conectando tu cartera ahora mismo!",
     "connect_wallet": "Conectar Cartera",
     "need_a_wallet": "¿Necesitas una cartera?",
-    "install_keplr": "Instalar Keplr"
+    "install_keplr": "Instalar Keplr",
+    "no_delegations_message": "Actualmente no tienes delegaciones. Explora y delega para empezar a obtener recompensas.",
+    "staking_page_button": "Ir a Staking"
   },
   "params": {
     "height": "Altura",

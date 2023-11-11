@@ -406,7 +406,9 @@
     "no_wallet_description": "Treten Sie unserer Gemeinschaft bei und schalten Sie exklusive Funktionen frei, indem Sie jetzt Ihre Wallet verbinden!",
     "connect_wallet": "Wallet verbinden",
     "need_a_wallet": "Brauchen Sie eine Wallet?",
-    "install_keplr": "Keplr installieren"
+    "install_keplr": "Keplr installieren",
+    "no_delegations_message": "Sie haben derzeit keine Delegationen. Erkunden Sie und delegieren Sie, um Belohnungen zu verdienen.",
+    "staking_page_button": "Zum Staking gehen"
   },
   "params": {
     "height": "Höhe",

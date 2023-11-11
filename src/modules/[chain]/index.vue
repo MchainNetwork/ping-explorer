@@ -149,7 +149,7 @@ const amount = computed({
 
 <template>
   <div class="overflow-hidden mx-auto max-w-screen-lg lg:pb-10">
-    <div>
+    <div v-if="walletStore.currentAddress">
       <h1 class="text-xl md:!text-4xl font-bold mb-6 p-4">
         {{ $t('index.your_mchain_wallet') }}
       </h1>
@@ -242,7 +242,21 @@ const amount = computed({
       >
         {{ $t('index.your_delegations') }}
       </div>
-      <div class="bg-base-100 rounded-3xl mb-4">
+      <div
+        class="bg-base-100 rounded-3xl mb-4"
+        v-if="walletStore.currentAddress"
+      >
+        <div
+          v-if="walletStore.delegations.length === 0"
+          class="p-6 text-center"
+        >
+          <div class="mb-4">
+            {{ $t('index.no_delegations_message') }}
+          </div>
+          <RouterLink class="btn btn-primary btn-sm" :to="`/${chain}/staking`">
+            {{ $t('index.staking_page_button') }}
+          </RouterLink>
+        </div>
         <div
           v-if="walletStore.delegations.length > 0"
           class="px-4 pb-4 overflow-auto"
@@ -589,7 +603,14 @@ const amount = computed({
     </div>
   -->
 
-    <template v-if="store.proposals?.proposals?.length != 0">
+    <!--
+
+   
+    <template
+      v-if="
+        store.proposals?.proposals?.length != 0 && walletStore.currentAddress
+      "
+    >
       <div class="px-4 pt-4 pb-4 text-lg font-semibold text-main">
         {{ $t('index.active_proposals') }}
       </div>
@@ -606,6 +627,7 @@ const amount = computed({
         </div>
       </div>
     </template>
+     -->
 
     <!--
     <div class="bg-base-100 rounded-3xl mt-4">

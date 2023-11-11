@@ -392,7 +392,9 @@
     "no_wallet_description": "立即连接您的钱包，加入我们的社区并解锁独家功能！",
     "connect_wallet": "连接钱包",
     "need_a_wallet": "需要一个钱包吗？",
-    "install_keplr": "安装Keplr"
+    "install_keplr": "安装Keplr",
+    "no_delegations_message": "您目前没有任何委托。探索并委托以开始赚取奖励。",
+    "staking_page_button": "前往质押"
   },
   "params": {
     "height": "高度",

@@ -66,18 +66,18 @@ onMounted(() => {
 
 function pageload() {
   isLoading.value = true;
-  mnsStore.fetchMnsName(domainName).then((x: any) => {
-    domainInfo.value = x.names;
+  mnsStore
+    .fetchMnsName(domainName)
+    .then((x: any) => {
+      domainInfo.value = x.names;
 
-    mnsStore
-      .fetchMnsForsaleName(domainName)
-      .then((x: any) => {
+      mnsStore.fetchMnsForsaleName(domainName).then((x: any) => {
         forSale.value = x.forsale;
-      })
-      .finally(() => {
-        isLoading.value = false;
       });
-  });
+    })
+    .finally(() => {
+      isLoading.value = false;
+    });
 }
 </script>
 <template>
@@ -227,25 +227,39 @@ function pageload() {
       </div>
 
       <div v-if="isDomainRegistered" class="bg-base-100 p-4 rounded-xl mb-4">
-        <h3 class="text-lg font-bold mb-2">Domain Information</h3>
-        <ul class="mb-4">
-          <li><strong>Name:</strong> {{ domainInfo.name }}</li>
-          <li><strong>TLD:</strong> {{ domainInfo.tld }}</li>
-          <li>
-            <strong>Expires:</strong>
-            {{
-              format.toDay(
-                calculateExpiryTime(
-                  domainInfo.expires,
-                  Number(baseStore.latest?.block?.header?.height) || 0
-                ),
-                'date'
-              )
-            }}
-          </li>
-          <li><strong>Value:</strong> {{ domainInfo.value }}</li>
-          <li><strong>Data:</strong> {{ domainInfo.data }}</li>
-        </ul>
+        <h3 class="text-lg font-bold px-2 mb-4">Domain Information</h3>
+        <table class="table mb-4">
+          <tr>
+            <td width="10%"><strong>Name:</strong></td>
+            <td>{{ domainInfo.name }}</td>
+          </tr>
+          <tr>
+            <td><strong>TLD:</strong></td>
+            <td>{{ domainInfo.tld }}</td>
+          </tr>
+          <tr>
+            <td><strong>Expires:</strong></td>
+            <td>
+              {{
+                format.toDay(
+                  calculateExpiryTime(
+                    domainInfo.expires,
+                    Number(baseStore.latest?.block?.header?.height) || 0
+                  ),
+                  'date'
+                )
+              }}
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Value:</strong></td>
+            <td>{{ domainInfo.value }}</td>
+          </tr>
+          <tr>
+            <td><strong>Data:</strong></td>
+            <td>{{ domainInfo.data }}</td>
+          </tr>
+        </table>
       </div>
 
       <div

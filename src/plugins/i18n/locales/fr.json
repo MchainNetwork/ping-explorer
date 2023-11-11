@@ -406,7 +406,9 @@
     "no_wallet_description": "Rejoignez notre communauté et débloquez des fonctionnalités exclusives en connectant votre portefeuille maintenant!",
     "connect_wallet": "Connecter Portefeuille",
     "need_a_wallet": "Besoin d'un portefeuille?",
-    "install_keplr": "Installer Keplr"
+    "install_keplr": "Installer Keplr",
+    "no_delegations_message": "Vous n'avez actuellement aucune délégation. Explorez et déléguez pour commencer à gagner des récompenses.",
+    "staking_page_button": "Aller au Staking"
   },
   "params": {
     "height": "Hauteur",

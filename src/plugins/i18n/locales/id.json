@@ -391,7 +391,9 @@
     "no_wallet_description": "Bergabung dengan komunitas kami dan buka fitur eksklusif dengan menghubungkan dompet Anda sekarang!",
     "connect_wallet": "Hubungkan Dompet",
     "need_a_wallet": "Butuh dompet?",
-    "install_keplr": "Pasang Keplr"
+    "install_keplr": "Pasang Keplr",
+    "no_delegations_message": "Saat ini Anda tidak memiliki delegasi. Jelajahi dan delegasikan untuk mulai mendapatkan hadiah.",
+    "staking_page_button": "Pergi ke Staking"
   },
   "params": {
     "height": "Tinggi",

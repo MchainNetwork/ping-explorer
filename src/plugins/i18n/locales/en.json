@@ -406,7 +406,9 @@
     "no_wallet_description": "Join our community and unlock exclusive features by connecting your wallet now!",
     "connect_wallet": "Connect Wallet",
     "need_a_wallet": "Need a wallet?",
-    "install_keplr": "Install Keplr"
+    "install_keplr": "Install Keplr",
+    "no_delegations_message": "You currently have no delegations. Explore and delegate to start earning rewards.",
+    "staking_page_button": "Go to Staking"
   },
   "params": {
     "height": "Height",

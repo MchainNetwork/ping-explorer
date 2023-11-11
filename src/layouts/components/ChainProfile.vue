@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { useBlockchain, useBaseStore, type Endpoint } from '@/stores';
+import { ref } from 'vue';
+import {
+  useBlockchain,
+  useBaseStore,
+  type Endpoint,
+  NetworkType,
+} from '@/stores';
+
 import { useRouter } from 'vue-router';
 const chainStore = useBlockchain();
 const baseStore = useBaseStore();
@@ -9,7 +16,8 @@ function changeEndpoint(item: Endpoint) {
   chainStore.setRestEndpoint(item);
   if (chainStore.current) router.push(`/${chainStore.current.chainName}`);
 }
-const testnet = window.location.hostname.search('testnet') > -1;
+
+const testnet = ref(NetworkType.Testnet);
 </script>
 
 <template>

@@ -63,7 +63,7 @@ function selected(route: any, nav: NavLink) {
   const b =
     route.path === nav.to?.path ||
     (route.path.startsWith(nav.to?.path) &&
-      nav.title.indexOf('dashboard') === -1);
+      nav.title.indexOf('your_wallet') === -1);
   return b;
 }
 </script>

@@ -24,7 +24,8 @@
     "faucet": "Faucet",
     "explorer": "Explorer",
     "view_all": "Lihat Semua",
-    "search": "Cari"
+    "search": "Cari",
+    "your_wallet": "Dompet Anda"
   },
   "pages": {
     "title": "Ping Dashboard",

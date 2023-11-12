@@ -228,7 +228,7 @@ onBeforeUnmount(() => {
                     </td>
                     <td class="flex items-center pt-4">
                       <span
-                        class="badge badge-success bg-green-100 text-green-800 mr-2"
+                        class="badge badge-success badge-sm bg-green-100 text-green-800 mr-2"
                       >
                         {{ format.messages(v.tx.body.messages) }}
                       </span>

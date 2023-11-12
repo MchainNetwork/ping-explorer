@@ -24,7 +24,8 @@
     "faucet": "Faucet",
     "explorer": "浏览器",
     "view_all": "查看全部",
-    "search": "搜索"
+    "search": "搜索",
+    "your_wallet": "您的钱包"
   },
   "pages": {
     "title": "Ping Dashboard",

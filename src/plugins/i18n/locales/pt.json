@@ -25,7 +25,8 @@
     "faucet": "Faucet",
     "explorer": "Explorador",
     "view_all": "Ver Todos",
-    "search": "Pesquisar"
+    "search": "Pesquisar",
+    "your_wallet": "Sua Carteira"
   },
   "pages": {
     "title": "Painel Ping",

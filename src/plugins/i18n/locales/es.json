@@ -25,7 +25,8 @@
     "faucet": "Faucet",
     "explorer": "Explorador",
     "view_all": "Ver Todos",
-    "search": "Buscar"
+    "search": "Buscar",
+    "your_wallet": "Tu Cartera"
   },
   "pages": {
     "title": "Tablero Ping",

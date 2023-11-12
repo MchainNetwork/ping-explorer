@@ -25,7 +25,8 @@
     "faucet": "Robinet",
     "explorer": "Explorer",
     "view_all": "Voir Tout",
-    "search": "Rechercher"
+    "search": "Rechercher",
+    "your_wallet": "Votre Portefeuille"
   },
   "pages": {
     "title": "Tableau de bord Ping",

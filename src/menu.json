@@ -1,6 +1,6 @@
 [
   {
-    "title": "module.dashboard",
+    "title": "module.your_wallet",
     "to": { "path": "/mchain" },
     "i18n": true,
     "order": 1

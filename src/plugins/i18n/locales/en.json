@@ -25,7 +25,8 @@
     "faucet": "Faucet",
     "explorer": "Explorer",
     "view_all": "View All",
-    "search": "Search"
+    "search": "Search",
+    "your_wallet": "Your Wallet"
   },
   "pages": {
     "title": "Ping Dashboard",

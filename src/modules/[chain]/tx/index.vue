@@ -87,7 +87,7 @@ onMounted(() => {
               >
                 <td class="flex items-center py-3" style="max-width: 120px">
                   <span
-                    class="badge badge-success bg-green-100 text-green-800 mr-2"
+                    class="badge badge-success badge-sm bg-green-100 text-green-800 mr-2"
                   >
                     {{ format.messages(v.tx.body.messages) }}
                   </span>

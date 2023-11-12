@@ -187,7 +187,7 @@ function pageload(p: number) {
 </script>
 <template>
   <div>
-    <bg-gradient-blur variant="big staking"></bg-gradient-blur>
+    <bg-gradient-blur variant="validator"></bg-gradient-blur>
     <div class="relative overflow-hidden mx-auto max-w-screen-lg">
       <div class="flex justify-between items-center m-4 ml-0 mb-6">
         <a @click="$router.go(-1)" class="btn btn-ghost btn-circle btn-sm mx-1">

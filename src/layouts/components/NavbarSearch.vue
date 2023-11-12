@@ -78,7 +78,7 @@ function confirm() {
       @click="openSearchModal"
     >
       <Icon
-        icon="mdi:magnify"
+        icon="uil:search-alt"
         class="text-2xl text-gray-500 dark:text-gray-400"
       />
     </button>

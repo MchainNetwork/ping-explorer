@@ -30,12 +30,20 @@
   bottom: -148px;
 }
 
-.bg-gradient-blur-wrapper.big.staking {
-  top: -529px;
-  left: -100px;
+.bg-gradient-blur-wrapper.staking {
+  top: -429px;
+  left: 100px;
+  min-height: 90%;
  }
 
-.bg-gradient-blur-wrapper.big.tx {
+.bg-gradient-blur-wrapper.validator {
+  top: 147px;
+  right: 0px;
+  bottom: -148px;
+  max-height: 40%;
+}
+
+.bg-gradient-blur-wrapper.tx {
   top: -329px;
   right: -177px;
 }
@@ -61,7 +69,7 @@
 .bg-gradient-blur-wrapper.mns {
   left: 40%;
   top: -300px;
-  min-height: 40%;
+  min-height: 80%;
 }
 
 .bg-gradient-blur-wrapper.mns-page {

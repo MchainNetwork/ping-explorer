@@ -68,9 +68,10 @@ const handleLangChange = (lang: string) => {
     "
   >
     <label tabindex="0" class="btn btn-ghost btn-circle btn-sm mx-1">
-      <span class="text-lg text-gray-500 dark:text-gray-400 uppercase">{{
-        currentLang
-      }}</span>
+      <Icon
+        icon="uil:english-to-chinese"
+        class="text-2xl text-gray-500 dark:text-gray-400"
+      ></Icon>
     </label>
     <ul
       tabindex="0"
@@ -79,7 +80,7 @@ const handleLangChange = (lang: string) => {
       <li v-for="lang in i18nLangs" :key="lang.i18nLang">
         <a
           class="hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
-          :class="{ 'text-primary': currentLang === lang.i18nLang }"
+          :class="{ 'font-bold': currentLang === lang.i18nLang }"
           @click="handleLangChange(lang.i18nLang)"
         >
           <img :src="`/flags/${lang.i18nLang}.svg`" class="h-3 border mr-2" />

@@ -66,19 +66,41 @@ onBeforeRouteUpdate(async (to, from, next) => {
   <div>
     <bg-gradient-blur variant="big explorer"></bg-gradient-blur>
     <div class="relative mx-auto max-w-screen-lg">
-      <div class="flex items-center mb-2 flex-1">
-        <RouterLink
-          :to="`/${chain}/explorer`"
-          class="btn btn-ghost btn-circle btn-sm mx-1"
-        >
-          <Icon
-            icon="uil:angle-left"
-            class="text-3xl text-gray-500 dark:text-gray-400"
-          />
-        </RouterLink>
-        <h1 class="text-2xl md:!text-4xl font-bold p-4">
-          {{ isFutureBlock ? 'Future Block' : 'Block' }}
-        </h1>
+      <div class="flex items-center">
+        <div class="flex items-center mb-2 flex-1">
+          <RouterLink
+            :to="`/${chain}/explorer`"
+            class="btn btn-ghost btn-circle btn-sm mx-1"
+          >
+            <Icon
+              icon="uil:angle-left"
+              class="text-3xl text-gray-500 dark:text-gray-400"
+            />
+          </RouterLink>
+          <h1 class="text-2xl md:!text-4xl font-bold p-4">
+            {{
+              isFutureBlock
+                ? 'Future Block'
+                : 'Block #' + current.block?.header?.height
+            }}
+          </h1>
+        </div>
+        <div v-if="!isFutureBlock">
+          <div class="flex pr-5" v-if="props.height">
+            <RouterLink
+              :to="`/${store.blockchain.chainName}/block/${height - 1}`"
+              class="btn btn-primary btn-sm p-1 rounded-xl text-2xl mr-2"
+            >
+              <Icon icon="mdi-arrow-left" class="w-full h-full" />
+            </RouterLink>
+            <RouterLink
+              :to="`/${store.blockchain.chainName}/block/${height + 1}`"
+              class="btn btn-primary btn-sm p-1 rounded-xl text-2xl"
+            >
+              <Icon icon="mdi-arrow-right" class="w-full h-full" />
+            </RouterLink>
+          </div>
+        </div>
       </div>
 
       <div
@@ -150,45 +172,31 @@ onBeforeRouteUpdate(async (to, from, next) => {
 
       <div v-if="!isFutureBlock">
         <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
-          <h2 class="card-title flex flex-row justify-between">
-            <p class="">#{{ current.block?.header?.height }}</p>
-            <div class="flex" v-if="props.height">
-              <RouterLink
-                :to="`/${store.blockchain.chainName}/block/${height - 1}`"
-                class="btn btn-primary btn-sm p-1 rounded-xl text-2xl mr-2"
-              >
-                <Icon icon="mdi-arrow-left" class="w-full h-full" />
-              </RouterLink>
-              <RouterLink
-                :to="`/${store.blockchain.chainName}/block/${height + 1}`"
-                class="btn btn-primary btn-sm p-1 rounded-xl text-2xl"
-              >
-                <Icon icon="mdi-arrow-right" class="w-full h-full" />
-              </RouterLink>
-            </div>
-          </h2>
           <div>
             <DynamicComponent :value="current.block_id" />
           </div>
         </div>
+
+        <h2 class="card-title p-4">
+          {{ $t('block.block_header') }}
+        </h2>
         <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
-          <h2 class="card-title flex flex-row justify-between">
-            {{ $t('block.block_header') }}
-          </h2>
           <DynamicComponent :value="current.block?.header" />
         </div>
 
+        <h2 class="card-title p-4">
+          {{ $t('account.transactions') }}
+        </h2>
+
         <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
-          <h2 class="card-title flex flex-row justify-between">
-            {{ $t('account.transactions') }}
-          </h2>
           <TxsElement :value="current.block?.data?.txs" />
         </div>
 
+        <h2 class="card-title p-4">
+          {{ $t('block.last_commit') }}
+        </h2>
+
         <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl">
-          <h2 class="card-title flex flex-row justify-between">
-            {{ $t('block.last_commit') }}
-          </h2>
           <DynamicComponent :value="current.block?.last_commit" />
         </div>
       </div>

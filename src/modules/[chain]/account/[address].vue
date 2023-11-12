@@ -136,47 +136,24 @@ function updateEvent() {
 <template>
   <div>
     <bg-gradient-blur variant="big home"></bg-gradient-blur>
-    <div v-if="account" class="relative mx-auto max-w-screen-lg">
-      <div class="flex justify-between items-center m-4 ml-0 mb-6">
+    <div v-if="account" class="relative mx-auto max-w-screen-lg pb-20">
+      <div class="flex justify-between items-center my-4 mb-6">
         <a @click="$router.go(-1)" class="btn btn-ghost btn-circle btn-sm mx-1">
           <Icon
             icon="uil:angle-left"
             class="text-3xl text-gray-500 dark:text-gray-400"
           />
         </a>
-        <h2 class="text-xl md:!text-4xl font-bold flex-1 ml-2">Account</h2>
-        <div></div>
-      </div>
-
-      <!-- address -->
-      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
-        <div class="flex items-center">
-          <!-- img -->
-          <div class="inline-flex relative w-11 h-11 rounded-md">
-            <div
-              class="w-11 h-11 absolute rounded-md opacity-10 bg-primary"
-            ></div>
-            <div
-              class="w-full inline-flex items-center align-middle flex-none justify-center"
-            >
-              <div>
-                <IdentityIcon size="md" :address="address"></IdentityIcon>
-              </div>
-            </div>
-          </div>
-          <!-- content -->
-          <div class="flex flex-1 flex-col truncate pl-4">
-            <h2 class="text-sm card-title">{{ $t('account.address') }}:</h2>
-            <span class="text-xs truncate"> {{ address }}</span>
+        <div class="flex gap-4 ml-4 flex-1">
+          <IdentityIcon size="md" :address="address" />
+          <div>
+            <h2 class="text-xl flex font-bold text-base">
+              {{ $t('account.address') }}
+            </h2>
+            <span class="truncate text-gray-500">{{ address }}</span>
           </div>
         </div>
-      </div>
-
-      <!-- Assets -->
-      <div class="flex items-center justify-between mb-2">
-        <h2 class="card-title p-4 mb-2">{{ $t('account.assets') }}</h2>
-        <!-- button -->
-        <div class="flex justify-end mb-2 pr-5">
+        <div>
           <label
             for="bank_send"
             class="btn btn-primary btn-sm rounded-full mr-2"
@@ -205,7 +182,7 @@ function updateEvent() {
           <!-- list-->
           <div class="w-3/4">
             <!--balances  -->
-            <h4 class="text-lg font-bold p-4">Available</h4>
+            <h4 class="text-lg font-bold p-4">{{ $t('account.assets') }}</h4>
 
             <div
               class="flex items-center px-4 mb-2"
@@ -260,7 +237,9 @@ function updateEvent() {
           </div>
           <div class="w-1/4">
             <!--delegations  -->
-            <h4 class="text-lg font-bold p-4">Delegations</h4>
+            <h4 class="text-lg font-bold p-4">
+              {{ $t('account.delegations') }}
+            </h4>
             <div
               class="flex items-center px-4 mb-4"
               v-for="(delegationItem, index) in delegations"
@@ -272,33 +251,39 @@ function updateEvent() {
               </div>
             </div>
             <!-- rewards.total -->
-            <h4 class="text-lg font-bold p-4">Rewards</h4>
-            <div
-              class="flex items-center px-4 mb-4"
-              v-for="(rewardItem, index) in rewards.total"
-              :key="index"
-            >
-              <img
-                :src="`/coins/${rewardItem.denom}.svg`"
-                class="h-8 w-8 mr-4"
-              />
-              <div class="text-sm font-semibold">
-                {{ format.formatToken(rewardItem) }}
+            <template v-if="rewards.total">
+              <h4 class="text-lg font-bold p-4">{{ $t('account.rewards') }}</h4>
+              <div
+                class="flex items-center px-4 mb-4"
+                v-for="(rewardItem, index) in rewards.total"
+                :key="index"
+              >
+                <img
+                  :src="`/coins/${rewardItem.denom}.svg`"
+                  class="h-8 w-8 mr-4"
+                />
+                <div class="text-sm font-semibold">
+                  {{ format.formatToken(rewardItem) }}
+                </div>
               </div>
-            </div>
-            <h4 class="text-lg font-bold p-4">Unbonding</h4>
-            <div class="flex items-center px-4 mb-4">
-              <img src="/coins/umark.svg" class="h-8 w-8 mr-4" />
+            </template>
+            <template v-if="unbondingTotal">
+              <h4 class="text-lg font-bold p-4">
+                {{ $t('account.unbonding_delegations') }}
+              </h4>
+              <div class="flex items-center px-4 mb-4">
+                <img src="/coins/umark.svg" class="h-8 w-8 mr-4" />
 
-              <div class="text-sm font-semibold">
-                {{
-                  format.formatToken({
-                    amount: String(unbondingTotal),
-                    denom: stakingStore.params.bond_denom,
-                  })
-                }}
+                <div class="text-sm font-semibold">
+                  {{
+                    format.formatToken({
+                      amount: String(unbondingTotal),
+                      denom: stakingStore.params.bond_denom,
+                    })
+                  }}
+                </div>
               </div>
-            </div>
+            </template>
           </div>
         </div>
       </div>
@@ -598,10 +583,12 @@ function updateEvent() {
       </div>
 
       <!-- Account -->
+      <!--
       <h2 class="card-title p-4 mb-4">{{ $t('account.acc') }}</h2>
       <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
         <DynamicComponent :value="account" />
       </div>
+      -->
     </div>
     <div v-else class="text-no text-sm">{{ $t('account.error') }}</div>
   </div>

@@ -97,7 +97,7 @@ function pageload(p: number) {
             <tr
               :key="item.name"
               v-for="item in list"
-              class="hover:bg-gray-200 dark:hover:bg-gray-700"
+              class="hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
             >
               <td width="20%">
                 <RouterLink

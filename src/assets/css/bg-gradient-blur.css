@@ -82,13 +82,10 @@
   min-height: 90%;
 }
 
-.bg-gradient-blur-wrapper.full {
-  left: 0%;
-  top: 0%;
-  right: 0%;
-  bottom: 0%;
-  max-width: 100%;
-  min-height: 100%;
+.bg-gradient-blur-wrapper.notfound {
+  right: 40%;
+  top: -270px;
+  min-height: 90%;
 }
 
 .bg-gradient-blur-wrapper.calculator {

@@ -61,7 +61,7 @@ function pageload(p: number) {
       </div>
 
       <div class="bg-base-100 p-4 rounded-3xl">
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto md:!overflow-visible">
           <table class="table table-compact text-base">
             <thead>
               <tr>
@@ -73,7 +73,7 @@ function pageload(p: number) {
             <tr
               :key="item.denom"
               v-for="item in list"
-              class="hover:bg-gray-200 dark:hover:bg-gray-700"
+              class="hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
             >
               <td class="flex" width="80%">
                 <IdentityIcon

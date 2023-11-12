@@ -156,7 +156,11 @@
     "messages": "Mensajes",
     "message": "Mensaje",
     "time": "Tiempo",
-    "error": "La cuenta no existe en la cadena"
+    "error": "La cuenta no existe en la cadena",
+    "connect": "Conectar",
+    "disconnect": "Desconectar",
+    "qr_code": "Código QR",
+    "your_wallet_address": "Tu Dirección de Billetera"
   },
   "block": {
     "estimated_time": "Tiempo estimado",

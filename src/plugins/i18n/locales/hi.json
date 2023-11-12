@@ -161,7 +161,11 @@
     "no_domains": "कोई डोमेन नहीं",
     "name": "नाम",
     "expire": "समाप्त",
-    "subdomains": "उपडोमेन"
+    "subdomains": "उपडोमेन",
+    "connect": "जोड़ें",
+    "disconnect": "डिस्कनेक्ट",
+    "qr_code": "क्यूआर कोड",
+    "your_wallet_address": "आपका वॉलेट पता"
   },
   "block": {
     "estimated_time": "अनुमानित समय",

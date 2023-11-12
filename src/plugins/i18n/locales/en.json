@@ -161,7 +161,11 @@
     "no_domains": "No domains",
     "name": "Name",
     "expire": "Expire",
-    "subdomains": "Subdomains"
+    "subdomains": "Subdomains",
+    "connect": "Connect",
+    "disconnect": "Disconnect",
+    "qr_code": "QR Code",
+    "your_wallet_address": "Your Wallet Address"
   },
   "block": {
     "estimated_time": "Estimated Time",

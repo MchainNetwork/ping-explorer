@@ -156,7 +156,11 @@
     "messages": "Mensagens",
     "message": "Mensagem",
     "time": "Tempo",
-    "error": "A conta não existe na cadeia"
+    "error": "A conta não existe na cadeia",
+    "connect": "Conectar",
+    "disconnect": "Desconectar",
+    "qr_code": "Código QR",
+    "your_wallet_address": "Seu Endereço de Carteira"
   },
   "block": {
     "estimated_time": "Tempo Estimado",

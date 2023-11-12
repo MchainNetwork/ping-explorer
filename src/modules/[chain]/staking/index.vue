@@ -386,7 +386,7 @@ const filteredList = computed(() => {
             class="btn btn-primary btn-sm rounded-full text-white"
           >
             <Icon icon="uil:calculator-alt" class="text-2xl"></Icon>
-            <span class="hidden md:inline-block">
+            <span class="hidden md:!inline-block">
               {{ $t('staking.staking_calculator') }}
             </span>
           </RouterLink>

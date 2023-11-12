@@ -154,7 +154,11 @@
     "messages": "Pesan",
     "message": "Pesan",
     "time": "Waktu",
-    "error": "Akun tidak ada di dalam rantai"
+    "error": "Akun tidak ada di dalam rantai",
+    "connect": "Sambungkan",
+    "disconnect": "Putuskan",
+    "qr_code": "Kode QR",
+    "your_wallet_address": "Alamat Dompet Anda"
   },
   "block": {
     "estimated_time": "Estimasi Waktu",

@@ -155,7 +155,11 @@
     "messages": "消息",
     "message": "消息",
     "time": "时间",
-    "error": "区块链上没有这个账号！"
+    "error": "区块链上没有这个账号！",
+    "connect": "连接",
+    "disconnect": "断开",
+    "qr_code": "二维码",
+    "your_wallet_address": "您的钱包地址"
   },
   "block": {
     "estimated_time": "预计时间",

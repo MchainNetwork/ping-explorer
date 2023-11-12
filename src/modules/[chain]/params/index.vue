@@ -6,6 +6,10 @@ import { Icon } from '@iconify/vue';
 import ArrayObjectElement from '@/components/dynamic/ArrayObjectElement.vue';
 const store = useParamStore();
 const chain = ref(store.chain);
+
+const showAppVersion = false;
+const showNodeInfo = false;
+
 onMounted(() => {
   // fetch the data
   store.initial();
@@ -14,7 +18,7 @@ onMounted(() => {
 <template>
   <div>
     <bg-gradient-blur variant="big params"></bg-gradient-blur>
-    <div class="relative overflow-hidden mx-auto max-w-screen-lg">
+    <div class="relative overflow-hidden mx-auto max-w-screen-lg mb-80">
       <div class="flex items-center mb-2 flex-1">
         <a @click="$router.go(-1)" class="btn btn-ghost btn-circle btn-sm mx-1">
           <Icon
@@ -60,7 +64,10 @@ onMounted(() => {
       <!-- Slashing Parameters -->
       <CardParameter :cardItem="store.slashing" />
       <!-- Application Version -->
-      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mt-6">
+      <div
+        v-if="showAppVersion"
+        class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mt-6"
+      >
         <div class="text-base mb-3 text-main">
           {{ store.appVersion?.title }}
         </div>
@@ -68,7 +75,10 @@ onMounted(() => {
       </div>
 
       <!-- Node Information -->
-      <div class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mt-6">
+      <div
+        v-if="showNodeInfo"
+        class="bg-base-100 px-4 pt-3 pb-4 rounded-xl mt-6"
+      >
         <div class="text-base mb-3 text-main">
           {{ store.nodeVersion?.title }}
         </div>

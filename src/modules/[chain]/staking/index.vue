@@ -15,6 +15,9 @@ import { Icon } from '@iconify/vue';
 import type { Key, SlashingParam, Validator } from '@/types';
 import { formatSeconds } from '@/libs/utils';
 import IdentityIcon from '@/components/IdentityIcon.vue';
+import { useI18n } from 'vue-i18n';
+
+const { locale } = useI18n();
 
 const props = defineProps(['chain']);
 
@@ -296,6 +299,7 @@ const filteredList = computed(() => {
             :chain-id="base.currentChainId"
             :hd-path="chainStore.defaultHDPath"
             :addr-prefix="chainStore.current?.bech32Prefix || 'm'"
+            :locale="locale"
             @connect="walletStateChange"
             @keplr-config="walletStore.suggestChain()"
           />

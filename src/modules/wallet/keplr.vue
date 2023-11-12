@@ -113,8 +113,11 @@ function suggest() {
         </option>
       </select>
       -->
-      <button class="btn btn-sm btn-primary text-white px-2" @click="suggest">
-        Add {{ selected.chainName }} TO Keplr Wallet
+      <button
+        class="btn btn-sm btn-primary text-white px-2 uppercase"
+        @click="suggest"
+      >
+        Add {{ selected.chainName }} To Keplr Wallet
       </button>
     </div>
     <div class="text-main mt-5">

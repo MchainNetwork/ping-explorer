@@ -2,6 +2,9 @@
 import { useBaseStore, useBlockchain, useWalletStore } from '@/stores';
 import { ref, computed } from 'vue';
 import IdentityIcon from '@/components/IdentityIcon.vue';
+import { useI18n } from 'vue-i18n';
+
+const { locale } = useI18n();
 
 const walletStore = useWalletStore();
 const chainStore = useBlockchain();
@@ -127,7 +130,8 @@ const tipMsg = computed(() => {
     <ping-connect-wallet
       :chain-id="baseStore.currentChainId"
       :hd-path="chainStore.defaultHDPath"
-      :addr-prefix="chainStore.current?.bech32Prefix || 'cosmos'"
+      :addr-prefix="chainStore.current?.bech32Prefix || 'm'"
+      :locale="locale"
       @connect="walletStateChange"
       @keplr-config="walletStore.suggestChain()"
     />

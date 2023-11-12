@@ -85,7 +85,7 @@ onMounted(() => {
                 :key="index"
                 class="hover:bg-gray-200 dark:hover:bg-gray-700"
               >
-                <td class="flex items-center py-3" style="max-width: 120px">
+                <td class="flex items-center py-3" style="max-width: 130px">
                   <span
                     class="badge badge-success badge-sm bg-green-100 text-green-800 mr-2"
                   >
@@ -104,8 +104,9 @@ onMounted(() => {
                   <RouterLink
                     :to="`/${chain}/block/${v.height}`"
                     class="text-primary"
-                    >{{ v.height }}</RouterLink
                   >
+                    #{{ v.height }}
+                  </RouterLink>
                 </td>
                 <td class="text-sm py-3">
                   <div

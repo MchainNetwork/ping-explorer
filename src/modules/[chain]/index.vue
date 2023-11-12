@@ -18,6 +18,9 @@ import {
 import { onMounted, ref } from 'vue';
 import { useIndexModule, colorMap } from './indexStore';
 import { computed } from '@vue/reactivity';
+import { useI18n } from 'vue-i18n';
+
+const { locale } = useI18n();
 
 // @ts-ignore
 import CardStatisticsVertical from '@/components/CardStatisticsVertical.vue';
@@ -375,6 +378,7 @@ const amount = computed({
             :chain-id="baseStore.currentChainId"
             :hd-path="blockchain.defaultHDPath"
             :addr-prefix="blockchain.current?.bech32Prefix || 'm'"
+            :locale="locale"
             @connect="walletStateChange"
             @keplr-config="walletStore.suggestChain()"
           />

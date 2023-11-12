@@ -48,7 +48,9 @@ function pageload(p: number) {
     <bg-gradient-blur variant="big smarttoken"></bg-gradient-blur>
     <div class="relative overflow-auto mx-auto max-w-screen-lg">
       <div class="flex justify-between items-center">
-        <h1 class="text-xl md:!text-4xl font-bold p-4">Smart Tokens</h1>
+        <h1 class="text-xl md:!text-4xl font-bold p-4">
+          {{ $t('module.smart_tokens') }}
+        </h1>
         <div class="pr-4">
           <label
             for="smarttoken_issue"

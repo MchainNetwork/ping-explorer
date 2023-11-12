@@ -52,6 +52,8 @@ const listForSale = ref([] as MnsForsale[]);
 const listBid = ref([] as MnsBids[]);
 
 const pageRequest = ref(new PageRequest());
+pageRequest.value.limit = 10;
+
 const pageResponse = ref({} as Pagination);
 
 const domainToCheck = ref('');
@@ -95,9 +97,9 @@ async function pageload(p: number) {
   pageRequest.value.setPage(p);
 
   const [names, forSale, forBid] = await Promise.all([
-    mnsStore.fetchMnsNames(),
-    mnsStore.fetchMnsForsale(),
-    mnsStore.fetchMnsBids(),
+    mnsStore.fetchMnsNames(pageRequest.value),
+    mnsStore.fetchMnsForsale(pageRequest.value),
+    mnsStore.fetchMnsBids(pageRequest.value),
   ]);
 
   list.value = names.names;

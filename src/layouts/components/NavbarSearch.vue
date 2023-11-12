@@ -90,7 +90,7 @@ function confirm() {
       @click="closeSearchModal"
     >
       <div
-        class="relative modal-box cursor-default"
+        class="relative modal-box rounded-3xl cursor-default"
         @click="(event) => preventClick(event)"
       >
         <!-- header -->
@@ -98,10 +98,7 @@ function confirm() {
           <div
             class="text-lg font-bold flex flex-col md:!flex-row justify-between items-baseline"
           >
-            <span class="mr-2">Search</span>
-            <span class="capitalize text-sm md:!text-base"
-              >Height/Transaction/Account Address</span
-            >
+            <span class="mr-2">{{ $t('block.search_placeholder') }}</span>
           </div>
           <label
             htmlFor="modal-pool-modal"
@@ -120,7 +117,7 @@ function confirm() {
             <input
               class="input flex-1 w-full !input-bordered"
               v-model="searchQuery"
-              placeholder="Height/Transaction/Account Address"
+              placeholder=""
               v-focus
             />
             <div
@@ -137,7 +134,7 @@ function confirm() {
             class="w-full btn btn-primary rounded-full btn-md"
             @click="confirm"
           >
-            Confirm
+            {{ $t('module.search') }}
           </button>
         </div>
       </div>

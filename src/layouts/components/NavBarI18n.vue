@@ -29,6 +29,10 @@ const i18nLangs: Array<{ label: string; i18nLang: string }> = [
     i18nLang: 'hi',
   },
   {
+    label: 'Italiano',
+    i18nLang: 'it',
+  },
+  {
     label: 'Indonesian',
     i18nLang: 'id',
   },

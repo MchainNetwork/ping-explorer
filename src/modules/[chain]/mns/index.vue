@@ -328,7 +328,7 @@ function checkDomainAvailable(domain: string) {
                       <label
                         v-if="item.value == walletStore.currentAddress"
                         for="mns_list"
-                        class="btn btn-success btn-xs w-full whitespace-nowrap"
+                        class="btn !btn-success btn-xs w-full whitespace-nowrap"
                         @click="
                           dialog.open(
                             'mns_list',
@@ -349,7 +349,7 @@ function checkDomainAvailable(domain: string) {
           <RouterLink
             v-if="list.length >= 10"
             :to="'/mchain/mns/registered'"
-            class="btn btn-primary btn-xs btn-outline w-full mt-4"
+            class="btn btn-primary btn-xs !btn-outline w-full mt-4"
           >
             {{ $t('mns.see_all') }}
           </RouterLink>
@@ -423,7 +423,7 @@ function checkDomainAvailable(domain: string) {
                       <label
                         v-if="item.owner == walletStore.currentAddress"
                         for="mns_delist"
-                        class="btn btn-success btn-xs w-full whitespace-nowrap"
+                        class="btn !btn-success btn-xs w-full whitespace-nowrap"
                         @click="
                           dialog.open(
                             'mns_delist',
@@ -443,7 +443,7 @@ function checkDomainAvailable(domain: string) {
           <RouterLink
             v-if="listForSale.length >= 10"
             :to="'/mchain/mns/forsale'"
-            class="btn btn-primary btn-xs btn-outline w-full mt-4"
+            class="btn btn-primary btn-xs !btn-outline w-full mt-4"
           >
             {{ $t('mns.see_all') }}
           </RouterLink>
@@ -517,7 +517,7 @@ function checkDomainAvailable(domain: string) {
                       <label
                         v-if="item.bidder == walletStore.currentAddress"
                         for="mns_cancel_bid"
-                        class="btn btn-success btn-xs whitespace-nowrap"
+                        class="btn !btn-success btn-xs whitespace-nowrap"
                         @click="
                           dialog.open(
                             'mns_cancel_bid',
@@ -537,7 +537,7 @@ function checkDomainAvailable(domain: string) {
           <RouterLink
             v-if="listBid.length >= 10"
             :to="'/mchain/mns/bids'"
-            class="btn btn-primary btn-xs btn-outline w-full mt-4"
+            class="btn btn-primary btn-xs !btn-outline w-full mt-4"
           >
             {{ $t('mns.see_all') }}
           </RouterLink>

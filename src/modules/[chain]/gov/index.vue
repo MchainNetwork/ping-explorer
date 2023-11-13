@@ -46,6 +46,7 @@ function page(p: number) {
           {{ $t('gov.governance') }}
         </h1>
         <div class="pr-4">
+          <!--
           <label
             for="gov_submit_proposal"
             class="btn btn-primary btn-sm"
@@ -53,6 +54,7 @@ function page(p: number) {
           >
             {{ $t('gov.submit_proposal') }}
           </label>
+          -->
         </div>
       </div>
       <div class="tabs mb-8 text-center">

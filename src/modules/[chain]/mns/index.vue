@@ -151,7 +151,7 @@ function checkDomainAvailable(domain: string) {
     <bg-gradient-blur variant="big mns"></bg-gradient-blur>
     <div class="relative overflow-hidden mx-auto max-w-screen-xl lg:p-10">
       <h2
-        class="text-primary text-3xl text-center md:!text-5xl font-bold mx-4 mb-8"
+        class="text-primary text-4xl text-center md:!text-5xl font-bold mx-4 mb-8"
       >
         {{ $t('mns.title') }}
       </h2>
@@ -167,22 +167,24 @@ function checkDomainAvailable(domain: string) {
         <div class="md:w-4/6 mx-auto">
           <form
             @submit.prevent="verifyDomain"
-            class="flex justify-center w-100 items-center overflow-hidden rounded-full border border-primary mb-6"
+            class="flex justify-center w-100 items-center overflow-hidden mb-6"
           >
-            <input
-              v-model="domainToCheck"
-              type="text"
-              @input="resetMessages"
-              :placeholder="$t('mns.input_placeholder')"
-              class="input focus:outline-none flex-1"
-              v-focus
-            />
-            <button
-              type="submit"
-              class="btn btn-primary text-white rounded-full w-24"
-            >
-              {{ $t('mns.check_button') }}
-            </button>
+            <div class="input-group rounded-full border border-primary">
+              <input
+                v-model="domainToCheck"
+                type="text"
+                @input="resetMessages"
+                :placeholder="$t('mns.input_placeholder')"
+                class="input focus:outline-none flex-1"
+                v-focus
+              />
+              <button
+                type="submit"
+                class="btn btn-primary text-white rounded-full w-24"
+              >
+                {{ $t('mns.check_button') }}
+              </button>
+            </div>
           </form>
           <p class="text-center text-red-500" v-if="errorMessage">
             {{ errorMessage }}
@@ -251,17 +253,14 @@ function checkDomainAvailable(domain: string) {
           </label>
         </div>
 
-        <RouterLink
-          :to="`/${chain}/mns/owned`"
-          class="btn btn-xs btn-primary mb-4"
-        >
+        <RouterLink :to="`/${chain}/mns/owned`" class="btn btn-xs btn-primary">
           {{ $t('mns.your_domains') }}
         </RouterLink>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <!-- Registered -->
-        <div class="bg-base-100 p-4 rounded-3xl">
+        <div class="bg-base-100 p-4 rounded-3xl mb-2">
           <h3 class="text-lg font-bold mb-4">
             {{ $t('mns.registered_names_title') }}
           </h3>
@@ -356,7 +355,7 @@ function checkDomainAvailable(domain: string) {
         </div>
 
         <!-- For Sale -->
-        <div class="bg-base-100 p-4 rounded-3xl">
+        <div class="bg-base-100 p-4 rounded-3xl mb-2">
           <h2 class="text-lg font-bold mb-2">
             {{ $t('mns.domains_for_sale_title') }}
           </h2>
@@ -450,7 +449,7 @@ function checkDomainAvailable(domain: string) {
         </div>
 
         <!-- Bids -->
-        <div class="bg-base-100 p-4 rounded-3xl">
+        <div class="bg-base-100 p-4 rounded-3xl mb-2">
           <h2 class="text-lg font-bold mb-2">
             {{ $t('mns.domains_in_bid_title') }}
           </h2>

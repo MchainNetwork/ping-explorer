@@ -23,6 +23,8 @@ interface IconStyle {
   backgroundSize: string;
   width?: string;
   height?: string;
+  minWidth?: string;
+  minHeight?: string;
 }
 
 export default defineComponent({
@@ -87,6 +89,8 @@ export default defineComponent({
       };
       iconStyle.value.width = sizeToDimensionMap[props.size] || props.width;
       iconStyle.value.height = sizeToDimensionMap[props.size] || props.height;
+      iconStyle.value.minWidth = iconStyle.value.width;
+      iconStyle.value.minHeight = iconStyle.value.height;
     });
 
     return { iconStyle, formattedCharacter, sizeClass };
@@ -94,5 +98,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

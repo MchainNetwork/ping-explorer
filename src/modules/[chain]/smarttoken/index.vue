@@ -48,7 +48,7 @@ function pageload(p: number) {
     <bg-gradient-blur variant="big smarttoken"></bg-gradient-blur>
     <div class="relative overflow-auto mx-auto max-w-screen-lg">
       <div class="flex justify-between items-center mb-4">
-        <h1 class="text-xl md:!text-4xl font-bold p-4">
+        <h1 class="text-2xl md:!text-4xl font-bold p-4">
           {{ $t('module.smart_tokens') }}
         </h1>
         <div class="pr-4">
@@ -86,7 +86,7 @@ function pageload(p: number) {
                 <div class="tooltip" :data-tip="item.denom">
                   <RouterLink
                     :to="'/mchain/smarttoken/' + item.denom"
-                    class="hover:underline ml-4"
+                    class="hover:underline whitespace-nowrap ml-4 font-bold text-primary hover:underline"
                   >
                     {{ format.shortTokenDenom(item.denom) }}
                   </RouterLink>

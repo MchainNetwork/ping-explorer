@@ -474,18 +474,22 @@ const filteredList = computed(() => {
         </div>
 
         <div class="bg-base-100 p-4 mt-4 pb-4 pt-2 rounded-3xl">
-          <div class="md:flex items-center justify-between">
-            <div class="p-2 mr-4">
+          <div class="flex items-center justify-between">
+            <div class="p-2 relative">
+              <Icon
+                icon="uil:search"
+                class="text-xl text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2"
+              ></Icon>
               <input
                 type="text"
                 v-model="searchQuery"
                 :placeholder="$t('staking.search_validator')"
-                class="input input-sm input-bordered w-full"
+                class="input input-sm input-bordered w-full pl-8"
               />
             </div>
-            <div>
-              <div class="tabs tabs-boxed tabs-neutral">
-                <!--
+
+            <div class="tabs tabs-boxed tabs-neutral">
+              <!--
           <a
             class="tab tab-sm text-gray-400"
             :class="{ 'tab-active': tab === 'featured' }"
@@ -493,20 +497,20 @@ const filteredList = computed(() => {
             >{{ $t('staking.popular') }}</a
           >
           -->
-                <a
-                  class="tab tab-sm"
-                  :class="{ 'tab-active': tab === 'active' }"
-                  @click="tab = 'active'"
-                  >{{ $t('staking.active') }}</a
-                >
-                <a
-                  class="tab tab-sm"
-                  :class="{ 'tab-active': tab === 'inactive' }"
-                  @click="tab = 'inactive'"
-                  >{{ $t('staking.inactive') }}</a
-                >
-              </div>
+              <a
+                class="tab tab-sm"
+                :class="{ 'tab-active': tab === 'active' }"
+                @click="tab = 'active'"
+                >{{ $t('staking.active') }}</a
+              >
+              <a
+                class="tab tab-sm"
+                :class="{ 'tab-active': tab === 'inactive' }"
+                @click="tab = 'inactive'"
+                >{{ $t('staking.inactive') }}</a
+              >
             </div>
+
             <!--
         <div class="text-lg font-semibold pr-4">
           {{ list.length }}/{{ staking.params.max_validators }}

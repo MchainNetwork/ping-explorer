@@ -178,10 +178,7 @@ function checkDomainAvailable(domain: string) {
                 class="input focus:outline-none flex-1"
                 v-focus
               />
-              <button
-                type="submit"
-                class="btn btn-primary text-white rounded-full w-24"
-              >
+              <button type="submit" class="btn btn-primary">
                 {{ $t('mns.check_button') }}
               </button>
             </div>

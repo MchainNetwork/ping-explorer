@@ -196,7 +196,7 @@ function pageload() {
           </h3>
           <label
             for="mns_register"
-            class="btn btn-success btn-sm rounded-full text-white"
+            class="btn btn-sm btn-success rounded-full text-white"
             @click="
               dialog.open('mns_register', { name: domainName }, updateState)
             "
@@ -225,7 +225,7 @@ function pageload() {
             <label
               v-if="domainInfo.value != walletStore.currentAddress"
               for="mns_buy"
-              class="btn btn-success btn-sm rounded-full text-white dark:text-black"
+              class="btn btn-sm btn-success rounded-full text-white dark:text-black"
               @click="
                 dialog.open(
                   'mns_buy',
@@ -242,7 +242,7 @@ function pageload() {
             <label
               v-if="domainInfo.value === walletStore.currentAddress"
               for="mns_delist"
-              class="btn btn-error btn-sm rounded-full text-white dark:text-black"
+              class="btn btn-sm btn-primary"
               @click="
                 dialog.open(
                   'mns_delist',

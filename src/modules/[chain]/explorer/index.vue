@@ -240,7 +240,7 @@ onBeforeUnmount(() => {
                         >#{{ v.height }}</RouterLink
                       >
                     </td>
-                    <td class="py-3 text-xs text-right">
+                    <td class="py-3 text-xs text-right whitespace-nowrap">
                       {{ format.toDay(v.timestamp, 'from') }}
                     </td>
                   </tr>

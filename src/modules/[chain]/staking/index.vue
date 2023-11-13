@@ -475,7 +475,7 @@ const filteredList = computed(() => {
 
         <div class="bg-base-100 p-4 mt-4 pb-4 pt-2 rounded-3xl">
           <div class="flex items-center justify-between">
-            <div class="p-2 relative">
+            <div class="py-2 mr-2 relative">
               <Icon
                 icon="uil:search"
                 class="text-xl text-gray-400 absolute right-4 top-1/2 transform -translate-y-1/2"
@@ -484,7 +484,7 @@ const filteredList = computed(() => {
                 type="text"
                 v-model="searchQuery"
                 :placeholder="$t('staking.search_validator')"
-                class="input input-sm input-bordered w-full"
+                class="input input-sm input-bordered border border-gray-300 w-full"
               />
             </div>
 

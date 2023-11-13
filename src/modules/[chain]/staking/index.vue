@@ -311,7 +311,7 @@ const filteredList = computed(() => {
         v-if="walletStore.currentAddress"
       >
         <div
-          class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 py-6"
+          class="grid grid-cols-2 md:!grid-cols-4 auto-cols-auto gap-4 px-4 py-6"
         >
           <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
             <div class="text-sm mb-1">{{ $t('staking.your_delegations') }}</div>
@@ -399,7 +399,7 @@ const filteredList = computed(() => {
 
       <div class="bg-base-100 rounded-3xl mb-8">
         <div
-          class="grid grid-cols-1 md:!grid-cols-4 auto-cols-auto gap-4 px-4 py-6 text-center"
+          class="grid grid-cols-2 md:!grid-cols-4 auto-cols-auto gap-4 px-4 py-6 text-center"
         >
           <div class="bg-gray-100 dark:bg-[#1e3b47] rounded-3xl px-4 py-3">
             <div class="text-sm mb-1">{{ $t('staking.total_staked') }}</div>

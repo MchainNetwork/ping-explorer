@@ -83,7 +83,7 @@ function pageload() {
 <template>
   <div>
     <bg-gradient-blur variant="big mns-page"></bg-gradient-blur>
-    <div class="relative overflow-auto mx-auto max-w-screen-lg">
+    <div class="relative mx-auto max-w-screen-lg">
       <div v-if="isLoading" class="loading-indicator">
         {{ $t('mns.loading') }}
       </div>
@@ -98,9 +98,10 @@ function pageload() {
               class="text-3xl text-gray-500 dark:text-gray-400"
             />
           </RouterLink>
-          <h2 class="text-xl md:!text-4xl font-bold flex-1 ml-2">
-            {{ domainName }}
+          <h2 class="text-2xl md:!text-4xl font-bold flex-1 ml-2 truncate">
+            <span>{{ domainName }}</span>
           </h2>
+
           <div v-if="isDomainRegistered">
             <label
               for="mns_bid"
@@ -110,50 +111,79 @@ function pageload() {
             >
               {{ $t('mns.place_bid') }}
             </label>
-            <label
-              for="mns_add_record"
-              class="btn btn-primary btn-sm"
-              @click="
-                dialog.open('mns_add_record', { name: domainName }, updateState)
-              "
-              v-if="domainInfo.value === walletStore.currentAddress"
-            >
-              {{ $t('mns.add_subdomain') }}
-            </label>
-            <label
+
+            <details
+              class="dropdown dropdown-hover dropdown-bottom dropdown-end"
               v-if="domainInfo.value == walletStore.currentAddress"
-              for="mns_update"
-              class="btn btn-primary ml-4 btn-sm"
-              @click="
-                dialog.open(
-                  'mns_update',
-                  { name: domainName, data: domainInfo.data },
-                  updateState
-                )
-              "
             >
-              {{ $t('mns.update') }}
-            </label>
-            <label
-              v-if="domainInfo.value == walletStore.currentAddress"
-              for="mns_list"
-              class="btn btn-primary ml-4 btn-sm"
-              @click="
-                dialog.open('mns_list', { name: domainName }, updateState)
-              "
-            >
-              {{ $t('mns.sell') }}
-            </label>
-            <label
-              for="mns_transfer"
-              class="btn btn-primary ml-4 btn-sm"
-              @click="
-                dialog.open('mns_transfer', { name: domainName }, updateState)
-              "
-              v-if="domainInfo.value === walletStore.currentAddress"
-            >
-              {{ $t('mns.transfer_domain') }}
-            </label>
+              <summary class="btn btn-ghost btn-circle btn-sm mx-1">
+                <Icon
+                  icon="mdi-cog"
+                  class="text-2xl text-gray-500 dark:text-gray-400"
+                />
+              </summary>
+              <ul
+                class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
+              >
+                <li
+                  :class="{
+                    disabled: domainInfo.value !== walletStore.currentAddress,
+                  }"
+                >
+                  <label
+                    for="mns_add_record"
+                    @click="
+                      dialog.open(
+                        'mns_add_record',
+                        { name: domainName },
+                        updateState
+                      )
+                    "
+                  >
+                    {{ $t('mns.add_subdomain') }}
+                  </label>
+                </li>
+                <li>
+                  <label
+                    for="mns_update"
+                    @click="
+                      dialog.open(
+                        'mns_update',
+                        { name: domainName, data: domainInfo.data },
+                        updateState
+                      )
+                    "
+                  >
+                    {{ $t('mns.update') }}
+                  </label>
+                </li>
+                <li>
+                  <label
+                    v-if="domainInfo.value == walletStore.currentAddress"
+                    for="mns_list"
+                    @click="
+                      dialog.open('mns_list', { name: domainName }, updateState)
+                    "
+                  >
+                    {{ $t('mns.sell') }}
+                  </label>
+                </li>
+                <li>
+                  <label
+                    for="mns_transfer"
+                    @click="
+                      dialog.open(
+                        'mns_transfer',
+                        { name: domainName },
+                        updateState
+                      )
+                    "
+                  >
+                    {{ $t('mns.transfer_domain') }}
+                  </label>
+                </li>
+              </ul>
+            </details>
           </div>
         </div>
 
@@ -232,48 +262,50 @@ function pageload() {
           <h3 class="text-lg font-bold px-2 mb-4">
             {{ $t('mns.domain_information') }}
           </h3>
-          <table class="table mb-4">
-            <tr>
-              <td width="10%">
-                <strong> {{ $t('mns.name') }} </strong>
-              </td>
-              <td>{{ domainInfo.name }}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong> {{ $t('mns.tld') }} </strong>
-              </td>
-              <td>{{ domainInfo.tld }}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong> {{ $t('mns.expires') }} </strong>
-              </td>
-              <td>
-                {{
-                  format.toDay(
-                    calculateExpiryTime(
-                      domainInfo.expires,
-                      Number(baseStore.latest?.block?.header?.height) || 0
-                    ),
-                    'date'
-                  )
-                }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong> {{ $t('mns.value') }} </strong>
-              </td>
-              <td>{{ domainInfo.value }}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong> {{ $t('mns.data') }} </strong>
-              </td>
-              <td>{{ domainInfo.data }}</td>
-            </tr>
-          </table>
+          <div class="overflow-x-auto">
+            <table class="table mb-4">
+              <tr>
+                <td width="10%">
+                  <strong> {{ $t('mns.name') }} </strong>
+                </td>
+                <td>{{ domainInfo.name }}</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong> {{ $t('mns.tld') }} </strong>
+                </td>
+                <td>{{ domainInfo.tld }}</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong> {{ $t('mns.expires') }} </strong>
+                </td>
+                <td>
+                  {{
+                    format.toDay(
+                      calculateExpiryTime(
+                        domainInfo.expires,
+                        Number(baseStore.latest?.block?.header?.height) || 0
+                      ),
+                      'date'
+                    )
+                  }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong> {{ $t('mns.value') }} </strong>
+                </td>
+                <td>{{ domainInfo.value }}</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong> {{ $t('mns.data') }} </strong>
+                </td>
+                <td>{{ domainInfo.data }}</td>
+              </tr>
+            </table>
+          </div>
         </div>
 
         <div
@@ -281,55 +313,56 @@ function pageload() {
           class="bg-base-100 p-4 rounded-xl"
         >
           <h3 class="text-lg font-bold mb-2">{{ $t('mns.subdomains') }}</h3>
-
-          <table class="table table-compact table-zebra text-base">
-            <thead>
-              <tr>
-                <th>{{ $t('mns.subdomain') }}</th>
-                <th>{{ $t('mns.value') }}</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="(subdomain, index) in domainInfo.subdomains"
-                :key="index"
-              >
-                <td>{{ subdomain.name }}</td>
-                <td>{{ subdomain.value }}</td>
-                <td class="text-right">
-                  <label
-                    v-if="domainInfo.value == walletStore.currentAddress"
-                    for="mns_update"
-                    class="btn btn-success btn-xs rounded-full"
-                    @click="
-                      dialog.open(
-                        'mns_update',
-                        { name: subdomain.name },
-                        updateState
-                      )
-                    "
-                  >
-                    {{ $t('mns.update') }}
-                  </label>
-                  <label
-                    v-if="domainInfo.value == walletStore.currentAddress"
-                    for="mns_del_record"
-                    class="btn btn-success ml-2 btn-xs rounded-full"
-                    @click="
-                      dialog.open(
-                        'mns_del_record',
-                        { name: subdomain.name },
-                        updateState
-                      )
-                    "
-                  >
-                    {{ $t('mns.delete') }}
-                  </label>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="overflow-x-auto">
+            <table class="table table-compact table-zebra text-base">
+              <thead>
+                <tr>
+                  <th>{{ $t('mns.subdomain') }}</th>
+                  <th>{{ $t('mns.value') }}</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="(subdomain, index) in domainInfo.subdomains"
+                  :key="index"
+                >
+                  <td>{{ subdomain.name }}</td>
+                  <td>{{ subdomain.value }}</td>
+                  <td class="text-right">
+                    <label
+                      v-if="domainInfo.value == walletStore.currentAddress"
+                      for="mns_update"
+                      class="btn btn-success btn-xs rounded-full"
+                      @click="
+                        dialog.open(
+                          'mns_update',
+                          { name: subdomain.name },
+                          updateState
+                        )
+                      "
+                    >
+                      {{ $t('mns.update') }}
+                    </label>
+                    <label
+                      v-if="domainInfo.value == walletStore.currentAddress"
+                      for="mns_del_record"
+                      class="btn btn-success ml-2 btn-xs rounded-full"
+                      @click="
+                        dialog.open(
+                          'mns_del_record',
+                          { name: subdomain.name },
+                          updateState
+                        )
+                      "
+                    >
+                      {{ $t('mns.delete') }}
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </template>
     </div>

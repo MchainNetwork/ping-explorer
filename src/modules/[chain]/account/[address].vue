@@ -146,11 +146,11 @@ function updateEvent() {
         </a>
         <div class="flex gap-4 ml-4 flex-1">
           <IdentityIcon size="md" :address="address" />
-          <div>
+          <div class="truncate">
             <h2 class="text-xl flex font-bold text-base">
               {{ $t('account.address') }}
             </h2>
-            <span class="truncate text-gray-500">{{ address }}</span>
+            <span class="text-gray-500">{{ address }}</span>
           </div>
         </div>
         <div>
@@ -178,9 +178,9 @@ function updateEvent() {
       </div>
 
       <div class="bg-base-100 px-4 pt-3 pb-4 rounded-3xl mb-4">
-        <div class="flex">
+        <div class="md:flex">
           <!-- list-->
-          <div class="w-3/4">
+          <div class="md:w-3/4">
             <!--balances  -->
             <h4 class="text-lg font-bold p-4">{{ $t('account.assets') }}</h4>
 
@@ -223,19 +223,21 @@ function updateEvent() {
                 {{ format.formatToken(balanceItem) }}
               </div>
             </div>
-            <div
-              class="flex items-center px-4 py-2 mb-2"
-              v-for="(balanceItem, index) in balances.filter(
-                (b) => b.denom != 'beer' && b.denom != 'umark'
-              )"
-              :key="index"
-            >
-              <div class="text-sm font-semibold">
-                {{ balanceItem.amount }} {{ balanceItem.denom }}
+            <div class="overflow-x-auto">
+              <div
+                class="flex items-center px-4 py-2 mb-2"
+                v-for="(balanceItem, index) in balances.filter(
+                  (b) => b.denom != 'beer' && b.denom != 'umark'
+                )"
+                :key="index"
+              >
+                <div class="text-sm font-semibold whitespace-nowrap">
+                  {{ balanceItem.amount }} {{ balanceItem.denom }}
+                </div>
               </div>
             </div>
           </div>
-          <div class="w-1/4">
+          <div class="md:w-1/4">
             <!--delegations  -->
             <h4 class="text-lg font-bold p-4">
               {{ $t('account.delegations') }}

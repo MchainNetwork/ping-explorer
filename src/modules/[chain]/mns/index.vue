@@ -238,7 +238,7 @@ function checkDomainAvailable(domain: string) {
         </div>
       </div>
 
-      <div class="flex justify-between items-center">
+      <div class="flex justify-between items-center mb-2">
         <div class="form-control p-2">
           <label class="label cursor-pointer">
             <input

@@ -478,13 +478,13 @@ const filteredList = computed(() => {
             <div class="p-2 relative">
               <Icon
                 icon="uil:search"
-                class="text-xl text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2"
+                class="text-xl text-gray-400 absolute right-4 top-1/2 transform -translate-y-1/2"
               ></Icon>
               <input
                 type="text"
                 v-model="searchQuery"
                 :placeholder="$t('staking.search_validator')"
-                class="input input-sm input-bordered w-full pl-8"
+                class="input input-sm input-bordered w-full"
               />
             </div>
 
@@ -498,13 +498,13 @@ const filteredList = computed(() => {
           >
           -->
               <a
-                class="tab tab-sm"
+                class="tab tab-sm px-2"
                 :class="{ 'tab-active': tab === 'active' }"
                 @click="tab = 'active'"
                 >{{ $t('staking.active') }}</a
               >
               <a
-                class="tab tab-sm"
+                class="tab tab-sm px-2"
                 :class="{ 'tab-active': tab === 'inactive' }"
                 @click="tab = 'inactive'"
                 >{{ $t('staking.inactive') }}</a

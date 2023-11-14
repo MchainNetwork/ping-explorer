@@ -1,7 +1,6 @@
 // import 'ping-widget';
 import App from '@/App.vue';
 import i18n from '@/plugins/i18n';
-import '@/assets/css/style.css';
 import { createApp, ref } from 'vue';
 import { createPinia } from 'pinia';
 import LazyLoad from 'lazy-load-vue3';
@@ -11,6 +10,8 @@ import { useBaseStore } from './stores/useBaseStore';
 
 //@ts-ignore
 import BgGradientBlur from './components/BgGradientBlur.vue';
+
+import '@/assets/css/style.css';
 
 // Create vue app
 const app = createApp(App);

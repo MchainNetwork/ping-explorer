@@ -47,6 +47,7 @@ const getReferrerName = () => {
   return Cookies.get('referrerName');
 };
 
+const mnsParams = ref({});
 const list = ref([] as MnsNames[]);
 const listForSale = ref([] as MnsForsale[]);
 const listBid = ref([] as MnsBids[]);
@@ -87,6 +88,10 @@ const resetMessages = () => {
 
 onMounted(() => {
   updateState();
+
+  paramStore.getMnsParams().then((res: any) => {
+    mnsParams.value = res.params;
+  });
 });
 
 function updateState() {
@@ -202,7 +207,12 @@ function checkDomainAvailable(domain: string) {
             @click="
               dialog.open(
                 'mns_register',
-                { name: domainToCheck, years: 1, referrer: getReferrerName() },
+                {
+                  name: domainToCheck,
+                  years: 1,
+                  referrer: getReferrerName(),
+                  mnsParams: mnsParams,
+                },
                 updateState
               )
             "

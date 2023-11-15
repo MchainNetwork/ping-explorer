@@ -274,7 +274,7 @@ onMounted(() => {
         </div>
       </div>
 
-      <div class="bg-base-100 p-6 rounded-3xl">
+      <div class="bg-base-100 p-6 rounded-3xl mb-6">
         <!-- Token Identification Section -->
         <div class="mb-8">
           <h2 class="text-xl px-2 font-semibold mb-4">
@@ -461,7 +461,9 @@ onMounted(() => {
 <code>{{ JSON.stringify(additionalData, null, 2) }}</code>
 </pre>
         </div>
+      </div>
 
+      <div class="bg-base-100 p-6 rounded-3xl">
         <!-- whitelist -->
         <div v-if="hasWhitelistFeature" class="mb-4">
           <div class="flex justify-between items-center">
@@ -487,9 +489,14 @@ onMounted(() => {
             <table class="table table-zebra w-full">
               <tbody>
                 <tr v-for="(address, index) in whitelist" :key="index">
-                  <td class="flex items-center">
-                    <IdentityIcon size="sm" :address="address" />
-                    <span class="pl-2">{{ address }}</span>
+                  <td>
+                    <RouterLink
+                      :to="`/${chain}/account/${address}`"
+                      class="flex items-center text-primary hover:underline"
+                    >
+                      <IdentityIcon size="sm" :address="address" />
+                      <span class="pl-2">{{ address }}</span>
+                    </RouterLink>
                   </td>
                   <td class="text-right">
                     <label

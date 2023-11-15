@@ -1,7 +1,4 @@
-import {
-  type RequestRegistry,
-  adapter,
-} from './registry';
+import { type RequestRegistry, adapter } from './registry';
 
 export const DEFAULT: RequestRegistry = {
   auth_params: { url: '/cosmos/auth/v1beta1/params', adapter },
@@ -20,7 +17,10 @@ export const DEFAULT: RequestRegistry = {
     adapter,
   },
   bank_supply: { url: '/cosmos/bank/v1beta1/supply', adapter },
-  bank_supply_by_denom: { url: '/cosmos/bank/v1beta1/supply/by_denom?denom={denom}', adapter },
+  bank_supply_by_denom: {
+    url: '/cosmos/bank/v1beta1/supply/by_denom?denom={denom}',
+    adapter,
+  },
   distribution_params: { url: '/cosmos/distribution/v1beta1/params', adapter },
   distribution_community_pool: {
     url: '/cosmos/distribution/v1beta1/community_pool',
@@ -138,13 +138,30 @@ export const DEFAULT: RequestRegistry = {
   tx_hash: { url: '/cosmos/tx/v1beta1/txs/{hash}', adapter },
 
   smarttoken_params: { url: '/mchain/smarttoken/v1beta1/params', adapter },
-  smarttoken_smarttokens: { url: '/mchain/smarttoken/v1beta1/smarttokens', adapter },
-  smarttoken_denom: { url: '/mchain/smarttoken/v1beta1/denom/{denom}', adapter },
+  smarttoken_smarttokens: {
+    url: '/mchain/smarttoken/v1beta1/smarttokens',
+    adapter,
+  },
+  smarttoken_denom: {
+    url: '/mchain/smarttoken/v1beta1/denom/{denom}',
+    adapter,
+  },
+  smarttoken_whitelist_by_denom: {
+    url: '/mchain/smarttoken/v1beta1/{denom}/whitelist',
+    adapter,
+  },
+  smarttoken_is_whitelisted: {
+    url: '/mchain/smarttoken/v1beta1/denom/{denom}/whitelist/{address}',
+    adapter,
+  },
 
   mns_params: { url: '/mchain/mns/v1beta1/params', adapter },
   mns_names: { url: '/mchain/mns/v1beta1/names', adapter },
   mns_name: { url: '/mchain/mns/v1beta1/names/{index}', adapter },
-  mns_list_owned_names: { url: '/mchain/mns/v1beta1/list_owned_names/{address}', adapter },
+  mns_list_owned_names: {
+    url: '/mchain/mns/v1beta1/list_owned_names/{address}',
+    adapter,
+  },
   mns_bids: { url: '/mchain/mns/v1beta1/bids', adapter },
   mns_bids_by_index: { url: '/mchain/mns/v1beta1/bids/{index}', adapter },
   mns_forsale: { url: '/mchain/mns/v1beta1/forsale', adapter },

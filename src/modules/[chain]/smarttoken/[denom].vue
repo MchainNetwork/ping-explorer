@@ -21,11 +21,12 @@ const mnsStore = useMnsStore();
 const format = useFormatter();
 
 let denom: string = props.denom;
-let tokenInfo = ref({} as any);
-let supply = ref({} as any);
-let subunit = ref('');
+const tokenInfo = ref({} as any);
+const supply = ref({} as any);
+const subunit = ref('');
+const whitelist = ref([] as any);
 
-let additionalData = ref({} as any);
+const additionalData = ref({} as any);
 
 const minterName = ref(false as boolean | string);
 const authorityName = ref(false as boolean | string);
@@ -44,6 +45,12 @@ const hasMintingFeature = computed(() =>
 );
 const hasBurningFeature = computed(() =>
   tokenInfo.value.features.includes(TokenFeature_name[1])
+);
+const hasWhitelistFeature = computed(() =>
+  tokenInfo.value.features.includes(TokenFeature_name[4])
+);
+const hasFreezingFeature = computed(() =>
+  tokenInfo.value.features.includes(TokenFeature_name[5])
 );
 
 const isCurrentMinter = computed(
@@ -85,6 +92,12 @@ function pageload() {
       blockchain.rpc.getBankSupplyByDenom(denom).then((x) => {
         supply.value = x.amount;
       });
+
+      if (hasWhitelistFeature.value) {
+        blockchain.rpc.getSmartTokenWhitelistByDenom(denom).then((x) => {
+          whitelist.value = x.addresses;
+        });
+      }
     });
   }
 }
@@ -222,6 +235,38 @@ onMounted(() => {
                   "
                 >
                   {{ $t('smarttoken.disable_mint') }}
+                </label>
+              </li>
+              <li :class="{ disabled: !hasWhitelistFeature }">
+                <label
+                  for="smarttoken_add_to_whitelist_batch"
+                  class="mb-2"
+                  @click="
+                    hasWhitelistFeature &&
+                      dialog.open(
+                        'smarttoken_add_to_whitelist_batch',
+                        { denom: tokenInfo.denom },
+                        updateState
+                      )
+                  "
+                >
+                  {{ $t('smarttoken.add_to_whitelist') }}
+                </label>
+              </li>
+              <li :class="{ disabled: !hasWhitelistFeature }">
+                <label
+                  for="smarttoken_remove_from_whitelist_batch"
+                  class="mb-2"
+                  @click="
+                    hasWhitelistFeature &&
+                      dialog.open(
+                        'smarttoken_remove_from_whitelist_batch',
+                        { denom: tokenInfo.denom },
+                        updateState
+                      )
+                  "
+                >
+                  {{ $t('smarttoken.remove_from_whitelist') }}
                 </label>
               </li>
             </ul>
@@ -415,6 +460,56 @@ onMounted(() => {
           >
 <code>{{ JSON.stringify(additionalData, null, 2) }}</code>
 </pre>
+        </div>
+
+        <!-- whitelist -->
+        <div v-if="hasWhitelistFeature" class="mb-4">
+          <div class="flex justify-between items-center">
+            <h2 class="text-xl px-2 font-semibold mb-4">
+              {{ $t('smarttoken.whitelist') }}
+            </h2>
+            <label
+              for="smarttoken_add_to_whitelist_batch"
+              class="btn btn-sm btn-primary"
+              @click="
+                hasWhitelistFeature &&
+                  dialog.open(
+                    'smarttoken_add_to_whitelist_batch',
+                    { denom: tokenInfo.denom },
+                    updateState
+                  )
+              "
+            >
+              {{ $t('smarttoken.add_to_whitelist') }}
+            </label>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="table table-zebra w-full">
+              <tbody>
+                <tr v-for="(address, index) in whitelist" :key="index">
+                  <td class="flex items-center">
+                    <IdentityIcon size="sm" :address="address" />
+                    <span class="pl-2">{{ address }}</span>
+                  </td>
+                  <td class="text-right">
+                    <label
+                      for="smarttoken_remove_from_whitelist"
+                      class="mb-2 text-primary hover:underline cursor-pointer"
+                      @click="
+                        dialog.open(
+                          'smarttoken_remove_from_whitelist',
+                          { denom: tokenInfo.denom, address },
+                          updateState
+                        )
+                      "
+                    >
+                      {{ $t('smarttoken.remove_from_whitelist') }}
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

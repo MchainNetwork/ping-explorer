@@ -75,7 +75,9 @@
     "sending": "发送",
     "free_send": "免费发送",
     "whitelist": "白名单",
-    "freezing": "冻结"
+    "freezing": "冻结",
+    "add_to_whitelist": "添加到白名单",
+    "remove_from_whitelist": "从白名单中移除"
   },
   "mns": {
     "title": "Mchain 名称服务",

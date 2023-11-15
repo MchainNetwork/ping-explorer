@@ -75,7 +75,9 @@
     "sending": "Invio",
     "free_send": "Invio Gratuito",
     "whitelist": "Lista Bianca",
-    "freezing": "Congelamento"
+    "freezing": "Congelamento",
+    "add_to_whitelist": "Aggiungi alla lista bianca",
+    "remove_from_whitelist": "Rimuovi dalla lista bianca"
   },
   "mns": {
     "title": "Mchain Name Services",

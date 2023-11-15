@@ -408,6 +408,24 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
   async getSmartTokenDenom(denom: string) {
     return this.request(this.registry.smarttoken_denom, { denom });
   }
+  async getSmartTokenWhitelistByDenom(denom: string, page?: PageRequest) {
+    if (!page) page = new PageRequest();
+    const query = `?pagination.limit=${page.limit || 20}&pagination.offset=${
+      page.offset || 0
+    }`;
+    return this.request(
+      this.registry.smarttoken_whitelist_by_denom,
+      { denom },
+      query
+    );
+  }
+  async getSmartTokenIsWhitelisted(denom: string, address: string) {
+    return this.request(this.registry.smarttoken_is_whitelisted, {
+      denom,
+      address,
+    });
+  }
+
   async getBmintParams() {
     return this.request(this.registry.bmint_params, {});
   }

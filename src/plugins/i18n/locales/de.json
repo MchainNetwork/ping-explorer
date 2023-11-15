@@ -75,7 +75,9 @@
     "sending": "Senden",
     "free_send": "Kostenloses Senden",
     "whitelist": "Weiße Liste",
-    "freezing": "Einfrieren"
+    "freezing": "Einfrieren",
+    "add_to_whitelist": "Zur Whitelist hinzufügen",
+    "remove_from_whitelist": "Von der Whitelist entfernen"
   },
   "mns": {
     "title": "Mchain Namensdienste",

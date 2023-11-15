@@ -75,7 +75,9 @@
     "sending": "भेजना",
     "free_send": "मुफ्त भेजें",
     "whitelist": "सफेद सूची",
-    "freezing": "जमा देना"
+    "freezing": "जमा देना",
+    "add_to_whitelist": "सफेद सूची में जोड़ें",
+    "remove_from_whitelist": "सफेद सूची से निकालें"
   },
   "mns": {
     "title": "एमचेन नाम सेवाएँ",

@@ -74,7 +74,9 @@
     "sending": "Pengiriman",
     "free_send": "Pengiriman Gratis",
     "whitelist": "Daftar Putih",
-    "freezing": "Pembekuan"
+    "freezing": "Pembekuan",
+    "add_to_whitelist": "Tambahkan ke daftar putih",
+    "remove_from_whitelist": "Hapus dari daftar putih"
   },
   "mns": {
     "title": "Layanan Nama Mchain",

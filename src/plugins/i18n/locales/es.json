@@ -75,7 +75,9 @@
     "sending": "Envío",
     "free_send": "Envío Gratis",
     "whitelist": "Lista Blanca",
-    "freezing": "Congelación"
+    "freezing": "Congelación",
+    "add_to_whitelist": "Añadir a la lista blanca",
+    "remove_from_whitelist": "Eliminar de la lista blanca"
   },
   "mns": {
     "title": "Servicios de Nombres Mchain",

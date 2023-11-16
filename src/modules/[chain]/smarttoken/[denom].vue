@@ -58,6 +58,10 @@ const isCurrentMinter = computed(
   () => tokenInfo.value.minter === walletStore.currentAddress
 );
 
+const isCurrentAuthority = computed(
+  () => tokenInfo.value.authority === walletStore.currentAddress
+);
+
 const hasAdditionalData = computed(
   () => additionalData.value && Object.keys(additionalData.value).length > 0
 );
@@ -66,6 +70,9 @@ function updateState() {
   walletStore.loadMyAsset();
   pageload();
 }
+
+const isLoadingWhitelist = ref(false);
+const isLoadingFrozen = ref(false);
 
 function pageload() {
   if (denom) {
@@ -95,14 +102,26 @@ function pageload() {
       });
 
       if (hasWhitelistFeature.value) {
-        blockchain.rpc.getSmartTokenWhitelistByDenom(denom).then((x) => {
-          whitelist.value = x.addresses;
-        });
+        isLoadingWhitelist.value = true;
+        blockchain.rpc
+          .getSmartTokenWhitelistByDenom(denom)
+          .then((x) => {
+            whitelist.value = x.addresses;
+          })
+          .finally(() => {
+            isLoadingWhitelist.value = false;
+          });
       }
       if (hasFreezingFeature.value) {
-        blockchain.rpc.getSmartTokenFrozenByDenom(denom).then((x) => {
-          frozen.value = x.addresses;
-        });
+        isLoadingFrozen.value = true;
+        blockchain.rpc
+          .getSmartTokenFrozenByDenom(denom)
+          .then((x) => {
+            frozen.value = x.addresses;
+          })
+          .finally(() => {
+            isLoadingFrozen.value = false;
+          });
       }
     });
   }
@@ -143,8 +162,8 @@ onMounted(() => {
             <span class="truncate text-gray-500">{{ tokenInfo.denom }}</span>
           </div>
         </div>
-        <div class="flex" v-if="isCurrentMinter">
-          <details class="dropdown dropdown-hover dropdown-bottom dropdown-end">
+        <div class="flex" v-if="isCurrentMinter || isCurrentAuthority">
+          <details class="dropdown dropdown-bottom dropdown-end dropdown-hover">
             <summary class="btn btn-ghost btn-circle btn-sm mx-1">
               <Icon
                 icon="mdi-cog"
@@ -154,7 +173,7 @@ onMounted(() => {
             <ul
               class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
             >
-              <li :class="{ disabled: !hasMintingFeature }">
+              <li :class="{ disabled: !hasMintingFeature || !isCurrentMinter }">
                 <label
                   for="smarttoken_mint"
                   @click="
@@ -169,7 +188,7 @@ onMounted(() => {
                   {{ $t('smarttoken.mint') }}
                 </label>
               </li>
-              <li :class="{ disabled: !hasBurningFeature }">
+              <li :class="{ disabled: !hasBurningFeature || !isCurrentMinter }">
                 <label
                   for="smarttoken_burn"
                   @click="
@@ -184,7 +203,9 @@ onMounted(() => {
                   {{ $t('smarttoken.burn') }}
                 </label>
               </li>
-              <li :class="{ disabled: !hasMintingFeature }">
+              <li
+                :class="{ disabled: !hasMintingFeature || !isCurrentAuthority }"
+              >
                 <label
                   for="smarttoken_set_minter"
                   @click="
@@ -199,7 +220,7 @@ onMounted(() => {
                   {{ $t('smarttoken.set_minter') }}
                 </label>
               </li>
-              <li>
+              <li :class="{ disabled: !isCurrentAuthority }">
                 <label
                   for="smarttoken_set_authority"
                   @click="
@@ -213,7 +234,7 @@ onMounted(() => {
                   {{ $t('smarttoken.set_authority') }}
                 </label>
               </li>
-              <li>
+              <li :class="{ disabled: !isCurrentAuthority }">
                 <label
                   for="smarttoken_set_uri"
                   @click="
@@ -227,7 +248,9 @@ onMounted(() => {
                   {{ $t('smarttoken.set_uri') }}
                 </label>
               </li>
-              <li :class="{ disabled: !hasMintingFeature }">
+              <li
+                :class="{ disabled: !hasMintingFeature || !isCurrentAuthority }"
+              >
                 <label
                   for="smarttoken_disable_mint"
                   class="mb-2"
@@ -243,7 +266,11 @@ onMounted(() => {
                   {{ $t('smarttoken.disable_mint') }}
                 </label>
               </li>
-              <li :class="{ disabled: !hasWhitelistFeature }">
+              <li
+                :class="{
+                  disabled: !hasWhitelistFeature || !isCurrentAuthority,
+                }"
+              >
                 <label
                   for="smarttoken_add_to_whitelist_batch"
                   class="mb-2"
@@ -259,7 +286,14 @@ onMounted(() => {
                   {{ $t('smarttoken.add_to_whitelist') }}
                 </label>
               </li>
-              <li :class="{ disabled: !hasWhitelistFeature }">
+              <li
+                :class="{
+                  disabled:
+                    !hasWhitelistFeature ||
+                    !whitelist.length ||
+                    !isCurrentAuthority,
+                }"
+              >
                 <label
                   for="smarttoken_remove_from_whitelist_batch"
                   class="mb-2"
@@ -275,7 +309,11 @@ onMounted(() => {
                   {{ $t('smarttoken.remove_from_whitelist') }}
                 </label>
               </li>
-              <li :class="{ disabled: !hasFreezingFeature }">
+              <li
+                :class="{
+                  disabled: !hasFreezingFeature || !isCurrentAuthority,
+                }"
+              >
                 <label
                   for="smarttoken_freeze_batch"
                   class="mb-2"
@@ -291,7 +329,14 @@ onMounted(() => {
                   {{ $t('smarttoken.freeze') }}
                 </label>
               </li>
-              <li :class="{ disabled: !hasFreezingFeature }">
+              <li
+                :class="{
+                  disabled:
+                    !hasFreezingFeature ||
+                    !frozen.length ||
+                    !isCurrentAuthority,
+                }"
+              >
                 <label
                   for="smarttoken_unfreeze_batch"
                   class="mb-2"
@@ -307,17 +352,22 @@ onMounted(() => {
                   {{ $t('smarttoken.unfreeze') }}
                 </label>
               </li>
-              <li :class="{ disabled: !hasFreezingFeature }">
+              <li
+                :class="{
+                  disabled: !hasFreezingFeature || !isCurrentAuthority,
+                }"
+              >
                 <label
                   v-if="tokenInfo.global_freeze"
                   for="smarttoken_global_unfreeze"
                   class="mb-2"
                   @click="
-                    dialog.open(
-                      'smarttoken_global_unfreeze',
-                      { denom: tokenInfo.denom },
-                      updateState
-                    )
+                    hasFreezingFeature &&
+                      dialog.open(
+                        'smarttoken_global_unfreeze',
+                        { denom: tokenInfo.denom },
+                        updateState
+                      )
                   "
                 >
                   {{ $t('smarttoken.global_unfreeze') }}
@@ -327,11 +377,12 @@ onMounted(() => {
                   for="smarttoken_global_freeze"
                   class="mb-2"
                   @click="
-                    dialog.open(
-                      'smarttoken_global_freeze',
-                      { denom: tokenInfo.denom },
-                      updateState
-                    )
+                    hasFreezingFeature &&
+                      dialog.open(
+                        'smarttoken_global_freeze',
+                        { denom: tokenInfo.denom },
+                        updateState
+                      )
                   "
                 >
                   {{ $t('smarttoken.global_freeze') }}
@@ -340,6 +391,14 @@ onMounted(() => {
             </ul>
           </details>
         </div>
+      </div>
+
+      <div
+        class="alert alert-warning dark:bg-amber-600 mb-6 rounded-3xl"
+        v-if="tokenInfo.global_freeze"
+      >
+        <Icon icon="uil:file-lock-alt" class="mr-2 text-3xl" />
+        <span>{{ $t('smarttoken.global_freeze_explain') }}</span>
       </div>
 
       <div class="bg-base-100 p-6 rounded-3xl mb-6">
@@ -554,7 +613,7 @@ onMounted(() => {
             </label>
           </div>
           <div class="overflow-x-auto">
-            <table class="table table-zebra w-full">
+            <table class="table table-zebra w-full" v-if="!isLoadingWhitelist">
               <tbody>
                 <tr v-for="(address, index) in whitelist" :key="index">
                   <td>
@@ -611,7 +670,7 @@ onMounted(() => {
             </label>
           </div>
           <div class="overflow-x-auto">
-            <table class="table table-zebra w-full">
+            <table class="table table-zebra w-full" v-if="!isLoadingFrozen">
               <tbody>
                 <tr v-for="(address, index) in frozen" :key="index">
                   <td>

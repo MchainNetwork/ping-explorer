@@ -84,7 +84,8 @@
     "unfreeze_batch": "Unfreeze",
     "global_freeze": "Global Freeze",
     "global_unfreeze": "Global Unfreeze",
-    "frozen_addresses": "Frozen Addresses"
+    "frozen_addresses": "Frozen Addresses",
+    "global_freeze_explain": "This smart token is globally frozen. Transactions cannot be performed."
   },
   "mns": {
     "title": "Mchain Name Services",

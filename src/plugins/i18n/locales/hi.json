@@ -84,7 +84,8 @@
     "unfreeze_batch": "अनफ्रीज करें",
     "global_freeze": "वैश्विक फ्रीज",
     "global_unfreeze": "वैश्विक अनफ्रीज",
-    "frozen_addresses": "फ्रोज़न पते"
+    "frozen_addresses": "फ्रोज़न पते",
+    "global_freeze_explain": "यह स्मार्ट टोकन वैश्विक रूप से जमा हुआ है। लेन-देन नहीं किया जा सकता।"
   },
   "mns": {
     "title": "एमचेन नाम सेवाएँ",

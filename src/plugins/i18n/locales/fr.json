@@ -84,7 +84,8 @@
     "unfreeze_batch": "Décongeler",
     "global_freeze": "Gel global",
     "global_unfreeze": "Dégel global",
-    "frozen_addresses": "Adresses gelées"
+    "frozen_addresses": "Adresses gelées",
+    "global_freeze_explain": "Ce smart token est gelé globalement. Les transactions ne peuvent pas être effectuées."
   },
   "mns": {
     "title": "Services de Noms Mchain",

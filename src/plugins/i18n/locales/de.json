@@ -84,7 +84,8 @@
     "unfreeze_batch": "Auftauen",
     "global_freeze": "Globales Einfrieren",
     "global_unfreeze": "Globales Auftauen",
-    "frozen_addresses": "Gefrorene Adressen"
+    "frozen_addresses": "Gefrorene Adressen",
+    "global_freeze_explain": "Dieser Smart Token ist global eingefroren. Transaktionen können nicht durchgeführt werden."
   },
   "mns": {
     "title": "Mchain Namensdienste",

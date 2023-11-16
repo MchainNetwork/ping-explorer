@@ -84,7 +84,8 @@
     "unfreeze_batch": "Descongelar",
     "global_freeze": "Congelación global",
     "global_unfreeze": "Descongelación global",
-    "frozen_addresses": "Direcciones congeladas"
+    "frozen_addresses": "Direcciones congeladas",
+    "global_freeze_explain": "Este smart token está congelado globalmente. No se pueden realizar transacciones."
   },
   "mns": {
     "title": "Servicios de Nombres Mchain",

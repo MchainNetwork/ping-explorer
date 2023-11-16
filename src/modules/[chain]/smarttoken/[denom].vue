@@ -277,12 +277,12 @@ onMounted(() => {
               </li>
               <li :class="{ disabled: !hasFreezingFeature }">
                 <label
-                  for="smarttoken_freeze"
+                  for="smarttoken_freeze_batch"
                   class="mb-2"
                   @click="
                     hasFreezingFeature &&
                       dialog.open(
-                        'smarttoken_freeze',
+                        'smarttoken_freeze_batch',
                         { denom: tokenInfo.denom },
                         updateState
                       )
@@ -293,18 +293,48 @@ onMounted(() => {
               </li>
               <li :class="{ disabled: !hasFreezingFeature }">
                 <label
-                  for="smarttoken_unfreeze"
+                  for="smarttoken_unfreeze_batch"
                   class="mb-2"
                   @click="
                     hasFreezingFeature &&
                       dialog.open(
-                        'smarttoken_unfreeze',
+                        'smarttoken_unfreeze_batch',
                         { denom: tokenInfo.denom },
                         updateState
                       )
                   "
                 >
                   {{ $t('smarttoken.unfreeze') }}
+                </label>
+              </li>
+              <li :class="{ disabled: !hasFreezingFeature }">
+                <label
+                  v-if="tokenInfo.global_freeze"
+                  for="smarttoken_global_unfreeze"
+                  class="mb-2"
+                  @click="
+                    dialog.open(
+                      'smarttoken_global_unfreeze',
+                      { denom: tokenInfo.denom },
+                      updateState
+                    )
+                  "
+                >
+                  {{ $t('smarttoken.global_unfreeze') }}
+                </label>
+                <label
+                  v-else
+                  for="smarttoken_global_freeze"
+                  class="mb-2"
+                  @click="
+                    dialog.open(
+                      'smarttoken_global_freeze',
+                      { denom: tokenInfo.denom },
+                      updateState
+                    )
+                  "
+                >
+                  {{ $t('smarttoken.global_freeze') }}
                 </label>
               </li>
             </ul>
@@ -566,12 +596,12 @@ onMounted(() => {
               {{ $t('smarttoken.frozen_addresses') }}
             </h2>
             <label
-              for="smarttoken_freeze"
+              for="smarttoken_freeze_batch"
               class="btn btn-sm btn-primary"
               @click="
                 hasWhitelistFeature &&
                   dialog.open(
-                    'smarttoken_freeze',
+                    'smarttoken_freeze_batch',
                     { denom: tokenInfo.denom },
                     updateState
                   )

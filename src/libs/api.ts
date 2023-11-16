@@ -147,7 +147,7 @@ export const DEFAULT: RequestRegistry = {
     adapter,
   },
   smarttoken_whitelist_by_denom: {
-    url: '/mchain/smarttoken/v1beta1/{denom}/whitelist',
+    url: '/mchain/smarttoken/v1beta1/denom/{denom}/whitelist',
     adapter,
   },
   smarttoken_is_whitelisted: {
@@ -155,7 +155,7 @@ export const DEFAULT: RequestRegistry = {
     adapter,
   },
   smarttoken_frozen_by_denom: {
-    url: '/mchain/smarttoken/v1beta1/{denom}/frozen',
+    url: '/mchain/smarttoken/v1beta1/denom/{denom}/frozen',
     adapter,
   },
   smarttoken_is_frozen: {

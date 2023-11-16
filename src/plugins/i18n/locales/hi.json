@@ -77,7 +77,14 @@
     "whitelist": "सफेद सूची",
     "freezing": "जमा देना",
     "add_to_whitelist": "सफेद सूची में जोड़ें",
-    "remove_from_whitelist": "सफेद सूची से निकालें"
+    "remove_from_whitelist": "सफेद सूची से निकालें",
+    "freeze": "फ्रीज करें",
+    "unfreeze": "अनफ्रीज करें",
+    "freeze_batch": "फ्रीज करें",
+    "unfreeze_batch": "अनफ्रीज करें",
+    "global_freeze": "वैश्विक फ्रीज",
+    "global_unfreeze": "वैश्विक अनफ्रीज",
+    "frozen_addresses": "फ्रोज़न पते"
   },
   "mns": {
     "title": "एमचेन नाम सेवाएँ",

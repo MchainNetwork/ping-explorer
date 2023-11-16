@@ -154,6 +154,14 @@ export const DEFAULT: RequestRegistry = {
     url: '/mchain/smarttoken/v1beta1/denom/{denom}/whitelist/{address}',
     adapter,
   },
+  smarttoken_frozen_by_denom: {
+    url: '/mchain/smarttoken/v1beta1/{denom}/frozen',
+    adapter,
+  },
+  smarttoken_is_frozen: {
+    url: '/mchain/smarttoken/v1beta1/denom/{denom}/frozen/{address}',
+    adapter,
+  },
 
   mns_params: { url: '/mchain/mns/v1beta1/params', adapter },
   mns_names: { url: '/mchain/mns/v1beta1/names', adapter },

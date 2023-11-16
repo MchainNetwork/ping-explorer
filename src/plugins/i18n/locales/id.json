@@ -76,7 +76,14 @@
     "whitelist": "Daftar Putih",
     "freezing": "Pembekuan",
     "add_to_whitelist": "Tambahkan ke daftar putih",
-    "remove_from_whitelist": "Hapus dari daftar putih"
+    "remove_from_whitelist": "Hapus dari daftar putih",
+    "freeze": "Membekukan",
+    "unfreeze": "Membuka Pembekuan",
+    "freeze_batch": "Membekukan",
+    "unfreeze_batch": "Membuka Pembekuan",
+    "global_freeze": "Pembekuan Global",
+    "global_unfreeze": "Pembukaan Pembekuan Global",
+    "frozen_addresses": "Alamat yang Dibekukan"
   },
   "mns": {
     "title": "Layanan Nama Mchain",

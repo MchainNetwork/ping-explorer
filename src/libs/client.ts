@@ -425,6 +425,23 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
       address,
     });
   }
+  async getSmartTokenFrozenByDenom(denom: string, page?: PageRequest) {
+    if (!page) page = new PageRequest();
+    const query = `?pagination.limit=${page.limit || 20}&pagination.offset=${
+      page.offset || 0
+    }`;
+    return this.request(
+      this.registry.smarttoken_frozen_by_denom,
+      { denom },
+      query
+    );
+  }
+  async getSmartTokenIsFrozen(denom: string, address: string) {
+    return this.request(this.registry.smarttoken_is_frozen, {
+      denom,
+      address,
+    });
+  }
 
   async getBmintParams() {
     return this.request(this.registry.bmint_params, {});

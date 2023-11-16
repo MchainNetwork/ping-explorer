@@ -25,6 +25,7 @@ const tokenInfo = ref({} as any);
 const supply = ref({} as any);
 const subunit = ref('');
 const whitelist = ref([] as any);
+const frozen = ref({} as any);
 
 const additionalData = ref({} as any);
 
@@ -96,6 +97,11 @@ function pageload() {
       if (hasWhitelistFeature.value) {
         blockchain.rpc.getSmartTokenWhitelistByDenom(denom).then((x) => {
           whitelist.value = x.addresses;
+        });
+      }
+      if (hasFreezingFeature.value) {
+        blockchain.rpc.getSmartTokenFrozenByDenom(denom).then((x) => {
+          frozen.value = x.addresses;
         });
       }
     });
@@ -267,6 +273,38 @@ onMounted(() => {
                   "
                 >
                   {{ $t('smarttoken.remove_from_whitelist') }}
+                </label>
+              </li>
+              <li :class="{ disabled: !hasFreezingFeature }">
+                <label
+                  for="smarttoken_freeze"
+                  class="mb-2"
+                  @click="
+                    hasFreezingFeature &&
+                      dialog.open(
+                        'smarttoken_freeze',
+                        { denom: tokenInfo.denom },
+                        updateState
+                      )
+                  "
+                >
+                  {{ $t('smarttoken.freeze') }}
+                </label>
+              </li>
+              <li :class="{ disabled: !hasFreezingFeature }">
+                <label
+                  for="smarttoken_unfreeze"
+                  class="mb-2"
+                  @click="
+                    hasFreezingFeature &&
+                      dialog.open(
+                        'smarttoken_unfreeze',
+                        { denom: tokenInfo.denom },
+                        updateState
+                      )
+                  "
+                >
+                  {{ $t('smarttoken.unfreeze') }}
                 </label>
               </li>
             </ul>
@@ -463,9 +501,9 @@ onMounted(() => {
         </div>
       </div>
 
-      <div class="bg-base-100 p-6 rounded-3xl">
-        <!-- whitelist -->
-        <div v-if="hasWhitelistFeature" class="mb-4">
+      <!-- whitelist -->
+      <div class="bg-base-100 p-6 rounded-3xl mb-6" v-if="hasWhitelistFeature">
+        <div class="mb-4">
           <div class="flex justify-between items-center">
             <h2 class="text-xl px-2 font-semibold mb-4">
               {{ $t('smarttoken.whitelist') }}
@@ -511,6 +549,63 @@ onMounted(() => {
                       "
                     >
                       {{ $t('smarttoken.remove_from_whitelist') }}
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- frozen -->
+      <div class="bg-base-100 p-6 rounded-3xl mb-6" v-if="hasFreezingFeature">
+        <div class="mb-4">
+          <div class="flex justify-between items-center">
+            <h2 class="text-xl px-2 font-semibold mb-4">
+              {{ $t('smarttoken.frozen_addresses') }}
+            </h2>
+            <label
+              for="smarttoken_freeze"
+              class="btn btn-sm btn-primary"
+              @click="
+                hasWhitelistFeature &&
+                  dialog.open(
+                    'smarttoken_freeze',
+                    { denom: tokenInfo.denom },
+                    updateState
+                  )
+              "
+            >
+              {{ $t('smarttoken.freeze') }}
+            </label>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="table table-zebra w-full">
+              <tbody>
+                <tr v-for="(address, index) in frozen" :key="index">
+                  <td>
+                    <RouterLink
+                      :to="`/${chain}/account/${address}`"
+                      class="flex items-center text-primary hover:underline"
+                    >
+                      <IdentityIcon size="sm" :address="address" />
+                      <span class="pl-2">{{ address }}</span>
+                    </RouterLink>
+                  </td>
+                  <td class="text-right">
+                    <label
+                      for="smarttoken_unfreeze"
+                      class="mb-2 text-primary hover:underline cursor-pointer"
+                      @click="
+                        dialog.open(
+                          'smarttoken_unfreeze',
+                          { denom: tokenInfo.denom, address },
+                          updateState
+                        )
+                      "
+                    >
+                      {{ $t('smarttoken.unfreeze') }}
                     </label>
                   </td>
                 </tr>

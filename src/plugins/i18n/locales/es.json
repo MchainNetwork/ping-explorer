@@ -77,7 +77,14 @@
     "whitelist": "Lista Blanca",
     "freezing": "Congelación",
     "add_to_whitelist": "Añadir a la lista blanca",
-    "remove_from_whitelist": "Eliminar de la lista blanca"
+    "remove_from_whitelist": "Eliminar de la lista blanca",
+    "freeze": "Congelar",
+    "unfreeze": "Descongelar",
+    "freeze_batch": "Congelar",
+    "unfreeze_batch": "Descongelar",
+    "global_freeze": "Congelación global",
+    "global_unfreeze": "Descongelación global",
+    "frozen_addresses": "Direcciones congeladas"
   },
   "mns": {
     "title": "Servicios de Nombres Mchain",

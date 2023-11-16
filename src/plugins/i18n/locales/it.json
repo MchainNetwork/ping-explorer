@@ -77,7 +77,14 @@
     "whitelist": "Lista Bianca",
     "freezing": "Congelamento",
     "add_to_whitelist": "Aggiungi alla lista bianca",
-    "remove_from_whitelist": "Rimuovi dalla lista bianca"
+    "remove_from_whitelist": "Rimuovi dalla lista bianca",
+    "freeze": "Congelare",
+    "unfreeze": "Scongelare",
+    "freeze_batch": "Congelare",
+    "unfreeze_batch": "Scongelare",
+    "global_freeze": "Congelamento globale",
+    "global_unfreeze": "Scongelamento globale",
+    "frozen_addresses": "Indirizzi congelati"
   },
   "mns": {
     "title": "Mchain Name Services",

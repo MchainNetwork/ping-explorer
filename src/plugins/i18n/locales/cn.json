@@ -77,7 +77,14 @@
     "whitelist": "白名单",
     "freezing": "冻结",
     "add_to_whitelist": "添加到白名单",
-    "remove_from_whitelist": "从白名单中移除"
+    "remove_from_whitelist": "从白名单中移除",
+    "freeze": "冻结",
+    "unfreeze": "解冻",
+    "freeze_batch": "冻结",
+    "unfreeze_batch": "解冻",
+    "global_freeze": "全球冻结",
+    "global_unfreeze": "全球解冻",
+    "frozen_addresses": "冻结地址"
   },
   "mns": {
     "title": "Mchain 名称服务",

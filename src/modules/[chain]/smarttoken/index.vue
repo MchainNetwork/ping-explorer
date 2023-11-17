@@ -5,7 +5,9 @@ import {
   useSmartTokenStore,
   useTxDialog,
   useWalletStore,
+  useBlockchain,
 } from '@/stores';
+
 import { PageRequest, type Pagination, type SmartTokenDenom } from '@/types';
 import { onMounted } from 'vue';
 import { Icon } from '@iconify/vue';
@@ -20,6 +22,7 @@ const format = useFormatter();
 const smartTokenStore = useSmartTokenStore();
 const walletStore = useWalletStore();
 const dialog = useTxDialog();
+const blockchain = useBlockchain();
 
 const list = ref([] as SmartTokenDenom[]);
 
@@ -37,10 +40,13 @@ onMounted(() => {
 
 function pageload(p: number) {
   pageRequest.value.setPage(p);
-  smartTokenStore.fetchSmartTokens().then((x) => {
-    list.value = x.smarttokens;
-    pageResponse.value = x.pagination;
-  });
+
+  blockchain.rpc
+    ?.getSmartTokenSmartTokens(undefined, pageRequest.value)
+    .then((x) => {
+      list.value = x.smarttokens;
+      pageResponse.value = x.pagination;
+    });
 }
 </script>
 <template>
@@ -62,12 +68,12 @@ function pageload(p: number) {
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         <RouterLink
           v-for="item in list"
           :key="item.denom"
           :to="'/mchain/smarttoken/' + item.denom"
-          class="card bg-base-100 shadow-xl hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
+          class="card bg-base-100 shadow-xl hover:bg-gray-100 dark:hover:bg-[#1e3b47] overflow-hidden"
         >
           <div class="card-body">
             <div class="flex items-center space-x-4">
@@ -77,13 +83,14 @@ function pageload(p: number) {
                 :address="item.denom"
               />
               <div>
-                <h2 class="whitespace-nowrap">
-                  <span class="card-title inline">{{ item.name }}</span> (<span
-                    class="uppercase"
-                    >{{ item.symbol }}</span
+                <h2 class="whitespace-nowrap truncate">
+                  <span class="card-title truncate inline">{{
+                    item.name
+                  }}</span>
+                  (<span class="uppercase">{{ item.symbol }}</span
                   >)
                 </h2>
-                <p class="hover:underline">
+                <p>
                   {{ format.shortTokenDenom(item.denom) }}
                 </p>
               </div>
@@ -91,6 +98,12 @@ function pageload(p: number) {
           </div>
         </RouterLink>
       </div>
+
+      <PaginationBar
+        :limit="pageRequest.limit"
+        :total="pageResponse.total"
+        :callback="pageload"
+      />
     </div>
   </div>
 </template>

@@ -396,9 +396,9 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
   }
   async getSmartTokenSmartTokens(authority?: string, page?: PageRequest) {
     if (!page) page = new PageRequest();
-    const query = `?pagination.limit=${page.limit || 20}&pagination.offset=${
-      page.offset || 0
-    }`;
+    const query = `?pagination.count_total=true&pagination.reverse=false&pagination.limit=${
+      page.limit || 20
+    }&pagination.offset=${page.offset || 0}`;
     return this.request(
       this.registry.smarttoken_smarttokens,
       { authority },

@@ -132,3 +132,13 @@ html[data-theme='dark']{
 .shadow-left {
   box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.1);
 }
+
+::selection {
+  color: #222;
+  background-color: rgb(254 240 138 / 40%);
+}
+
+.dark ::selection {
+  color: #fff;
+ }
+

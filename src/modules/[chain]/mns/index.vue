@@ -156,7 +156,7 @@ function checkDomainAvailable(domain: string) {
     <bg-gradient-blur variant="big mns"></bg-gradient-blur>
     <div class="relative overflow-hidden mx-auto max-w-screen-xl lg:p-10">
       <h2
-        class="text-primary text-4xl text-center md:!text-5xl font-bold mx-4 mb-8"
+        class="text-primary text-4xl text-center md:!text-5xl font-bold mx-4 mt-4 mb-8"
       >
         {{ $t('mns.title') }}
       </h2>

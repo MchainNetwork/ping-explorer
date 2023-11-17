@@ -414,7 +414,7 @@ onMounted(() => {
                   <td width="30%">
                     <strong>{{ $t('smarttoken.denom') }}</strong>
                   </td>
-                  <td>{{ tokenInfo.denom }}</td>
+                  <td class="whitespace-nowrap">{{ tokenInfo.denom }}</td>
                 </tr>
                 <tr>
                   <td width="30%">
@@ -625,7 +625,7 @@ onMounted(() => {
                       <span class="pl-2">{{ address }}</span>
                     </RouterLink>
                   </td>
-                  <td class="text-right">
+                  <td class="text-right whitespace-nowrap">
                     <label
                       for="smarttoken_remove_from_whitelist"
                       class="mb-2 text-primary hover:underline cursor-pointer"

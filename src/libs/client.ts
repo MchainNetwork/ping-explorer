@@ -452,9 +452,9 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
   }
   async getMnsNames(page?: PageRequest) {
     if (!page) page = new PageRequest();
-    const query = `?pagination.limit=${page.limit || 20}&pagination.offset=${
-      page.offset || 0
-    }`;
+    const query = `?pagination.count_total=true&pagination.limit=${
+      page.limit || 20
+    }&pagination.offset=${page.offset || 0}`;
     return this.request(this.registry.mns_names, {}, query);
   }
   async getMnsName(index: string) {

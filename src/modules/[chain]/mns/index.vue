@@ -116,7 +116,9 @@ async function pageload(p: number) {
 async function verifyDomain() {
   resetMessages();
 
-  const domainPattern = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]$/i;
+  //const domainPattern = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]$/i;
+  const domainPattern = /^[a-zA-Z0-9\p{L}\p{N}-]{1,63}$/u;
+
   let [host, extension, more] = domainToCheck.value.split('.');
 
   if (extension === undefined) {

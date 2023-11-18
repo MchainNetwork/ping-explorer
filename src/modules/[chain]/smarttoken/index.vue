@@ -90,7 +90,7 @@ function pageload(p: number) {
                   (<span class="uppercase">{{ item.symbol }}</span
                   >)
                 </h2>
-                <p>
+                <p class="text-sm opacity-40">
                   {{ format.shortTokenDenom(item.denom) }}
                 </p>
               </div>

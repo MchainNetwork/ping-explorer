@@ -86,7 +86,13 @@ function showPubkey(v: any) {
                   {{ showAddress(acc) }}
                 </RouterLink>
               </td>
-              <td>{{ showType(acc['@type']) }}</td>
+              <td>
+                {{ showType(acc['@type']) }}
+
+                <span class="ml-2 badge badge-primary" v-if="acc?.name">
+                  {{ acc?.name }}
+                </span>
+              </td>
             </tr>
           </table>
         </div>

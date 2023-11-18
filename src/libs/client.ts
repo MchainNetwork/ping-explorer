@@ -105,6 +105,11 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
     }
     return supply;
   }
+  async getBankDenomOwners(denom: string, page?: PageRequest) {
+    if (!page) page = new PageRequest();
+    const query = `?${page.toQueryString()}`;
+    return this.request(this.registry.bank_denom_owners, { denom }, query);
+  }
   // Distribution Module
   async getDistributionParams() {
     return this.request(this.registry.distribution_params, {});

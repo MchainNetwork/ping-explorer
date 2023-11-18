@@ -26,6 +26,7 @@ const supply = ref({} as any);
 const subunit = ref('');
 const whitelist = ref([] as any);
 const frozen = ref({} as any);
+const denomOwners = ref([] as any);
 
 const additionalData = ref({} as any);
 
@@ -73,6 +74,7 @@ function updateState() {
 
 const isLoadingWhitelist = ref(false);
 const isLoadingFrozen = ref(false);
+const isLoadingOwners = ref(false);
 
 function pageload() {
   if (denom) {
@@ -100,6 +102,16 @@ function pageload() {
       blockchain.rpc.getBankSupplyByDenom(denom).then((x) => {
         supply.value = x.amount;
       });
+
+      isLoadingOwners.value = true;
+      blockchain.rpc
+        ?.getBankDenomOwners(denom)
+        .then((x) => {
+          denomOwners.value = x.denom_owners;
+        })
+        .finally(() => {
+          isLoadingOwners.value = false;
+        });
 
       if (hasWhitelistFeature.value) {
         isLoadingWhitelist.value = true;
@@ -724,6 +736,38 @@ onMounted(() => {
                     >
                       {{ $t('smarttoken.unfreeze') }}
                     </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- accounts -->
+      <div class="bg-base-100 p-6 rounded-3xl mb-6">
+        <div class="mb-4">
+          <div class="flex justify-between items-center">
+            <h2 class="text-xl px-2 font-semibold mb-4">
+              {{ $t('module.account') }}
+            </h2>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="table table-zebra w-full" v-if="!isLoadingOwners">
+              <tbody>
+                <tr v-for="(item, index) in denomOwners" :key="index">
+                  <td>
+                    <RouterLink
+                      :to="`/${chain}/account/${item.address}`"
+                      class="flex items-center text-primary hover:underline"
+                    >
+                      <IdentityIcon size="sm" :address="item.address" />
+                      <span class="pl-2">{{ item.address }}</span>
+                    </RouterLink>
+                  </td>
+                  <td class="text-right whitespace-nowrap uppercase">
+                    {{ item.balance.amount / 10 ** tokenInfo.decimals }}
+                    {{ tokenInfo.symbol }}
                   </td>
                 </tr>
               </tbody>

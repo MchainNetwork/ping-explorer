@@ -21,6 +21,10 @@ export const DEFAULT: RequestRegistry = {
     url: '/cosmos/bank/v1beta1/supply/by_denom?denom={denom}',
     adapter,
   },
+  bank_denom_owners: {
+    url: '/cosmos/bank/v1beta1/denom_owners/{denom}',
+    adapter,
+  },
   distribution_params: { url: '/cosmos/distribution/v1beta1/params', adapter },
   distribution_community_pool: {
     url: '/cosmos/distribution/v1beta1/community_pool',

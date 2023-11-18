@@ -86,8 +86,8 @@
     "global_unfreeze": "Global Unfreeze",
     "frozen_addresses": "Frozen Addresses",
     "global_freeze_explain": "This smart token is globally frozen. Transactions cannot be performed.",
-    "send_stake_rate": "Send stake rate",
-    "send_community_rate": "Send community rate"
+    "send_stake_rate": "Send Stake Rate",
+    "send_community_rate": "Send Community Rate"
   },
   "mns": {
     "title": "Mchain Name Services",

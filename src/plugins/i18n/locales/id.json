@@ -84,7 +84,9 @@
     "global_freeze": "Pembekuan Global",
     "global_unfreeze": "Pembukaan Pembekuan Global",
     "frozen_addresses": "Alamat yang Dibekukan",
-    "global_freeze_explain": "Smart token ini dibekukan secara global. Transaksi tidak dapat dilakukan."
+    "global_freeze_explain": "Smart token ini dibekukan secara global. Transaksi tidak dapat dilakukan.",
+    "send_stake_rate": "Tarif partisipasi pengiriman",
+    "send_community_rate": "Tarif komunitas pengiriman"
   },
   "mns": {
     "title": "Layanan Nama Mchain",

@@ -85,7 +85,9 @@
     "global_freeze": "تجميد عالمي",
     "global_unfreeze": "إذابة عالمية",
     "frozen_addresses": "العناوين المجمدة",
-    "global_freeze_explain": "هذا الرمز الذكي مجمد عالميًا. لا يمكن تنفيذ المعاملات."
+    "global_freeze_explain": "هذا الرمز الذكي مجمد عالميًا. لا يمكن تنفيذ المعاملات.",
+    "send_stake_rate": "معدل المشاركة في الإرسال",
+    "send_community_rate": "معدل الإرسال المجتمعي"
   },
   "mns": {
     "title": "خدمات أسماء إمتشين",

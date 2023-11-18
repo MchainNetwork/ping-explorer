@@ -46,6 +46,11 @@ function pageload(p: number) {
     .then((x) => {
       list.value = x.smarttokens;
       pageResponse.value = x.pagination;
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
     });
 }
 </script>

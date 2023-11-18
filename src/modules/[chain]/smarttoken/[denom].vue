@@ -560,6 +560,34 @@ onMounted(() => {
                     }}
                   </td>
                 </tr>
+
+                <tr>
+                  <td width="30%">
+                    <strong>{{ $t('smarttoken.send_stake_rate') }}</strong>
+                  </td>
+                  <td>
+                    {{
+                      format.calculatePercent(
+                        tokenInfo.send_stake_rate * 100,
+                        100
+                      ) || '-'
+                    }}
+                  </td>
+                </tr>
+
+                <tr>
+                  <td width="30%">
+                    <strong>{{ $t('smarttoken.send_community_rate') }}</strong>
+                  </td>
+                  <td>
+                    {{
+                      format.calculatePercent(
+                        tokenInfo.send_community_rate * 100,
+                        100
+                      ) || '-'
+                    }}
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>

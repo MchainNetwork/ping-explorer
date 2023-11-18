@@ -85,7 +85,9 @@
     "global_freeze": "Congelamento global",
     "global_unfreeze": "Descongelamento global",
     "frozen_addresses": "Endereços congelados",
-    "global_freeze_explain": "Este smart token está congelado globalmente. Não é possível realizar transações."
+    "global_freeze_explain": "Este smart token está congelado globalmente. Não é possível realizar transações.",
+    "send_stake_rate": "Taxa de envio de participação",
+    "send_community_rate": "Taxa comunitária de envio"
   },
   "mns": {
     "title": "Serviços de Nomes Mchain",

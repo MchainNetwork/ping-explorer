@@ -5,6 +5,11 @@
 @tailwind components;
 @tailwind utilities;
 
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
 html,body {
   height: 100%;
   overflow-x: hidden;

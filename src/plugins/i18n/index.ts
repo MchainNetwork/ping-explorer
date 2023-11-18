@@ -12,6 +12,9 @@ const messages = Object.fromEntries(
 async function setDayjsLocale(locale: string) {
   try {
     switch (locale) {
+      case 'ar':
+        await import('dayjs/locale/ar');
+        break;
       case 'es':
         await import('dayjs/locale/es');
         break;

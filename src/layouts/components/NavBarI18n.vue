@@ -5,6 +5,10 @@ import { useI18n } from 'vue-i18n';
 
 const i18nLangs: Array<{ label: string; i18nLang: string }> = [
   {
+    label: 'العربية',
+    i18nLang: 'ar',
+  },
+  {
     label: '中文',
     i18nLang: 'cn',
   },
@@ -83,7 +87,7 @@ const handleLangChange = (lang: string) => {
           :class="{ 'font-bold': currentLang === lang.i18nLang }"
           @click="handleLangChange(lang.i18nLang)"
         >
-          <img :src="`/flags/${lang.i18nLang}.svg`" class="h-3 border mr-2" />
+          <img :src="`/flags/${lang.i18nLang}.svg`" class="h-4 border mr-2" />
           {{ lang.label }}</a
         >
       </li>

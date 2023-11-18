@@ -87,7 +87,11 @@
     "frozen_addresses": "冻结地址",
     "global_freeze_explain": "此智能令牌已全球冻结。无法进行交易。",
     "send_stake_rate": "发送股权率",
-    "send_community_rate": "发送社区率"
+    "send_community_rate": "发送社区率",
+    "holders": "持有人",
+    "address": "地址",
+    "quantity": "数量",
+    "percentage": "百分比"
   },
   "mns": {
     "title": "Mchain 名称服务",

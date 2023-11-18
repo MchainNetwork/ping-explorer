@@ -87,7 +87,11 @@
     "frozen_addresses": "Gefrorene Adressen",
     "global_freeze_explain": "Dieser Smart Token ist global eingefroren. Transaktionen können nicht durchgeführt werden.",
     "send_stake_rate": "Senden von Einsatzrate",
-    "send_community_rate": "Senden von Gemeinschaftsrate"
+    "send_community_rate": "Senden von Gemeinschaftsrate",
+    "holders": "Inhaber",
+    "address": "Adresse",
+    "quantity": "Menge",
+    "percentage": "Prozentsatz"
   },
   "mns": {
     "title": "Mchain Namensdienste",

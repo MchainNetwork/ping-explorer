@@ -72,6 +72,36 @@ function updateState() {
   pageload();
 }
 
+function calculatePercentage(
+  ownerBalance: number,
+  totalSupply: number
+): String {
+  if (totalSupply === 0) return '0.00';
+  const percentage = (ownerBalance / totalSupply) * 100;
+  return percentage.toFixed(4);
+}
+
+let showCopyToast = ref(0);
+async function copyAdress(text: string) {
+  try {
+    await navigator.clipboard.writeText(text);
+    showCopyToast.value = 1;
+    setTimeout(() => {
+      showCopyToast.value = 0;
+    }, 1000);
+  } catch (err) {
+    showCopyToast.value = 2;
+    setTimeout(() => {
+      showCopyToast.value = 0;
+    }, 1000);
+  }
+}
+const tipMsg = computed(() => {
+  return showCopyToast.value === 2
+    ? { class: 'error', msg: 'Copy Error!' }
+    : { class: 'success', msg: 'Copy Success!' };
+});
+
 const isLoadingWhitelist = ref(false);
 const isLoadingFrozen = ref(false);
 const isLoadingOwners = ref(false);
@@ -139,6 +169,12 @@ function pageload() {
   }
 }
 
+const sortedDenomOwners = computed(() => {
+  return [...denomOwners.value].sort((a, b) => {
+    return b.balance.amount - a.balance.amount;
+  });
+});
+
 onMounted(() => {
   pageload();
 });
@@ -171,7 +207,7 @@ onMounted(() => {
             <h2 class="text-xl flex font-bold text-base">
               {{ tokenInfo.name }} ({{ tokenInfo.symbol.toUpperCase() }})
             </h2>
-            <span class="truncate text-gray-500">{{ tokenInfo.denom }}</span>
+            <span class="truncate text-gray-500">{{ tokenInfo.denom }} </span>
           </div>
         </div>
         <div class="flex" v-if="isCurrentMinter || isCurrentAuthority">
@@ -415,219 +451,254 @@ onMounted(() => {
 
       <div class="bg-base-100 p-6 rounded-3xl mb-6">
         <!-- Token Identification Section -->
-        <div class="mb-8">
-          <h2 class="text-xl px-2 font-semibold mb-4">
-            {{ $t('smarttoken.token_identification') }}
-          </h2>
-          <div class="overflow-x-auto">
-            <table class="table table-compact w-full">
-              <tbody>
-                <tr>
-                  <td width="30%">
-                    <strong>{{ $t('smarttoken.denom') }}</strong>
-                  </td>
-                  <td class="whitespace-nowrap">{{ tokenInfo.denom }}</td>
-                </tr>
-                <tr>
-                  <td width="30%">
-                    <strong>{{ $t('smarttoken.name') }}</strong>
-                  </td>
-                  <td>{{ tokenInfo.name }}</td>
-                </tr>
-                <tr>
-                  <td width="30%">
-                    <strong>{{ $t('smarttoken.symbol') }}</strong>
-                  </td>
-                  <td>{{ tokenInfo.symbol.toUpperCase() }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <h2 class="text-xl px-2 font-semibold mb-4">
+          {{ $t('smarttoken.token_identification') }}
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="table table-compact w-full">
+            <tbody>
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.denom') }}</strong>
+                </td>
+                <td class="whitespace-nowrap">
+                  {{ tokenInfo.denom }}
+                  <Icon
+                    @click="copyAdress(tokenInfo.denom)"
+                    icon="uil:copy"
+                    class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.name') }}</strong>
+                </td>
+                <td>{{ tokenInfo.name }}</td>
+              </tr>
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.symbol') }}</strong>
+                </td>
+                <td>{{ tokenInfo.symbol.toUpperCase() }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
+      </div>
+      <div class="bg-base-100 p-6 rounded-3xl mb-6">
         <!-- Token Economics Section -->
-        <div class="mb-8">
-          <h2 class="text-xl px-2 font-semibold mb-4">
-            {{ $t('smarttoken.token_economics') }}
-          </h2>
-          <div class="overflow-x-auto">
-            <table class="table table-compact w-full">
-              <tbody>
-                <tr>
-                  <td width="30%">
-                    <strong>{{ $t('smarttoken.current_supply') }}</strong>
-                  </td>
-                  <td>{{ supply?.amount }} {{ subunit }}</td>
-                </tr>
-                <tr>
-                  <td width="30%">
-                    <strong>{{ $t('smarttoken.max_supply') }}</strong>
-                  </td>
-                  <td>
-                    {{
-                      tokenInfo.max_supply === '0'
-                        ? $t('smarttoken.unlimited')
-                        : tokenInfo.max_supply + ' ' + subunit
-                    }}
-                  </td>
-                </tr>
-                <tr>
-                  <td width="30%">
-                    <strong>{{ $t('smarttoken.decimals') }}</strong>
-                  </td>
-                  <td>{{ tokenInfo.decimals }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <h2 class="text-xl px-2 font-semibold mb-4">
+          {{ $t('smarttoken.token_economics') }}
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="table table-compact w-full">
+            <tbody>
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.current_supply') }}</strong>
+                </td>
+                <td>{{ supply?.amount }} {{ subunit }}</td>
+              </tr>
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.max_supply') }}</strong>
+                </td>
+                <td>
+                  {{
+                    tokenInfo.max_supply === '0'
+                      ? $t('smarttoken.unlimited')
+                      : tokenInfo.max_supply + ' ' + subunit
+                  }}
+                </td>
+              </tr>
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.decimals') }}</strong>
+                </td>
+                <td>{{ tokenInfo.decimals }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
+      </div>
+      <div class="bg-base-100 p-6 rounded-3xl mb-6">
         <!-- Token Management Section -->
-        <div class="mb-8">
-          <h2 class="text-xl px-2 font-semibold mb-4">
-            {{ $t('smarttoken.token_management') }}
-          </h2>
-          <div class="overflow-x-auto">
-            <table class="table table-compact w-full">
-              <tbody>
-                <tr>
-                  <td width="30%">
-                    <strong>{{ $t('smarttoken.authority') }}</strong>
-                  </td>
-                  <td>{{ authorityName || tokenInfo.authority }}</td>
-                </tr>
-                <tr>
-                  <td width="30%">
-                    <strong>{{ $t('smarttoken.minter') }}</strong>
-                  </td>
-                  <td>{{ minterName || tokenInfo.minter }}</td>
-                </tr>
-                <tr>
-                  <td width="30%" class="align-top">
-                    <strong>{{ $t('smarttoken.features') }}</strong>
-                  </td>
-                  <td class="p-0">
-                    <table class="table table-compact w-full">
-                      <tbody>
-                        <tr
-                          v-for="(featureName, featureId) in TokenFeature_name"
-                          :key="featureId"
-                        >
-                          <td class="w-6 p-2">
-                            <Icon
-                              v-if="tokenInfo.features.includes(featureName)"
-                              icon="uil:check"
-                              class="text-success text-3xl"
-                            ></Icon>
-                            <Icon
-                              v-else
-                              icon="uil:times"
-                              class="text-error text-3xl"
-                            ></Icon>
-                          </td>
-                          <td class="pl-2">
-                            {{ $t(`smarttoken.${featureName}`) }}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <h2 class="text-xl px-2 font-semibold mb-4">
+          {{ $t('smarttoken.token_management') }}
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="table table-compact w-full">
+            <tbody>
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.authority') }}</strong>
+                </td>
+                <td class="flex items-center">
+                  <RouterLink
+                    :to="`/${chain}/account/${tokenInfo.authority}`"
+                    class="flex items-center text-primary hover:underline"
+                  >
+                    <IdentityIcon size="sm" :address="tokenInfo.authority" />
+                    <span class="pl-3 font-semibold">
+                      {{
+                        authorityName ||
+                        format.shortAddress(tokenInfo.authority)
+                      }}
+                    </span>
+                  </RouterLink>
+                  <Icon
+                    @click="copyAdress(tokenInfo.authority)"
+                    icon="uil:copy"
+                    class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.minter') }}</strong>
+                </td>
+                <td class="flex items-center">
+                  <RouterLink
+                    :to="`/${chain}/account/${tokenInfo.minter}`"
+                    class="flex items-center text-primary hover:underline"
+                  >
+                    <IdentityIcon size="sm" :address="tokenInfo.minter" />
+                    <span class="pl-3 font-semibold">
+                      {{ minterName || format.shortAddress(tokenInfo.minter) }}
+                    </span>
+                  </RouterLink>
+                  <Icon
+                    @click="copyAdress(tokenInfo.minter)"
+                    icon="uil:copy"
+                    class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td width="30%" class="align-top">
+                  <strong>{{ $t('smarttoken.features') }}</strong>
+                </td>
+                <td class="p-0">
+                  <table class="table table-compact w-full">
+                    <tbody>
+                      <tr
+                        v-for="(featureName, featureId) in TokenFeature_name"
+                        :key="featureId"
+                      >
+                        <td class="w-6 p-2">
+                          <Icon
+                            v-if="tokenInfo.features.includes(featureName)"
+                            icon="uil:check"
+                            class="text-success text-3xl"
+                          ></Icon>
+                          <Icon
+                            v-else
+                            icon="uil:times"
+                            class="text-error text-3xl"
+                          ></Icon>
+                        </td>
+                        <td class="pl-2">
+                          {{ $t(`smarttoken.${featureName}`) }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
+      </div>
+      <div class="bg-base-100 p-6 rounded-3xl mb-6">
         <!-- Token Rates Section -->
-        <div class="mb-8">
-          <h2 class="text-xl px-2 font-semibold mb-4">
-            {{ $t('smarttoken.token_rates') }}
-          </h2>
-          <div class="overflow-x-auto">
-            <table class="table table-compact w-full">
-              <tbody>
-                <tr>
-                  <td width="30%">
-                    <strong>{{ $t('smarttoken.send_burn_rate') }}</strong>
-                  </td>
-                  <td>
-                    {{
-                      format.calculatePercent(
-                        tokenInfo.send_burn_rate * 100,
-                        100
-                      ) || '-'
-                    }}
-                  </td>
-                </tr>
-                <tr>
-                  <td width="30%">
-                    <strong>{{ $t('smarttoken.send_commission_rate') }}</strong>
-                  </td>
-                  <td>
-                    {{
-                      format.calculatePercent(
-                        tokenInfo.send_commission_rate * 100,
-                        100
-                      ) || '-'
-                    }}
-                  </td>
-                </tr>
+        <h2 class="text-xl px-2 font-semibold mb-4">
+          {{ $t('smarttoken.token_rates') }}
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="table table-compact w-full">
+            <tbody>
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.send_burn_rate') }}</strong>
+                </td>
+                <td>
+                  {{
+                    format.calculatePercent(
+                      tokenInfo.send_burn_rate * 100,
+                      100
+                    ) || '-'
+                  }}
+                </td>
+              </tr>
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.send_commission_rate') }}</strong>
+                </td>
+                <td>
+                  {{
+                    format.calculatePercent(
+                      tokenInfo.send_commission_rate * 100,
+                      100
+                    ) || '-'
+                  }}
+                </td>
+              </tr>
 
-                <tr>
-                  <td width="30%">
-                    <strong>{{ $t('smarttoken.send_stake_rate') }}</strong>
-                  </td>
-                  <td>
-                    {{
-                      format.calculatePercent(
-                        tokenInfo.send_stake_rate * 100,
-                        100
-                      ) || '-'
-                    }}
-                  </td>
-                </tr>
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.send_stake_rate') }}</strong>
+                </td>
+                <td>
+                  {{
+                    format.calculatePercent(
+                      tokenInfo.send_stake_rate * 100,
+                      100
+                    ) || '-'
+                  }}
+                </td>
+              </tr>
 
-                <tr>
-                  <td width="30%">
-                    <strong>{{ $t('smarttoken.send_community_rate') }}</strong>
-                  </td>
-                  <td>
-                    {{
-                      format.calculatePercent(
-                        tokenInfo.send_community_rate * 100,
-                        100
-                      ) || '-'
-                    }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.send_community_rate') }}</strong>
+                </td>
+                <td>
+                  {{
+                    format.calculatePercent(
+                      tokenInfo.send_community_rate * 100,
+                      100
+                    ) || '-'
+                  }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
 
+      <div class="bg-base-100 p-6 rounded-3xl mb-6" v-if="tokenInfo.uri">
         <!-- Additional Information Section -->
-        <div v-if="tokenInfo.uri" class="mb-4">
-          <h2 class="text-xl px-2 font-semibold mb-4">
-            {{ $t('smarttoken.additional_information') }}
-          </h2>
-          <div class="overflow-x-auto">
-            <table class="table table-compact w-full">
-              <tbody>
-                <tr>
-                  <td width="30%">
-                    <strong>{{ $t('smarttoken.uri') }}</strong>
-                  </td>
-                  <td>{{ tokenInfo.uri ? tokenInfo.uri : '-' }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <pre
-            class="bg-gray-100 dark:bg-[#384059] text-sm p-4 rounded-3xl overflow-x-auto"
-          >
+        <h2 class="text-xl px-2 font-semibold mb-4">
+          {{ $t('smarttoken.additional_information') }}
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="table table-compact w-full">
+            <tbody>
+              <tr>
+                <td width="30%">
+                  <strong>{{ $t('smarttoken.uri') }}</strong>
+                </td>
+                <td>{{ tokenInfo.uri ? tokenInfo.uri : '-' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <pre
+          class="bg-gray-100 dark:bg-[#384059] text-sm p-4 rounded-3xl overflow-x-auto"
+        >
 <code>{{ JSON.stringify(additionalData, null, 2) }}</code>
 </pre>
-        </div>
       </div>
 
       <!-- whitelist -->
@@ -656,19 +727,26 @@ onMounted(() => {
             <table class="table table-zebra w-full" v-if="!isLoadingWhitelist">
               <tbody>
                 <tr v-for="(address, index) in whitelist" :key="index">
-                  <td>
+                  <td class="flex items-center">
                     <RouterLink
                       :to="`/${chain}/account/${address}`"
                       class="flex items-center text-primary hover:underline"
                     >
                       <IdentityIcon size="sm" :address="address" />
-                      <span class="pl-2">{{ address }}</span>
+                      <span class="pl-3 font-semibold">
+                        {{ format.shortAddress(address) }}
+                      </span>
                     </RouterLink>
+                    <Icon
+                      @click="copyAdress(address)"
+                      icon="uil:copy"
+                      class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
+                    />
                   </td>
                   <td class="text-right whitespace-nowrap">
                     <label
                       for="smarttoken_remove_from_whitelist"
-                      class="mb-2 text-primary hover:underline cursor-pointer"
+                      class="mb-2 text-primary font-semibold hover:underline cursor-pointer"
                       @click="
                         dialog.open(
                           'smarttoken_remove_from_whitelist',
@@ -713,19 +791,26 @@ onMounted(() => {
             <table class="table table-zebra w-full" v-if="!isLoadingFrozen">
               <tbody>
                 <tr v-for="(address, index) in frozen" :key="index">
-                  <td>
+                  <td class="flex items-center">
                     <RouterLink
                       :to="`/${chain}/account/${address}`"
                       class="flex items-center text-primary hover:underline"
                     >
                       <IdentityIcon size="sm" :address="address" />
-                      <span class="pl-2">{{ address }}</span>
+                      <span class="pl-3 font-semibold">
+                        {{ format.shortAddress(address) }}
+                      </span>
                     </RouterLink>
+                    <Icon
+                      @click="copyAdress(address)"
+                      icon="uil:copy"
+                      class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
+                    />
                   </td>
                   <td class="text-right">
                     <label
                       for="smarttoken_unfreeze"
-                      class="mb-2 text-primary hover:underline cursor-pointer"
+                      class="mb-2 text-primary font-semibold hover:underline cursor-pointer"
                       @click="
                         dialog.open(
                           'smarttoken_unfreeze',
@@ -749,30 +834,84 @@ onMounted(() => {
         <div class="mb-4">
           <div class="flex justify-between items-center">
             <h2 class="text-xl px-2 font-semibold mb-4">
-              {{ $t('module.account') }}
+              {{ $t('smarttoken.holders') }}
             </h2>
           </div>
           <div class="overflow-x-auto">
             <table class="table table-zebra w-full" v-if="!isLoadingOwners">
+              <thead>
+                <tr>
+                  <th>{{ $t('smarttoken.address') }}</th>
+                  <th class="text-right">{{ $t('smarttoken.quantity') }}</th>
+                  <th class="text-right" style="max-width: 80px">
+                    {{ $t('smarttoken.percentage') }}
+                  </th>
+                </tr>
+              </thead>
               <tbody>
-                <tr v-for="(item, index) in denomOwners" :key="index">
-                  <td>
+                <tr v-for="(item, index) in sortedDenomOwners" :key="index">
+                  <td class="flex items-center">
                     <RouterLink
                       :to="`/${chain}/account/${item.address}`"
                       class="flex items-center text-primary hover:underline"
                     >
                       <IdentityIcon size="sm" :address="item.address" />
-                      <span class="pl-2">{{ item.address }}</span>
+                      <span class="pl-3 font-semibold">
+                        {{ format.shortAddress(item.address) }}
+                      </span>
                     </RouterLink>
+                    <Icon
+                      @click="copyAdress(item.address)"
+                      icon="uil:copy"
+                      class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
+                    />
                   </td>
                   <td class="text-right whitespace-nowrap uppercase">
                     {{ item.balance.amount / 10 ** tokenInfo.decimals }}
                     {{ tokenInfo.symbol }}
                   </td>
+                  <td class="text-right whitespace-nowrap uppercase">
+                    <div>
+                      {{
+                        calculatePercentage(
+                          item.balance.amount,
+                          supply?.amount
+                        )
+                      }}%
+                    </div>
+                    <div
+                      class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-700"
+                    >
+                      <div
+                        class="bg-primary h-1 rounded-full"
+                        :style="{
+                          width:
+                            calculatePercentage(
+                              item.balance.amount,
+                              supply?.amount
+                            ) + '%',
+                        }"
+                      ></div>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="toast" v-show="showCopyToast === 1">
+      <div class="alert alert-success">
+        <div class="text-xs md:!text-sm">
+          <span>{{ tipMsg.msg }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="toast" v-show="showCopyToast === 2">
+      <div class="alert alert-error">
+        <div class="text-xs md:!text-sm">
+          <span>{{ tipMsg.msg }}</span>
         </div>
       </div>
     </div>

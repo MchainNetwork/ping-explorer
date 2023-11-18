@@ -87,7 +87,11 @@
     "frozen_addresses": "العناوين المجمدة",
     "global_freeze_explain": "هذا الرمز الذكي مجمد عالميًا. لا يمكن تنفيذ المعاملات.",
     "send_stake_rate": "معدل المشاركة في الإرسال",
-    "send_community_rate": "معدل الإرسال المجتمعي"
+    "send_community_rate": "معدل الإرسال المجتمعي",
+    "holders": "المالكين",
+    "address": "العنوان",
+    "quantity": "الكمية",
+    "percentage": "النسبة المئوية"
   },
   "mns": {
     "title": "خدمات أسماء إمتشين",

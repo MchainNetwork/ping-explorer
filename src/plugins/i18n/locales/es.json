@@ -87,7 +87,11 @@
     "frozen_addresses": "Direcciones congeladas",
     "global_freeze_explain": "Este smart token está congelado globalmente. No se pueden realizar transacciones.",
     "send_stake_rate": "Tasa de participación de envío",
-    "send_community_rate": "Tasa comunitaria de envío"
+    "send_community_rate": "Tasa comunitaria de envío",
+    "holders": "Titulares",
+    "address": "Dirección",
+    "quantity": "Cantidad",
+    "percentage": "Porcentaje"
   },
   "mns": {
     "title": "Servicios de Nombres Mchain",

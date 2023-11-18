@@ -239,7 +239,7 @@ function updateEvent() {
           </div>
           <div class="md:w-1/4">
             <!--delegations  -->
-            <h4 class="text-lg font-bold p-4">
+            <h4 class="text-lg font-bold p-4" v-if="delegations?.length > 0">
               {{ $t('account.delegations') }}
             </h4>
             <div
@@ -253,7 +253,7 @@ function updateEvent() {
               </div>
             </div>
             <!-- rewards.total -->
-            <template v-if="rewards.total">
+            <template v-if="rewards?.total?.length">
               <h4 class="text-lg font-bold p-4">{{ $t('account.rewards') }}</h4>
               <div
                 class="flex items-center px-4 mb-4"

@@ -87,7 +87,11 @@
     "frozen_addresses": "फ्रोज़न पते",
     "global_freeze_explain": "यह स्मार्ट टोकन वैश्विक रूप से जमा हुआ है। लेन-देन नहीं किया जा सकता।",
     "send_stake_rate": "भेजने की हिस्सेदारी दर",
-    "send_community_rate": "समुदाय की भेजने की दर"
+    "send_community_rate": "समुदाय की भेजने की दर",
+    "holders": "धारकों",
+    "address": "पता",
+    "quantity": "मात्रा",
+    "percentage": "प्रतिशत"
   },
   "mns": {
     "title": "एमचेन नाम सेवाएँ",

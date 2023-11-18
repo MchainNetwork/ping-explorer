@@ -3,8 +3,8 @@ import { computed, ref } from 'vue';
 import { Icon } from '@iconify/vue';
 
 const props = defineProps({
-  total: { type: Number },
-  limit: { type: Number },
+  total: { type: String },
+  limit: { type: Number, default: 20 },
   callback: { type: Function, required: true },
 });
 const current = ref(1);
@@ -58,8 +58,8 @@ function gotoPage(pageNum: number) {
 }
 </script>
 <template>
-  <div class="my-5 text-center">
-    <div v-if="total > limit && limit" class="btn-group">
+  <div class="my-5 text-center" v-if="pages.length">
+    <div class="btn-group">
       <button class="btn" :disabled="!canGoPrev" @click="goToPrev">
         <Icon icon="uil:arrow-left" class="text-3xl" />
       </button>

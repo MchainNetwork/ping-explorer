@@ -14,6 +14,7 @@ const format = useFormatter();
 
 const supply = ref({} as any);
 const denomOwners = ref([] as any);
+const moduleAccounts = ref({} as any);
 
 function updateState() {
   walletStore.loadMyAsset();
@@ -60,6 +61,15 @@ function pageload() {
       supply.value = x.amount;
     });
 
+    blockchain.rpc.getAuthModuleAccounts().then((x) => {
+      moduleAccounts.value = x.accounts;
+
+      moduleAccounts.value = x.accounts.reduce((acc, account) => {
+        acc[account.base_account.address] = account;
+        return acc;
+      }, {});
+    });
+
     isLoadingOwners.value = true;
     blockchain.rpc
       ?.getBankDenomOwners(denom)
@@ -96,12 +106,15 @@ onMounted(() => {
     <bg-gradient-blur variant="big smarttoken"></bg-gradient-blur>
     <div class="relative overflow-auto mx-auto max-w-screen-lg">
       <div class="flex justify-between items-center m-4 ml-0 mb-6">
-        <a @click="$router.go(-1)" class="btn btn-ghost btn-circle btn-sm mx-1">
+        <RouterLink
+          :to="`/${chain}/explorer`"
+          class="btn btn-ghost btn-circle btn-sm mx-1"
+        >
           <Icon
             icon="uil:angle-left"
             class="text-3xl text-gray-500 dark:text-gray-400"
           />
-        </a>
+        </RouterLink>
         <h2 class="text-xl md:!text-4xl font-bold flex-1 ml-2">
           {{ $t('smarttoken.holders') }}
         </h2>
@@ -110,71 +123,79 @@ onMounted(() => {
 
       <!-- holders -->
       <div class="bg-base-100 p-6 rounded-3xl mb-6">
-        <div class="mb-4">
-          <div class="overflow-x-auto">
-            <table class="table table-zebra w-full" v-if="!isLoadingOwners">
-              <thead>
-                <tr>
-                  <th>{{ $t('smarttoken.address') }}</th>
-                  <th class="text-right">{{ $t('smarttoken.quantity') }}</th>
-                  <th class="text-right" style="max-width: 80px">
-                    {{ $t('smarttoken.percentage') }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(item, index) in sortedDenomOwners" :key="index">
-                  <td class="flex items-center">
-                    <RouterLink
-                      :to="`/${chain}/account/${item.address}`"
-                      class="flex items-center text-primary hover:underline"
-                    >
-                      <IdentityIcon size="sm" :address="item.address" />
-                      <span class="pl-3 font-semibold">
-                        {{ format.shortAddress(item.address) }}
-                      </span>
-                    </RouterLink>
-                    <Icon
-                      @click="copyAdress(item.address)"
-                      icon="uil:copy"
-                      class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
+        <div class="overflow-x-auto">
+          <table class="table table-zebra w-full" v-if="!isLoadingOwners">
+            <thead>
+              <tr>
+                <th>{{ $t('smarttoken.address') }}</th>
+                <th class="text-right">{{ $t('smarttoken.quantity') }}</th>
+                <th class="text-right" style="max-width: 80px">
+                  {{ $t('smarttoken.percentage') }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in sortedDenomOwners" :key="index">
+                <td class="flex items-center">
+                  <RouterLink
+                    :to="`/${chain}/account/${item.address}`"
+                    class="flex items-center text-primary hover:underline"
+                  >
+                    <IdentityIcon
+                      size="sm"
+                      class="mr-2"
+                      :address="item.address"
                     />
-                  </td>
-                  <td class="text-right whitespace-nowrap uppercase">
-                    {{ item.balance.amount / 10 ** 6 }}
-                    UMARK
-                  </td>
-                  <td class="text-right whitespace-nowrap uppercase">
-                    <div>
-                      {{
-                        calculatePercentage(
-                          item.balance.amount,
-                          supply?.amount
-                        )
-                      }}%
-                    </div>
                     <div
-                      class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-700"
+                      class="tooltip"
+                      :data-tip="moduleAccounts[item.address].name"
+                      v-if="moduleAccounts[item.address]"
                     >
-                      <div
-                        class="bg-primary h-1 rounded-full"
-                        :style="{
-                          width:
-                            calculatePercentage(
-                              item.balance.amount,
-                              maxBalance
-                            ) + '%',
-                        }"
-                      ></div>
+                      <Icon
+                        icon="uil:file-info-alt"
+                        class="inline-block mx-1 cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
+                      />
                     </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                    <span class="pl-1 font-semibold">
+                      {{ format.shortAddress(item.address) }}
+                    </span>
+                  </RouterLink>
+                  <Icon
+                    @click="copyAdress(item.address)"
+                    icon="uil:copy"
+                    class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
+                  />
+                </td>
+                <td class="text-right whitespace-nowrap uppercase">
+                  {{ item.balance.amount / 10 ** 6 }}
+                  {{ denom }}
+                </td>
+                <td class="text-right whitespace-nowrap uppercase">
+                  <div>
+                    {{
+                      calculatePercentage(item.balance.amount, supply?.amount)
+                    }}%
+                  </div>
+                  <div
+                    class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-700"
+                  >
+                    <div
+                      class="bg-primary h-1 rounded-full"
+                      :style="{
+                        width:
+                          calculatePercentage(item.balance.amount, maxBalance) +
+                          '%',
+                      }"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
+
     <div class="toast" v-show="showCopyToast === 1">
       <div class="alert alert-success">
         <div class="text-xs md:!text-sm">

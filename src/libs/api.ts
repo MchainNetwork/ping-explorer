@@ -7,6 +7,11 @@ export const DEFAULT: RequestRegistry = {
     url: '/cosmos/auth/v1beta1/accounts/{address}',
     adapter,
   },
+  auth_module_accounts: {
+    url: '/cosmos/auth/v1beta1/module_accounts',
+    adapter,
+  },
+
   bank_params: { url: '/cosmos/bank/v1beta1/params', adapter },
   bank_balances_address: {
     url: '/cosmos/bank/v1beta1/balances/{address}',

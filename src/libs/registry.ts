@@ -72,6 +72,7 @@ export interface RequestRegistry extends AbstractRegistry {
   auth_params: Request<any>;
   auth_accounts: Request<PaginabledAccounts>;
   auth_account_address: Request<{ account: AuthAccount }>;
+  auth_module_accounts: Request<any>;
 
   bank_params: Request<BankParams>;
   bank_balances_address: Request<PaginatedBalances>;

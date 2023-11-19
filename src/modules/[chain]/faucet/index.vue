@@ -41,7 +41,6 @@ async function callFaucet() {
   } catch (error: any) {
     isErrorMessage.value = true;
     if (error.response) {
-      // Comprueba si la respuesta de error contiene un mensaje personalizado
       if (error.response.data && error.response.data.error) {
         responseMessage.value = 'Error: ' + error.response.data.error;
       } else {
@@ -107,9 +106,9 @@ async function callFaucet() {
         <div
           v-if="responseMessage"
           :class="{
-            'bg-red-200 dark:bg-red-700 text-red-700 dark:text-white':
+            'bg-red-200 dark:bg-red-700 text-red-700 dark:text-white rounded-3xl':
               isErrorMessage,
-            'bg-green-200 dark:bg-green-700 text-green-700 dark:text-white':
+            'bg-green-200 dark:bg-green-700 text-green-700 dark:text-white rounded-3xl':
               !isErrorMessage,
           }"
           class="mt-8 p-4 rounded"

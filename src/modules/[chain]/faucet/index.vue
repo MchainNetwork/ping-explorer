@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import axios from 'axios';
-
 import { useWalletStore } from '@/stores';
 
 const walletStore = useWalletStore();
@@ -15,7 +14,7 @@ const isErrorMessage = ref(false);
 async function callFaucet() {
   if (!mchainAddress.value || !mchainAddress.value.startsWith('m')) {
     isErrorMessage.value = true;
-    responseMessage.value = 'Error: Please enter an address.';
+    responseMessage.value = 'Error: Please enter a valid Mchain address.';
     return;
   }
 
@@ -40,24 +39,28 @@ async function callFaucet() {
       responseMessage.value = 'All coins are successfully sent.';
     }
   } catch (error: any) {
-    console.log(error);
     isErrorMessage.value = true;
     if (error.response) {
-      switch (error.response.status) {
-        case 400:
-          responseMessage.value =
-            'Error: Bad Request. Please check your input.';
-          break;
-        case 429:
-          responseMessage.value = 'Error: You requested too often.';
-          break;
-        case 500:
-          responseMessage.value =
-            'Error: Server error. Please contact the admin.';
-          break;
-        default:
-          responseMessage.value = 'Error: Unknown response from the server.';
-          break;
+      // Comprueba si la respuesta de error contiene un mensaje personalizado
+      if (error.response.data && error.response.data.error) {
+        responseMessage.value = 'Error: ' + error.response.data.error;
+      } else {
+        switch (error.response.status) {
+          case 400:
+            responseMessage.value =
+              'Error: Bad Request. Please check your input.';
+            break;
+          case 429:
+            responseMessage.value = 'Error: You requested too often.';
+            break;
+          case 500:
+            responseMessage.value =
+              'Error: Server error. Please contact the admin.';
+            break;
+          default:
+            responseMessage.value = 'Error: Unknown response from the server.';
+            break;
+        }
       }
     } else {
       responseMessage.value = 'Error: ' + error.message;

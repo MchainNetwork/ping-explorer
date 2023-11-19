@@ -175,6 +175,14 @@ const sortedDenomOwners = computed(() => {
   });
 });
 
+const maxBalance = computed(() => {
+  if (sortedDenomOwners.value && sortedDenomOwners.value.length > 0) {
+    return sortedDenomOwners.value[0].balance.amount;
+  } else {
+    return 0;
+  }
+});
+
 onMounted(() => {
   pageload();
 });
@@ -829,7 +837,7 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- accounts -->
+      <!-- holders -->
       <div class="bg-base-100 p-6 rounded-3xl mb-6">
         <div class="mb-4">
           <div class="flex justify-between items-center">
@@ -888,7 +896,7 @@ onMounted(() => {
                           width:
                             calculatePercentage(
                               item.balance.amount,
-                              supply?.amount
+                              maxBalance
                             ) + '%',
                         }"
                       ></div>

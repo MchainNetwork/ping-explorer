@@ -52,7 +52,7 @@ onMounted(() => {
         {{ $t('account.your_wallet_address') }}
       </h1>
       <div
-        class="bg-base-100 p-4 pt-8 rounded-3xl text-center mx-auto max-w-screen-md"
+        class="bg-base-100 dark:bg-gray-300 p-4 pt-8 rounded-3xl text-center mx-auto max-w-screen-md"
       >
         <div
           v-if="walletStore.currentAddress"
@@ -60,7 +60,7 @@ onMounted(() => {
         >
           <div ref="qrcodeRef" class="rounded-md overflow-hidden"></div>
         </div>
-        <div class="text-main mb-4 break-words font-mono">
+        <div class="text-main mb-4 text-gray-800 break-words font-mono">
           {{ walletStore.currentAddress }}
         </div>
       </div>

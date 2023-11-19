@@ -463,7 +463,7 @@ onMounted(() => {
           {{ $t('smarttoken.token_identification') }}
         </h2>
         <div class="overflow-x-auto">
-          <table class="table table-compact w-full">
+          <table class="table w-full">
             <tbody>
               <tr>
                 <td width="30%">

@@ -106,10 +106,21 @@ onBeforeUnmount(() => {
     <div class="relative mx-auto max-w-screen-lg">
       <div class="flex items-center justify-between mb-2 flex-1">
         <h1 class="text-4xl font-bold p-4">{{ $t('module.explorer') }}</h1>
-        <RouterLink class="btn text-primary btn-sm" :to="`/${chain}/params`">
-          <Icon icon="uil:wrench" class="text-lg text-primary" />
-          {{ $t('module.parameters') }}
-        </RouterLink>
+
+        <div class="flex items-center">
+          <RouterLink
+            class="btn text-primary btn-sm mx-2"
+            :to="`/${chain}/explorer/holders`"
+          >
+            <Icon icon="uil:wallet" class="text-lg text-primary" />
+            {{ $t('smarttoken.holders') }}
+          </RouterLink>
+
+          <RouterLink class="btn text-primary btn-sm" :to="`/${chain}/params`">
+            <Icon icon="uil:wrench" class="text-lg text-primary" />
+            {{ $t('module.parameters') }}
+          </RouterLink>
+        </div>
       </div>
 
       <div class="search-hero mb-8">

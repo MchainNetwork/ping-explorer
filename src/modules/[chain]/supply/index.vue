@@ -35,7 +35,7 @@ function pageload(p: number) {
     list.value = x.supply;
     pageResponse.value = x.pagination;
   });
-  chainStore.rpc.getBankDenomMetadata().then((x) => {
+  chainStore.rpc.getBankDenomsMetadata().then((x) => {
     metadataList.value = x.metadatas;
   });
 }

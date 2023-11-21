@@ -110,7 +110,7 @@ onBeforeUnmount(() => {
         <div class="flex items-center">
           <RouterLink
             class="btn text-primary btn-sm mx-2"
-            :to="`/${chain}/explorer/holders`"
+            :to="`/${chain}/holders/umark`"
           >
             <Icon icon="uil:wallet" class="text-lg text-primary" />
             {{ $t('smarttoken.holders') }}

@@ -82,8 +82,11 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
   async getBankBalances(address: string) {
     return this.request(this.registry.bank_balances_address, { address });
   }
-  async getBankDenomMetadata() {
+  async getBankDenomsMetadata() {
     return this.request(this.registry.bank_denoms_metadata, {});
+  }
+  async getBankDenomsMetadataByDenom(denom: string) {
+    return this.request(this.registry.bank_denoms_metadata_by_denom, { denom });
   }
   async getBankSupply(page?: PageRequest) {
     if (!page) page = new PageRequest();
@@ -454,6 +457,11 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
   async getBmintParams() {
     return this.request(this.registry.bmint_params, {});
   }
+
+  async getBurnTotalBurnedByDenom(denom: string) {
+    return this.request(this.registry.burn_total_burned_by_denom, { denom });
+  }
+
   // mns
   async getMnsParams() {
     return this.request(this.registry.mns_params, {});

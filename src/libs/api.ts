@@ -21,6 +21,10 @@ export const DEFAULT: RequestRegistry = {
     url: '/cosmos/bank/v1beta1/denoms_metadata',
     adapter,
   },
+  bank_denoms_metadata_by_denom: {
+    url: '/cosmos/bank/v1beta1/denoms_metadata/{denom}',
+    adapter,
+  },
   bank_supply: { url: '/cosmos/bank/v1beta1/supply', adapter },
   bank_supply_by_denom: {
     url: '/cosmos/bank/v1beta1/supply/by_denom?denom={denom}',
@@ -187,6 +191,11 @@ export const DEFAULT: RequestRegistry = {
   mns_reverses: { url: '/mchain/mns/v1beta1/reverses', adapter },
 
   bmint_params: { url: '/mchain/bmint/v1beta1/params', adapter },
+
+  burn_total_burned_by_denom: {
+    url: '/mchain/burn/v1beta1/total_burned/{denom}',
+    adapter,
+  },
 
   mint_inflation: { url: '/cosmos/mint/v1beta1/inflation', adapter },
   mint_params: { url: '/cosmos/mint/v1beta1/params', adapter },

@@ -849,6 +849,7 @@ onMounted(() => {
             <table class="table table-zebra w-full" v-if="!isLoadingOwners">
               <thead>
                 <tr>
+                  <th width="1%">#</th>
                   <th>{{ $t('smarttoken.address') }}</th>
                   <th class="text-right">{{ $t('smarttoken.quantity') }}</th>
                   <th class="text-right" style="max-width: 80px">
@@ -858,6 +859,7 @@ onMounted(() => {
               </thead>
               <tbody>
                 <tr v-for="(item, index) in sortedDenomOwners" :key="index">
+                  <td>{{ index + 1 }}</td>
                   <td class="flex items-center">
                     <RouterLink
                       :to="`/${chain}/account/${item.address}`"

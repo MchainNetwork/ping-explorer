@@ -73,7 +73,7 @@ function pageload() {
     blockchain.rpc.getBankDenomsMetadataByDenom(denom.value).then((x) => {
       metadata.value = x.metadata;
       metadata.value.denom_unit = metadata.value?.denom_units?.find(
-        (unit) => unit.denom === metadata.value.display
+        (unit: { denom: string }) => unit.denom === metadata.value.display
       );
     });
 

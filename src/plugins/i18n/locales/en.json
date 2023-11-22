@@ -91,7 +91,8 @@
     "holders": "Holders",
     "address": "Address",
     "quantity": "Quantity",
-    "percentage": "Percentage"
+    "percentage": "Percentage",
+    "total_burned": "Total Burned"
   },
   "mns": {
     "title": "Mchain Name Services",

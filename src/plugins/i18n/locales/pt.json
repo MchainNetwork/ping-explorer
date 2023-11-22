@@ -91,7 +91,8 @@
     "holders": "Titulares",
     "address": "Endereço",
     "quantity": "Quantidade",
-    "percentage": "Percentagem"
+    "percentage": "Percentagem",
+    "total_burned": "Total Queimado"
   },
   "mns": {
     "title": "Serviços de Nomes Mchain",

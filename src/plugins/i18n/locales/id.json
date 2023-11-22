@@ -90,7 +90,8 @@
     "holders": "Pemegang",
     "address": "Alamat",
     "quantity": "Jumlah",
-    "percentage": "Persentase"
+    "percentage": "Persentase",
+    "total_burned": "Total Terbakar"
   },
   "mns": {
     "title": "Layanan Nama Mchain",

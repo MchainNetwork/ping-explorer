@@ -90,7 +90,8 @@
     "holders": "Detentori",
     "address": "Indirizzo",
     "quantity": "Quantità",
-    "percentage": "Percentuale"
+    "percentage": "Percentuale",
+    "total_burned": "Totale Bruciato"
   },
   "mns": {
     "title": "Mchain Name Services",

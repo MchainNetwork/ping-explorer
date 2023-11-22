@@ -27,6 +27,7 @@ const subunit = ref('');
 const whitelist = ref([] as any);
 const frozen = ref({} as any);
 const denomOwners = ref([] as any);
+const totalBurned = ref({} as any);
 
 const additionalData = ref({} as any);
 
@@ -165,6 +166,11 @@ function pageload() {
             isLoadingFrozen.value = false;
           });
       }
+      if (hasBurningFeature.value) {
+        blockchain.rpc.getBurnTotalBurnedByDenom(denom).then((x) => {
+          totalBurned.value = x.total_burned;
+        });
+      }
     });
   }
 }
@@ -246,11 +252,11 @@ onMounted(() => {
               </li>
               <li :class="{ disabled: !hasBurningFeature || !isCurrentMinter }">
                 <label
-                  for="smarttoken_burn"
+                  for="burn_burn"
                   @click="
                     hasBurningFeature &&
                       dialog.open(
-                        'smarttoken_burn',
+                        'burn_burn',
                         { denom: tokenInfo.denom },
                         updateState
                       )
@@ -506,18 +512,23 @@ onMounted(() => {
                 <td width="30%">
                   <strong>{{ $t('smarttoken.current_supply') }}</strong>
                 </td>
-                <td>{{ supply?.amount }} {{ subunit }}</td>
+                <td class="uppercase">
+                  {{ supply?.amount / 10 ** tokenInfo.decimals }}
+                  {{ tokenInfo.symbol }}
+                </td>
               </tr>
               <tr>
                 <td width="30%">
                   <strong>{{ $t('smarttoken.max_supply') }}</strong>
                 </td>
                 <td>
-                  {{
-                    tokenInfo.max_supply === '0'
-                      ? $t('smarttoken.unlimited')
-                      : tokenInfo.max_supply + ' ' + subunit
-                  }}
+                  <span v-if="tokenInfo.max_supply === '0'">{{
+                    $t('smarttoken.unlimited')
+                  }}</span>
+                  <span class="uppercase" v-else>
+                    {{ tokenInfo.max_supply / 10 ** tokenInfo.decimals }}
+                    {{ tokenInfo.symbol }}
+                  </span>
                 </td>
               </tr>
               <tr>
@@ -525,6 +536,38 @@ onMounted(() => {
                   <strong>{{ $t('smarttoken.decimals') }}</strong>
                 </td>
                 <td>{{ tokenInfo.decimals }}</td>
+              </tr>
+              <tr v-if="hasBurningFeature">
+                <td>
+                  <strong>{{ $t('smarttoken.total_burned') }}</strong>
+                </td>
+                <td>
+                  <div
+                    class="tooltip uppercase"
+                    :data-tip="$t('smarttoken.total_burned')"
+                  >
+                    🔥
+                    {{
+                      tokenInfo.decimals
+                        ? totalBurned.amount / 10 ** tokenInfo.decimals
+                        : totalBurned.amount
+                    }}
+                    {{ tokenInfo.symbol }}
+                  </div>
+                  <label
+                    for="burn_burn"
+                    class="btn bg-red-500 hover:bg-red-600 text-white btn-xs ml-2"
+                    @click="
+                      dialog.open(
+                        'burn_burn',
+                        { denom: tokenInfo.denom },
+                        updateState
+                      )
+                    "
+                  >
+                    {{ $t('smarttoken.burn') }}
+                  </label>
+                </td>
               </tr>
             </tbody>
           </table>

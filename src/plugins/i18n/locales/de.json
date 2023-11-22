@@ -91,7 +91,8 @@
     "holders": "Inhaber",
     "address": "Adresse",
     "quantity": "Menge",
-    "percentage": "Prozentsatz"
+    "percentage": "Prozentsatz",
+    "total_burned": "Gesamt Verbrannt"
   },
   "mns": {
     "title": "Mchain Namensdienste",

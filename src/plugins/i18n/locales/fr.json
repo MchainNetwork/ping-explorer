@@ -91,7 +91,8 @@
     "holders": "Détenteurs",
     "address": "Adresse",
     "quantity": "Quantité",
-    "percentage": "Pourcentage"
+    "percentage": "Pourcentage",
+    "total_burned": "Total Brûlé"
   },
   "mns": {
     "title": "Services de Noms Mchain",

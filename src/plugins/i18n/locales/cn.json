@@ -91,7 +91,8 @@
     "holders": "持有人",
     "address": "地址",
     "quantity": "数量",
-    "percentage": "百分比"
+    "percentage": "百分比",
+    "total_burned": "总燃烧"
   },
   "mns": {
     "title": "Mchain 名称服务",

@@ -126,7 +126,7 @@ onMounted(() => {
 <template>
   <div>
     <bg-gradient-blur variant="big smarttoken"></bg-gradient-blur>
-    <div class="relative overflow-auto mx-auto max-w-screen-lg">
+    <div class="relative mx-auto max-w-screen-lg">
       <div class="flex justify-between items-center m-4 ml-0 mb-6">
         <RouterLink
           :to="`/${chain}/explorer`"
@@ -143,13 +143,15 @@ onMounted(() => {
           }})
         </h2>
         <div class="pr-4" v-if="denom === totalBurned.denom">
-          🔥
-          {{
-            metadata.denom_unit?.exponent
-              ? totalBurned.amount / 10 ** metadata.denom_unit.exponent
-              : totalBurned.amount
-          }}
-          {{ metadata.symbol }}
+          <div class="tooltip" :data-tip="$t('smarttoken.total_burned')">
+            🔥
+            {{
+              metadata.denom_unit?.exponent
+                ? totalBurned.amount / 10 ** metadata.denom_unit.exponent
+                : totalBurned.amount
+            }}
+            {{ metadata.symbol }}
+          </div>
           <label
             for="burn_burn"
             class="btn bg-red-500 hover:bg-red-600 text-white btn-sm ml-2"

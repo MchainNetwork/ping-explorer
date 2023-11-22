@@ -91,7 +91,8 @@
     "address": "Indirizzo",
     "quantity": "Quantità",
     "percentage": "Percentuale",
-    "total_burned": "Totale Bruciato"
+    "total_burned": "Totale Bruciato",
+    "you": "Tu"
   },
   "mns": {
     "title": "Mchain Name Services",

@@ -543,7 +543,7 @@ onMounted(() => {
                 </td>
                 <td>
                   <div
-                    class="tooltip uppercase"
+                    class="tooltip"
                     :data-tip="$t('smarttoken.total_burned')"
                   >
                     🔥
@@ -552,7 +552,7 @@ onMounted(() => {
                         ? totalBurned.amount / 10 ** tokenInfo.decimals
                         : totalBurned.amount
                     }}
-                    {{ tokenInfo.symbol }}
+                    <span class="uppercase">{{ tokenInfo.symbol }}</span>
                   </div>
                   <label
                     for="burn_burn"
@@ -793,6 +793,12 @@ onMounted(() => {
                       icon="uil:copy"
                       class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
                     />
+                    <span
+                      class="badge badge-neutral ml-2"
+                      v-if="walletStore.currentAddress === address"
+                    >
+                      {{ $t('smarttoken.you') }}
+                    </span>
                   </td>
                   <td class="text-right whitespace-nowrap">
                     <label
@@ -857,6 +863,12 @@ onMounted(() => {
                       icon="uil:copy"
                       class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
                     />
+                    <span
+                      class="badge badge-neutral ml-2"
+                      v-if="walletStore.currentAddress === address"
+                    >
+                      {{ $t('smarttoken.you') }}
+                    </span>
                   </td>
                   <td class="text-right">
                     <label
@@ -918,6 +930,12 @@ onMounted(() => {
                       icon="uil:copy"
                       class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
                     />
+                    <span
+                      class="badge badge-neutral ml-2"
+                      v-if="walletStore.currentAddress === item.address"
+                    >
+                      {{ $t('smarttoken.you') }}
+                    </span>
                   </td>
                   <td class="text-right whitespace-nowrap uppercase">
                     {{ item.balance.amount / 10 ** tokenInfo.decimals }}

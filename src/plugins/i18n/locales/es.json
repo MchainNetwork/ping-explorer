@@ -92,7 +92,8 @@
     "address": "Dirección",
     "quantity": "Cantidad",
     "percentage": "Porcentaje",
-    "total_burned": "Total Quemado"
+    "total_burned": "Total Quemado",
+    "you": "Tú"
   },
   "mns": {
     "title": "Servicios de Nombres Mchain",

@@ -92,7 +92,8 @@
     "address": "地址",
     "quantity": "数量",
     "percentage": "百分比",
-    "total_burned": "总燃烧"
+    "total_burned": "总燃烧",
+    "you": "您"
   },
   "mns": {
     "title": "Mchain 名称服务",

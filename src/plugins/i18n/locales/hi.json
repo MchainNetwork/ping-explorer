@@ -92,7 +92,8 @@
     "address": "पता",
     "quantity": "मात्रा",
     "percentage": "प्रतिशत",
-    "total_burned": "कुल जला हुआ"
+    "total_burned": "कुल जला हुआ",
+    "you": "आप"
   },
   "mns": {
     "title": "एमचेन नाम सेवाएँ",

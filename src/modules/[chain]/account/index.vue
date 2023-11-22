@@ -15,6 +15,8 @@ const accounts = ref([] as AuthAccount[]);
 const pageRequest = ref(new PageRequest());
 const pageResponse = ref({} as Pagination);
 
+const burnAddress = 'm1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqquv8q09';
+
 onMounted(() => {
   pageload(1);
 });
@@ -91,6 +93,12 @@ function showPubkey(v: any) {
 
                 <span class="ml-2 badge badge-primary" v-if="acc?.name">
                   {{ acc?.name }}
+                </span>
+                <span
+                  class="ml-2 badge badge-primary"
+                  v-if="acc?.address == burnAddress"
+                >
+                  burn_address
                 </span>
               </td>
             </tr>

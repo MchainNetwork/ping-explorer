@@ -346,9 +346,7 @@ const filteredList = computed(() => {
                 v-if="walletStore?.rewardAmount?.amount > 0"
                 for="staking_withdraw"
                 class="btn btn-primary btn-xs rounded-full text-white ml-1"
-                @click="
-                  dialog.open('staking.staking_withdraw', {}, walletStateChange)
-                "
+                @click="dialog.open('staking_withdraw', {}, walletStateChange)"
                 >{{ $t('account.btn_withdraw') }}</label
               >
             </div>

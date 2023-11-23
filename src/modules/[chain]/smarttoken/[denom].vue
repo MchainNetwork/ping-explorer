@@ -754,221 +754,222 @@ onMounted(() => {
 
       <!-- whitelist -->
       <div class="bg-base-100 p-6 rounded-3xl mb-6" v-if="hasWhitelistFeature">
-        <div class="mb-4">
-          <div class="flex justify-between items-center">
-            <h2 class="text-xl px-2 font-semibold mb-4">
-              {{ $t('smarttoken.whitelist') }}
-            </h2>
-            <label
-              for="smarttoken_add_to_whitelist_batch"
-              class="btn btn-sm btn-primary"
-              @click="
-                hasWhitelistFeature &&
-                  dialog.open(
-                    'smarttoken_add_to_whitelist_batch',
-                    { denom: tokenInfo.denom },
-                    updateState
-                  )
-              "
-            >
-              {{ $t('smarttoken.add_to_whitelist') }}
-            </label>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="table table-zebra w-full" v-if="!isLoadingWhitelist">
-              <tbody>
-                <tr v-for="(address, index) in whitelist" :key="index">
-                  <td class="flex items-center">
-                    <RouterLink
-                      :to="`/${chain}/account/${address}`"
-                      class="flex items-center text-primary hover:underline"
-                    >
-                      <IdentityIcon size="sm" :address="address" />
-                      <span class="pl-3 font-semibold">
-                        {{ format.shortAddress(address) }}
-                      </span>
-                    </RouterLink>
-                    <Icon
-                      @click="copyAdress(address)"
-                      icon="uil:copy"
-                      class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
-                    />
-                    <span
-                      class="badge badge-neutral ml-2"
-                      v-if="walletStore.currentAddress === address"
-                    >
-                      {{ $t('smarttoken.you') }}
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl px-2 font-semibold mb-4">
+            {{ $t('smarttoken.whitelist') }}
+          </h2>
+          <label
+            for="smarttoken_add_to_whitelist_batch"
+            class="btn btn-sm btn-primary"
+            @click="
+              hasWhitelistFeature &&
+                dialog.open(
+                  'smarttoken_add_to_whitelist_batch',
+                  { denom: tokenInfo.denom },
+                  updateState
+                )
+            "
+          >
+            {{ $t('smarttoken.add_to_whitelist') }}
+          </label>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="table table-zebra w-full" v-if="!isLoadingWhitelist">
+            <thead>
+              <tr>
+                <th>{{ $t('smarttoken.address') }}</th>
+                <th class="text-right"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(address, index) in whitelist" :key="index">
+                <td class="flex items-center">
+                  <RouterLink
+                    :to="`/${chain}/account/${address}`"
+                    class="flex items-center text-primary hover:underline"
+                  >
+                    <IdentityIcon size="sm" :address="address" />
+                    <span class="pl-3 font-semibold">
+                      {{ format.shortAddress(address) }}
                     </span>
-                  </td>
-                  <td class="text-right whitespace-nowrap">
-                    <label
-                      for="smarttoken_remove_from_whitelist"
-                      class="mb-2 text-primary font-semibold hover:underline cursor-pointer"
-                      @click="
-                        dialog.open(
-                          'smarttoken_remove_from_whitelist',
-                          { denom: tokenInfo.denom, address },
-                          updateState
-                        )
-                      "
-                    >
-                      {{ $t('smarttoken.remove_from_whitelist') }}
-                    </label>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                  </RouterLink>
+                  <Icon
+                    @click="copyAdress(address)"
+                    icon="uil:copy"
+                    class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
+                  />
+                  <span
+                    class="badge badge-neutral ml-2"
+                    v-if="walletStore.currentAddress === address"
+                  >
+                    {{ $t('smarttoken.you') }}
+                  </span>
+                </td>
+                <td class="text-right whitespace-nowrap">
+                  <label
+                    for="smarttoken_remove_from_whitelist"
+                    class="mb-2 text-primary font-semibold hover:underline cursor-pointer"
+                    @click="
+                      dialog.open(
+                        'smarttoken_remove_from_whitelist',
+                        { denom: tokenInfo.denom, address },
+                        updateState
+                      )
+                    "
+                  >
+                    {{ $t('smarttoken.remove_from_whitelist') }}
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
       <!-- frozen -->
       <div class="bg-base-100 p-6 rounded-3xl mb-6" v-if="hasFreezingFeature">
-        <div class="mb-4">
-          <div class="flex justify-between items-center">
-            <h2 class="text-xl px-2 font-semibold mb-4">
-              {{ $t('smarttoken.frozen_addresses') }}
-            </h2>
-            <label
-              for="smarttoken_freeze_batch"
-              class="btn btn-sm btn-primary"
-              @click="
-                hasWhitelistFeature &&
-                  dialog.open(
-                    'smarttoken_freeze_batch',
-                    { denom: tokenInfo.denom },
-                    updateState
-                  )
-              "
-            >
-              {{ $t('smarttoken.freeze') }}
-            </label>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="table table-zebra w-full" v-if="!isLoadingFrozen">
-              <tbody>
-                <tr v-for="(address, index) in frozen" :key="index">
-                  <td class="flex items-center">
-                    <RouterLink
-                      :to="`/${chain}/account/${address}`"
-                      class="flex items-center text-primary hover:underline"
-                    >
-                      <IdentityIcon size="sm" :address="address" />
-                      <span class="pl-3 font-semibold">
-                        {{ format.shortAddress(address) }}
-                      </span>
-                    </RouterLink>
-                    <Icon
-                      @click="copyAdress(address)"
-                      icon="uil:copy"
-                      class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
-                    />
-                    <span
-                      class="badge badge-neutral ml-2"
-                      v-if="walletStore.currentAddress === address"
-                    >
-                      {{ $t('smarttoken.you') }}
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl px-2 font-semibold mb-4">
+            {{ $t('smarttoken.frozen_addresses') }}
+          </h2>
+          <label
+            for="smarttoken_freeze_batch"
+            class="btn btn-sm btn-primary"
+            @click="
+              hasWhitelistFeature &&
+                dialog.open(
+                  'smarttoken_freeze_batch',
+                  { denom: tokenInfo.denom },
+                  updateState
+                )
+            "
+          >
+            {{ $t('smarttoken.freeze') }}
+          </label>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="table table-zebra w-full" v-if="!isLoadingFrozen">
+            <thead>
+              <tr>
+                <th>{{ $t('smarttoken.address') }}</th>
+                <th class="text-right"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(address, index) in frozen" :key="index">
+                <td class="flex items-center">
+                  <RouterLink
+                    :to="`/${chain}/account/${address}`"
+                    class="flex items-center text-primary hover:underline"
+                  >
+                    <IdentityIcon size="sm" :address="address" />
+                    <span class="pl-3 font-semibold">
+                      {{ format.shortAddress(address) }}
                     </span>
-                  </td>
-                  <td class="text-right">
-                    <label
-                      for="smarttoken_unfreeze"
-                      class="mb-2 text-primary font-semibold hover:underline cursor-pointer"
-                      @click="
-                        dialog.open(
-                          'smarttoken_unfreeze',
-                          { denom: tokenInfo.denom, address },
-                          updateState
-                        )
-                      "
-                    >
-                      {{ $t('smarttoken.unfreeze') }}
-                    </label>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                  </RouterLink>
+                  <Icon
+                    @click="copyAdress(address)"
+                    icon="uil:copy"
+                    class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
+                  />
+                  <span
+                    class="badge badge-neutral ml-2"
+                    v-if="walletStore.currentAddress === address"
+                  >
+                    {{ $t('smarttoken.you') }}
+                  </span>
+                </td>
+                <td class="text-right">
+                  <label
+                    for="smarttoken_unfreeze"
+                    class="mb-2 text-primary font-semibold hover:underline cursor-pointer"
+                    @click="
+                      dialog.open(
+                        'smarttoken_unfreeze',
+                        { denom: tokenInfo.denom, address },
+                        updateState
+                      )
+                    "
+                  >
+                    {{ $t('smarttoken.unfreeze') }}
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
       <!-- holders -->
       <div class="bg-base-100 p-6 rounded-3xl mb-6">
-        <div class="mb-4">
-          <div class="flex justify-between items-center">
-            <h2 class="text-xl px-2 font-semibold mb-4">
-              {{ $t('smarttoken.holders') }}
-            </h2>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="table table-zebra w-full" v-if="!isLoadingOwners">
-              <thead>
-                <tr>
-                  <th width="1%">#</th>
-                  <th>{{ $t('smarttoken.address') }}</th>
-                  <th class="text-right">{{ $t('smarttoken.quantity') }}</th>
-                  <th class="text-right" style="max-width: 80px">
-                    {{ $t('smarttoken.percentage') }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(item, index) in sortedDenomOwners" :key="index">
-                  <td>{{ index + 1 }}</td>
-                  <td class="flex items-center">
-                    <RouterLink
-                      :to="`/${chain}/account/${item.address}`"
-                      class="flex items-center text-primary hover:underline"
-                    >
-                      <IdentityIcon size="sm" :address="item.address" />
-                      <span class="pl-3 font-semibold">
-                        {{ format.shortAddress(item.address) }}
-                      </span>
-                    </RouterLink>
-                    <Icon
-                      @click="copyAdress(item.address)"
-                      icon="uil:copy"
-                      class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
-                    />
-                    <span
-                      class="badge badge-neutral ml-2"
-                      v-if="walletStore.currentAddress === item.address"
-                    >
-                      {{ $t('smarttoken.you') }}
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl px-2 font-semibold mb-4">
+            {{ $t('smarttoken.holders') }}
+          </h2>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="table table-zebra w-full" v-if="!isLoadingOwners">
+            <thead>
+              <tr>
+                <th width="1%">#</th>
+                <th>{{ $t('smarttoken.address') }}</th>
+                <th class="text-right">{{ $t('smarttoken.quantity') }}</th>
+                <th class="text-right" style="max-width: 80px">
+                  {{ $t('smarttoken.percentage') }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in sortedDenomOwners" :key="index">
+                <td>{{ index + 1 }}</td>
+                <td class="flex items-center">
+                  <RouterLink
+                    :to="`/${chain}/account/${item.address}`"
+                    class="flex items-center text-primary hover:underline"
+                  >
+                    <IdentityIcon size="sm" :address="item.address" />
+                    <span class="pl-3 font-semibold">
+                      {{ format.shortAddress(item.address) }}
                     </span>
-                  </td>
-                  <td class="text-right whitespace-nowrap uppercase">
-                    {{ item.balance.amount / 10 ** tokenInfo.decimals }}
-                    {{ tokenInfo.symbol }}
-                  </td>
-                  <td class="text-right whitespace-nowrap uppercase">
-                    <div>
-                      {{
-                        calculatePercentage(
-                          item.balance.amount,
-                          supply?.amount
-                        )
-                      }}%
-                    </div>
+                  </RouterLink>
+                  <Icon
+                    @click="copyAdress(item.address)"
+                    icon="uil:copy"
+                    class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
+                  />
+                  <span
+                    class="badge badge-neutral ml-2"
+                    v-if="walletStore.currentAddress === item.address"
+                  >
+                    {{ $t('smarttoken.you') }}
+                  </span>
+                </td>
+                <td class="text-right whitespace-nowrap uppercase">
+                  {{ item.balance.amount / 10 ** tokenInfo.decimals }}
+                  {{ tokenInfo.symbol }}
+                </td>
+                <td class="text-right whitespace-nowrap uppercase">
+                  <div>
+                    {{
+                      calculatePercentage(item.balance.amount, supply?.amount)
+                    }}%
+                  </div>
+                  <div
+                    class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-700"
+                  >
                     <div
-                      class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-700"
-                    >
-                      <div
-                        class="bg-primary h-1 rounded-full"
-                        :style="{
-                          width:
-                            calculatePercentage(
-                              item.balance.amount,
-                              maxBalance
-                            ) + '%',
-                        }"
-                      ></div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                      class="bg-primary h-1 rounded-full"
+                      :style="{
+                        width:
+                          calculatePercentage(item.balance.amount, maxBalance) +
+                          '%',
+                      }"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

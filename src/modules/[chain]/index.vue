@@ -331,6 +331,22 @@ const amount = computed({
                         {{ $t('account.btn_delegate') }}
                       </label>
                       <label
+                        for="staking_unbond"
+                        class="link link-primary link-hover mx-4"
+                        @click="
+                          dialog.open(
+                            'staking_unbond',
+                            {
+                              validator_address:
+                                item.delegation.validator_address,
+                            },
+                            updateState
+                          )
+                        "
+                      >
+                        {{ $t('account.btn_unbond') }}
+                      </label>
+                      <label
                         for="staking_withdraw"
                         class="link link-primary link-hover"
                         @click="

@@ -605,7 +605,7 @@ onMounted(() => {
                   />
                 </td>
               </tr>
-              <tr>
+              <tr v-if="hasMintingFeature">
                 <td width="30%">
                   <strong>{{ $t('smarttoken.minter') }}</strong>
                 </td>

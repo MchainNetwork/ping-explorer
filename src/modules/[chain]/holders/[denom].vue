@@ -94,6 +94,7 @@ async function pageload() {
 
     const moduleAccountsResponse = await blockchain.rpc.getAuthModuleAccounts();
     moduleAccounts.value = moduleAccountsResponse.accounts.reduce(
+      // @ts-ignore
       (acc, account) => {
         acc[account.base_account.address] = account;
         return acc;
@@ -105,6 +106,7 @@ async function pageload() {
       const smartTokenResponse = await smartTokenStore.fetchSmartToken(
         denom.value
       );
+      // @ts-ignore
       tokenInfo.value = smartTokenResponse?.smarttoken;
     }
 

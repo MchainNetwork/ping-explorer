@@ -65,7 +65,6 @@ watch(
 );
 
 function loadData() {
-  console.log('loadData');
   store.loadDashboard();
   walletStore.loadMyAsset();
   paramStore.handleAbciInfo();

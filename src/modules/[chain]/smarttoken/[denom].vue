@@ -250,7 +250,7 @@ onMounted(() => {
                   {{ $t('smarttoken.mint') }}
                 </label>
               </li>
-              <li :class="{ disabled: !hasBurningFeature || !isCurrentMinter }">
+              <li :class="{ disabled: !hasBurningFeature }">
                 <label
                   for="burn_burn"
                   @click="
@@ -326,6 +326,24 @@ onMounted(() => {
                   "
                 >
                   {{ $t('smarttoken.disable_mint') }}
+                </label>
+              </li>
+              <li
+                :class="{ disabled: !hasBurningFeature || !isCurrentAuthority }"
+              >
+                <label
+                  for="smarttoken_disable_burn"
+                  class="mb-2"
+                  @click="
+                    hasBurningFeature &&
+                      dialog.open(
+                        'smarttoken_disable_burn',
+                        { denom: tokenInfo.denom },
+                        updateState
+                      )
+                  "
+                >
+                  {{ $t('smarttoken.disable_burn') }}
                 </label>
               </li>
               <li

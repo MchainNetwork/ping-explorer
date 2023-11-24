@@ -55,6 +55,7 @@
     "set_authority": "Set Authority",
     "set_uri": "Set URI",
     "disable_mint": "Disable Mint",
+    "disable_burn": "Disable Burn",
     "denom": "Denom",
     "smart_token_details": "Smart Token Details",
     "meta_data": "Meta Data",

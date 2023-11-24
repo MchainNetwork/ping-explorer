@@ -55,6 +55,7 @@
     "set_authority": "Definir Autoridade",
     "set_uri": "Definir URI",
     "disable_mint": "Desabilitar Cunhagem",
+    "disable_burn": "Desativar Queima",
     "denom": "Denominação",
     "smart_token_details": "Detalhes do Smart Token",
     "meta_data": "Metadados",

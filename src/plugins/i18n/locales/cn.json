@@ -55,6 +55,7 @@
     "set_authority": "设置权威",
     "set_uri": "设置URI",
     "disable_mint": "禁用铸币",
+    "disable_burn": "禁用燃烧",
     "denom": "面额",
     "smart_token_details": "智能令牌详情",
     "meta_data": "元数据",

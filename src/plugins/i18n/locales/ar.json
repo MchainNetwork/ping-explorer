@@ -55,6 +55,7 @@
     "set_authority": "تعيين سلطة",
     "set_uri": "تعيين يو آر آي",
     "disable_mint": "تعطيل السك",
+    "disable_burn": "تعطيل الحرق",
     "denom": "دينوم",
     "smart_token_details": "تفاصيل الرمز الذكي",
     "meta_data": "بيانات التعريف",

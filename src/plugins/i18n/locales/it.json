@@ -55,6 +55,7 @@
     "set_authority": "Imposta Autorità",
     "set_uri": "Imposta URI",
     "disable_mint": "Disabilita Coniazione",
+    "disable_burn": "Disabilita Brucia",
     "denom": "Denominazione",
     "smart_token_details": "Dettagli Token Intelligenti",
     "meta_data": "Meta Dati",

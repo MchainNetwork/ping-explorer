@@ -9,12 +9,11 @@ const { locale } = useI18n();
 const walletStore = useWalletStore();
 const chainStore = useBlockchain();
 const baseStore = useBaseStore();
-// walletStore.$subscribe((m, s) => {
-//   console.log(m, s);
-// });
+
 function walletStateChange(res: any) {
   walletStore.setConnectedWallet(res.detail?.value);
 }
+
 let showCopyToast = ref(0);
 async function copyAdress(address: string) {
   try {
@@ -133,6 +132,7 @@ const tipMsg = computed(() => {
       :addr-prefix="chainStore.current?.bech32Prefix || 'm'"
       :locale="locale"
       @connect="walletStateChange"
+      @disconnect="walletStore.disconnect()"
       @keplr-config="walletStore.suggestChain()"
     />
   </Teleport>

@@ -55,6 +55,7 @@
     "set_authority": "प्राधिकरण सेट करें",
     "set_uri": "URI सेट करें",
     "disable_mint": "टकसाल अक्षम करें",
+    "disable_burn": "जलाएं अक्षम करें",
     "denom": "डेनोम",
     "smart_token_details": "स्मार्ट टोकन विवरण",
     "meta_data": "मेटा डेटा",

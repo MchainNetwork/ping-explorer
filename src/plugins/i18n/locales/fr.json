@@ -55,6 +55,7 @@
     "set_authority": "Définir l'Autorité",
     "set_uri": "Définir l'URI",
     "disable_mint": "Désactiver la Frappe",
+    "disable_burn": "Désactiver le brû",
     "denom": "Dénomination",
     "smart_token_details": "Détails du Jeton Intelligent",
     "meta_data": "Métadonnées",

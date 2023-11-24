@@ -50,7 +50,7 @@ const stakingAPR = computed(() => {
 });
 
 function walletStateChange() {
-  walletStore.loadMyAsset();
+  loadData();
 }
 
 const cache = JSON.parse(localStorage.getItem('avatars') || '{}');
@@ -60,26 +60,6 @@ const yesterday = ref({} as Record<string, number>);
 const tab = ref('active');
 const unbondList = ref([] as Validator[]);
 const slashing = ref({} as SlashingParam);
-
-onMounted(() => {
-  walletStore.loadMyAsset();
-
-  paramStore.getMintingInflation().then((res) => {
-    inflation.value = Number(res.inflation);
-  });
-  chainStore.rpc?.getStakingPool().then((res) => {
-    bondedTokens.value = Number(res?.pool?.bonded_tokens);
-  });
-  chainStore.rpc?.getBankSupplyByDenom('umark').then((res) => {
-    totalSupply.value = Number(res.amount.amount);
-  });
-  staking.fetchInacitveValdiators().then((res) => {
-    unbondList.value = res;
-  });
-  chainStore.rpc.getSlashingParams().then((res) => {
-    slashing.value = res.params;
-  });
-});
 
 function formatString(str: string) {
   if (str.length <= 10) {
@@ -256,9 +236,6 @@ const logo = (identity?: string) => {
     : `https://s3.amazonaws.com/keybase_processed_uploads/${url}`;
 };
 
-fetchChange();
-loadAvatars();
-
 const filteredList = computed(() => {
   if (!searchQuery.value) {
     return list.value;
@@ -268,6 +245,31 @@ const filteredList = computed(() => {
       .toLowerCase()
       .includes(searchQuery.value.toLowerCase())
   );
+});
+
+function loadData() {
+  walletStore.loadMyAsset();
+  chainStore.rpc?.getStakingPool().then((res) => {
+    bondedTokens.value = Number(res?.pool?.bonded_tokens);
+  });
+  fetchChange();
+  loadAvatars();
+}
+
+onMounted(() => {
+  paramStore.getMintingInflation().then((res) => {
+    inflation.value = Number(res.inflation);
+  });
+  chainStore.rpc?.getBankSupplyByDenom('umark').then((res) => {
+    totalSupply.value = Number(res.amount.amount);
+  });
+  staking.fetchInactiveValidators().then((res) => {
+    unbondList.value = res;
+  });
+  chainStore.rpc.getSlashingParams().then((res) => {
+    slashing.value = res.params;
+  });
+  loadData();
 });
 </script>
 <template>
@@ -655,9 +657,13 @@ const filteredList = computed(() => {
                       for="staking_delegate"
                       class="btn btn-xs btn-primary rounded-full capitalize text-white mr-1"
                       @click="
-                        dialog.open('staking_delegate', {
-                          validator_address: v.operator_address,
-                        })
+                        dialog.open(
+                          'staking_delegate',
+                          {
+                            validator_address: v.operator_address,
+                          },
+                          walletStateChange
+                        )
                       "
                       >{{ $t('account.btn_delegate') }}
                     </label>

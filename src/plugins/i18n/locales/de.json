@@ -55,6 +55,7 @@
     "set_authority": "Autorität festlegen",
     "set_uri": "URI festlegen",
     "disable_mint": "Prägung deaktivieren",
+    "disable_burn": "Verbrennung deaktivieren",
     "denom": "Nenner",
     "smart_token_details": "Details zu intelligenten Token",
     "meta_data": "Metadaten",

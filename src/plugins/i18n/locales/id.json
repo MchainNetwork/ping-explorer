@@ -54,6 +54,7 @@
     "set_authority": "Atur Otoritas",
     "set_uri": "Atur URI",
     "disable_mint": "Nonaktifkan Pencetakan",
+    "disable_burn": "Nonaktifkan Pembakaran",
     "denom": "Denom",
     "smart_token_details": "Detail Smart Token",
     "meta_data": "Data Meta",

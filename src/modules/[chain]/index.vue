@@ -15,7 +15,7 @@ import {
   useParamStore,
   useMnsStore,
 } from '@/stores';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useIndexModule, colorMap } from './indexStore';
 import { computed } from '@vue/reactivity';
 import { useI18n } from 'vue-i18n';
@@ -55,16 +55,27 @@ function walletStateChange(res: any) {
   walletStore.setConnectedWallet(res.detail?.value);
 }
 
-onMounted(() => {
+watch(
+  () => walletStore.currentAddress,
+  (newAddress: string, oldAddress: string) => {
+    if (newAddress && newAddress !== oldAddress) {
+      loadData();
+    }
+  }
+);
+
+function loadData() {
+  console.log('loadData');
   store.loadDashboard();
   walletStore.loadMyAsset();
   paramStore.handleAbciInfo();
-  // if(!(coinInfo.value && coinInfo.value.name)) {
-  // }
-
   mnsStore.fetchMnsReverse(walletStore.currentAddress).then((x: any) => {
     accountName.value = x.reverse?.name;
   });
+}
+
+onMounted(() => {
+  loadData();
 });
 const ticker = computed(() => store.coinInfo.tickers[store.tickerIndex]);
 

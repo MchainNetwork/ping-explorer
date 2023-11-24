@@ -455,6 +455,7 @@
     "connect_wallet": "Wallet verbinden",
     "need_a_wallet": "Brauchen Sie eine Wallet?",
     "install_keplr": "Keplr installieren",
+    "add_to_keplr": "Mchain zu Keplr hinzufügen",
     "no_delegations_message": "Sie haben derzeit keine Delegationen. Erkunden Sie und delegieren Sie, um Belohnungen zu verdienen.",
     "staking_page_button": "Zum Staking gehen"
   },

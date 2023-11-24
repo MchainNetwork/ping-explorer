@@ -455,6 +455,7 @@
     "connect_wallet": "ربط المحفظة",
     "need_a_wallet": "تحتاج محفظة؟",
     "install_keplr": "تثبيت Keplr",
+    "add_to_keplr": "أضف Mchain إلى Keplr",
     "no_delegations_message": "ليس لديك تفويضات حاليًا. استكشف وقم بالتفويض لبدء كسب المكافآت.",
     "staking_page_button": "الذهاب إلى صفحة التفويض"
   },

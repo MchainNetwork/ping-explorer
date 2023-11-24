@@ -100,7 +100,7 @@ function suggest() {
 
 <template>
   <div class="mx-auto max-w-screen-lg">
-    <h1 class="text-4xl font-bold mb-6 p-4">Keplr Configuration</h1>
+    <h1 class="text-4xl font-bold mb-6 p-4">{{ $t('index.add_to_keplr') }}</h1>
     <div class="flex p-4 pt-0">
       <!--
       <select
@@ -113,11 +113,8 @@ function suggest() {
         </option>
       </select>
       -->
-      <button
-        class="btn btn-sm btn-primary text-white px-2 uppercase"
-        @click="suggest"
-      >
-        Add {{ selected.chainName }} To Keplr Wallet
+      <button class="btn btn-primary" @click="suggest">
+        {{ $t('index.add_to_keplr') }}
       </button>
     </div>
     <div class="text-main mt-5">

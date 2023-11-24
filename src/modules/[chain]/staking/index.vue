@@ -10,7 +10,7 @@ import {
   useParamStore,
 } from '@/stores';
 import { computed } from '@vue/reactivity';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { Icon } from '@iconify/vue';
 import type { Key, SlashingParam, Validator } from '@/types';
 import { formatSeconds } from '@/libs/utils';
@@ -255,6 +255,15 @@ function loadData() {
   fetchChange();
   loadAvatars();
 }
+
+watch(
+  () => walletStore.currentAddress,
+  (newAddress: string, oldAddress: string) => {
+    if (newAddress && newAddress !== oldAddress) {
+      walletStore.loadMyAsset();
+    }
+  }
+);
 
 onMounted(() => {
   paramStore.getMintingInflation().then((res) => {

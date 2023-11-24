@@ -454,6 +454,7 @@
     "connect_wallet": "Connetti Portafoglio",
     "need_a_wallet": "Hai bisogno di un portafoglio?",
     "install_keplr": "Installa Keplr",
+    "add_to_keplr": "Aggiungi Mchain a Keplr",
     "no_delegations_message": "Attualmente non hai deleghe. Esplora e delega per iniziare a guadagnare ricompense.",
     "staking_page_button": "Vai allo Staking"
   },

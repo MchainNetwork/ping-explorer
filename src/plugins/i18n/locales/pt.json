@@ -452,6 +452,7 @@
     "connect_wallet": "Conectar Carteira",
     "need_a_wallet": "Precisa de uma carteira?",
     "install_keplr": "Instalar Keplr",
+    "add_to_keplr": "Adicionar Mchain ao Keplr",
     "no_delegations_message": "Atualmente você não tem delegações. Explore e delegue para começar a ganhar recompensas.",
     "staking_page_button": "Ir para Staking"
   },

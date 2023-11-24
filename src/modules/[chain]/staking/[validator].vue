@@ -605,10 +605,10 @@ function pageload(p: number) {
                     }}</span>
                     <Icon
                       v-if="item.code === 0"
-                      icon="mdi-check"
+                      icon="uil:check"
                       class="text-yes"
                     />
-                    <Icon v-else icon="mdi-multiply" class="text-no" />
+                    <Icon v-else icon="uil:multiply" class="text-no" />
                   </div>
                 </td>
                 <td width="150">{{ format.toDay(item.timestamp, 'from') }}</td>

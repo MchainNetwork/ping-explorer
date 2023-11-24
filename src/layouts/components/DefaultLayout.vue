@@ -88,7 +88,7 @@ function selected(route: any, nav: NavLink) {
           class="pr-4 cursor-pointer xl:!hidden"
           @click="sidebarShow = false"
         >
-          <Icon icon="mdi-close" class="text-2xl" />
+          <Icon icon="uil:times" class="text-2xl" />
         </div>
       </div>
       <div v-for="(item, index) of menu" :key="index" class="px-2">
@@ -176,7 +176,7 @@ function selected(route: any, nav: NavLink) {
           class="text-2xl pr-3 cursor-pointer xl:!hidden"
           @click="sidebarShow = true"
         >
-          <Icon icon="mdi-menu" />
+          <Icon icon="uil:bars" />
         </div>
 
         <ChainProfile />

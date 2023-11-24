@@ -104,10 +104,12 @@ onBeforeUnmount(() => {
   <div>
     <bg-gradient-blur variant="big explorer"></bg-gradient-blur>
     <div class="relative mx-auto max-w-screen-lg">
-      <div class="flex items-center justify-between mb-2 flex-1">
+      <div
+        class="flex md:flex-row flex-col items-center justify-between mb-2 flex-1"
+      >
         <h1 class="text-4xl font-bold p-4">{{ $t('module.explorer') }}</h1>
 
-        <div class="flex items-center">
+        <div class="flex items-center my-4 md:my-0">
           <RouterLink
             class="btn text-primary btn-sm mx-2"
             :to="`/${chain}/holders/umark`"

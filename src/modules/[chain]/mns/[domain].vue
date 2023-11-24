@@ -118,7 +118,7 @@ function pageload() {
             >
               <summary class="btn btn-ghost btn-circle btn-sm mx-1">
                 <Icon
-                  icon="mdi-cog"
+                  icon="uil:cog"
                   class="text-2xl text-gray-500 dark:text-gray-400"
                 />
               </summary>

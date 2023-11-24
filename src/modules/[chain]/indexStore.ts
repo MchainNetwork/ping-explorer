@@ -12,7 +12,7 @@ import { useStakingStore } from '@/stores/useStakingStore';
 import type { Coin, Tally } from '@/types';
 import numeral from 'numeral';
 import { defineStore } from 'pinia';
-import i18n from '@/plugins/i18n'
+import i18n from '@/plugins/i18n';
 
 export function colorMap(color: string) {
   switch (color) {
@@ -88,33 +88,33 @@ export const useIndexModule = defineStore('module-index', {
       return useBankStore();
     },
     twitter(): string {
-      if(!this.coinInfo?.links?.twitter_screen_name) return ""
+      if (!this.coinInfo?.links?.twitter_screen_name) return '';
       return `https://twitter.com/${this.coinInfo?.links.twitter_screen_name}`;
     },
     homepage(): string {
-      if(!this.coinInfo?.links?.homepage) return ""
+      if (!this.coinInfo?.links?.homepage) return '';
       const [page1, page2, page3] = this.coinInfo?.links?.homepage;
       return page1 || page2 || page3;
     },
     github(): string {
-      if(!this.coinInfo?.links?.repos_url) return ""
+      if (!this.coinInfo?.links?.repos_url) return '';
       const [page1, page2, page3] = this.coinInfo?.links?.repos_url?.github;
       return page1 || page2 || page3;
     },
     telegram(): string {
-      if(!this.coinInfo?.links?.homepage) return ""
+      if (!this.coinInfo?.links?.homepage) return '';
       return `https://t.me/${this.coinInfo?.links.telegram_channel_identifier}`;
     },
 
     priceChange(): string {
-      if(!this.coinInfo?.market_data?.price_change_percentage_24h) return ""
+      if (!this.coinInfo?.market_data?.price_change_percentage_24h) return '';
       const change =
         this.coinInfo?.market_data?.price_change_percentage_24h || 0;
       return numeral(change).format('+0.[00]');
     },
 
     priceColor(): string {
-      if(!this.coinInfo?.market_data?.price_change_percentage_24h) return ""
+      if (!this.coinInfo?.market_data?.price_change_percentage_24h) return '';
       const change =
         this.coinInfo?.market_data?.price_change_percentage_24h || 0;
       switch (true) {
@@ -127,7 +127,7 @@ export const useIndexModule = defineStore('module-index', {
       }
     },
     trustColor(): string {
-      if(!this.coinInfo?.tickers) return ""
+      if (!this.coinInfo?.tickers) return '';
       const change = this.coinInfo?.tickers[this.tickerIndex]?.trust_score;
       return change;
     },
@@ -138,8 +138,8 @@ export const useIndexModule = defineStore('module-index', {
     },
 
     proposals() {
-      const gov = useGovStore()
-      return gov.proposals['2']
+      const gov = useGovStore();
+      return gov.proposals['2'];
     },
 
     stats() {
@@ -148,52 +148,58 @@ export const useIndexModule = defineStore('module-index', {
       const staking = useStakingStore();
       const mintStore = useMintStore();
       const formatter = useFormatter();
-      
+
       return [
         {
           // @ts-ignore
           title: i18n.global.t('index.height'), //'Height',
           color: 'primary',
-          icon: 'mdi-pound',
+          icon: 'uil:cube',
           stats: String(base?.latest?.block?.header?.height || 0),
           change: 0,
         },
         {
           title: i18n.global.t('index.validators'), //'Validators',
           color: 'primary',
-          icon: 'mdi-account-network',
-          stats: String(base?.latest?.block?.last_commit?.signatures.length || 0),
+          icon: 'uil:user-check',
+          stats: String(
+            base?.latest?.block?.last_commit?.signatures.length || 0
+          ),
           change: 0,
         },
         {
           title: i18n.global.t('index.supply'), //'Supply',
           color: 'primary',
-          icon: 'mdi-water-pump',
+          icon: 'uil:tear',
           stats: formatter.formatToken(bank.supply, true, '0,0'),
           change: 0,
         },
         {
           title: i18n.global.t('index.bonded_tokens'), //'Bonded Tokens',
           color: 'primary',
-          icon: 'mdi-lock',
-          stats: formatter.formatToken({
-            // @ts-ignore
-            amount: this.pool.bonded_tokens,
-            denom: staking.params.bond_denom,
-          }, true, '0,0'),
+          icon: 'uil:lock',
+          stats: formatter.formatToken(
+            {
+              // @ts-ignore
+              amount: this.pool.bonded_tokens,
+              denom: staking.params.bond_denom,
+            },
+            true,
+            '0,0'
+          ),
           change: 0,
         },
         {
           title: i18n.global.t('index.inflation'), //'Inflation',
           color: 'primary',
-          icon: 'mdi-water-percent',
+          icon: 'uil:percentage',
           stats: formatter.formatDecimalToPercent(mintStore.inflation),
           change: 0,
         },
         {
           title: i18n.global.t('index.community_pool'), //'Community Pool',
           color: 'primary',
-          icon: 'mdi-cup-water',
+          icon: 'uil:water-glass',
           stats: formatter.formatTokens(
             // @ts-ignore
             this.communityPool?.filter(
@@ -209,8 +215,8 @@ export const useIndexModule = defineStore('module-index', {
       this.tickerIndex = 0;
       // @ts-ignore
       const [firstAsset] = this.blockchain?.assets || [];
-      return firstAsset.coingecko_id
-    }
+      return firstAsset.coingecko_id;
+    },
   },
   actions: {
     async loadDashboard() {

@@ -91,13 +91,13 @@ onBeforeRouteUpdate(async (to, from, next) => {
               :to="`/${store.blockchain.chainName}/block/${height - 1}`"
               class="btn btn-primary btn-sm p-1 rounded-xl text-2xl mr-2"
             >
-              <Icon icon="mdi-arrow-left" class="w-full h-full" />
+              <Icon icon="uil:arrow-left" class="w-full h-full" />
             </RouterLink>
             <RouterLink
               :to="`/${store.blockchain.chainName}/block/${height + 1}`"
               class="btn btn-primary btn-sm p-1 rounded-xl text-2xl"
             >
-              <Icon icon="mdi-arrow-right" class="w-full h-full" />
+              <Icon icon="uil:arrow-right" class="w-full h-full" />
             </RouterLink>
           </div>
         </div>

@@ -9,6 +9,9 @@ const conf = ref('');
 const dashboard = useDashboard();
 const selected = ref({} as ChainConfig);
 
+const alertMessage = ref('');
+const alertType = ref(''); // 'success', 'error', 'info'
+
 onMounted(() => {
   const chainStore = useBlockchain();
   selected.value = chainStore.current || Object.values(dashboard.chains)[0];
@@ -91,18 +94,30 @@ function suggest() {
   // @ts-ignore
   if (window.keplr) {
     // @ts-ignore
-    window.keplr.experimentalSuggestChain(JSON.parse(conf.value)).catch((e) => {
-      error.value = e;
-    });
+    window.keplr
+      .experimentalSuggestChain(JSON.parse(conf.value))
+      .then(() => {
+        alertMessage.value = 'Chain added successfully to Keplr!';
+        alertType.value = 'success';
+      })
+      .catch((e) => {
+        error.value = e.message || 'An error occurred';
+        alertMessage.value = error.value;
+        alertType.value = 'error';
+      });
+  } else {
+    alertMessage.value =
+      'Keplr extension is not installed. Please install it to proceed.';
+    alertType.value = 'info';
   }
 }
 </script>
 
 <template>
-  <div class="mx-auto max-w-screen-lg">
+  <div class="mx-auto max-w-screen-lg text-center">
     <h1 class="text-4xl font-bold mb-6 p-4">{{ $t('index.add_to_keplr') }}</h1>
-    <div class="flex p-4 pt-0">
-      <!--
+
+    <!--
       <select
         v-model="selected"
         class="select select-bordered mx-5"
@@ -113,10 +128,29 @@ function suggest() {
         </option>
       </select>
       -->
-      <button class="btn btn-primary" @click="suggest">
-        {{ $t('index.add_to_keplr') }}
-      </button>
+    <button class="btn btn-primary mb-8" @click="suggest">
+      {{ $t('index.add_to_keplr') }}
+    </button>
+
+    <div v-if="alertType === 'info' && alertMessage">
+      <div class="bg-info p-8 rounded-3xl text-center">
+        <div class="mb-4 text-xl text-gray-700">{{ alertMessage }}</div>
+        <a
+          href="https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap"
+          target="_blank"
+          class="btn btn-neutral"
+        >
+          {{ $t('index.install_keplr') }}
+        </a>
+      </div>
     </div>
+    <div
+      v-else-if="alertMessage"
+      :class="`bg-${alertType} p-4 rounded-3xl text-gray-700 text-center`"
+    >
+      {{ alertMessage }}
+    </div>
+
     <div class="text-main mt-5">
       <textarea
         v-model="conf"

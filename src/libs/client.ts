@@ -518,4 +518,11 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
       hash,
     });
   }
+  async getProofofexistenceProofs(page?: PageRequest) {
+    if (!page) page = new PageRequest();
+    const query = `?pagination.count_total=true&pagination.limit=${
+      page.limit || 20
+    }&pagination.offset=${page.offset || 0}`;
+    return this.request(this.registry.proofofexistence_proofs, {}, query);
+  }
 }

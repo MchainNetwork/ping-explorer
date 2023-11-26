@@ -1,16 +1,29 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useBlockchain, useWalletStore, useTxDialog } from '@/stores';
+import { onMounted, ref } from 'vue';
+import {
+  useBlockchain,
+  useWalletStore,
+  useTxDialog,
+  useFormatter,
+} from '@/stores';
+import { PageRequest, type Pagination } from '@/types';
+
 import { Icon } from '@iconify/vue';
+import PaginationBar from '@/components/PaginationBar.vue';
 
 const walletStore = useWalletStore();
 const blockchain = useBlockchain();
 const dialog = useTxDialog();
 
+const format = useFormatter();
+
 const fileInput = ref<HTMLInputElement | null>(null);
 const proofExists = ref(false);
 const proofHash = ref('');
 const proofData = ref({ creator: '', timestamp: '' });
+
+const pageRequest = ref(new PageRequest());
+const pageResponse = ref({} as Pagination);
 
 const calculateHash = async (file: File) => {
   const buffer = await file.arrayBuffer();
@@ -65,6 +78,30 @@ const triggerFileInput = () => {
 
 const isLoading = ref(false);
 const isStart = ref(true);
+
+type ProofMetadata = {
+  creator: string;
+  timestamp: string;
+};
+
+type Proof = {
+  hash: string;
+  metadata: ProofMetadata;
+};
+
+const proofs = ref<Proof[]>([]);
+
+function pageload(p: number) {
+  pageRequest.value.setPage(p);
+  blockchain.rpc.getProofofexistenceProofs(pageRequest.value).then((x) => {
+    proofs.value = x.proofs;
+    pageResponse.value = x.pagination;
+  });
+}
+
+onMounted(() => {
+  pageload(1);
+});
 </script>
 
 <template>
@@ -76,7 +113,7 @@ const isStart = ref(true);
       >
         Proof of Existence
       </h2>
-      <p v-if="isStart">
+      <p v-if="isStart" class="text-md md:text-lg">
         Ensure the authenticity and existence of your digital files with
         blockchain technology.
       </p>
@@ -193,6 +230,42 @@ const isStart = ref(true);
       >
         Check another file
       </button>
+
+      <div class="text-left">
+        <h2 class="text-xl font-bold mb-4 mx-2">Latest Stored Proofs</h2>
+        <div class="overflow-x-auto">
+          <table class="table table-compact">
+            <thead>
+              <tr>
+                <td>Hash</td>
+                <td class="text-right">Date</td>
+              </tr>
+            </thead>
+            <tr
+              :key="item.hash"
+              v-for="item in proofs"
+              class="hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
+            >
+              <td width="20%">
+                <RouterLink
+                  :to="'/mchain/proofofexistence/' + item.hash"
+                  class="hover:underline"
+                >
+                  {{ item.hash }}
+                </RouterLink>
+              </td>
+              <td class="text-right">
+                {{ format.toDay(item.metadata.timestamp, 'datetime') }}
+              </td>
+            </tr>
+          </table>
+        </div>
+        <PaginationBar
+          :limit="pageRequest.limit"
+          :total="pageResponse.total"
+          :callback="pageload"
+        />
+      </div>
     </div>
   </div>
 </template>

@@ -201,6 +201,10 @@ export const DEFAULT: RequestRegistry = {
     url: '/mchain/proofofexistence/v1beta1/proofs/{hash}',
     adapter,
   },
+  proofofexistence_proofs: {
+    url: '/mchain/proofofexistence/v1beta1/proofs',
+    adapter,
+  },
 
   mint_inflation: { url: '/cosmos/mint/v1beta1/inflation', adapter },
   mint_params: { url: '/cosmos/mint/v1beta1/params', adapter },

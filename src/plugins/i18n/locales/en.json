@@ -496,5 +496,27 @@
     "input_placeholder": "Enter your Mchain address",
     "sending": "Sending...",
     "get_tokens": "Get Testnet Tokens"
+  },
+  "poe": {
+    "proof_of_existence": "Proof of Existence",
+    "ensure_the_authenticity_and_existence": "Ensure the authenticity and existence of your digital files with blockchain technology.",
+    "immutable_proof": "Immutable Proof",
+    "blockchain_technology_ensures": "Blockchain technology ensures that once a proof is recorded, it cannot be altered, providing undeniable evidence of existence.",
+    "easy_verification": "Easy Verification",
+    "effortlessly_verify": "Effortlessly verify the authenticity of any document or digital asset, ensuring its integrity and origin through blockchain technology.",
+    "global_accessibility": "Global Accessibility",
+    "access_and_verify": "Access and verify proofs from anywhere in the world, making your digital files universally recognized and verifiable.",
+    "drag_and_drop_a_file_here": "Drag and drop a file here or click to select a file",
+    "for_your_security_and_privacy": "For your security and privacy, we only generate and upload the hash of your file directly from your browser. The actual content of the file is not uploaded or stored on our servers.",
+    "proof_found_in_the_blockchain": "Proof found in the blockchain",
+    "hash_registered_in_blockchain": "Hash Registered in Blockchain",
+    "creator": "Creator",
+    "timestamp": "Timestamp",
+    "proof_not_found_in_the_blockchain": "Proof not found in the blockchain",
+    "add_proof_to_blockchain": "Add Proof to Blockchain",
+    "check_another_file": "Check another file",
+    "stored_proofs": "Stored Proofs",
+    "hash": "Hash",
+    "date": "Date"
   }
 }

@@ -481,5 +481,27 @@
     "input_placeholder": "Masukkan alamat Mchain Anda",
     "sending": "Mengirim...",
     "get_tokens": "Dapatkan Token Testnet"
+  },
+  "poe": {
+    "proof_of_existence": "Bukti Keberadaan",
+    "ensure_the_authenticity_and_existence": "Pastikan keaslian dan keberadaan file digital Anda dengan teknologi blockchain.",
+    "immutable_proof": "Bukti Tak Terubah",
+    "blockchain_technology_ensures": "Teknologi blockchain memastikan bahwa setelah bukti direkam, tidak dapat diubah, memberikan bukti yang tidak dapat disangkal tentang keberadaan.",
+    "easy_verification": "Verifikasi Mudah",
+    "effortlessly_verify": "Verifikasi keaslian dokumen atau aset digital dengan mudah, memastikan integritas dan asal usulnya melalui teknologi blockchain.",
+    "global_accessibility": "Aksesibilitas Global",
+    "access_and_verify": "Akses dan verifikasi bukti dari mana saja di dunia, membuat file digital Anda diakui dan dapat diverifikasi secara universal.",
+    "drag_and_drop_a_file_here": "Seret dan lepaskan file di sini atau klik untuk memilih file",
+    "for_your_security_and_privacy": "Untuk keamanan dan privasi Anda, kami hanya menghasilkan dan mengunggah hash file Anda langsung dari browser Anda. Konten sebenarnya dari file tidak diunggah atau disimpan di server kami.",
+    "proof_found_in_the_blockchain": "Bukti Ditemukan di Blockchain",
+    "hash_registered_in_blockchain": "Hash Terdaftar di Blockchain",
+    "creator": "Pencipta",
+    "timestamp": "Cap Waktu",
+    "proof_not_found_in_the_blockchain": "Bukti Tidak Ditemukan di Blockchain",
+    "add_proof_to_blockchain": "Tambahkan Bukti ke Blockchain",
+    "check_another_file": "Periksa File Lain",
+    "stored_proofs": "Bukti yang Disimpan",
+    "hash": "Hash",
+    "date": "Tanggal"
   }
 }

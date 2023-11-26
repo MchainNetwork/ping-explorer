@@ -491,5 +491,27 @@
     "input_placeholder": "Ingresa tu dirección de Mchain",
     "sending": "Enviando...",
     "get_tokens": "Obtener Tokens de Testnet"
+  },
+  "poe": {
+    "proof_of_existence": "Prueba de Existencia",
+    "ensure_the_authenticity_and_existence": "Asegura la autenticidad y existencia de tus archivos digitales con la tecnología blockchain.",
+    "immutable_proof": "Prueba Inmutable",
+    "blockchain_technology_ensures": "La tecnología blockchain asegura que una vez registrada la prueba, esta no puede ser alterada, proporcionando evidencia indiscutible de existencia.",
+    "easy_verification": "Verificación Fácil",
+    "effortlessly_verify": "Verifica sin esfuerzo la autenticidad de cualquier documento o activo digital, asegurando su integridad y origen a través de la tecnología blockchain.",
+    "global_accessibility": "Accesibilidad Global",
+    "access_and_verify": "Accede y verifica pruebas desde cualquier parte del mundo, haciendo que tus archivos digitales sean reconocidos y verificables universalmente.",
+    "drag_and_drop_a_file_here": "Arrastra y suelta un archivo aquí o haz clic para seleccionar un archivo",
+    "for_your_security_and_privacy": "Para tu seguridad y privacidad, solo generamos y subimos el hash de tu archivo directamente desde tu navegador. El contenido real del archivo no se sube ni se almacena en nuestros servidores.",
+    "proof_found_in_the_blockchain": "Prueba encontrada en la blockchain",
+    "hash_registered_in_blockchain": "Hash Registrado en la Blockchain",
+    "creator": "Creador",
+    "timestamp": "Fecha y Hora",
+    "proof_not_found_in_the_blockchain": "Prueba no encontrada en la blockchain",
+    "add_proof_to_blockchain": "Añadir Prueba a la Blockchain",
+    "check_another_file": "Comprobar otro archivo",
+    "stored_proofs": "Pruebas Almacenadas",
+    "hash": "Hash",
+    "date": "Fecha"
   }
 }

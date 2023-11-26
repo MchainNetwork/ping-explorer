@@ -496,5 +496,27 @@
     "input_placeholder": "Geben Sie Ihre Mchain-Adresse ein",
     "sending": "Senden...",
     "get_tokens": "Testnetz-Token erhalten"
+  },
+  "poe": {
+    "proof_of_existence": "Beweis der Existenz",
+    "ensure_the_authenticity_and_existence": "Sichern Sie die Authentizität und Existenz Ihrer digitalen Dateien mit Blockchain-Technologie.",
+    "immutable_proof": "Unveränderlicher Beweis",
+    "blockchain_technology_ensures": "Die Blockchain-Technologie stellt sicher, dass einmal aufgezeichnete Beweise nicht verändert werden können, und bietet so unbestreitbare Beweise für die Existenz.",
+    "easy_verification": "Einfache Überprüfung",
+    "effortlessly_verify": "Überprüfen Sie mühelos die Echtheit jedes Dokuments oder digitalen Vermögenswerts und stellen Sie so dessen Integrität und Herkunft durch Blockchain-Technologie sicher.",
+    "global_accessibility": "Globale Zugänglichkeit",
+    "access_and_verify": "Greifen Sie auf Beweise von überall auf der Welt zu und verifizieren Sie diese, wodurch Ihre digitalen Dateien weltweit anerkannt und überprüfbar werden.",
+    "drag_and_drop_a_file_here": "Ziehen Sie eine Datei hierher oder klicken Sie, um eine Datei auszuwählen",
+    "for_your_security_and_privacy": "Zu Ihrer Sicherheit und Privatsphäre generieren und laden wir nur den Hash Ihrer Datei direkt von Ihrem Browser hoch. Der tatsächliche Inhalt der Datei wird nicht hochgeladen oder auf unseren Servern gespeichert.",
+    "proof_found_in_the_blockchain": "Beweis in der Blockchain gefunden",
+    "hash_registered_in_blockchain": "Hash in der Blockchain registriert",
+    "creator": "Ersteller",
+    "timestamp": "Zeitstempel",
+    "proof_not_found_in_the_blockchain": "Beweis nicht in der Blockchain gefunden",
+    "add_proof_to_blockchain": "Beweis zur Blockchain hinzufügen",
+    "check_another_file": "Eine andere Datei überprüfen",
+    "stored_proofs": "Gespeicherte Beweise",
+    "hash": "Hash",
+    "date": "Datum"
   }
 }

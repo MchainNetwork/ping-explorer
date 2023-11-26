@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, onBeforeUnmount, ref } from 'vue';
 import {
   useBlockchain,
   useWalletStore,
@@ -7,6 +7,9 @@ import {
   useFormatter,
 } from '@/stores';
 import { PageRequest, type Pagination } from '@/types';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 import { Icon } from '@iconify/vue';
 import PaginationBar from '@/components/PaginationBar.vue';
@@ -99,7 +102,15 @@ function pageload(p: number) {
   });
 }
 
+const originalTitle = document.title;
+
+onBeforeUnmount(() => {
+  document.title = originalTitle;
+});
+
 onMounted(() => {
+  document.title = t('poe.proof_of_existence');
+
   pageload(1);
 });
 </script>
@@ -112,37 +123,38 @@ onMounted(() => {
         v-if="isStart"
         class="text-3xl md:text-5xl font-bold text-primary mb-6"
       >
-        Proof of Existence
+        {{ $t('poe.proof_of_existence') }}
       </h2>
       <p v-if="isStart" class="text-md md:text-lg">
-        Ensure the authenticity and existence of your digital files with
-        blockchain technology.
+        {{ $t('poe.ensure_the_authenticity_and_existence') }}
       </p>
 
       <div v-if="isStart" class="grid grid-cols-1 md:grid-cols-3 gap-4 my-10">
         <div>
           <Icon icon="uil:lock" class="text-2xl mx-auto" />
-          <h3 class="text-xl font-bold my-2">Immutable Proof</h3>
+          <h3 class="text-xl font-bold my-2">
+            {{ $t('poe.immutable_proof') }}
+          </h3>
           <p class="text-sm">
-            Blockchain technology ensures that once a proof is recorded, it
-            cannot be altered, providing undeniable evidence of existence.
+            {{ $t('poe.blockchain_technology_ensures') }}
           </p>
         </div>
         <div>
           <Icon icon="uil:file-check" class="text-2xl mx-auto" />
-          <h3 class="text-xl font-bold my-2">Easy Verification</h3>
+          <h3 class="text-xl font-bold my-2">
+            {{ $t('poe.easy_verification') }}
+          </h3>
           <p class="text-sm">
-            Effortlessly verify the authenticity of any document or digital
-            asset, ensuring its integrity and origin trought blockchain
-            technology.
+            {{ $t('poe.effortlessly_verify') }}
           </p>
         </div>
         <div>
           <Icon icon="uil:globe" class="text-2xl mx-auto" />
-          <h3 class="text-xl font-bold my-2">Global Accessibility</h3>
+          <h3 class="text-xl font-bold my-2">
+            {{ $t('poe.global_accessibility') }}
+          </h3>
           <p class="text-sm">
-            Access and verify proofs from anywhere in the world, making your
-            digital files universally recognized and verifiable.
+            {{ $t('poe.access_and_verify') }}
           </p>
         </div>
       </div>
@@ -155,7 +167,7 @@ onMounted(() => {
         @click="triggerFileInput"
       >
         <Icon icon="uil:file-upload" class="text-5xl mx-auto mb-6 opacity-70" />
-        <div>Drag and drop a file here or click to select a file</div>
+        <div>{{ $t('poe.drag_and_drop_a_file_here') }}</div>
         <input
           type="file"
           class="hidden"
@@ -163,9 +175,7 @@ onMounted(() => {
           @change="handleFileChange"
         />
         <div class="text-sm opacity-70">
-          For your security and privacy, we only generate and upload the hash of
-          your file directly from your browser. The actual content of the file
-          is not uploaded or stored on our servers.
+          {{ $t('poe.for_your_security_and_privacy') }}
         </div>
       </div>
 
@@ -174,29 +184,23 @@ onMounted(() => {
         class="border-dashed border-4 border-success rounded-3xl p-10 my-20 text-xl"
       >
         <h3 class="text-5xl font-bold text-success mb-6">
-          Proof found in the blockchain
+          {{ $t('poe.proof_found_in_the_blockchain') }}
         </h3>
         <table class="table table-md mx-auto">
           <tbody>
             <tr>
               <td width="40%" class="font-bold">
-                Hash Registered in Blockchain
+                {{ $t('poe.hash_registered_in_blockchain') }}
               </td>
-              <td class="break-all monospace">
-                {{ proofHash }}
-              </td>
+              <td class="break-all monospace">{{ proofHash }}</td>
             </tr>
             <tr>
-              <td class="font-bold">Creator</td>
-              <td>
-                {{ proofData.creator }}
-              </td>
+              <td class="font-bold">{{ $t('poe.creator') }}</td>
+              <td>{{ proofData.creator }}</td>
             </tr>
             <tr>
-              <td class="font-bold">Timestamp</td>
-              <td>
-                {{ proofData.timestamp }}
-              </td>
+              <td class="font-bold">{{ $t('poe.timestamp') }}</td>
+              <td>{{ proofData.timestamp }}</td>
             </tr>
           </tbody>
         </table>
@@ -207,7 +211,7 @@ onMounted(() => {
         class="border-dashed border-4 border-primary rounded-3xl p-10 my-20 text-xl"
       >
         <h3 class="text-5xl font-bold text-primary mb-10">
-          Proof not found in the blockchain
+          {{ $t('poe.proof_not_found_in_the_blockchain') }}
         </h3>
 
         <label
@@ -216,14 +220,12 @@ onMounted(() => {
           @click="
             dialog.open(
               'proofofexistence_create_proof',
-              {
-                hash: proofHash,
-              },
+              { hash: proofHash },
               updateState
             )
           "
         >
-          Add Proof to Blockchain
+          {{ $t('poe.add_proof_to_blockchain') }}
         </label>
       </div>
 
@@ -235,17 +237,19 @@ onMounted(() => {
           proofHash = '';
         "
       >
-        Check another file
+        {{ $t('poe.check_another_file') }}
       </button>
 
       <div class="text-left mb-20" v-if="isStart">
-        <h2 class="text-xl font-bold mb-4 mx-2">Stored Proofs</h2>
+        <h2 class="text-xl font-bold mb-4 mx-2">
+          {{ $t('poe.stored_proofs') }}
+        </h2>
         <div class="overflow-x-auto">
           <table class="table table-compact">
             <thead>
               <tr>
-                <td>Hash</td>
-                <td class="text-right">Date</td>
+                <td>{{ $t('poe.hash') }}</td>
+                <td class="text-right">{{ $t('poe.date') }}</td>
               </tr>
             </thead>
             <tr
@@ -254,7 +258,11 @@ onMounted(() => {
               class="hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
             >
               <td width="20%">
-                {{ item.hash }}
+                <RouterLink
+                  :to="'/mchain/proofofexistence/' + item.hash"
+                  class="hover:underline"
+                  >{{ item.hash }}</RouterLink
+                >
               </td>
               <td class="text-right">
                 {{ format.toDay(item.metadata.timestamp, 'datetime') }}

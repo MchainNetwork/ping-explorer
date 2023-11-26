@@ -496,5 +496,27 @@
     "input_placeholder": "Entrez votre adresse Mchain",
     "sending": "Envoi...",
     "get_tokens": "Obtenir des Jetons Testnet"
+  },
+  "poe": {
+    "proof_of_existence": "Preuve d'Existence",
+    "ensure_the_authenticity_and_existence": "Assurez l'authenticité et l'existence de vos fichiers numériques avec la technologie blockchain.",
+    "immutable_proof": "Preuve Immuable",
+    "blockchain_technology_ensures": "La technologie blockchain garantit qu'une fois une preuve enregistrée, elle ne peut être modifiée, fournissant une preuve indéniable d'existence.",
+    "easy_verification": "Vérification Facile",
+    "effortlessly_verify": "Vérifiez sans effort l'authenticité de tout document ou actif numérique, en garantissant son intégrité et son origine à travers la technologie blockchain.",
+    "global_accessibility": "Accessibilité Mondiale",
+    "access_and_verify": "Accédez et vérifiez les preuves de n'importe où dans le monde, rendant vos fichiers numériques universellement reconnus et vérifiables.",
+    "drag_and_drop_a_file_here": "Glissez-déposez un fichier ici ou cliquez pour sélectionner un fichier",
+    "for_your_security_and_privacy": "Pour votre sécurité et votre vie privée, nous générons et téléchargeons uniquement le hash de votre fichier directement depuis votre navigateur. Le contenu réel du fichier n'est pas téléchargé ni stocké sur nos serveurs.",
+    "proof_found_in_the_blockchain": "Preuve trouvée dans la blockchain",
+    "hash_registered_in_blockchain": "Hash Enregistré dans la Blockchain",
+    "creator": "Créateur",
+    "timestamp": "Horodatage",
+    "proof_not_found_in_the_blockchain": "Preuve non trouvée dans la blockchain",
+    "add_proof_to_blockchain": "Ajouter une Preuve à la Blockchain",
+    "check_another_file": "Vérifier un autre fichier",
+    "stored_proofs": "Preuves Stockées",
+    "hash": "Hash",
+    "date": "Date"
   }
 }

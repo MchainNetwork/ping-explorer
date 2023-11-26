@@ -482,5 +482,27 @@
     "input_placeholder": "输入您的 Mchain 地址",
     "sending": "发送中...",
     "get_tokens": "获取测试网代币"
+  },
+  "poe": {
+    "proof_of_existence": "存在证明",
+    "ensure_the_authenticity_and_existence": "使用区块链技术确保您的数字文件的真实性和存在性。",
+    "immutable_proof": "不可变证明",
+    "blockchain_technology_ensures": "区块链技术确保一旦记录证明，就无法更改，提供无可否认的存在证据。",
+    "easy_verification": "简易验证",
+    "effortlessly_verify": "轻松验证任何文档或数字资产的真实性，确保其完整性和来源通过区块链技术。",
+    "global_accessibility": "全球可访问性",
+    "access_and_verify": "从世界各地访问和验证证据，使您的数字文件得到全球认可和可验证。",
+    "drag_and_drop_a_file_here": "拖放文件到这里或点击选择文件",
+    "for_your_security_and_privacy": "为了您的安全和隐私，我们只从您的浏览器直接生成和上传文件的哈希。文件的实际内容不会上传或存储在我们的服务器上。",
+    "proof_found_in_the_blockchain": "在区块链中找到证明",
+    "hash_registered_in_blockchain": "区块链中注册的哈希",
+    "creator": "创建者",
+    "timestamp": "时间戳",
+    "proof_not_found_in_the_blockchain": "在区块链中未找到证明",
+    "add_proof_to_blockchain": "将证明添加到区块链",
+    "check_another_file": "检查另一个文件",
+    "stored_proofs": "存储的证明",
+    "hash": "哈希",
+    "date": "日期"
   }
 }

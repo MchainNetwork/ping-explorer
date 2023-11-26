@@ -18,7 +18,7 @@
     "order": 3
   },
   {
-    "title": "Proof of Existence",
+    "title": "poe.proof_of_existence",
     "to": { "path": "/mchain/proofofexistence" },
     "i18n": true,
     "order": 3

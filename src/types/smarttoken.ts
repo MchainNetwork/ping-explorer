@@ -2,10 +2,16 @@ import type { Coin, PaginatedResponse } from './common';
 
 export interface SmartTokenParams {
   params: {
-      "burn_fee": Coin,
-      "issue_fee": Coin,
-      "mint_fee": Coin,
-  }
+    burn_fee: Coin;
+    issue_fee: Coin;
+    mint_fee: Coin;
+  };
+}
+
+export interface ProofOfExistenceParams {
+  params: {
+    issue_fee: Coin;
+  };
 }
 
 export enum TokenFeature {
@@ -33,6 +39,6 @@ export interface SmartTokenDenom {
   features: TokenFeature[];
 }
 
-export interface PaginatedSmartTokens extends PaginatedResponse{
-  smarttokens: SmartTokenDenom[]
+export interface PaginatedSmartTokens extends PaginatedResponse {
+  smarttokens: SmartTokenDenom[];
 }

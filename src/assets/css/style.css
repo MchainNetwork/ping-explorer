@@ -145,5 +145,8 @@ html[data-theme='dark']{
 
 .dark ::selection {
   color: #fff;
- }
+}
 
+.form-control {
+  margin-bottom: 8px;
+}

@@ -60,6 +60,10 @@ export const useParamStore = defineStore('paramstore', {
       title: 'BMint Parameters',
       items: [] as Array<any>,
     },
+    proof_of_existence: {
+      title: 'Proof of Existence Parameters',
+      items: [] as Array<any>,
+    },
     staking: {
       title: 'Staking Parameters',
       items: [] as Array<any>,
@@ -95,8 +99,9 @@ export const useParamStore = defineStore('paramstore', {
       this.handleBaseBlockLatest();
       this.handleSmartTokenParams();
       this.handleMnsParams();
-      this.handleMintParam()
+      this.handleMintParam();
       this.handleBmintParams();
+      this.handleProofOfExistenceParams();
       this.handleStakingParams();
       this.handleSlashingParams();
       this.handleDistributionParams();
@@ -124,10 +129,12 @@ export const useParamStore = defineStore('paramstore', {
     },
     async handleSmartTokenParams() {
       const res = await this.getSmartTokenParams();
-      this.smarttoken.items = Object.entries(res.params).map(([key, value]) => ({
-        subtitle: key,
-        value: value,
-      }));
+      this.smarttoken.items = Object.entries(res.params).map(
+        ([key, value]) => ({
+          subtitle: key,
+          value: value,
+        })
+      );
     },
     async handleMnsParams() {
       const res = await this.getMnsParams();
@@ -142,6 +149,15 @@ export const useParamStore = defineStore('paramstore', {
         subtitle: key,
         value: value,
       }));
+    },
+    async handleProofOfExistenceParams() {
+      const res = await this.getProofOfExistenceParams();
+      this.proof_of_existence.items = Object.entries(res.params).map(
+        ([key, value]) => ({
+          subtitle: key,
+          value: value,
+        })
+      );
     },
     async handleStakingParams() {
       const res = await this.getStakingParams();
@@ -183,12 +199,15 @@ export const useParamStore = defineStore('paramstore', {
       );
     },
     async handleMintParam() {
+      this.getMintingInflation().then((res) => {
+        const chainIndex = this.chain.items.findIndex(
+          (x) => x.subtitle === 'params.inflation'
+        );
+        this.chain.items[chainIndex].value = `${percent(
+          Number(res.inflation)
+        )}%`;
+      });
 
-      this.getMintingInflation().then(res => {
-          const chainIndex = this.chain.items.findIndex(x => x.subtitle === 'params.inflation')
-          this.chain.items[chainIndex].value = `${percent(Number(res.inflation))}%`
-      })
-      
       const res = await this.getMintParam();
       this.mint.items = Object.entries(res.params).map(([key, value]) => ({
         subtitle: key,
@@ -253,6 +272,9 @@ export const useParamStore = defineStore('paramstore', {
     async getMintParam() {
       return await this.blockchain.rpc?.getMintParam();
     },
+    async getProofOfExistenceParams() {
+      return await this.blockchain.rpc?.getProofOfExistenceParams();
+    },
     async getStakingParams() {
       return await this.blockchain.rpc?.getStakingParams();
     },
@@ -289,6 +311,6 @@ export const useParamStore = defineStore('paramstore', {
     },
     async getMintingInflation() {
       return await this.blockchain.rpc?.getMintInflation();
-    }
+    },
   },
 });

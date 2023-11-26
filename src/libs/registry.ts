@@ -110,6 +110,8 @@ export interface RequestRegistry extends AbstractRegistry {
   mns_bids: Request<PaginatedBids>;
   mns_forsale: Request<PaginatedForsale>;
 
+  proof_of_existence_params: Request<ProofOfExistenceParams>;
+
   mint_inflation: Request<{ inflation: string }>;
   mint_params: Request<{
     params: {

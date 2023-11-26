@@ -55,6 +55,13 @@
   min-height: 40%;
 }
 
+.bg-gradient-blur-wrapper.poe {
+  left: 40%;
+  top: 160px;
+  max-width: 30%;
+  min-height: 30%;
+}
+
 .bg-gradient-blur-wrapper.gov {
   left: -224px;
   top: 467px;

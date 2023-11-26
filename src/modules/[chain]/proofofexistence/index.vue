@@ -117,15 +117,15 @@ onMounted(() => {
 
 <template>
   <div>
-    <bg-gradient-blur variant="faucet"></bg-gradient-blur>
-    <div class="relative container mx-auto max-w-screen-md text-center p-4">
+    <bg-gradient-blur variant="poe"></bg-gradient-blur>
+    <div class="relative container mx-auto max-w-screen-lg text-center p-4">
       <h2
         v-if="isStart"
         class="text-3xl md:text-5xl font-bold text-primary mb-6"
       >
         {{ $t('poe.proof_of_existence') }}
       </h2>
-      <p v-if="isStart" class="text-md md:text-lg">
+      <p v-if="isStart" class="text-lg md:text-xl">
         {{ $t('poe.ensure_the_authenticity_and_existence') }}
       </p>
 
@@ -158,10 +158,11 @@ onMounted(() => {
           </p>
         </div>
       </div>
-
+    </div>
+    <div class="relative text-center max-w-screen-md mx-auto">
       <div
         v-if="!proofHash"
-        class="file-drop-area bg-base-100 border-dashed border-4 border-gray-400 cursor-pointer hover:border-primary hover:text-primary rounded-3xl p-10 py-10 my-20 text-xl"
+        class="file-drop-area bg-base-100 border-dashed border-4 border-gray-400 cursor-pointer hover:border-primary hover:text-primary rounded-3xl p-10 py-10 mb-14 text-xl"
         @drop.prevent="handleFile"
         @dragover.prevent
         @click="triggerFileInput"

@@ -344,6 +344,11 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
     return this.request(this.registry.mint_annual_provisions, {});
   }
 
+  // poe
+  async getProofOfExistenceParams() {
+    return this.request(this.registry.proof_of_existence_params, {});
+  }
+
   // ibc
   async getIBCAppTransferDenom(hash: string) {
     return this.request(this.registry.ibc_app_transfer_denom_traces_hash, {

@@ -57,6 +57,8 @@ onMounted(() => {
       <CardParameter :cardItem="store.mns" />
       <!-- Bmint Parameters -->
       <CardParameter :cardItem="store.bmint" />
+      <!-- Proof of Existence Parameters -->
+      <CardParameter :cardItem="store.proof_of_existence" />
       <!-- Governance Parameters -->
       <CardParameter :cardItem="store.gov" />
       <!-- Distribution Parameters -->

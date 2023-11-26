@@ -149,18 +149,24 @@ onMounted(() => {
 
       <div
         v-if="!proofHash"
-        class="file-drop-area border-dashed border-4 border-gray-400 cursor-pointer hover:border-primary hover:text-primary hover:font-bold rounded-3xl p-10 py-20 my-20 text-xl"
+        class="file-drop-area bg-base-100 border-dashed border-4 border-gray-400 cursor-pointer hover:border-primary hover:text-primary rounded-3xl p-10 py-10 my-20 text-xl"
         @drop.prevent="handleFile"
         @dragover.prevent
         @click="triggerFileInput"
       >
-        Drag and drop a file here or click to select a file
+        <Icon icon="uil:file-upload" class="text-5xl mx-auto mb-6 opacity-70" />
+        <div>Drag and drop a file here or click to select a file</div>
         <input
           type="file"
           class="hidden"
           ref="fileInput"
           @change="handleFileChange"
         />
+        <div class="text-sm opacity-70">
+          For your security and privacy, we only generate and upload the hash of
+          your file directly from your browser. The actual content of the file
+          is not uploaded or stored on our servers.
+        </div>
       </div>
 
       <div

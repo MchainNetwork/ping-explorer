@@ -41,6 +41,18 @@ const isDomainRegistered = computed(() => !!domainInfo.value.name);
 
 const blocksPerYear = 5057308;
 
+function determineCharacterSet(name: string) {
+  if (/^[A-Za-z]+$/.test(name)) {
+    return 'letter';
+  } else if (/^[A-Za-z0-9]+$/.test(name)) {
+    return 'alphanumeric';
+  } else if (/[\u{1F600}-\u{1F64F}]/u.test(name)) {
+    return 'emoji';
+  } else {
+    return 'none';
+  }
+}
+
 const calculateTimeRemaining = (itemExpires: number, currentHeight: number) => {
   const blocksRemaining = itemExpires - currentHeight;
   const timeRemainingInSec = (blocksRemaining / blocksPerYear) * 31557600;
@@ -265,7 +277,7 @@ function pageload() {
           <div class="overflow-x-auto">
             <table class="table mb-4">
               <tr>
-                <td width="10%">
+                <td width="20%">
                   <strong> {{ $t('mns.name') }} </strong>
                 </td>
                 <td>{{ domainInfo.name }}</td>
@@ -294,7 +306,7 @@ function pageload() {
               </tr>
               <tr>
                 <td>
-                  <strong> {{ $t('mns.value') }} </strong>
+                  <strong>Resolver</strong>
                 </td>
                 <td>{{ domainInfo.value }}</td>
               </tr>
@@ -303,6 +315,38 @@ function pageload() {
                   <strong> {{ $t('mns.data') }} </strong>
                 </td>
                 <td>{{ domainInfo.data }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div v-if="isDomainRegistered" class="bg-base-100 p-4 rounded-xl mb-4">
+          <h3 class="text-lg font-bold px-2 mb-4">Properties</h3>
+          <div class="overflow-x-auto">
+            <table class="table mb-4">
+              <tr>
+                <td width="20%">
+                  <strong>Creation Date</strong>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Registration Date</strong>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Character Set</strong>
+                </td>
+                <td>{{ determineCharacterSet(domainInfo.name) }}</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Length</strong>
+                </td>
+                <td>{{ domainInfo.name.length }}</td>
               </tr>
             </table>
           </div>

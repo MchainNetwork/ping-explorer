@@ -18,6 +18,12 @@
     "order": 3
   },
   {
+    "title": "Proof of Existence",
+    "to": { "path": "/mchain/proofofexistence" },
+    "i18n": true,
+    "order": 3
+  },
+  {
     "title": "module.staking",
     "to": { "path": "/mchain/staking" },
     "i18n": true,

@@ -513,4 +513,9 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
     }`;
     return this.request(this.registry.mns_reverses, {}, query);
   }
+  async getProofofexistenceProofByHash(hash: string) {
+    return this.request(this.registry.proofofexistence_proof_by_hash, {
+      hash,
+    });
+  }
 }

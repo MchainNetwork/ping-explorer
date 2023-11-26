@@ -154,7 +154,7 @@ function selected(route: any, nav: NavLink) {
           }"
         >
           <div
-            class="text-base font-semibold capitalize flex-1 text-gray-700 dark:text-gray-200 pl-6 whitespace-nowrap"
+            class="text-base font-semibold flex-1 text-gray-700 dark:text-gray-200 pl-6 whitespace-nowrap"
           >
             {{ $t(item?.title) }}
           </div>

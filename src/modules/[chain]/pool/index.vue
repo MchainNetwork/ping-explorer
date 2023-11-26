@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from '@vue/reactivity';
 import { useBlockchain, useFormatter } from '@/stores';
-import { type AuthAccount, type Coin } from '@/types';
+import type { Coin } from '@/types';
 import { onMounted } from 'vue';
 import { Icon } from '@iconify/vue';
 const props = defineProps(['chain']);

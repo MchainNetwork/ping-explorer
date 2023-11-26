@@ -100,7 +100,7 @@ function suggest() {
         alertMessage.value = 'Chain added successfully to Keplr!';
         alertType.value = 'success';
       })
-      .catch((e) => {
+      .catch((e: any) => {
         error.value = e.message || 'An error occurred';
         alertMessage.value = error.value;
         alertType.value = 'error';

@@ -106,6 +106,7 @@ onMounted(() => {
 
 <template>
   <div>
+    <bg-gradient-blur variant="faucet"></bg-gradient-blur>
     <div class="relative container mx-auto max-w-screen-md text-center p-4">
       <h2
         v-if="isStart"
@@ -128,7 +129,7 @@ onMounted(() => {
           </p>
         </div>
         <div>
-          <Icon icon="uil:check" class="text-2xl mx-auto" />
+          <Icon icon="uil:file-check" class="text-2xl mx-auto" />
           <h3 class="text-xl font-bold my-2">Easy Verification</h3>
           <p class="text-sm">
             Effortlessly verify the authenticity of any document or digital
@@ -231,8 +232,8 @@ onMounted(() => {
         Check another file
       </button>
 
-      <div class="text-left">
-        <h2 class="text-xl font-bold mb-4 mx-2">Latest Stored Proofs</h2>
+      <div class="text-left mb-20" v-if="isStart">
+        <h2 class="text-xl font-bold mb-4 mx-2">Stored Proofs</h2>
         <div class="overflow-x-auto">
           <table class="table table-compact">
             <thead>
@@ -247,12 +248,7 @@ onMounted(() => {
               class="hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
             >
               <td width="20%">
-                <RouterLink
-                  :to="'/mchain/proofofexistence/' + item.hash"
-                  class="hover:underline"
-                >
-                  {{ item.hash }}
-                </RouterLink>
+                {{ item.hash }}
               </td>
               <td class="text-right">
                 {{ format.toDay(item.metadata.timestamp, 'datetime') }}

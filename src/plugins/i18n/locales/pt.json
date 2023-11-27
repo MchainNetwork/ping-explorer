@@ -513,6 +513,7 @@
     "add_proof_to_blockchain": "Adicionar Prova à Blockchain",
     "check_another_file": "Verificar outro arquivo",
     "stored_proofs": "Provas Armazenadas",
+    "proof": "Prova",
     "hash": "Hash",
     "date": "Data"
   }

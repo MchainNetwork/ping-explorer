@@ -516,6 +516,7 @@
     "add_proof_to_blockchain": "Add Proof to Blockchain",
     "check_another_file": "Check another file",
     "stored_proofs": "Stored Proofs",
+    "proof": "Proof",
     "hash": "Hash",
     "date": "Date"
   }

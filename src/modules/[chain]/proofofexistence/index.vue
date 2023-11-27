@@ -9,6 +9,7 @@ const { t } = useI18n();
 
 import { Icon } from '@iconify/vue';
 import PaginationBar from '@/components/PaginationBar.vue';
+import IdentityIcon from '@/components/IdentityIcon.vue';
 
 const props = defineProps(['chain']);
 
@@ -47,23 +48,42 @@ const triggerFileInput = () => {
   fileInput.value?.click();
 };
 
-type ProofMetadata = {
-  creator: string;
+const txs = ref<any[]>([]);
+
+interface Event {
+  type: string;
+  attributes?: Array<{ key: string; value: string; index: boolean }>;
+}
+
+interface ProcessedTxData {
+  txhash: string;
+  height: string;
   timestamp: string;
-};
-
-type Proof = {
-  hash: string;
-  metadata: ProofMetadata;
-};
-
-const proofs = ref<Proof[]>([]);
+  attributes: { [key: string]: string };
+}
 
 function pageload(p: number) {
   pageRequest.value.setPage(p);
-  blockchain.rpc.getProofofexistenceProofs(pageRequest.value).then((x) => {
-    proofs.value = x.proofs;
-    pageResponse.value = x.pagination;
+  blockchain.rpc.getTxsByPoe(pageRequest.value).then((x) => {
+    const processedData: ProcessedTxData[] = x.tx_responses.map(
+      (txResponse) => {
+        const attributes = txResponse.events.reduce((acc, event) => {
+          event.attributes.forEach((attr) => {
+            acc[attr.key] = attr.value.replace(/"/g, '');
+          });
+          return acc;
+        }, {} as { [key: string]: string });
+
+        return {
+          txhash: txResponse.txhash,
+          height: txResponse.height,
+          timestamp: txResponse.timestamp,
+          attributes: attributes,
+        };
+      }
+    );
+    txs.value = processedData;
+    pageResponse.value.total = String(x.total);
   });
 }
 
@@ -140,43 +160,65 @@ onMounted(() => {
           {{ $t('poe.for_your_security_and_privacy') }}
         </div>
       </div>
+    </div>
 
-      <div class="text-left mb-20">
-        <h2 class="text-xl font-bold mb-4 mx-2">
-          {{ $t('poe.stored_proofs') }}
-        </h2>
-        <div class="overflow-x-auto">
-          <table class="table table-compact">
-            <thead>
-              <tr>
-                <td>{{ $t('poe.hash') }}</td>
-                <td class="text-right">{{ $t('poe.date') }}</td>
-              </tr>
-            </thead>
-            <tr
-              :key="item.hash"
-              v-for="item in proofs"
-              class="hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
-            >
-              <td width="20%">
-                <RouterLink
-                  :to="'/mchain/proofofexistence/' + item.hash"
-                  class="hover:underline"
-                  >{{ item.hash }}</RouterLink
-                >
-              </td>
-              <td class="text-right whitespace-nowrap">
-                {{ format.toDay(item.metadata.timestamp, 'datetime') }}
-              </td>
+    <div class="mb-20 relative container mx-auto max-w-screen-lg text-left p-4">
+      <h2 class="text-xl font-bold mb-4 mx-2">
+        {{ $t('poe.stored_proofs') }}
+      </h2>
+      <div class="overflow-x-auto">
+        <table class="table table-compact">
+          <thead>
+            <tr>
+              <td>{{ $t('poe.creator') }}</td>
+              <td>{{ $t('account.height') }}</td>
+              <td>{{ $t('poe.proof') }}</td>
+              <td class="text-right">{{ $t('poe.date') }}</td>
             </tr>
-          </table>
-        </div>
-        <PaginationBar
-          :limit="pageRequest.limit"
-          :total="pageResponse.total"
-          :callback="pageload"
-        />
+          </thead>
+          <tr
+            :key="index"
+            v-for="(item, index) in txs"
+            class="hover:bg-gray-100 dark:hover:bg-[#1e3b47]"
+          >
+            <td>
+              <RouterLink
+                :to="`/${chain}/account/${item.attributes.creator}`"
+                class="flex items-center text-primary hover:underline"
+              >
+                <IdentityIcon size="sm" :address="item.attributes.creator" />
+                <span class="pl-3 font-semibold">
+                  {{ format.shortAddress(item.attributes.creator) }}
+                </span>
+              </RouterLink>
+            </td>
+            <td>
+              <RouterLink
+                :to="'/mchain/block/' + item.height"
+                class="text-primary hover:underline"
+              >
+                {{ item.height }}
+              </RouterLink>
+            </td>
+            <td width="20%">
+              <RouterLink
+                :to="'/mchain/proofofexistence/' + item.attributes.hash"
+                class="text-primary hover:underline"
+              >
+                {{ item.attributes.hash.substring(0, 32) }}...
+              </RouterLink>
+            </td>
+            <td class="text-right whitespace-nowrap">
+              {{ format.toDay(item.timestamp, 'datetime') }}
+            </td>
+          </tr>
+        </table>
       </div>
+      <PaginationBar
+        :limit="pageRequest.limit"
+        :total="pageResponse.total"
+        :callback="pageload"
+      />
     </div>
   </div>
 </template>

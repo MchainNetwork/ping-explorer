@@ -516,6 +516,7 @@
     "add_proof_to_blockchain": "ब्लॉकचेन में प्रमाण जोड़ें",
     "check_another_file": "दूसरी फ़ाइल जांचें",
     "stored_proofs": "संग्रहित प्रमाण",
+    "proof": "प्रमाण",
     "hash": "हैश",
     "date": "तारीख"
   }

@@ -502,6 +502,7 @@
     "add_proof_to_blockchain": "将证明添加到区块链",
     "check_another_file": "检查另一个文件",
     "stored_proofs": "存储的证明",
+    "proof": "证明",
     "hash": "哈希",
     "date": "日期"
   }

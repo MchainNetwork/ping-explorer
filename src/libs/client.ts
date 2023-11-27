@@ -348,6 +348,13 @@ export class CosmosRestClient extends BaseRestClient<RequestRegistry> {
   async getProofOfExistenceParams() {
     return this.request(this.registry.proof_of_existence_params, {});
   }
+  async getTxsByPoe(page?: PageRequest) {
+    if (!page) page = new PageRequest();
+    const query = `?order_by=2&events=message.module='proofofexistence'&pagination.count_total=true&pagination.limit=${
+      page.limit
+    }&pagination.offset=${page.offset || 0}`;
+    return this.request(this.registry.tx_txs, {}, query);
+  }
 
   // ibc
   async getIBCAppTransferDenom(hash: string) {

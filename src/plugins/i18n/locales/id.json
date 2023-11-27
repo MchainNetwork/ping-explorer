@@ -501,6 +501,7 @@
     "add_proof_to_blockchain": "Tambahkan Bukti ke Blockchain",
     "check_another_file": "Periksa File Lain",
     "stored_proofs": "Bukti yang Disimpan",
+    "proof": "Bukti",
     "hash": "Hash",
     "date": "Tanggal"
   }

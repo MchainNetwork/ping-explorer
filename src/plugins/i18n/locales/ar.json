@@ -516,6 +516,7 @@
     "add_proof_to_blockchain": "أضف الإثبات إلى البلوك تشين",
     "check_another_file": "تحقق من ملف آخر",
     "stored_proofs": "الإثباتات المخزنة",
+    "proof": "الإثبات",
     "hash": "الهاش",
     "date": "التاريخ"
   }

@@ -57,6 +57,7 @@ import type {
   PaginatedNames,
   PaginatedBids,
 } from '@/types/mns';
+import type { ProofofExistenceParams } from '@/types/poe';
 import type { PaginatedTxs, Tx, TxResponse } from '@/types';
 import semver from 'semver';
 export interface Request<T> {
@@ -110,7 +111,7 @@ export interface RequestRegistry extends AbstractRegistry {
   mns_bids: Request<PaginatedBids>;
   mns_forsale: Request<PaginatedForsale>;
 
-  proof_of_existence_params: Request<ProofOfExistenceParams>;
+  proof_of_existence_params: Request<ProofofExistenceParams>;
 
   mint_inflation: Request<{ inflation: string }>;
   mint_params: Request<{

@@ -71,9 +71,9 @@ onMounted(() => {
       <div class="" v-if="!isLoading">
         <div
           v-if="proofExists && proofHash"
-          class="bg-base-100 border-dashed border-4 border-success rounded-3xl p-10 my-20 text-xl"
+          class="bg-base-100 border-dashed border-4 border-success rounded-3xl p-4 md:p-10 my-10 md:my-20 text-xl"
         >
-          <h3 class="text-5xl font-bold text-success mb-6">
+          <h3 class="text-3xl md:text-5xl font-bold text-success mb-6">
             {{ $t('poe.proof_found_in_the_blockchain') }}
           </h3>
           <table class="table table-md mx-auto">
@@ -86,7 +86,7 @@ onMounted(() => {
               </tr>
               <tr>
                 <td class="font-bold">{{ $t('poe.creator') }}</td>
-                <td>{{ proofData.creator }}</td>
+                <td class="break-all">{{ proofData.creator }}</td>
               </tr>
               <tr>
                 <td class="font-bold">{{ $t('poe.timestamp') }}</td>
@@ -98,15 +98,15 @@ onMounted(() => {
 
         <div
           v-if="!proofExists && proofHash"
-          class="bg-base-100 border-dashed border-4 border-primary rounded-3xl p-10 my-20 text-xl"
+          class="bg-base-100 border-dashed border-4 border-primary rounded-3xl p-4 md:p-10 my-10 md:my-20 text-xl"
         >
-          <h3 class="text-5xl font-bold text-primary mb-10">
+          <h3 class="text-3xl md:text-5xl font-bold text-primary mb-10">
             {{ $t('poe.proof_not_found_in_the_blockchain') }}
           </h3>
 
           <label
             for="proofofexistence_create_proof"
-            class="btn btn-md btn-primary mx-4"
+            class="btn btn-md btn-primary mx-4 mb-4"
             @click="
               dialog.open(
                 'proofofexistence_create_proof',

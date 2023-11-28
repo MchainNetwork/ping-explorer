@@ -23,6 +23,23 @@ const fileInput = ref<HTMLInputElement | null>(null);
 const pageRequest = ref(new PageRequest());
 const pageResponse = ref({} as Pagination);
 
+const hashInput = ref('');
+const showInputError = ref(false);
+
+const checkHash = () => {
+  if (isValidHash(hashInput.value)) {
+    showInputError.value = false;
+    router.push(`/${props.chain}/proofofexistence/${hashInput.value}`);
+  } else {
+    showInputError.value = true;
+  }
+};
+
+const isValidHash = (hash: string) => {
+  const regex = /^[a-f0-9]{64}$/i;
+  return regex.test(hash);
+};
+
 const calculateHash = async (file: File) => {
   const buffer = await file.arrayBuffer();
   const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
@@ -164,6 +181,28 @@ onMounted(() => {
         <div class="text-sm opacity-70">
           {{ $t('poe.for_your_security_and_privacy') }}
         </div>
+      </div>
+    </div>
+
+    <div class="relative text-center max-w-screen-md mx-auto my-10">
+      <div class="mb-4">
+        <h3 class="text-lg font-semibold">
+          {{ $t('poe.check_existence_of_proof') }}
+        </h3>
+      </div>
+      <div class="flex justify-center items-center">
+        <input
+          v-model="hashInput"
+          type="text"
+          :placeholder="$t('poe.enter_valid_hash')"
+          class="input input-bordered w-full max-w-sm"
+        />
+        <button class="btn btn-primary ml-2" @click="checkHash">
+          {{ $t('poe.check') }}
+        </button>
+      </div>
+      <div v-if="showInputError" class="text-error max-w-md mt-4 mx-auto">
+        {{ $t('poe.invalid_hash') }}
       </div>
     </div>
 

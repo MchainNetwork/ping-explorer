@@ -1064,9 +1064,9 @@ onMounted(() => {
                 <td>
                   <RouterLink
                     :to="`/${chain}/tx/${item.txhash}`"
-                    class="text-primary hover:underline"
+                    class="text-primary hover:underline font-semibold"
                   >
-                    {{ item.txhash.substring(0, 32) }}...
+                    {{ item.txhash.substring(0, 16) }}...
                   </RouterLink>
                 </td>
                 <td>
@@ -1109,8 +1109,8 @@ onMounted(() => {
                   }}
                   {{ tokenInfo.symbol }}
                 </td>
-                <td class="text-right whitespace-nowrap uppercase">
-                  {{ format.toDay(item.timestamp, 'datetime') }}
+                <td class="text-right whitespace-nowrap">
+                  {{ format.toDay(item.timestamp, 'from') }}
                 </td>
               </tr>
             </tbody>

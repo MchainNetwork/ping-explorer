@@ -505,6 +505,10 @@
     "stored_proofs": "Bukti yang Disimpan",
     "proof": "Bukti",
     "hash": "Hash",
-    "date": "Tanggal"
+    "date": "Tanggal",
+    "check_existence_of_proof": "Periksa Keberadaan Bukti",
+    "enter_valid_hash": "Masukkan Hash yang Valid",
+    "check": "Periksa",
+    "invalid_hash": "Hash Tidak Valid"
   }
 }

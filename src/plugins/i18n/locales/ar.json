@@ -520,6 +520,10 @@
     "stored_proofs": "الإثباتات المخزنة",
     "proof": "الإثبات",
     "hash": "الهاش",
-    "date": "التاريخ"
+    "date": "التاريخ",
+    "check_existence_of_proof": "تحقق من وجود دليل",
+    "enter_valid_hash": "أدخل هاش صالح",
+    "check": "تحقق",
+    "invalid_hash": "هاش غير صالح"
   }
 }

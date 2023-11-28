@@ -520,6 +520,10 @@
     "stored_proofs": "संग्रहित प्रमाण",
     "proof": "प्रमाण",
     "hash": "हैश",
-    "date": "तारीख"
+    "date": "तारीख",
+    "check_existence_of_proof": "प्रमाण की उपस्थिति जांचें",
+    "enter_valid_hash": "एक मान्य हैश दर्ज करें",
+    "check": "जांचें",
+    "invalid_hash": "अमान्य हैश"
   }
 }

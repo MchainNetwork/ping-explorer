@@ -515,6 +515,10 @@
     "stored_proofs": "Pruebas Almacenadas",
     "proof": "Prueba",
     "hash": "Hash",
-    "date": "Fecha"
+    "date": "Fecha",
+    "check_existence_of_proof": "Verificar la Existencia de una Prueba",
+    "enter_valid_hash": "Introduce un Hash Válido",
+    "check": "Verificar",
+    "invalid_hash": "Hash Inválido"
   }
 }

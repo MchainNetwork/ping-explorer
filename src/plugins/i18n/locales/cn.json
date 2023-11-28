@@ -506,6 +506,10 @@
     "stored_proofs": "存储的证明",
     "proof": "证明",
     "hash": "哈希",
-    "date": "日期"
+    "date": "日期",
+    "check_existence_of_proof": "检查证明的存在",
+    "enter_valid_hash": "输入有效的哈希",
+    "check": "检查",
+    "invalid_hash": "无效的哈希"
   }
 }

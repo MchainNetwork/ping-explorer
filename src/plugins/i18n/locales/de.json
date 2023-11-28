@@ -520,6 +520,10 @@
     "stored_proofs": "Gespeicherte Beweise",
     "proof": "Beweis",
     "hash": "Hash",
-    "date": "Datum"
+    "date": "Datum",
+    "check_existence_of_proof": "Existenz eines Nachweises überprüfen",
+    "enter_valid_hash": "Gültigen Hash eingeben",
+    "check": "Überprüfen",
+    "invalid_hash": "Ungültiger Hash"
   }
 }

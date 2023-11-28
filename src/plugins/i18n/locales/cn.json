@@ -94,7 +94,9 @@
     "quantity": "数量",
     "percentage": "百分比",
     "total_burned": "总燃烧",
-    "you": "您"
+    "you": "您",
+    "from": "从",
+    "to": "到"
   },
   "mns": {
     "title": "Mchain 名称服务",

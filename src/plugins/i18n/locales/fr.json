@@ -94,7 +94,9 @@
     "quantity": "Quantité",
     "percentage": "Pourcentage",
     "total_burned": "Total Brûlé",
-    "you": "Vous"
+    "you": "Vous",
+    "from": "De",
+    "to": "À"
   },
   "mns": {
     "title": "Services de Noms Mchain",

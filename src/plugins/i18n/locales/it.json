@@ -93,7 +93,9 @@
     "quantity": "Quantità",
     "percentage": "Percentuale",
     "total_burned": "Totale Bruciato",
-    "you": "Tu"
+    "you": "Tu",
+    "from": "Da",
+    "to": "A"
   },
   "mns": {
     "title": "Mchain Name Services",

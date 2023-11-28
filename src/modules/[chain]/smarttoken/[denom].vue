@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted, ref, computed } from 'vue';
 import {
   useBlockchain,
   useFormatter,
@@ -7,7 +8,8 @@ import {
   useTxDialog,
   useMnsStore,
 } from '@/stores';
-import { onMounted, ref, computed } from 'vue';
+import type { TxResponse } from '@/types';
+import { PageRequest } from '@/types';
 import { Icon } from '@iconify/vue';
 import IdentityIcon from '@/components/IdentityIcon.vue';
 
@@ -107,6 +109,50 @@ const isLoadingWhitelist = ref(false);
 const isLoadingFrozen = ref(false);
 const isLoadingOwners = ref(false);
 
+const transfers = ref({} as ProcessedTxData[]);
+const transfersPageRequest = ref(new PageRequest());
+
+interface ProcessedTxData {
+  txhash: string;
+  height: string;
+  timestamp: string;
+  attributes: { [key: string]: string };
+}
+
+function loadTxs(denom: string) {
+  blockchain.rpc
+    .getTxs(
+      '?&pagination.reverse=true&events=smarttoken_transfer.denom=%27' +
+        denom +
+        '%27',
+      {},
+      transfersPageRequest.value
+    )
+    .then((x) => {
+      const processedData: ProcessedTxData[] = x.tx_responses.map(
+        (txResponse) => {
+          const attributes = txResponse.events.reduce((acc, event) => {
+            if (event.type == 'smarttoken_transfer') {
+              event.attributes.forEach((attr) => {
+                acc[attr.key] = attr.value;
+              });
+            }
+
+            return acc;
+          }, {} as { [key: string]: string });
+
+          return {
+            txhash: txResponse.txhash,
+            height: txResponse.height,
+            timestamp: txResponse.timestamp,
+            attributes: attributes,
+          };
+        }
+      );
+      transfers.value = processedData;
+    });
+}
+
 function pageload() {
   if (denom) {
     smartTokenStore.fetchSmartToken(denom).then((res: any) => {
@@ -171,6 +217,8 @@ function pageload() {
           totalBurned.value = x.total_burned;
         });
       }
+
+      loadTxs(denom);
     });
   }
 }
@@ -990,7 +1038,87 @@ onMounted(() => {
           </table>
         </div>
       </div>
+
+      <!-- transfers -->
+      <div class="bg-base-100 p-6 rounded-3xl mb-6">
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl px-2 font-semibold mb-4">
+            {{ $t('ibc.txs') }}
+          </h2>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="table table-zebra w-full">
+            <thead>
+              <tr>
+                <th>{{ $t('ibc.txhash') }}</th>
+                <th>{{ $t('smarttoken.from') }}</th>
+                <th>{{ $t('smarttoken.to') }}</th>
+                <th>{{ $t('smarttoken.quantity') }}</th>
+                <th class="text-right">
+                  {{ $t('poe.date') }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in transfers" :key="index">
+                <td>
+                  <RouterLink
+                    :to="`/${chain}/tx/${item.txhash}`"
+                    class="text-primary hover:underline"
+                  >
+                    {{ item.txhash.substring(0, 32) }}...
+                  </RouterLink>
+                </td>
+                <td>
+                  <div class="flex items-center">
+                    <RouterLink
+                      :to="`/${chain}/account/${item.attributes.sender}`"
+                      class="flex items-center text-primary hover:underline"
+                    >
+                      <span class="font-semibold">
+                        {{ format.shortAddress(item.attributes.sender) }}
+                      </span>
+                    </RouterLink>
+                    <Icon
+                      @click="copyAdress(item.attributes.sender)"
+                      icon="uil:copy"
+                      class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="flex items-center">
+                    <RouterLink
+                      :to="`/${chain}/account/${item.attributes.recipient}`"
+                      class="flex items-center text-primary hover:underline"
+                    >
+                      <span class="font-semibold">
+                        {{ format.shortAddress(item.attributes.recipient) }}
+                      </span>
+                    </RouterLink>
+                    <Icon
+                      @click="copyAdress(item.attributes.recipient)"
+                      icon="uil:copy"
+                      class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
+                    />
+                  </div>
+                </td>
+                <td class="whitespace-nowrap uppercase">
+                  {{
+                    Number(item.attributes.amount) / 10 ** tokenInfo.decimals
+                  }}
+                  {{ tokenInfo.symbol }}
+                </td>
+                <td class="text-right whitespace-nowrap uppercase">
+                  {{ format.toDay(item.timestamp, 'datetime') }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+
     <div class="toast" v-show="showCopyToast === 1">
       <div class="alert alert-success">
         <div class="text-xs md:!text-sm">

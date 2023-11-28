@@ -93,7 +93,9 @@
     "quantity": "Jumlah",
     "percentage": "Persentase",
     "total_burned": "Total Terbakar",
-    "you": "Anda"
+    "you": "Anda",
+    "from": "Dari",
+    "to": "Ke"
   },
   "mns": {
     "title": "Layanan Nama Mchain",

@@ -68,9 +68,14 @@ function pageload(p: number) {
     const processedData: ProcessedTxData[] = x.tx_responses.map(
       (txResponse) => {
         const attributes = txResponse.events.reduce((acc, event) => {
-          event.attributes.forEach((attr) => {
-            acc[attr.key] = attr.value.replace(/"/g, '');
-          });
+          if (
+            event.type == 'mchain.proofofexistence.v1beta1.EventCreateProof'
+          ) {
+            event.attributes.forEach((attr) => {
+              acc[attr.key] = JSON.parse(attr.value);
+            });
+          }
+
           return acc;
         }, {} as { [key: string]: string });
 

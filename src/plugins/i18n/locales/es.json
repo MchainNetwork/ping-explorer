@@ -94,7 +94,9 @@
     "quantity": "Cantidad",
     "percentage": "Porcentaje",
     "total_burned": "Total Quemado",
-    "you": "Tú"
+    "you": "Tú",
+    "from": "Desde",
+    "to": "Para"
   },
   "mns": {
     "title": "Servicios de Nombres Mchain",

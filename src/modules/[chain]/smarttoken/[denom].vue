@@ -129,12 +129,18 @@ function loadTxs(denom: string) {
     .then((x) => {
       const processedData: ProcessedTxData[] = x.tx_responses.map(
         (txResponse) => {
-          const attributes = txResponse.events.reduce((acc, event) => {
-            if (event.type == 'transfer') {
-              event.attributes.forEach((attr) => {
-                acc[attr.key] = attr.value;
-              });
-            }
+          const transferEvents = txResponse.events.filter(
+            (event) =>
+              event.type === 'transfer' &&
+              event.attributes.some(
+                (attr) => attr.key === 'denom' && attr.value === denom
+              )
+          );
+
+          const attributes = transferEvents.reduce((acc, event) => {
+            event.attributes.forEach((attr) => {
+              acc[attr.key] = attr.value;
+            });
 
             return acc;
           }, {} as { [key: string]: string });
@@ -1037,7 +1043,6 @@ onMounted(() => {
         </div>
       </div>
 
-      {{ transfers }}
       <!-- transfers -->
       <div class="bg-base-100 p-6 rounded-3xl mb-6">
         <div class="flex justify-between items-center">

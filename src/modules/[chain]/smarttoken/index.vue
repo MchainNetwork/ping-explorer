@@ -24,6 +24,7 @@ const walletStore = useWalletStore();
 const dialog = useTxDialog();
 const blockchain = useBlockchain();
 
+const userList = ref([] as SmartTokenDenom[]);
 const list = ref([] as SmartTokenDenom[]);
 
 const pageRequest = ref(new PageRequest());
@@ -40,6 +41,14 @@ onMounted(() => {
 
 function pageload(p: number) {
   pageRequest.value.setPage(p);
+
+  if (walletStore.currentAddress) {
+    blockchain.rpc
+      ?.getSmartTokenSmartTokens(walletStore.currentAddress, pageRequest.value)
+      .then((x) => {
+        userList.value = x.smarttokens;
+      });
+  }
 
   blockchain.rpc
     ?.getSmartTokenSmartTokens(undefined, pageRequest.value)
@@ -71,6 +80,40 @@ function pageload(p: number) {
             {{ $t('smarttoken.issue') }}
           </label>
         </div>
+      </div>
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8"
+        v-if="userList.length"
+      >
+        <RouterLink
+          v-for="item in userList"
+          :key="item.denom"
+          :to="'/mchain/smarttoken/' + item.denom"
+          class="card bg-base-100 shadow-xl hover:bg-gray-100 dark:hover:bg-[#1e3b47] overflow-hidden"
+        >
+          <div class="card-body">
+            <div class="flex items-center space-x-4">
+              <IdentityIcon
+                :text="item.symbol"
+                size="md"
+                :address="item.denom"
+              />
+              <div>
+                <h2 class="whitespace-nowrap truncate">
+                  <span class="card-title truncate inline">{{
+                    item.name
+                  }}</span>
+                  (<span class="uppercase">{{ item.symbol }}</span
+                  >)
+                </h2>
+                <p class="text-sm opacity-40">
+                  {{ format.shortTokenDenom(item.denom) }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </RouterLink>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">

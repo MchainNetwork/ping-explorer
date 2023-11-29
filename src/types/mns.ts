@@ -1,14 +1,15 @@
-
 import type { Coin, PaginatedResponse } from './common';
 
 export interface MnsNames {
   name: string;
-  expires: number;
+  expires: string;
+  registration_date: string;
   value: string;
   data: string;
   subdomains: MnsNames[];
   tld: string;
   locked: number;
+  last_sale_price: string;
 }
 
 export interface PaginatedNames extends PaginatedResponse {
@@ -44,7 +45,6 @@ export interface MnsInit {
 export interface MnsParams {
   deposit_account: string;
 }
-
 
 export interface MnsReverses {
   address: string;

@@ -122,9 +122,7 @@ interface ProcessedTxData {
 function loadTxs(denom: string) {
   blockchain.rpc
     .getTxs(
-      '?&pagination.reverse=true&events=smarttoken_transfer.denom=%27' +
-        denom +
-        '%27',
+      '?&pagination.reverse=true&events=transfer.denom=%27' + denom + '%27',
       {},
       transfersPageRequest.value
     )
@@ -132,7 +130,7 @@ function loadTxs(denom: string) {
       const processedData: ProcessedTxData[] = x.tx_responses.map(
         (txResponse) => {
           const attributes = txResponse.events.reduce((acc, event) => {
-            if (event.type == 'smarttoken_transfer') {
+            if (event.type == 'transfer') {
               event.attributes.forEach((attr) => {
                 acc[attr.key] = attr.value;
               });
@@ -1039,6 +1037,7 @@ onMounted(() => {
         </div>
       </div>
 
+      {{ transfers }}
       <!-- transfers -->
       <div class="bg-base-100 p-6 rounded-3xl mb-6">
         <div class="flex justify-between items-center">

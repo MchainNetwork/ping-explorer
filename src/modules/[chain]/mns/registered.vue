@@ -1,23 +1,15 @@
 <script lang="ts" setup>
-import { computed, ref } from '@vue/reactivity';
+import { ref } from '@vue/reactivity';
 import {
   useFormatter,
-  useSmartTokenStore,
   useTxDialog,
   useWalletStore,
   useMnsStore,
-  useBaseStore,
 } from '@/stores';
-import {
-  PageRequest,
-  type Pagination,
-  type MnsNames,
-  type MnsForsale,
-} from '@/types';
+import { PageRequest, type Pagination, type MnsNames } from '@/types';
 import { onMounted } from 'vue';
 // @ts-ignore
 import PaginationBar from '@/components/PaginationBar.vue';
-import IdentityIcon from '@/components/IdentityIcon.vue';
 import { Icon } from '@iconify/vue';
 
 const props = defineProps(['chain']);
@@ -26,29 +18,11 @@ const format = useFormatter();
 const walletStore = useWalletStore();
 const dialog = useTxDialog();
 const mnsStore = useMnsStore();
-const baseStore = useBaseStore();
 
 const list = ref([] as MnsNames[]);
 
 const pageRequest = ref(new PageRequest());
 const pageResponse = ref({} as Pagination);
-
-// TODO: mintParam.items.block_per_year
-const blocksPerYear = 5057308;
-
-const calculateTimeRemaining = (itemExpires: number, currentHeight: number) => {
-  const blocksRemaining = itemExpires - currentHeight;
-  const timeRemainingInSec = (blocksRemaining / blocksPerYear) * 31557600;
-  const timeRemainingInMs = timeRemainingInSec * 1000;
-  return parseFloat(timeRemainingInMs.toFixed(0));
-};
-
-const calculateExpiryTime = (itemExpires: number, currentHeight: number) => {
-  const timeRemaining = calculateTimeRemaining(itemExpires, currentHeight);
-  const date = new Date();
-  date.setTime(date.getTime() + timeRemaining);
-  return date.getTime();
-};
 
 function updateState() {
   walletStore.loadMyAsset();
@@ -127,15 +101,7 @@ function pageload(p: number) {
                 </RouterLink>
               </td>
               <td>
-                {{
-                  format.toDay(
-                    calculateExpiryTime(
-                      item.expires,
-                      Number(baseStore.latest?.block?.header?.height) || 0
-                    ),
-                    'date'
-                  )
-                }}
+                {{ format.toDay(item.expires, 'date') }}
               </td>
               <td class="text-right" width="10%">
                 <label

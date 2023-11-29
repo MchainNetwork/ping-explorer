@@ -295,15 +295,7 @@ function checkDomainAvailable(domain: string) {
                       </div>
                     </td>
                     <td class="whitespace-nowrap">
-                      {{
-                        format.toDay(
-                          calculateExpiryTime(
-                            item.expires,
-                            Number(baseStore.latest?.block?.header?.height) || 0
-                          ),
-                          'date'
-                        )
-                      }}
+                      {{ format.toDay(item.expires, 'date') }}
                     </td>
                   </tr>
                 </tbody>

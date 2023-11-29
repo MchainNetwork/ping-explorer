@@ -2,21 +2,12 @@
 import { computed, ref } from '@vue/reactivity';
 import {
   useFormatter,
-  useSmartTokenStore,
   useTxDialog,
   useWalletStore,
   useMnsStore,
-  useBaseStore,
 } from '@/stores';
-import {
-  PageRequest,
-  type Pagination,
-  type MnsNames,
-  type MnsForsale,
-  type MnsBids,
-} from '@/types';
+import type { MnsNames, MnsForsale } from '@/types';
 import { onMounted } from 'vue';
-import IdentityIcon from '@/components/IdentityIcon.vue';
 import { Icon } from '@iconify/vue';
 
 const props = defineProps(['domain', 'chain']);
@@ -25,21 +16,15 @@ const format = useFormatter();
 const walletStore = useWalletStore();
 const dialog = useTxDialog();
 const mnsStore = useMnsStore();
-const baseStore = useBaseStore();
 
 const domainInfo = ref({} as MnsNames);
 const forSale = ref({} as MnsForsale);
-
-const pageRequest = ref(new PageRequest());
-const pageResponse = ref({} as Pagination);
 
 const isLoading = ref(true);
 
 let domainName: string = props.domain;
 
 const isDomainRegistered = computed(() => !!domainInfo.value.name);
-
-const blocksPerYear = 5057308;
 
 function determineCharacterSet(name: string) {
   if (/^[A-Za-z]+$/.test(name)) {
@@ -52,20 +37,6 @@ function determineCharacterSet(name: string) {
     return 'none';
   }
 }
-
-const calculateTimeRemaining = (itemExpires: number, currentHeight: number) => {
-  const blocksRemaining = itemExpires - currentHeight;
-  const timeRemainingInSec = (blocksRemaining / blocksPerYear) * 31557600;
-  const timeRemainingInMs = timeRemainingInSec * 1000;
-  return parseFloat(timeRemainingInMs.toFixed(0));
-};
-
-const calculateExpiryTime = (itemExpires: number, currentHeight: number) => {
-  const timeRemaining = calculateTimeRemaining(itemExpires, currentHeight);
-  const date = new Date();
-  date.setTime(date.getTime() + timeRemaining);
-  return date.getTime();
-};
 
 function updateState() {
   walletStore.loadMyAsset();
@@ -167,6 +138,20 @@ function pageload() {
                     "
                   >
                     {{ $t('mns.update') }}
+                  </label>
+                </li>
+                <li>
+                  <label
+                    for="mns_extend"
+                    @click="
+                      dialog.open(
+                        'mns_extend',
+                        { name: domainName, years: 1 },
+                        updateState
+                      )
+                    "
+                  >
+                    {{ $t('mns.extend') }}
                   </label>
                 </li>
                 <li>
@@ -293,15 +278,7 @@ function pageload() {
                   <strong> {{ $t('mns.expires') }} </strong>
                 </td>
                 <td>
-                  {{
-                    format.toDay(
-                      calculateExpiryTime(
-                        domainInfo.expires,
-                        Number(baseStore.latest?.block?.header?.height) || 0
-                      ),
-                      'date'
-                    )
-                  }}
+                  {{ format.toDay(domainInfo.expires, 'date') }}
                 </td>
               </tr>
               <tr>
@@ -326,15 +303,15 @@ function pageload() {
             <table class="table mb-4">
               <tr>
                 <td width="20%">
-                  <strong>Creation Date</strong>
+                  <strong>Registration Date</strong>
                 </td>
-                <td></td>
+                <td>{{ domainInfo.registration_date }}</td>
               </tr>
               <tr>
                 <td>
-                  <strong>Registration Date</strong>
+                  <strong>Last Sale Price</strong>
                 </td>
-                <td></td>
+                <td>{{ domainInfo.last_sale_price }}</td>
               </tr>
               <tr>
                 <td>

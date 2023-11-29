@@ -1,22 +1,15 @@
 <script lang="ts" setup>
-import { computed, ref } from '@vue/reactivity';
+import { ref } from '@vue/reactivity';
 import {
   useFormatter,
-  useSmartTokenStore,
   useTxDialog,
   useWalletStore,
   useMnsStore,
 } from '@/stores';
-import {
-  PageRequest,
-  type Pagination,
-  type MnsNames,
-  type MnsForsale,
-} from '@/types';
+import { PageRequest, type Pagination, type MnsForsale } from '@/types';
 import { onMounted } from 'vue';
 // @ts-ignore
 import PaginationBar from '@/components/PaginationBar.vue';
-import IdentityIcon from '@/components/IdentityIcon.vue';
 import { Icon } from '@iconify/vue';
 
 const props = defineProps(['chain']);

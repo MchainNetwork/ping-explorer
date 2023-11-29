@@ -140,7 +140,9 @@
     "display_price_in_usd": "Tampilkan harga dalam USD",
     "your_domains": "Domain Anda",
     "see_all": "Lihat Semua",
-    "cancel": "Batal"
+    "cancel": "Batal",
+    "extend": "Memperpanjang",
+    "extend_registration": "Memperpanjang Pendaftaran"
   },
   "account": {
     "type": "Tipe",

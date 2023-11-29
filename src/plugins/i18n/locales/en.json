@@ -141,7 +141,9 @@
     "display_price_in_usd": "Display price in USD",
     "your_domains": "Your Domains",
     "see_all": "See All",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "extend": "Extend",
+    "extend_registration": "Extend Registration"
   },
   "account": {
     "type": "Type",

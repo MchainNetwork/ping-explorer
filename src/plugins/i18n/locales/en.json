@@ -143,7 +143,10 @@
     "see_all": "See All",
     "cancel": "Cancel",
     "extend": "Extend",
-    "extend_registration": "Extend Registration"
+    "extend_registration": "Extend Registration",
+    "bids": "Bids",
+    "last_sale": "Last Sale",
+    "for_sale": "For Sale"
   },
   "account": {
     "type": "Type",

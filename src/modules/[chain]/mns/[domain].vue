@@ -9,6 +9,8 @@ import {
 import type { MnsNames, MnsForsale } from '@/types';
 import { onMounted } from 'vue';
 import { Icon } from '@iconify/vue';
+import IdentityIcon from '@/components/IdentityIcon.vue';
+import { NumberFormat } from 'vue-i18n';
 
 const props = defineProps(['domain', 'chain']);
 
@@ -53,6 +55,7 @@ function pageload() {
     .fetchMnsName(domainName)
     .then((x: any) => {
       domainInfo.value = x.names;
+      domainInfo.value.data = JSON.parse(x.names.data) || {};
 
       mnsStore.fetchMnsForsaleName(domainName).then((x: any) => {
         forSale.value = x.forsale;
@@ -62,6 +65,48 @@ function pageload() {
       isLoading.value = false;
     });
 }
+
+interface SocialLink {
+  [key: string]: string;
+}
+
+const socialLinks: SocialLink = ref({
+  discord: 'Discord',
+  telegram: 'Telegram',
+  x: 'X',
+  email: 'Email',
+  github: 'GitHub',
+  web: 'Web',
+}).value;
+
+const sortedBids = computed(() => {
+  return domainInfo.value.bids
+    ? domainInfo.value.bids.sort(
+        (a, b) => Number(b.price.amount) - Number(a.price.amount)
+      )
+    : [];
+});
+
+let showCopyToast = ref(0);
+async function copyAdress(text: string) {
+  try {
+    await navigator.clipboard.writeText(text);
+    showCopyToast.value = 1;
+    setTimeout(() => {
+      showCopyToast.value = 0;
+    }, 1000);
+  } catch (err) {
+    showCopyToast.value = 2;
+    setTimeout(() => {
+      showCopyToast.value = 0;
+    }, 1000);
+  }
+}
+const tipMsg = computed(() => {
+  return showCopyToast.value === 2
+    ? { class: 'error', msg: 'Copy Error!' }
+    : { class: 'success', msg: 'Copy Success!' };
+});
 </script>
 <template>
   <div>
@@ -204,7 +249,7 @@ function pageload() {
 
         <div
           v-if="isDomainRegistered && forSale && forSale.price"
-          class="bg-base-100 p-8 text-4xl rounded-xl mb-4 text-center border border-success border-dashed"
+          class="bg-base-100 p-8 text-4xl rounded-3xl mb-4 text-center border border-success border-dashed"
           :class="
             domainInfo.value != walletStore.currentAddress
               ? 'border-success'
@@ -255,7 +300,7 @@ function pageload() {
           </div>
         </div>
 
-        <div v-if="isDomainRegistered" class="bg-base-100 p-4 rounded-xl mb-4">
+        <div v-if="isDomainRegistered" class="bg-base-100 p-4 rounded-3xl mb-4">
           <h3 class="text-lg font-bold px-2 mb-4">
             {{ $t('mns.domain_information') }}
           </h3>
@@ -287,17 +332,34 @@ function pageload() {
                 </td>
                 <td>{{ domainInfo.value }}</td>
               </tr>
-              <tr>
-                <td>
-                  <strong> {{ $t('mns.data') }} </strong>
-                </td>
-                <td>{{ domainInfo.data }}</td>
-              </tr>
             </table>
           </div>
         </div>
 
-        <div v-if="isDomainRegistered" class="bg-base-100 p-4 rounded-xl mb-4">
+        <div class="flex flex-wrap -mx-2">
+          <div
+            class="sm:w-1/2 md:w-1/4 w-full px-2 mb-4"
+            v-key="key"
+            v-for="(name, key) in socialLinks"
+          >
+            <div class="flex items-center p-4 bg-base-100 rounded-3xl">
+              <img
+                :src="`/logos/${key}.svg`"
+                class="h-10 dark:invert mr-3 opacity-80"
+                :alt="name"
+              />
+              <div>
+                <p class="font-medium">{{ name }}</p>
+                <p v-if="domainInfo.data[key]">
+                  {{ domainInfo.data[key] }}
+                </p>
+                <p class="text-gray-600" v-else>Not Set</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div v-if="isDomainRegistered" class="bg-base-100 p-4 rounded-3xl mb-4">
           <h3 class="text-lg font-bold px-2 mb-4">Properties</h3>
           <div class="overflow-x-auto">
             <table class="table mb-4">
@@ -305,13 +367,15 @@ function pageload() {
                 <td width="20%">
                   <strong>Registration Date</strong>
                 </td>
-                <td>{{ domainInfo.registration_date }}</td>
+                <td>{{ format.toLocaleDate(domainInfo.registration_date) }}</td>
               </tr>
               <tr>
                 <td>
                   <strong>Last Sale Price</strong>
                 </td>
-                <td>{{ domainInfo.last_sale_price }}</td>
+                <td>
+                  {{ format.formatToken(domainInfo.last_sale, true) }}
+                </td>
               </tr>
               <tr>
                 <td>
@@ -330,8 +394,51 @@ function pageload() {
         </div>
 
         <div
+          v-if="isDomainRegistered && sortedBids.length"
+          class="bg-base-100 p-4 rounded-3xl mb-4"
+        >
+          <h3 class="text-lg font-bold px-2 mb-4">Bids</h3>
+          <div class="overflow-x-auto">
+            <table class="table mb-4">
+              <thead>
+                <tr>
+                  <th>Bidder</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="bid in sortedBids" :key="bid.bidder">
+                  <td class="flex items-center">
+                    <RouterLink
+                      :to="`/${chain}/account/${bid.bidder}`"
+                      class="flex items-center text-primary hover:underline"
+                    >
+                      <IdentityIcon size="sm" :address="bid.bidder" />
+                      <span class="pl-3 font-semibold">{{
+                        format.shortAddress(bid.bidder)
+                      }}</span>
+                    </RouterLink>
+                    <Icon
+                      @click="copyAdress(bid.bidder)"
+                      icon="uil:copy"
+                      class="inline-block cursor-pointer ml-2 text-lg text-gray-400 dark:text-gray-400"
+                    />
+                    <span
+                      class="badge badge-neutral ml-2"
+                      v-if="walletStore.currentAddress === bid.bidder"
+                      >{{ $t('smarttoken.you') }}</span
+                    >
+                  </td>
+                  <td>{{ format.formatToken2(bid.price, true) }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div
           v-if="domainInfo.subdomains && domainInfo.subdomains.length"
-          class="bg-base-100 p-4 rounded-xl"
+          class="bg-base-100 p-4 rounded-3xl"
         >
           <h3 class="text-lg font-bold mb-2">{{ $t('mns.subdomains') }}</h3>
           <div class="overflow-x-auto">
@@ -386,6 +493,21 @@ function pageload() {
           </div>
         </div>
       </template>
+    </div>
+
+    <div class="toast" v-show="showCopyToast === 1">
+      <div class="alert alert-success">
+        <div class="text-xs md:!text-sm">
+          <span>{{ tipMsg.msg }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="toast" v-show="showCopyToast === 2">
+      <div class="alert alert-error">
+        <div class="text-xs md:!text-sm">
+          <span>{{ tipMsg.msg }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>

@@ -84,6 +84,8 @@ function pageload(p: number) {
               <tr>
                 <td>{{ $t('mns.domain_label') }}</td>
                 <td>{{ $t('mns.expires_label') }}</td>
+                <td>{{ $t('mns.last_sale') }}</td>
+                <td></td>
                 <td></td>
               </tr>
             </thead>
@@ -95,7 +97,7 @@ function pageload(p: number) {
               <td width="20%">
                 <RouterLink
                   :to="'/mchain/mns/' + item.name + '.' + item.tld"
-                  class="hover:underline"
+                  class="text-primary hover:underline"
                 >
                   {{ item.name }}.{{ item.tld }}
                 </RouterLink>
@@ -103,6 +105,23 @@ function pageload(p: number) {
               <td>
                 {{ format.toDay(item.expires, 'date') }}
               </td>
+              <td>{{ format.formatToken(item.last_sale, true) }}</td>
+              <td class="text-right">
+                <span
+                  class="text-xs badge badge-neutral mr-2"
+                  v-if="parseInt(item.for_sale?.amount)"
+                >
+                  {{ $t('mns.for_sale') }}
+                  {{ format.formatToken(item.for_sale, true) }}
+                </span>
+                <span
+                  class="text-xs badge badge-neutral lowercase"
+                  v-if="item.bids"
+                >
+                  {{ item.bids.length }} {{ $t('mns.bids') }}
+                </span>
+              </td>
+
               <td class="text-right" width="10%">
                 <label
                   v-if="item.value != walletStore.currentAddress"

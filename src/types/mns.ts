@@ -1,15 +1,22 @@
 import type { Coin, PaginatedResponse } from './common';
 
+export interface MnsBidderInfo {
+  bidder: string;
+  price: Coin;
+}
+
 export interface MnsNames {
   name: string;
   expires: string;
   registration_date: string;
   value: string;
-  data: string;
+  data: {};
   subdomains: MnsNames[];
   tld: string;
   locked: number;
-  last_sale_price: string;
+  last_sale: Coin;
+  for_sale: Coin;
+  bids: MnsBidderInfo[];
 }
 
 export interface PaginatedNames extends PaginatedResponse {

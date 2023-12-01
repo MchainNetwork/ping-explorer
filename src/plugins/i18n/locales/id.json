@@ -142,7 +142,18 @@
     "see_all": "Lihat Semua",
     "cancel": "Batal",
     "extend": "Memperpanjang",
-    "extend_registration": "Memperpanjang Pendaftaran"
+    "extend_registration": "Memperpanjang Pendaftaran",
+    "bids": "Tawaran",
+    "last_sale": "Penjualan Terakhir",
+    "last_sale_price": "Harga Penjualan Terakhir",
+    "for_sale": "Dijual",
+    "not_set": "Tidak Ditentukan",
+    "properties": "Properti",
+    "registration_date": "Tanggal Pendaftaran",
+    "character_set": "Set Karakter",
+    "length": "Panjang",
+    "current_price": "Harga Saat Ini",
+    "make_offer": "Buat Penawaran"
   },
   "account": {
     "type": "Tipe",

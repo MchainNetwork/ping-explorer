@@ -146,7 +146,15 @@
     "extend_registration": "Extend Registration",
     "bids": "Bids",
     "last_sale": "Last Sale",
-    "for_sale": "For Sale"
+    "last_sale_price": "Last Sale Price",
+    "for_sale": "For Sale",
+    "not_set": "Not Set",
+    "properties": "Properties",
+    "registration_date": "Registration Date",
+    "character_set": "Character Set",
+    "length": "Length",
+    "current_price": "Current Price",
+    "make_offer": "Make Offer"
   },
   "account": {
     "type": "Type",

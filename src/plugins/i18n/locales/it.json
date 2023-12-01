@@ -142,7 +142,18 @@
     "see_all": "Vedi Tutti",
     "cancel": "Annulla",
     "extend": "Estendere",
-    "extend_registration": "Estendere Registrazione"
+    "extend_registration": "Estendere Registrazione",
+    "bids": "Offerte",
+    "last_sale": "Ultima Vendita",
+    "last_sale_price": "Prezzo dell'Ultima Vendita",
+    "for_sale": "In Vendita",
+    "not_set": "Non Impostato",
+    "properties": "Proprietà",
+    "registration_date": "Data di Registrazione",
+    "character_set": "Set di Caratteri",
+    "length": "Lunghezza",
+    "current_price": "Prezzo Attuale",
+    "make_offer": "Fai un'Offerta"
   },
   "account": {
     "type": "Tipo",

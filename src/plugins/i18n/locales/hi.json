@@ -143,7 +143,18 @@
     "see_all": "सभी देखें",
     "cancel": "रद्द करें",
     "extend": "विस्तार करें",
-    "extend_registration": "पंजीकरण विस्तार करें"
+    "extend_registration": "पंजीकरण विस्तार करें",
+    "bids": "बोलियाँ",
+    "last_sale": "अंतिम बिक्री",
+    "last_sale_price": "अंतिम बिक्री मूल्य",
+    "for_sale": "बिक्री के लिए",
+    "not_set": "निर्धारित नहीं",
+    "properties": "गुण",
+    "registration_date": "पंजीकरण तिथि",
+    "character_set": "वर्ण सेट",
+    "length": "लंबाई",
+    "current_price": "वर्तमान मूल्य",
+    "make_offer": "प्रस्ताव दें"
   },
   "account": {
     "type": "प्रकार",

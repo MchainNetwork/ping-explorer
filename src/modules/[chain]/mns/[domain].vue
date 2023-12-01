@@ -71,12 +71,12 @@ interface SocialLink {
 }
 
 const socialLinks: SocialLink = ref({
-  discord: 'Discord',
+  web: 'Web',
+  email: 'Email',
   telegram: 'Telegram',
   x: 'X',
-  email: 'Email',
+  discord: 'Discord',
   github: 'GitHub',
-  web: 'Web',
 }).value;
 
 const sortedBids = computed(() => {
@@ -336,13 +336,13 @@ const tipMsg = computed(() => {
           </div>
         </div>
 
-        <div class="flex flex-wrap -mx-2">
-          <div
-            class="sm:w-1/2 md:w-1/4 w-full px-2 mb-4"
-            v-key="key"
-            v-for="(name, key) in socialLinks"
-          >
-            <div class="flex items-center p-4 bg-base-100 rounded-3xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+              v-key="key"
+              v-for="(name, key) in socialLinks"
+              class="flex items-center p-4 bg-base-100 rounded-3xl"
+            >
               <img
                 :src="`/logos/${key}.svg`"
                 class="h-10 dark:invert mr-3 opacity-80"
@@ -357,39 +357,46 @@ const tipMsg = computed(() => {
               </div>
             </div>
           </div>
-        </div>
 
-        <div v-if="isDomainRegistered" class="bg-base-100 p-4 rounded-3xl mb-4">
-          <h3 class="text-lg font-bold px-2 mb-4">Properties</h3>
-          <div class="overflow-x-auto">
-            <table class="table mb-4">
-              <tr>
-                <td width="20%">
-                  <strong>Registration Date</strong>
-                </td>
-                <td>{{ format.toLocaleDate(domainInfo.registration_date) }}</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Last Sale Price</strong>
-                </td>
-                <td>
-                  {{ format.formatToken(domainInfo.last_sale, true) }}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Character Set</strong>
-                </td>
-                <td>{{ determineCharacterSet(domainInfo.name) }}</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Length</strong>
-                </td>
-                <td>{{ domainInfo.name.length }}</td>
-              </tr>
-            </table>
+          <div
+            v-if="isDomainRegistered"
+            class="bg-base-100 p-4 rounded-3xl mb-4 md:h-full"
+          >
+            <h3 class="text-lg font-bold px-2 mb-4">
+              {{ $t('mns.properties') }}
+            </h3>
+            <div class="overflow-x-auto">
+              <table class="table mb-4">
+                <tr>
+                  <td>
+                    <strong>{{ $t('mns.registration_date') }}</strong>
+                  </td>
+                  <td>
+                    {{ format.toLocaleDate(domainInfo.registration_date) }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>{{ $t('mns.last_sale_price') }}</strong>
+                  </td>
+                  <td>
+                    {{ format.formatToken(domainInfo.last_sale, true) }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>{{ $t('mns.character_set') }}</strong>
+                  </td>
+                  <td>{{ determineCharacterSet(domainInfo.name) }}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>{{ $t('mns.length') }}</strong>
+                  </td>
+                  <td>{{ domainInfo.name.length }}</td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
 
@@ -397,13 +404,13 @@ const tipMsg = computed(() => {
           v-if="isDomainRegistered && sortedBids.length"
           class="bg-base-100 p-4 rounded-3xl mb-4"
         >
-          <h3 class="text-lg font-bold px-2 mb-4">Bids</h3>
+          <h3 class="text-lg font-bold px-2 mb-4">{{ $t('mns.bids') }}</h3>
           <div class="overflow-x-auto">
             <table class="table mb-4">
               <thead>
                 <tr>
-                  <th>Bidder</th>
-                  <th>Amount</th>
+                  <th>{{ $t('account.address') }}</th>
+                  <th>{{ $t('mns.price_label') }}</th>
                 </tr>
               </thead>
               <tbody>

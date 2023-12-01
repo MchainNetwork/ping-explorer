@@ -143,7 +143,18 @@
     "see_all": "查看所有",
     "cancel": "取消",
     "extend": "延伸",
-    "extend_registration": "延长注册"
+    "extend_registration": "延长注册",
+    "bids": "出价",
+    "last_sale": "最后销售",
+    "last_sale_price": "最后销售价格",
+    "for_sale": "出售",
+    "not_set": "未设置",
+    "properties": "属性",
+    "registration_date": "注册日期",
+    "character_set": "字符集",
+    "length": "长度",
+    "current_price": "当前价格",
+    "make_offer": "出价"
   },
   "account": {
     "type": "类型",

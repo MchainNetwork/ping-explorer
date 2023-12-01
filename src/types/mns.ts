@@ -9,7 +9,7 @@ export interface MnsNames {
   name: string;
   expires: string;
   registration_date: string;
-  value: string;
+  resolver: string;
   data: { [key: string]: any };
   subdomains: MnsNames[];
   tld: string;

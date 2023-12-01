@@ -135,14 +135,14 @@ const tipMsg = computed(() => {
               for="mns_bid"
               class="btn btn-primary btn-sm"
               @click="dialog.open('mns_bid', { name: domainName }, updateState)"
-              v-if="domainInfo.value != walletStore.currentAddress"
+              v-if="domainInfo.resolver != walletStore.currentAddress"
             >
               {{ $t('mns.place_bid') }}
             </label>
 
             <details
               class="dropdown dropdown-hover dropdown-bottom dropdown-end"
-              v-if="domainInfo.value == walletStore.currentAddress"
+              v-if="domainInfo.resolver == walletStore.currentAddress"
             >
               <summary class="btn btn-ghost btn-circle btn-sm mx-1">
                 <Icon
@@ -155,7 +155,7 @@ const tipMsg = computed(() => {
               >
                 <li
                   :class="{
-                    disabled: domainInfo.value !== walletStore.currentAddress,
+                    disabled: domainInfo.resolver !== walletStore.currentAddress,
                   }"
                 >
                   <label
@@ -201,7 +201,7 @@ const tipMsg = computed(() => {
                 </li>
                 <li>
                   <label
-                    v-if="domainInfo.value == walletStore.currentAddress"
+                    v-if="domainInfo.resolver == walletStore.currentAddress"
                     for="mns_list"
                     @click="
                       dialog.open('mns_list', { name: domainName }, updateState)
@@ -251,7 +251,7 @@ const tipMsg = computed(() => {
           v-if="isDomainRegistered && forSale && forSale.price"
           class="bg-base-100 p-8 text-4xl rounded-3xl mb-4 text-center border border-success border-dashed"
           :class="
-            domainInfo.value != walletStore.currentAddress
+            domainInfo.resolver != walletStore.currentAddress
               ? 'border-success'
               : 'border-error'
           "
@@ -265,7 +265,7 @@ const tipMsg = computed(() => {
             </div>
 
             <label
-              v-if="domainInfo.value != walletStore.currentAddress"
+              v-if="domainInfo.resolver != walletStore.currentAddress"
               for="mns_buy"
               class="btn btn-sm btn-success rounded-full text-white dark:text-black"
               @click="
@@ -282,7 +282,7 @@ const tipMsg = computed(() => {
             </label>
 
             <label
-              v-if="domainInfo.value === walletStore.currentAddress"
+              v-if="domainInfo.resolver === walletStore.currentAddress"
               for="mns_delist"
               class="btn btn-sm btn-primary"
               @click="
@@ -330,7 +330,7 @@ const tipMsg = computed(() => {
                 <td>
                   <strong>Resolver</strong>
                 </td>
-                <td>{{ domainInfo.value }}</td>
+                <td>{{ domainInfo.resolver }}</td>
               </tr>
             </table>
           </div>
@@ -353,7 +353,7 @@ const tipMsg = computed(() => {
                 <p v-if="domainInfo.data[key]">
                   {{ domainInfo.data[key] }}
                 </p>
-                <p class="text-gray-600" v-else>Not Set</p>
+                <p class="text-gray-600" v-else>{{ $t('mns.not_set') }}</p>
               </div>
             </div>
           </div>
@@ -453,7 +453,7 @@ const tipMsg = computed(() => {
               <thead>
                 <tr>
                   <th>{{ $t('mns.subdomain') }}</th>
-                  <th>{{ $t('mns.value') }}</th>
+                  <th>{{ $t('mns.resolver') }}</th>
                   <th></th>
                 </tr>
               </thead>
@@ -463,10 +463,10 @@ const tipMsg = computed(() => {
                   :key="index"
                 >
                   <td>{{ subdomain.name }}</td>
-                  <td>{{ subdomain.value }}</td>
+                  <td>{{ subdomain.resolver }}</td>
                   <td class="text-right">
                     <label
-                      v-if="domainInfo.value == walletStore.currentAddress"
+                      v-if="domainInfo.resolver == walletStore.currentAddress"
                       for="mns_update"
                       class="btn btn-success btn-xs rounded-full"
                       @click="
@@ -480,7 +480,7 @@ const tipMsg = computed(() => {
                       {{ $t('mns.update') }}
                     </label>
                     <label
-                      v-if="domainInfo.value == walletStore.currentAddress"
+                      v-if="domainInfo.resolver == walletStore.currentAddress"
                       for="mns_del_record"
                       class="btn btn-success ml-2 btn-xs rounded-full"
                       @click="

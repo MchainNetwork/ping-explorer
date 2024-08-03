@@ -9,8 +9,7 @@ import {
   useWalletStore,
   useParamStore,
 } from '@/stores';
-import { computed } from '@vue/reactivity';
-import { onMounted, ref, watch } from 'vue';
+import { computed, ref, onMounted, watch } from 'vue';
 import { Icon } from '@iconify/vue';
 import type { Key, SlashingParam, Validator } from '@/types';
 import { formatSeconds } from '@/libs/utils';
@@ -34,6 +33,8 @@ const bondDenom = 'umark';
 const bondedTokens = ref(<number>0);
 const totalSupply = ref<number>(0);
 const inflation = ref<number>(0);
+const communityTax = ref<number>(0.05); // 5%
+const validatorCommission = ref<number>(0.05); // 5% - Example
 
 const searchQuery = ref('');
 
@@ -46,7 +47,12 @@ const stakingAPR = computed(() => {
   if (bondedTokensRatio.value === 0 || isNaN(bondedTokensRatio.value)) {
     return 0;
   }
-  return inflation.value / bondedTokensRatio.value;
+  return ((inflation.value * (1 - communityTax.value)) / bondedTokensRatio.value) * 100;
+});
+
+// Final APR calculation considering validator's commission
+const finalStakingAPR = computed(() => {
+  return stakingAPR.value * (1 - validatorCommission.value);
 });
 
 function walletStateChange() {
@@ -111,10 +117,6 @@ const changes = computed(() => {
 
 const change24 = (key: Key) => {
   const txt = key.key;
-  // const n: number = latest.value[txt];
-  // const o: number = yesterday.value[txt];
-  // // console.log( txt, n, o)
-  // return n > 0 && o > 0 ? n - o : 0;
   return changes.value[txt];
 };
 
@@ -252,20 +254,6 @@ function loadData() {
   chainStore.rpc?.getStakingPool().then((res) => {
     bondedTokens.value = Number(res?.pool?.bonded_tokens);
   });
-  fetchChange();
-  loadAvatars();
-}
-
-watch(
-  () => walletStore.currentAddress,
-  (newAddress: string, oldAddress: string) => {
-    if (newAddress && newAddress !== oldAddress) {
-      walletStore.loadMyAsset();
-    }
-  }
-);
-
-onMounted(() => {
   paramStore.getMintingInflation().then((res) => {
     inflation.value = Number(res.inflation);
   });
@@ -278,9 +266,24 @@ onMounted(() => {
   chainStore.rpc.getSlashingParams().then((res) => {
     slashing.value = res.params;
   });
+  loadAvatars();
+  fetchChange();
+}
+
+watch(
+  () => walletStore.currentAddress,
+  (newAddress: string, oldAddress: string) => {
+    if (newAddress && newAddress !== oldAddress) {
+      walletStore.loadMyAsset();
+    }
+  }
+);
+
+onMounted(() => {
   loadData();
 });
 </script>
+
 <template>
   <div>
     <bg-gradient-blur variant="big staking"></bg-gradient-blur>

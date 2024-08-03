@@ -25,33 +25,55 @@ const mintStore = useMintStore();
 const bondedTokens = ref(<number>0);
 const totalSupply = ref<number>(0);
 const inflation = ref<number>(0);
+const annualProvisions = ref<number>(0);
 
-const blocksPerYear = 5057308;
+const blocksPerYear = ref<number>(5057308);
+const blocksYearReal = ref<number>(0);
+
 const mintDecimal = 6;
 const bondDenom = 'umark';
 const bondDenomSymbol = 'MARK';
 
 const communityTax = ref<number>(0.05); // 5%
-const tokenValueUSD = ref<number>(0.001059); // Token value in USD - Example
+const tokenValueUSD = ref<number>(.001681484983132137); // Token value in USD - Example
 const validatorCommission = ref<number>(0.05); // 5% - Example
 const stake = ref<number>(1000000); // 1M - Example
 
 const compoundWeekly = ref(false);
 
-onMounted(() => {
-  paramStore.getMintingInflation().then((res) => {
-    inflation.value = Number(res.inflation);
-  });
-  blockchain.rpc?.getStakingPool().then((res) => {
-    bondedTokens.value = Number(res?.pool?.bonded_tokens) / 10 ** mintDecimal;
-  });
-  blockchain.rpc?.getBankSupplyByDenom(bondDenom).then((res) => {
-    totalSupply.value = Number(res.amount.amount) / 10 ** mintDecimal;
-  });
+onMounted(async () => {
+  const params = await paramStore.getMintParam();
+  blocksPerYear.value = Number(params.params.blocks_per_year);
+
+  const annualProvisionsRes = await paramStore.getMintingAnnualProvisions();
+  annualProvisions.value = Number(annualProvisionsRes.annual_provisions);
+
+  const inflationRes = await paramStore.getMintingInflation();
+  inflation.value = Number(inflationRes.inflation);
+
+  const stakingPoolRes = await blockchain.rpc?.getStakingPool();
+  bondedTokens.value = Number(stakingPoolRes?.pool?.bonded_tokens) / 10 ** mintDecimal;
+
+  const bankSupplyRes = await blockchain.rpc?.getBankSupplyByDenom(bondDenom);
+  totalSupply.value = Number(bankSupplyRes.amount.amount) / 10 ** mintDecimal;
+
+  const distributionParamsRes = await paramStore.getDistributionParams();
+  communityTax.value = Number(distributionParamsRes.params.community_tax);
+
+  const latestBlock = await blockchain.rpc?.getBaseBlockLatest();
+  const block1 = latestBlock.block.header;
+  const blockRange = Number(block1.height) > 10000 ? 10000 : 1;
+
+  const pastBlock = await blockchain.rpc?.getBaseBlockAt(Number(block1.height) - blockRange);
+  const block2 = pastBlock.block.header;
+
+  const yearMilisec = 31536000000;
+  const blockMilisec = (new Date(block1.time).getTime() - new Date(block2.time).getTime()) / blockRange;
+  blocksYearReal.value = Math.ceil(yearMilisec / blockMilisec);
 });
 
 const tokensPerBlock = computed(() => {
-  return (inflation.value * totalSupply.value) / blocksPerYear;
+  return (inflation.value * totalSupply.value) / blocksPerYear.value;
 });
 
 const bondedTokensRatio = computed(() => {
@@ -63,7 +85,7 @@ const stakingAPR = computed(() => {
   if (bondedTokensRatio.value === 0 || isNaN(bondedTokensRatio.value)) {
     return 0;
   }
-  return (inflation.value * (1 - communityTax.value)) / bondedTokensRatio.value;
+  return ((inflation.value * (1 - communityTax.value)) / bondedTokensRatio.value) * 100;
 });
 
 // Final APR calculation considering validator's commission

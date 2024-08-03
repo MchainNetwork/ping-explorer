@@ -312,5 +312,8 @@ export const useParamStore = defineStore('paramstore', {
     async getMintingInflation() {
       return await this.blockchain.rpc?.getMintInflation();
     },
+    async getMintingAnnualProvisions() {
+      return await this.blockchain.rpc?.getMintAnnualProvisions();
+    },
   },
 });
